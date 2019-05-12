@@ -1,0 +1,73 @@
+/* --------------------------------------------------------- */
+/* ############### - Global used Variables - ############### */
+/* --------------------------------------------------------- */
+var isClicked = false;
+var isScrolled = false;
+
+/* ------------------------------------------------------------- */
+/* ####### - Functions onload, fire when DOM is loaded - ####### */
+/* ------------------------------------------------------------- */
+window.onload = function() {
+
+    /* --------------------------------------------------------- */
+    /* ##### - Function add current year to rr_copyright - ##### */
+    /* --------------------------------------------------------- */
+    var year = new Date();
+    document.getElementById("rr_copyright").innerHTML = "Copyright &copy; <em>" + year.getFullYear() + " Robin Rehbein</em> - All rights reserved.";
+    
+    /* --------------------------------------------------------- */
+    /* # - Function EventListener add class .onscroll to nav - # */
+    /* --------------------------------------------------------- */
+    window.addEventListener('scroll', function() {
+        let onscroll = window.scrollY;
+        if (!isClicked) {
+            if (onscroll > 75) {
+                isScrolled = true;
+                document.querySelector("nav").classList.add("onscroll");
+                if (getWidth() < 550) {
+                    document.getElementById("rr_nav_logo_text").classList.add("onscroll");
+                }
+            }
+            else {
+                isScrolled = false;
+                document.querySelector("nav").classList.remove("onscroll");
+                if (getWidth() < 550) {
+                    document.getElementById("rr_nav_logo_text").classList.remove("onscroll");
+                }
+            }
+        }
+    });
+
+    /* --------------------------------------------------------- */
+    /* # - Function EventListener add class .onscroll to nav - # */
+    /* ## - Responsive Menu add .active to .rr_nav_plus_svg - ## */
+    /* --------------------------------------------------------- */
+    document.getElementById("rr_nav_plus_svg").addEventListener('click', function () {
+        isClicked = !isClicked;
+        if (isClicked) {
+            document.querySelector("nav").classList.add("onscroll");
+            document.getElementById("rr_nav_plus_svg").classList.add("active");
+            document.getElementById("rr_nav_right").classList.add("active");
+            if (getWidth() < 550) {
+                document.getElementById("rr_nav_logo_text").classList.add("onscroll");
+            }
+        }
+        else {
+            if (!isScrolled){
+                document.querySelector("nav").classList.remove("onscroll");                
+            }
+            document.getElementById("rr_nav_plus_svg").classList.remove("active");
+            document.getElementById("rr_nav_right").classList.remove("active");
+            if ((getWidth() < 550) && (!isScrolled)) {
+                document.getElementById("rr_nav_logo_text").classList.remove("onscroll");
+            }
+        }
+    })
+};
+
+/* ------------------------------------------------------------- */
+/* ################### - Function getWidth - ################### */
+/* ------------------------------------------------------------- */
+function getWidth() {
+    return Math.max(document.documentElement.clientWidth);
+};
