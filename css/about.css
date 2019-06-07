@@ -36,20 +36,26 @@ header {
     align-items: flex-start;
     justify-content: space-evenly;
 }
-.rr_about_content_container h2,
+.rr_about_content_container h2 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
 .rr_about_content_container p {
     margin: 0;
     text-align: justify;
 }
+.rr_about_content_container h3 {
+    margin: 0.7em 0;
+}
 .rr_about_contact {
+    width: 100%;
     display: flex;
-    margin-top: 0.7em;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 .rr_about_contact a {
-    margin: 0 0.7em;
+    margin: 0;
     height: 2em;
 }
 .rr_about_contact a img {
@@ -71,9 +77,7 @@ header {
         margin: 1em 0;
     }
     .rr_about_contact a {
-        margin-bottom: 1em;
-    }
-    .rr_about_contact a:first-child {
-        margin-left: 0;
+        height: 1.5em;
+        margin: 0 0 1em 0;
     }
 }
