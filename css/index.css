@@ -1,12 +1,12 @@
 header {
     height: 100%;
 }
-.rr_index_header_wrapper {
+/* .rr_index_header_wrapper { */
     /* background-color: rgb(202, 68, 34); */
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */ /* Default Backgroundcolor */
     /* background-color: #EADC3A; */
     /* background-color: rgb(240, 240, 240); */
-}
+/* } */
 .rr_index_header_title {
     /* font-family: 'Monoton', cursive; */
     /* font-family: 'Faster One', cursive; */
@@ -104,7 +104,7 @@ header {
 } */
 .rr_timeline_grid_container {
     font-family: 'Anaheim', sans-serif;
-    width: 85%;
+    width: 80%;
     /* margin: 3em auto auto auto; */
     margin: 5em auto auto auto;
     /* font-size: 2em; */
