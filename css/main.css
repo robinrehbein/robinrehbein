@@ -50,7 +50,7 @@ nav.onscroll {
     align-items: center;
 }
 #rr_nav_logo_svg {
-    height: 23px;
+    height: 2em;
     display: flex;
     align-items: center;
     /* margin-top: -6px; */
