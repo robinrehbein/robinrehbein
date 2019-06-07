@@ -76,6 +76,9 @@ header {
     .rr_about_content_container p {
         margin: 1em 0;
     }
+    .rr_about_content_container h3 {
+        margin-top: 0;
+    }
     .rr_about_contact a {
         height: 1.5em;
         margin: 0 0 1em 0;
