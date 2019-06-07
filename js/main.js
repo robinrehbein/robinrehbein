@@ -115,192 +115,192 @@ function removeClass(selector, identifier, classname) {
 /* ------------------------------------------------------------- */
 /* ################# - Function addParticles - ################# */
 /* ------------------------------------------------------------- */
-function addParticles() {
-    var MAX_PARTICLES = 1000,
-	RADIUS = 100,
-	MAX_LINES = 5,
-	MAX_LIFE_SPAN = 600,
-	MIN_DENSITY = 15,
-	OFFSET_DENSITY = 15,
-	_context,
-	_mouseX,
-	_mouseY,
-	_particles,
-	_canvasWidth,
-	_canvasHalfWidth,
-	_canvasHeight,
-	_canvasHalfHeight;
+// function addParticles() {
+//     var MAX_PARTICLES = 1000,
+// 	RADIUS = 100,
+// 	MAX_LINES = 5,
+// 	MAX_LIFE_SPAN = 600,
+// 	MIN_DENSITY = 15,
+// 	OFFSET_DENSITY = 15,
+// 	_context,
+// 	_mouseX,
+// 	_mouseY,
+// 	_particles,
+// 	_canvasWidth,
+// 	_canvasHalfWidth,
+// 	_canvasHeight,
+// 	_canvasHalfHeight;
 
-    init();
+//     init();
 
-    function init() {
+//     function init() {
 
-        _particles = [];
-        _context = c.getContext('2d');
+//         _particles = [];
+//         _context = c.getContext('2d');
 
-        window.addEventListener('resize', onResize);
-        window.addEventListener('mousemove', onMouseMove);
+//         window.addEventListener('resize', onResize);
+//         window.addEventListener('mousemove', onMouseMove);
 
-        onResize();
+//         onResize();
 
-        createInitialParticles();
+//         createInitialParticles();
 
-        redraw();
-    }
+//         redraw();
+//     }
 
-    function createInitialParticles() {
+//     function createInitialParticles() {
 
-        var x;
+//         var x;
 
-        for (x = 0; x < _canvasWidth; x += 5) {
+//         for (x = 0; x < _canvasWidth; x += 5) {
 
-            _particles.push(new Particle(x - _canvasHalfWidth,  -(_canvasHalfHeight / 2) + (Math.random() * _canvasHalfHeight)));
-        }
-    }
+//             _particles.push(new Particle(x - _canvasHalfWidth,  -(_canvasHalfHeight / 2) + (Math.random() * _canvasHalfHeight)));
+//         }
+//     }
 
-    function onMouseMove(e) {
+//     function onMouseMove(e) {
 
-        _mouseX = e.pageX;
-        _mouseY = e.pageY;
-    }
+//         _mouseX = e.pageX;
+//         _mouseY = e.pageY;
+//     }
 
-    function onResize() {
+//     function onResize() {
 
-        _canvasWidth = c.offsetWidth;
-        _canvasHalfWidth = Math.round(_canvasWidth / 2);
-        _canvasHeight = c.offsetHeight,
-        _canvasHalfHeight = Math.round(_canvasHeight / 2);
+//         _canvasWidth = c.offsetWidth;
+//         _canvasHalfWidth = Math.round(_canvasWidth / 2);
+//         _canvasHeight = c.offsetHeight,
+//         _canvasHalfHeight = Math.round(_canvasHeight / 2);
 
-        c.width = _canvasWidth;
-        c.height = _canvasHeight;
-    }
+//         c.width = _canvasWidth;
+//         c.height = _canvasHeight;
+//     }
 
-    function redraw() {
+//     function redraw() {
 
-        var copyParticles = _particles.slice(),
-            particle,
-            i;
+//         var copyParticles = _particles.slice(),
+//             particle,
+//             i;
 
-        if (_particles.length < MAX_PARTICLES && _mouseX && _mouseY) {
+//         if (_particles.length < MAX_PARTICLES && _mouseX && _mouseY) {
 
-            particle = new Particle(_mouseX - _canvasHalfWidth, _mouseY - _canvasHalfHeight);
+//             particle = new Particle(_mouseX - _canvasHalfWidth, _mouseY - _canvasHalfHeight);
             
-            _particles.push(particle);
-            _mouseX = false;
-            _mouseY = false;
-        }
+//             _particles.push(particle);
+//             _mouseX = false;
+//             _mouseY = false;
+//         }
 
-        _context.clearRect(0, 0, _canvasWidth, _canvasHeight);
+//         _context.clearRect(0, 0, _canvasWidth, _canvasHeight);
 
-        for (i = 0; i < copyParticles.length; i++) {
+//         for (i = 0; i < copyParticles.length; i++) {
 
-            particle = copyParticles[i];
-            particle.update();
-        }
+//             particle = copyParticles[i];
+//             particle.update();
+//         }
 
-        drawLines();
+//         drawLines();
 
-        requestAnimationFrame(redraw);
-    }
+//         requestAnimationFrame(redraw);
+//     }
 
-    function drawLines() {
-        var particleA,
-            particleB,
-            distance,
-            opacity,
-            lines,
-            i,
-            j;
+//     function drawLines() {
+//         var particleA,
+//             particleB,
+//             distance,
+//             opacity,
+//             lines,
+//             i,
+//             j;
 
-        _context.beginPath();
+//         _context.beginPath();
 
-        for (i = 0; i < _particles.length; i++) {
+//         for (i = 0; i < _particles.length; i++) {
 
-            lines = 0;
-            particleA = _particles[i];
+//             lines = 0;
+//             particleA = _particles[i];
 
-            for (j = i + 1; j < _particles.length; j++) {
+//             for (j = i + 1; j < _particles.length; j++) {
 
-                particleB = _particles[j];
-                distance = getDistance(particleA, particleB);
+//                 particleB = _particles[j];
+//                 distance = getDistance(particleA, particleB);
 
-                if (distance < RADIUS) {
+//                 if (distance < RADIUS) {
                     
-                    lines++;
+//                     lines++;
                     
-                    if (lines <= MAX_LINES) {
+//                     if (lines <= MAX_LINES) {
 
-                        opacity = 0.5 * Math.min((1 - distance / RADIUS), particleA.getOpacity(), particleB.getOpacity());
-                        _context.beginPath();
-                        _context.moveTo(particleA.getX() + _canvasHalfWidth, particleA.getY() + _canvasHalfHeight);
-                        _context.lineTo(particleB.getX() + _canvasHalfWidth, particleB.getY() + _canvasHalfHeight);
-                        _context.strokeStyle = 'rgba(51,51,51,' + opacity + ')';
-                        _context.stroke();
-                    }
-                }
-            }
-        }
-    }
+//                         opacity = 0.5 * Math.min((1 - distance / RADIUS), particleA.getOpacity(), particleB.getOpacity());
+//                         _context.beginPath();
+//                         _context.moveTo(particleA.getX() + _canvasHalfWidth, particleA.getY() + _canvasHalfHeight);
+//                         _context.lineTo(particleB.getX() + _canvasHalfWidth, particleB.getY() + _canvasHalfHeight);
+//                         _context.strokeStyle = 'rgba(51,51,51,' + opacity + ')';
+//                         _context.stroke();
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
-    function Particle(originX, originY) {
+//     function Particle(originX, originY) {
 
-        var _this = this,
-            _direction = -1 + Math.round(Math.random()) * 2,
-            _angle = Math.random() * 10,
-            _posX = originX,
-            _posY = originY,
-            _density = MIN_DENSITY + Math.random() * OFFSET_DENSITY,
-            _lifeSpan = 0,
-            _opacity = 1;
+//         var _this = this,
+//             _direction = -1 + Math.round(Math.random()) * 2,
+//             _angle = Math.random() * 10,
+//             _posX = originX,
+//             _posY = originY,
+//             _density = MIN_DENSITY + Math.random() * OFFSET_DENSITY,
+//             _lifeSpan = 0,
+//             _opacity = 1;
 
-        function update() {
+//         function update() {
 
-            _lifeSpan++;
+//             _lifeSpan++;
 
-            if (_lifeSpan % 3 === 0) {
+//             if (_lifeSpan % 3 === 0) {
 
-                _opacity = 1 - _lifeSpan / MAX_LIFE_SPAN;
+//                 _opacity = 1 - _lifeSpan / MAX_LIFE_SPAN;
 
-                _angle += 0.001 * _direction;
-                // _posY += (Math.cos(_angle + _density) + 1) * 0.75;
-                _posX += Math.sin(_angle) * 0.75;
+//                 _angle += 0.001 * _direction;
+//                 // _posY += (Math.cos(_angle + _density) + 1) * 0.75;
+//                 _posX += Math.sin(_angle) * 0.75;
 
-                if (_lifeSpan >= MAX_LIFE_SPAN) {
+//                 if (_lifeSpan >= MAX_LIFE_SPAN) {
 
-                    destroy();
-                }
-            }
-        }
+//                     destroy();
+//                 }
+//             }
+//         }
 
-        function destroy() {
+//         function destroy() {
 
-            var particle,
-                    i;
+//             var particle,
+//                     i;
 
-            for (i = 0; i < _particles.length; i++) {
+//             for (i = 0; i < _particles.length; i++) {
 
-                particle = _particles[i];
+//                 particle = _particles[i];
 
-                if (particle === _this) {
+//                 if (particle === _this) {
 
-                    _particles.splice(i, 1);
-                }
-            }
-        }
+//                     _particles.splice(i, 1);
+//                 }
+//             }
+//         }
 
-        this.getOpacity = function() { return _opacity; };
-        this.getX = function() { return _posX; };
-        this.getY = function() { return _posY; };
+//         this.getOpacity = function() { return _opacity; };
+//         this.getX = function() { return _posX; };
+//         this.getY = function() { return _posY; };
         
-        this.update = update;
-    }
+//         this.update = update;
+//     }
 
-    function getDistance(particle1, particle2) {
+//     function getDistance(particle1, particle2) {
 
-        var deltaX = particle1.getX() - particle2.getX(),
-            deltaY = particle1.getY() - particle2.getY();
+//         var deltaX = particle1.getX() - particle2.getX(),
+//             deltaY = particle1.getY() - particle2.getY();
 
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    }
-};
+//         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//     }
+// };
 
