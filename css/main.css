@@ -161,6 +161,7 @@ footer p img {
     }
     #rr_nav_logo_svg {
         margin: 0;
+        height: 2em;
     }
     .rr_responsive_nav {
         display: initial;
