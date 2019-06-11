@@ -303,4 +303,3 @@ function removeClass(selector, identifier, classname) {
 //         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 //     }
 // };
-
