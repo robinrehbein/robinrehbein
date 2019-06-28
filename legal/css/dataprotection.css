@@ -53,4 +53,7 @@ header {
         grid-column-gap: 8%;
         grid-row-gap: 1em;
     }
+    .rr_dataprotection_card {
+        line-height: 1em;
+    }
 }

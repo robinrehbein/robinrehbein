@@ -66,4 +66,7 @@ a {
         grid-column-gap: 8%;
         grid-row-gap: 1em;
     }
+    .rr_imprint_card {
+        line-height: 1em;
+    }
 }
