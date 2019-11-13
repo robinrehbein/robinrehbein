@@ -24,6 +24,7 @@ header {
     height: 100%;
     width: 300px;
     object-fit: cover;
+    object-position: top; /* if me_2.jpg is used */
     transition: all ease-in-out 0.4s;
 }
 .rr_about_img:hover {

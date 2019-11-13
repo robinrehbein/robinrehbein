@@ -8,7 +8,6 @@ var isScrolled = false;
 /* ####### - Functions onload, fire when DOM is loaded - ####### */
 /* ------------------------------------------------------------- */
 window.onload = function() {
-
     /* --------------------------------------------------------- */
     /* ##### - Function add current year to rr_copyright - ##### */
     /* --------------------------------------------------------- */
@@ -78,6 +77,7 @@ window.onload = function() {
     // if(getWidth() > 1300){
     //     addParticles();
     // }
+    typeWriter();
 };
 
 /* ------------------------------------------------------------- */
@@ -112,6 +112,25 @@ function removeClass(selector, identifier, classname) {
     else {
     }
 };
+function typeWriter() {
+    var theater = theaterJS();
+    theater
+        .on('type:start, erase:start', function () {
+            var actor = theater.getCurrentActor();
+            actor.$element.classList.add('is-typing');
+        })
+        .on('type:end, erase:end', function () {
+            var actor = theater.getCurrentActor();
+            actor.$element.classList.remove('is-typing');
+        })
+    theater.addActor('rr_typed_writer');
+    theater
+        .addScene('rr_typed_writer:Comü', 100, -1, 100, 'puter Scienris', 100, -3, 100, 'tist', 2000)
+        .addScene('rr_typed_writer:Wev D', 100, -3, 100, 'b Dec', 100, -1, 100, 'velopet', 100, -1, 100, 'r ', 2000)
+        .addScene('rr_typed_writer:UI / ', 50, -2, 100, '& UX Dea', 100, -1, 100, 'signer', 2000)
+        .addScene('rr_typed_writer:Sofzwa', 100, -3, 100, 'tware Enginer', 100, -1, 100, 'er', 2000)
+        .addScene(theater.replay);
+}
 /* ------------------------------------------------------------- */
 /* ################# - Function addParticles - ################# */
 /* ------------------------------------------------------------- */

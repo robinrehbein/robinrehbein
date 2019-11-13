@@ -3,24 +3,32 @@ header {
 }
 /* .rr_index_header_wrapper { */
     /* background-color: rgb(202, 68, 34); */
-    /* background-color: whitesmoke; */ /* Default Backgroundcolor */
+    /* background-color: whitesmoke; */
     /* background-color: #EADC3A; */
     /* background-color: rgb(240, 240, 240); */
 /* } */
 .rr_index_header_title {
+    /* Schriftart Vast Shadow */
+    /* padding: 34vh 10vw 0 10vw; */
+
+    /* Center Elements */
+    /* position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+
     /* font-family: 'Monoton', cursive; */
     /* font-family: 'Faster One', cursive; */
     /* font-family: 'Bungee Inline', cursive; */
     /* font-family: 'Bungee Shade'; */
     font-family: 'Vast Shadow', cursive;
     /* padding: 30vh 10vw 0 10vw; */
-    /* padding: 39vh 10vw 0 10vw; */
-    /* padding: 37vh 10vw 0 10vw; */
+    padding: 37vh 10vw 0 10vw;
+    /* padding: 38vh 10vw 0 10vw; */
     /* padding: 35vh 10vw 0 10vw; */
+    /* padding: 39vh 10vw 0 10vw; */
     /* Schriftart Bungee Shade */
     /* padding: 27vh 10vw 0 10vw; */
-    /* Schriftart Vast Shadow */
-    padding: 34vh 10vw 0 10vw;
     /* text-transform: uppercase; */
     /* text-transform: lowercase; */
     /* text-transform: unset; */
