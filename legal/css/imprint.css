@@ -19,8 +19,8 @@ a {
     grid-column-gap: 4em;
     width: 80%;
     grid-template-columns: 1fr 99fr;
-    grid-template-areas: "line heading"
-                         "line text";
+    grid-template-areas: "line card"
+                         "line card";
 }
 .rr_line {
     background-color: #333333;
@@ -32,6 +32,7 @@ a {
     letter-spacing: 0.05em;
     width: 100%;
     background: white;
+    grid-area: card;
     box-sizing: border-box;
     padding: 0.3em 1.5em 0.3em 1.5em;
     border-radius: 7px;
@@ -52,11 +53,11 @@ a {
     color: white;
     transition: all ease-in-out 0.4s;
 }
-.rr_imprint_heading {
+/* .rr_imprint_heading {
     grid-area: heading;
-}
+} */
 .rr_imprint_text {
-    grid-area: text;
+    /* grid-area: text; */
     text-align: justify;
 }
 @media only screen and (max-width: 768px) {
@@ -65,5 +66,8 @@ a {
         margin: 3em auto auto auto;
         grid-column-gap: 8%;
         grid-row-gap: 1em;
+    }
+    .rr_imprint_card {
+        line-height: 1.5em;
     }
 }
