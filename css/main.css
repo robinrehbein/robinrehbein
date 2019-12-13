@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Anaheim|Anonymous+Pro|Bai+Jamjuree|Black+Ops+One|Bungee|Bungee+Inline|Bungee+Shade|Chathura|Comfortaa|Cutive+Mono|Duru+Sans|Expletus+Sans|Faster+One|Flamenco|Geo|Geostar+Fill|Graduate|Iceberg|Julius+Sans+One|Jura|K2D|Lekton|Megrim|Monoton|Montserrat|Nixie+One|Overpass+Mono|PT+Mono|Plaster|Poiret+One|Press+Start+2P|Quantico|Share+Tech+Mono|Space+Mono|VT323|Vast+Shadow');
 
+:root {
+    --svg-color: invert(0);
+    --bg-color: white;
+    --text-color: #333333;
+    --skills-color: #F5DAC3;
+    --nav-shadow: 0px 0px 8px rgba(75, 75, 75, 0.2);
+    --box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(51, 51, 51, 0.2);
+}
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     scroll-behavior: smooth;
-    color: #333333;
-    /* background-color: whitesmoke; */
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 .rr_header_wrapper {
     height: 80%;
@@ -28,11 +36,11 @@ html, body {
 }
 nav {
     font-family: 'Anaheim', sans-serif;
-    color: #333333;
+    color: var(--text-color);
     border-radius: 7px;
     /* padding: 0.7em 3em; */
     padding: 0.3em 3em;
-    margin: 0.5em 0 0 0;
+    margin: 1em 0 0 0;
     display: flex;
     justify-content: space-between;
     /* justify-content: space-evenly; */
@@ -40,9 +48,9 @@ nav {
     transition: all ease-in-out 0.4s;
 }
 nav.onscroll {
-    background: white;
-    box-shadow: 0px 0px 8px rgba(75, 75, 75, 0.2);
-    margin: 1em 0 0 0;
+    background-color: var(--bg-color);
+    box-shadow: var(--nav-shadow);
+    margin: 1.5em 0 0 0;
     transition: all ease-in-out 0.4s;
 }
 .rr_nav_left {
@@ -64,7 +72,7 @@ nav.onscroll {
     font-size: 1.3em;
     margin: 0 2em 0 2em;
     text-decoration: none;
-    color: #333333;
+    color: var(--text-color);
 }
 .rr_responsive_nav {
     display: none;
@@ -76,6 +84,7 @@ nav.onscroll {
     cursor: pointer;
     transform: rotate(45deg);
     transition: all ease-in-out 0.4s;
+    filter: var(--svg-color);
 }
 #rr_nav_plus_svg.active {
     transform: rotate(90deg);
@@ -91,7 +100,7 @@ nav.onscroll {
 }
 #rr_nav_right ul li a {
     text-decoration: none;
-    color: #333333;
+    color: var(--text-color);
     font-weight: bold;
     /* font-size: 1.2em; */
     font-size: 1em;
@@ -106,7 +115,7 @@ section {
 }
 footer {
     font-family: 'Anaheim', sans-serif;
-    color: #333333;
+    color: var(--text-color);
     padding: 5vh 0 3vh 0;
     width: 100%;
     box-sizing: border-box;
@@ -124,7 +133,7 @@ footer ul li {
     margin: 0 2em;
 }
 footer ul li a {
-    color: #333333;
+    color: var(--text-color);
     text-decoration: none;
     font-weight: bold;
     font-size: 1.2em;
@@ -146,9 +155,9 @@ footer p img {
         /* justify-content: space-between; */
     }
     nav.onscroll {
-        background: white;
+        background-color: var(--bg-color);
         width: 85%;
-        box-shadow: 0px 0px 8px rgba(75, 75, 75, 0.2);
+        box-shadow: var(--nav-shadow);
         margin: 1.7em 0 0 0;
         /* transition: 0.4s; */
     }

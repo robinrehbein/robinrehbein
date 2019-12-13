@@ -35,7 +35,7 @@ header {
     /* color: rgb(255, 30, 40); */
     /* color: #E63942; */
     /* color: #E63943; */
-    color: #333333;
+    color: var(--text-color);
     /* color: rgb(240, 85, 47); */
     /* color: darkslateblue; */
     /* font-weight: bolder; */
@@ -48,7 +48,7 @@ header {
     /* font-family: 'PT Mono', monospace; */
     /* font-size: 0.3em; */
     font-size: 0.4em;
-    color: #333333;
+    color: var(--text-color);
     font-weight: lighter;
     letter-spacing: 0.6em;
     /* font-weight: bolder; */
@@ -61,7 +61,7 @@ header {
     /* font-family: 'Anaheim', sans-serif; */
     /* font-family: 'PT Mono', monospace; */
     /* font-size: 0.3em;
-    color: #333333;
+    color: var(--text-color);
     font-weight: lighter;
     letter-spacing: 0.6em; */
     /* line-height: 2em; */
@@ -83,6 +83,7 @@ header {
     width: 100%;
     position: relative;
     height: 20%;
+    filter: var(--svg-color);
     /* background-color: #D3D1CD; */
     /* background-color: #3746A1; */
     /* background-color: rgb(240, 240, 240); */
@@ -139,19 +140,19 @@ header {
 .rr_timeline {
     width: 3px;
     text-align: center;
-    background-color: #333333;
+    background-color: var(--text-color);
 }
 .rr_timeline_text {
-    background: white;
+    background-color: var(--bg-color);
     padding: 0.3em 1em 0.3em 1.5em;
     border-radius: 7px;
     /* text-align: justify; */
-    box-shadow: inset 0 -1px 0 0 rgba(0,0,0,.1), 0 8px 16px 0 rgba(51,51,51,.2);
+    box-shadow: var(--box-shadow);
     transition: all ease-in-out 0.4s;
 }
 .rr_timeline_text:hover {
-    background-color: #333333;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--bg-color);
     transition: all ease-in-out 0.4s;
     transform: scale(1.05);
 }
@@ -191,7 +192,7 @@ header {
     }
     /* .rr_header_subtitle_text {
         font-size: 0.3em;
-        color: #333333;
+        color: var(--text-color);
         font-weight: lighter;
         letter-spacing: 0.6em;
         text-transform: uppercase;
@@ -218,7 +219,7 @@ header {
     }
     .rr_nav_logo_text {
         text-decoration: none;
-        color: #333333;
+        color: var(--text-color);
         padding: 0.7em 0;
     }
     .rr_nav_right {
@@ -234,7 +235,7 @@ header {
     } */
     /* .rr_nav_right ul li a {
         text-decoration: none;
-        color: #333333;
+        color: var(--text-color);
         font-weight: bold;
         font-size: 0.7em;
         text-transform: lowercase; */

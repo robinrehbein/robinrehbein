@@ -9,10 +9,29 @@ var isScrolled = false;
 /* ------------------------------------------------------------- */
 window.onload = function() {
     /* --------------------------------------------------------- */
-    /* ##### - Function add current year to rr_copyright - ##### */
+    /* ### - Function add current dateTime to rr_copyright - ### */
     /* --------------------------------------------------------- */
-    var year = new Date();
-    document.getElementById("rr_copyright").innerHTML = "Copyright &copy; <em>" + year.getFullYear() + " Robin Rehbein</em> - All rights reserved.";
+    var dateTime = new Date();
+    document.getElementById("rr_copyright").innerHTML = "Copyright &copy; <em>" + dateTime.getFullYear() + " Robin Rehbein</em> - All rights reserved.";
+
+    /* --------------------------------------------------------- */
+    /* ############ - Function dynamic Background - ############ */
+    /* --------------------------------------------------------- */
+    if (dateTime.getHours() <= 7 || dateTime.getHours() >= 21) {
+        document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
+        document.documentElement.style.setProperty('--bg-color', 'rgba(15, 15, 15, 1)'); /* #111111 */
+        document.documentElement.style.setProperty('--text-color', 'rgba(238, 238, 238, 1)');
+        document.documentElement.style.setProperty('--skills-color', 'rgba(10, 37, 60, 1)');
+        document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(180, 180, 180, 0.2)');
+        document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(255, 255, 255, 0.1), 0 8px 16px 0 rgba(204, 204 ,204, 0.2)');
+    } else {
+        document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
+        document.documentElement.style.setProperty('--bg-color', 'white');
+        document.documentElement.style.setProperty('--text-color', 'rgba(51, 51, 51, 1)'); /* eventuell ändern auf rgba(15, 15, 15, 1) */
+        document.documentElement.style.setProperty('--skills-color', 'rgba(245, 218, 195, 1)');
+        document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(75, 75, 75, 0.2)');
+        document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(51, 51, 51, 0.2)');
+    }
     
     /* --------------------------------------------------------- */
     /* # - Function EventListener add class .onscroll to nav - # */
@@ -77,7 +96,7 @@ window.onload = function() {
     // if(getWidth() > 1300){
     //     addParticles();
     // }
-    typeWriter();
+    // typeWriter();
 };
 
 /* ------------------------------------------------------------- */
@@ -112,25 +131,30 @@ function removeClass(selector, identifier, classname) {
     else {
     }
 };
-function typeWriter() {
-    var theater = theaterJS();
-    theater
-        .on('type:start, erase:start', function () {
-            var actor = theater.getCurrentActor();
-            actor.$element.classList.add('is-typing');
-        })
-        .on('type:end, erase:end', function () {
-            var actor = theater.getCurrentActor();
-            actor.$element.classList.remove('is-typing');
-        })
-    theater.addActor('rr_typed_writer');
-    theater
-        .addScene('rr_typed_writer:Comü', 100, -1, 100, 'puter Scienris', 100, -3, 100, 'tist', 2000)
-        .addScene('rr_typed_writer:Wev D', 100, -3, 100, 'b Dec', 100, -1, 100, 'velopet', 100, -1, 100, 'r ', 2000)
-        .addScene('rr_typed_writer:UI / ', 50, -2, 100, '& UX Dea', 100, -1, 100, 'signer', 2000)
-        .addScene('rr_typed_writer:Sofzwa', 100, -3, 100, 'tware Enginer', 100, -1, 100, 'er', 2000)
-        .addScene(theater.replay);
-}
+
+
+/* ------------------------------------------------------------- */
+/* ################# - Function TypeWriter - ################### */
+/* ------------------------------------------------------------- */
+// function typeWriter() {
+//     var theater = theaterJS();
+//     theater
+//         .on('type:start, erase:start', function () {
+//             var actor = theater.getCurrentActor();
+//             actor.$element.classList.add('is-typing');
+//         })
+//         .on('type:end, erase:end', function () {
+//             var actor = theater.getCurrentActor();
+//             actor.$element.classList.remove('is-typing');
+//         })
+//     theater.addActor('rr_typed_writer');
+//     theater
+//         .addScene('rr_typed_writer:Comü', 100, -1, 100, 'puter Scienris', 100, -3, 100, 'tist', 2000)
+//         .addScene('rr_typed_writer:Wev D', 100, -3, 100, 'b Dec', 100, -1, 100, 'velopet', 100, -1, 100, 'r ', 2000)
+//         .addScene('rr_typed_writer:UI / ', 50, -2, 100, '& UX Dea', 100, -1, 100, 'signer', 2000)
+//         .addScene('rr_typed_writer:Sofzwa', 100, -3, 100, 'tware Enginer', 100, -1, 100, 'er', 2000)
+//         .addScene(theater.replay);
+// }
 /* ------------------------------------------------------------- */
 /* ################# - Function addParticles - ################# */
 /* ------------------------------------------------------------- */
