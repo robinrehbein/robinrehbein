@@ -17,7 +17,7 @@ window.onload = function() {
     /* --------------------------------------------------------- */
     /* ############ - Function dynamic Background - ############ */
     /* --------------------------------------------------------- */
-    if (dateTime.getHours() <= 7 || dateTime.getHours() >= 21) {
+    if (dateTime.getHours() <= 8 || dateTime.getHours() >= 20) {
         document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(15, 15, 15, 1)'); /* #111111 */
         document.documentElement.style.setProperty('--text-color', 'rgba(238, 238, 238, 1)');
