@@ -20,6 +20,7 @@ window.onload = function() {
     if (dateTime.getHours() <= 8 || dateTime.getHours() >= 20) {
         document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(15, 15, 15, 1)'); /* #111111 */
+        document.documentElement.style.setProperty('--tile-bg-color', 'rgba(15, 15, 15, 1)');
         document.documentElement.style.setProperty('--text-color', 'rgba(238, 238, 238, 1)');
         document.documentElement.style.setProperty('--skills-color', 'rgba(10, 37, 60, 1)');
         document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(180, 180, 180, 0.2)');
