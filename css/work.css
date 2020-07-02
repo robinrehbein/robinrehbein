@@ -61,6 +61,8 @@ header {
     grid-template-rows: auto 1fr auto;
     grid-row-gap: 1em;
     text-align: justify;
+    background-color: var(--tile-bg-color);
+    border-radius: 0 0 7px 7px;
 }
 .rr_project_header h3 {
     margin: 0;
