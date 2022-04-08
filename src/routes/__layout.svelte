@@ -1,21 +1,22 @@
-<script lang="ts">
-	import Header from '$lib/header/Header.svelte';
-	import Navbar from '$lib/navbar/Navbar.svelte';
-	import '../app.scss';
-</script>
+<svelte:head>
+	<!-- Normalize CSS     -->
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+	/>
+</svelte:head>
 
-<Header><Navbar slot="navbar" /></Header>
+<header>
+    <!-- navbar -->
+</header>
 
 <main>
-	<slot />
+    <slot />
 </main>
 
-<footer>footer</footer>
+<footer>
+    <!-- footer -->
+    {new Date().getFullYear()} &copy; Robin Rehbein
+</footer>
 
-<style>
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
-</style>
+<style lang="scss"></style>

@@ -1,22 +1,2 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
-<script lang="ts">
-	import Button from '$lib/button/Button.svelte';
-</script>
-
-<svelte:head>
-	<title>home.</title>
-</svelte:head>
-
-<section>
-	<Button id="button__contact" onClick={() => {}}>Button</Button>
-</section>
-
-<style lang="scss">
-	section {
-		height: 200vh;
-		background-image: url('./static/svelte-welcome.png');
-	}
-</style>
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
