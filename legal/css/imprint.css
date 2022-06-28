@@ -31,7 +31,7 @@ a {
     line-height: 1.5em;
     letter-spacing: 0.05em;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: var(--tile-bg-color);
     grid-area: card;
     box-sizing: border-box;
     padding: 0.3em 1.5em 0.3em 1.5em;
@@ -44,6 +44,7 @@ a {
     color: var(--bg-color);
     transition: all ease-in-out 0.4s;
     transform: scale(1.05);
+    box-shadow: var(--box-shadow-hover);
 }
 .rr_imprint_card p > a {
     color: var(--text-color);

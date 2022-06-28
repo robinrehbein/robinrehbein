@@ -21,6 +21,12 @@ header {
 .rr_skills_content {
     border-radius: 7px;
     box-shadow: var(--box-shadow);
+    transition: all ease-in-out 0.4s;
+}
+.rr_skills_content:hover {
+    transition: all ease-in-out 0.4s;
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow-hover);
 }
 .rr_skills_content_header {
     /* background-color: #EEBF97; */

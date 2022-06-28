@@ -17,6 +17,12 @@ header {
     box-shadow: var(--box-shadow);
     display: flex;
     flex-direction: row;
+    transition: all ease-in-out 0.4s;
+}
+.rr_about_container:hover {
+    transition: all ease-in-out 0.4s;
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow-hover);
 }
 .rr_about_img {
     filter: grayscale(100%);
@@ -75,6 +81,9 @@ header {
         border-radius: 7px 7px 0 0;
         width: 100%;
         height: 400px;
+    }
+    .rr_about_content_container {
+        border-radius: 0 0 7px 7px;
     }
     .rr_about_content_container p {
         margin: 1em 0;

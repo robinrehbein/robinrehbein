@@ -28,6 +28,7 @@ header {
 .rr_work_card:hover {
     transition: all ease-in-out 0.4s;
     transform: scale(1.025);
+    box-shadow: var(--box-shadow-hover);
 }
 .rr_work_card_top {
     padding: 2.4em 2em;
@@ -52,6 +53,9 @@ header {
 }
 .rr_work_card_four .rr_work_card_top {
     background-color: rgb(125, 177, 101); /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
+}
+.rr_work_card_five .rr_work_card_top {
+    background-color: rgb(110, 90, 200); /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
 }
 .rr_work_card_bottom {
     font-family: 'Anaheim', sans-serif;
