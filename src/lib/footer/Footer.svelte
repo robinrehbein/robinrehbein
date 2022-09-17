@@ -14,13 +14,10 @@
 
 <style lang="scss">
 	footer {
-        margin-top: 5vh; // Todo exchange for variable 
+		margin-top: 5vh; // Todo exchange for variable
 		display: flex;
 		flex-direction: column;
-        text-align: center;
-	}
-	ul {
-		list-style: none;
+		text-align: center;
 	}
 	li,
 	p {

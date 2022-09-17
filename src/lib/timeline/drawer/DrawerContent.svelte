@@ -1,20 +1,21 @@
 <script lang="ts">
-	export let className: string | undefined = undefined;
+	type Images = {
+		readonly src: string;
+		readonly alt: string;
+		readonly description: string;
+	};
+
+	export let images: Images[];
 </script>
 
-<p>DrawerContent</p>
 <ul>
-	<li>
-		<img src="/src/lib/Footer/love.svg" />
-		<p>img desc</p>
-	</li>
+	{#each images as image}
+		<li>
+			<img src={image.src} alt={image.alt} />
+			<p>{image.description}</p>
+		</li>
+	{/each}
 </ul>
 
 <style lang="scss">
-	ul {
-		list-style: none;
-	}
-	p {
-		color: white;
-	}
 </style>

@@ -24,7 +24,7 @@
 
 <style lang="scss">
 	nav {
-		padding: 1rem;
+		padding: 1rem 2rem;
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -33,9 +33,9 @@
 		gap: 1rem;
 		justify-content: space-between;
 		align-items: center;
-		background-color: hsla(0, 0%, 100%, 0.5);
+		background-color: hsla(var(--background-color), 0.5);
 		backdrop-filter: blur(5px) saturate(180%);
-        z-index: 1;
+		z-index: 2;
 	}
 	img {
 		height: 2rem;
@@ -44,7 +44,6 @@
 		flex-grow: 1;
 	}
 	ul {
-		list-style: none;
 		display: flex;
 		gap: 1rem;
 		justify-content: space-evenly;
