@@ -1,7 +1,33 @@
 <script lang="ts">
+	import Canvas from '$lib/canvas/Canvas.svelte';
 	import Header from '$lib/header/Header.svelte';
-import Timeline from '$lib/timeline/Timeline.svelte';
+	import Timeline from '$lib/timeline/Timeline.svelte';
+	import { onMount } from 'svelte';
 	import mouse from './mouse.svg';
+
+	let pixelColors: {
+		x: number;
+		y: number;
+		color: { r: number; g: number; b: number; a: number };
+	}[] = [];
+	let width: number;
+	let height: number;
+	onMount(async () => {
+		await gridGenerator();
+	});
+	async function gridGenerator() {
+		const url = new URL('http://127.0.0.1:5173/api/grid-generator');
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const body = await response.json();
+		pixelColors = body.pixelColors;
+		width = body.width;
+		height = body.height;
+	}
 </script>
 
 <svelte:head>
@@ -14,6 +40,11 @@ import Timeline from '$lib/timeline/Timeline.svelte';
 		<h1 slot="title">Robin Rehbein</h1>
 		<h2 slot="headline">Full Stack Developer</h2>
 	</Header>
+
+	<button on:click={gridGenerator}>trigger</button>
+	{#if pixelColors.length > 0}
+		<Canvas {pixelColors} {width} {height} />
+	{/if}
 	<div>
 		<a href="#timeline">
 			<img src={mouse} alt="Mouse to scroll down" />
