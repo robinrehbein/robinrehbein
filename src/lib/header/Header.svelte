@@ -11,5 +11,6 @@
 		height: 65vh;
 		padding: 43vh 10vw 0 10vw;
 		text-align: center;
+		z-index: 1;
 	}
 </style>

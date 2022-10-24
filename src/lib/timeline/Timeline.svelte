@@ -11,7 +11,7 @@
 		{#each items as item}
 			<Item>
 				<Card>
-					<h3 slot="title">January 01, 2022 - October 31, 2022</h3>
+					<h3 slot="title">Consultant</h3>
 					<h4 slot="headline">MHP - A Porsche Company, Ludwigsburg</h4>
 					<Drawer
 						slot="drawer"
@@ -21,7 +21,7 @@
 			</Item>
 			<Item>
 				<Card>
-					<h3 slot="title">January 01, 2022 - October 31, 2022</h3>
+					<h3 slot="title">Developer</h3>
 					<h4 slot="headline">MHP - A Porsche Company, Ludwigsburg</h4>
 					<Drawer
 						slot="drawer"
@@ -57,6 +57,7 @@
 		width: 0.1rem;
 		height: 100%;
 		position: absolute;
-		left: 0.35rem;
+		// left: 16.85rem;
+		left: 3.65rem;
 	}
 </style>

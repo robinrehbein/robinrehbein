@@ -1,6 +1,8 @@
 <script lang="ts"></script>
 
 <li>
+	<p class="timeline-time">January 01, 2022 - October 31, 2022</p>
+
 	<!-- eventuellm mit pseudo element -->
 	<span class="timeline-dot" />
 
@@ -15,6 +17,14 @@
 		display: flex;
 		flex-direction: row;
 		gap: 2rem;
+	}
+
+	p {
+		writing-mode: vertical-lr;
+		text-orientation: sideways-right;
+		position: sticky;
+		top: 24.5%;
+		height: fit-content;
 	}
 
 	span {

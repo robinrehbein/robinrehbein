@@ -13,9 +13,9 @@
 <Footer />
 
 <style lanng="scss">
-	main {
-		padding: 0 2rem;
-		max-width: 1080px;
-		margin: auto;
-	}
+	/* main { */
+		/* padding: 0 2rem; */
+		/* max-width: 1080px;
+		margin: auto; */
+	/* } */
 </style>
