@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import logo from './logo-robin.svg';
+
+	let scrollY: number = 0;
 </script>
 
-<nav data-sveltekit-prefetch>
+<svelte:window bind:scrollY />
+
+<nav data-sveltekit-prefetch class:scrolled={scrollY > 0}>
 	<img src={logo} alt="SvelteKit" />
 	<span>Robin Rehbein</span>
 	<ul>
@@ -33,9 +37,14 @@
 		gap: 1rem;
 		justify-content: space-between;
 		align-items: center;
+		transition: backdrop-filter cubic-bezier(0.075, 0.82, 0.165, 1) 1000ms,
+			background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1000ms;
+		z-index: 1;
+	}
+
+	nav.scrolled {
 		background-color: hsla(var(--background-color), 0.5);
 		backdrop-filter: blur(5px) saturate(180%);
-		z-index: 2;
 	}
 	img {
 		height: 2rem;

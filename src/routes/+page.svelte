@@ -3,30 +3,30 @@
 	import Header from '$lib/header/Header.svelte';
 	import Timeline from '$lib/timeline/Timeline.svelte';
 	import { onMount } from 'svelte';
+	import type { Pixel } from './api/grid-generator/+server';
 	import mouse from './mouse.svg';
 
-	let pixelColors: {
-		x: number;
-		y: number;
-		color: { r: number; g: number; b: number; a: number };
-	}[] = [];
-	let width: number;
+	let pixels: Pixel[] = [];
 	let height: number;
+	let width: number;
+	let density: number = 10;
+
 	onMount(async () => {
 		await gridGenerator();
 	});
+
 	async function gridGenerator() {
 		const url = new URL('http://127.0.0.1:5173/api/grid-generator');
+		url.searchParams.append('width', width.toString());
+		url.searchParams.append('height', height.toString());
+		url.searchParams.append('density', density.toString());
 		const response = await fetch(url, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'
 			}
 		});
-		const body = await response.json();
-		pixelColors = body.pixelColors;
-		width = body.width;
-		height = body.height;
+		pixels = await response.json();
 	}
 </script>
 
@@ -35,16 +35,19 @@
 	<meta name="description" content="Robin Rehbein" />
 </svelte:head>
 
+<svelte:window bind:innerHeight={height} bind:innerWidth={width} />
+
 <section>
+	{#if pixels.length > 0}
+		<Canvas {pixels} {width} {height} {density} />
+	{/if}
+
 	<Header>
 		<h1 slot="title">Robin Rehbein</h1>
 		<h2 slot="headline">Full Stack Developer</h2>
 	</Header>
 
 	<button on:click={gridGenerator}>trigger</button>
-	{#if pixelColors.length > 0}
-		<Canvas {pixelColors} {width} {height} />
-	{/if}
 	<div>
 		<a href="#timeline">
 			<img src={mouse} alt="Mouse to scroll down" />
