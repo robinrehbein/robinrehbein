@@ -1,61 +1,90 @@
 <script lang="ts">
+	import type { Pixel } from 'src/routes/api/grid-generator/+server';
 	import { onMount } from 'svelte';
+
+	export let pixels: Pixel[];
 	export let width: number;
 	export let height: number;
-
-	type Pixel = {
-		x: number;
-		y: number;
-		color: { r: number; g: number; b: number; a: number };
-	};
-
-	export let pixelColors: Pixel[];
+	export let density: number = 10;
 
 	let canvas: HTMLCanvasElement;
-	let context: CanvasRenderingContext2D | null;
+	let context: CanvasRenderingContext2D;
 
-	onMount(() => {
-		context = canvas.getContext('2d');
+	function getColor(r: number, g: number, b: number, a: number): string {
+		return `rgba(${r}, ${g}, ${b}, ${a})`;
+	}
 
-		// context?.beginPath();
-		pixelColors.reduce((prev, curr) => {
-			// context?.arc(pixelColor.x * 10, pixelColor.y * 10, 1, 0, 2 * Math.PI);
-			const x = curr.x;
-			const y = curr.y;
-			const combinedColor = (curr.color.r + curr.color.g + curr.color.b) / 3 / 20;
+	function getRadius(r: number, g: number, b: number): number {
+		return (r + g + b) / 3 / density
+	}
+
+	function drawDots(): void {
+		pixels.reduce((prev, curr) => {
+			const radius = getRadius(curr.color.r, curr.color.g, curr.color.b);
+			const color = getColor(curr.color.r, curr.color.g, curr.color.b, curr.color.a);
 
 			if (prev && prev.y >= curr.y) {
-				context?.moveTo(curr.x, curr.y);
-				console.log(curr);
+				context.moveTo(curr.x, curr.y);
 				return curr;
 			}
-			context?.lineTo(x + combinedColor, y + combinedColor);
 
-			// ToDo: if line at the end moveTo beginning of canvas
-			// x >= 1020 && context?.moveTo(0, x);
-			// y >= 1020 && context?.moveTo(y, 0);
+			context.strokeStyle = color;
+			context.fillStyle = color;
 
+			context.beginPath();
+			context.moveTo(curr.x, curr.y);
+			context.arc(curr.x, curr.y, radius, 0, 360);
+			context.closePath();
+
+			context.fill();
+			context.stroke();
 			return curr;
+		}, pixels[0]);
+	}
 
-			// context?.moveTo(x, y);
+	function drawLines(context: CanvasRenderingContext2D | null) {
+		console.log('Draw on canvas dots');
 
-			// context?.lineTo(y + combinedColor, x + combinedColor);
+		if (!context) {
+			console.error('No context bound');
+			return;
+		}
 
-			//   context?.arc(x, y, x / Math.PI, 0, 2 * Math.PI, false);
-			//   context?.fillStyle = ;
-		}, pixelColors[0]);
-		// context?.closePath();
-		context?.stroke();
-		// context?.fill();
-		// context?.arc(x, y, 1, 0, 2 * Math.PI, true);
+		pixels.reduce((prev, curr) => {
+			const radius = getRadius(curr.color.r, curr.color.g, curr.color.b, 10);
+			const color = getColor(curr.color.r, curr.color.g, curr.color.b, curr.color.a);
 
-		// context.drawImage(src, 0, 0, 150, 300);
+			if (prev && prev.y >= curr.y) {
+				context.moveTo(curr.x, curr.y);
+				return curr;
+			}
 
-		// context.stroke();
-		// console.log(context.getImageData(60, 150, 1, 1));
+			// context.strokeStyle = color;
+			// context.lineJoin = 'round';
+
+			// context.beginPath();
+			// context.moveTo(prev.x + radius, prev.y + radius);
+			context.lineTo(curr.x + radius, curr.y + radius);
+			// context.closePath();
+			// context.fill();
+			// context.stroke();
+			return curr;
+		}, pixels[0]);
+		context.stroke();
+	}
+
+	onMount(() => {
+		context = canvas.getContext('2d')!;
+		drawDots();
 	});
 </script>
 
 <canvas bind:this={canvas} {width} {height} />
 
-<style lang="scss"></style>
+<style lang="scss">
+	canvas {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+</style>
