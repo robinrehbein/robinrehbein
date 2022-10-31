@@ -9,7 +9,8 @@
 	let pixels: Pixel[] = [];
 	let height: number;
 	let width: number;
-	let density: number = 10;
+	let density: number = 5;
+	let size: number = 170;
 
 	onMount(async () => {
 		await gridGenerator();
@@ -39,7 +40,7 @@
 
 <section>
 	{#if pixels.length > 0}
-		<Canvas {pixels} {width} {height} {density} />
+		<Canvas {pixels} {width} {height} {size} />
 	{/if}
 
 	<Header>

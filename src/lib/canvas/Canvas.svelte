@@ -5,7 +5,7 @@
 	export let pixels: Pixel[];
 	export let width: number;
 	export let height: number;
-	export let density: number = 10;
+	export let size: number = 10;
 
 	let canvas: HTMLCanvasElement;
 	let context: CanvasRenderingContext2D;
@@ -15,7 +15,7 @@
 	}
 
 	function getRadius(r: number, g: number, b: number): number {
-		return (r + g + b) / 3 / density
+		return (r + g + b) / 3 / size
 	}
 
 	function drawDots(): void {
