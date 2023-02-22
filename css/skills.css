@@ -63,6 +63,13 @@ header {
 }
 .rr_skills_svg_container {
     display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+.rr_skills_svg_child {
+    display: flex;
     /* flex-wrap: wrap; */
     /* gap: 0.5em; */
     flex-direction: row;
