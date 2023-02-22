@@ -66,6 +66,7 @@ header {
 .rr_skills_svg_container {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.5em;
     flex-direction: row;
     justify-content: center;
     align-items: center;
