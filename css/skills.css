@@ -11,7 +11,9 @@ header {
 .rr_skills_container {
     font-family: 'Anaheim', sans-serif;
     text-align: center;
-    max-width: 30em;
+    max-width: 27em;
+    padding-right: 2em;
+    padding-left: 2em;
     margin: auto;
 }
 .rr_hexagon_svg {
