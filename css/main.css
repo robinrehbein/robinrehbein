@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anaheim|Anonymous+Pro|Bai+Jamjuree|Black+Ops+One|Bungee|Bungee+Inline|Bungee+Shade|Chathura|Comfortaa|Cutive+Mono|Duru+Sans|Expletus+Sans|Faster+One|Flamenco|Geo|Geostar+Fill|Graduate|Iceberg|Julius+Sans+One|Jura|K2D|Lekton|Megrim|Monoton|Montserrat|Nixie+One|Overpass+Mono|PT+Mono|Plaster|Poiret+One|Press+Start+2P|Quantico|Share+Tech+Mono|Space+Mono|VT323|Vast+Shadow');
 
 :root {
+    --browser-theme-color: #5A786E;
     --svg-color: invert(0);
     --bg-color: #FAFAFA;
     --tile-bg-color: white;
@@ -8,9 +9,11 @@
     --skills-color: #F5DAC3;
     --nav-shadow: 0px 0px 8px rgba(75, 75, 75, 0.2);
     --box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(51, 51, 51, 0.2);
-	--box-shadow-hover: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 16px 32px 0 rgba(51, 51, 51, 0.2);
+    --box-shadow-hover: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 16px 32px 0 rgba(51, 51, 51, 0.2);
 }
-html, body {
+
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -19,13 +22,16 @@ html, body {
     color: var(--text-color);
     background-color: var(--bg-color);
 }
+
 .rr_header_wrapper {
     height: 80%;
 }
+
 .rr_header_title {
     text-align: center;
     transition: all ease-in-out 0.4s;
 }
+
 .rr_nav_wrapper {
     position: fixed;
     width: 100%;
@@ -36,6 +42,7 @@ html, body {
     align-items: center;
     z-index: 1;
 }
+
 nav {
     font-family: 'Anaheim', sans-serif;
     color: var(--text-color);
@@ -50,24 +57,29 @@ nav {
     transition: all ease-in-out 0.4s;
     background-color: var(--bg-color);
 }
+
 nav.onscroll {
     background-color: var(--tile-bg-color);
     box-shadow: var(--nav-shadow);
     margin: 1.5em 0 0 0;
     transition: all ease-in-out 0.4s;
 }
+
 .rr_nav_left {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
 #rr_nav_logo_svg {
     /* height: 23px; */
     height: 2em;
     display: flex;
     align-items: center;
+    filter: invert(--svg-color);
     /* margin-top: -6px; */
 }
+
 #rr_nav_logo_text {
     /* font-family: 'Kano'; */
     font-weight: bold;
@@ -77,9 +89,11 @@ nav.onscroll {
     text-decoration: none;
     color: var(--text-color);
 }
+
 .rr_responsive_nav {
     display: none;
 }
+
 #rr_nav_plus_svg {
     height: 19px;
     display: flex;
@@ -89,18 +103,22 @@ nav.onscroll {
     transition: all ease-in-out 0.4s;
     filter: var(--svg-color);
 }
+
 #rr_nav_plus_svg.active {
     transform: rotate(90deg);
     transition: all ease-in-out 0.4s;
 }
+
 #rr_nav_right ul {
     list-style: none;
     display: flex;
     justify-content: flex-end;
 }
+
 #rr_nav_right ul li {
     margin: 0 2em;
 }
+
 #rr_nav_right ul li a {
     text-decoration: none;
     color: var(--text-color);
@@ -111,11 +129,13 @@ nav.onscroll {
     /* text-shadow: 0px 0px 30px #000000; */
     text-transform: lowercase;
 }
+
 section {
     max-width: 1000px;
     margin: auto;
     padding: 2em;
 }
+
 footer {
     font-family: 'Anaheim', sans-serif;
     color: var(--text-color);
@@ -126,15 +146,18 @@ footer {
     flex-direction: column;
     align-items: center;
 }
+
 footer ul {
     list-style: none;
     display: flex;
     padding: 0;
     /* justify-content: flex-end; */
 }
+
 footer ul li {
     margin: 0 2em;
 }
+
 footer ul li a {
     color: var(--text-color);
     text-decoration: none;
@@ -142,9 +165,11 @@ footer ul li a {
     font-size: 1.2em;
     text-transform: lowercase;
 }
+
 footer p img {
     width: 17px;
 }
+
 @media only screen and (max-width: 768px) {
     nav {
         padding: 0;
@@ -157,6 +182,7 @@ footer p img {
         /* justify-content: space-evenly; */
         /* justify-content: space-between; */
     }
+
     nav.onscroll {
         background-color: var(--bg-color);
         width: 85%;
@@ -164,6 +190,7 @@ footer p img {
         margin: 1.7em 0 0 0;
         /* transition: 0.4s; */
     }
+
     .rr_nav_left {
         box-sizing: border-box;
         padding: 1em 0;
@@ -172,13 +199,16 @@ footer p img {
         flex-direction: row;
         justify-content: space-around;
     }
+
     #rr_nav_logo_svg {
         margin: 0;
         height: 2em;
     }
+
     .rr_responsive_nav {
         display: initial;
     }
+
     /* Eventuell anderen Weg finden height vom Header zu animieren, wenn drauf geklickt wird */
     #rr_nav_right {
         /* display: none; */
@@ -187,12 +217,14 @@ footer p img {
         overflow: hidden;
         transition: all ease-in-out 0.4s;
     }
+
     #rr_nav_right.active {
         /* display: initial; */
-	/* height of expanded nav bar, height is needed for css animation */
+        /* height of expanded nav bar, height is needed for css animation */
         max-height: 425px;
         opacity: 1;
     }
+
     #rr_nav_right ul {
         display: flex;
         flex-direction: column;
@@ -200,39 +232,48 @@ footer p img {
         align-content: center;
         padding: 0;
     }
+
     #rr_nav_right ul li {
         font-size: 1.1em;
         margin: 2em 0;
     }
+
     #rr_nav_right ul li:last-child {
         font-size: 1.1em;
         margin-bottom: 1em;
     }
+
     section {
         max-width: 85%;
         margin: auto;
-	/* If navbar should have same width as elements uncomment */
-	padding: 0;
+        /* If navbar should have same width as elements uncomment */
+        padding: 0;
     }
+
     footer {
         width: 85%;
         margin: auto;
     }
+
     footer ul {
         flex-direction: column;
         align-items: center;
         /* margin: 0; */
         /* justify-content: center; */
     }
+
     footer ul li {
         margin: 1em 0;
     }
-    footer ul li:first-child{
+
+    footer ul li:first-child {
         margin-top: 0;
     }
+
     footer ul li:last-child {
         margin-bottom: 0;
     }
+
     footer p {
         text-align: center;
     }
@@ -242,6 +283,7 @@ footer p img {
     .rr_nav_left {
         padding: 1em 1.3em;
     }
+
     #rr_nav_logo_text {
         margin: 0;
         opacity: 0;
@@ -249,6 +291,7 @@ footer p img {
         transition: all ease-in-out 0.4s;
         /* display: none; */
     }
+
     #rr_nav_logo_text.onscroll {
         opacity: 1;
     }

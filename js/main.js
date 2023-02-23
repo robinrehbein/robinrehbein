@@ -18,6 +18,7 @@ window.onload = function() {
     /* ############ - Function dynamic Background - ############ */
     /* --------------------------------------------------------- */
     if (dateTime.getHours() <= 8 || dateTime.getHours() >= 20) {
+        document.documentElement.style.setProperty('--browser-theme-color', '#A58791');
         document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(15, 15, 15, 1)'); /* #111111 */
         document.documentElement.style.setProperty('--tile-bg-color', 'rgba(15, 15, 15, 1)');
@@ -26,6 +27,7 @@ window.onload = function() {
         document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(180, 180, 180, 0.2)');
         document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(255, 255, 255, 0.1), 0 8px 16px 0 rgba(204, 204 ,204, 0.2)');
     } else {
+        document.documentElement.style.setProperty('--browser-theme-color', '#5A786E');
         document.documentElement.style.setProperty('--svg-color', 'invert(0)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(250, 250, 250)');
         document.documentElement.style.setProperty('--tile-bg-color', 'white');
