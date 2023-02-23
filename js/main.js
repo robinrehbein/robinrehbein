@@ -17,7 +17,9 @@ window.onload = function() {
     /* --------------------------------------------------------- */
     /* ############ - Function dynamic Background - ############ */
     /* --------------------------------------------------------- */
-    if (dateTime.getHours() <= 7 || dateTime.getHours() >= 19) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || 
+            dateTime.getHours() <= 7 || 
+            dateTime.getHours() >= 19) {
         document.documentElement.style.setProperty('--browser-theme-color', '#A58791');
         document.documentElement.style.setProperty('--svg-color', 'invert(100%)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(15, 15, 15, 1)'); /* #111111 */

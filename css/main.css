@@ -76,7 +76,7 @@ nav.onscroll {
     height: 2em;
     display: flex;
     align-items: center;
-    filter: invert(--svg-color);
+    filter: var(--svg-color);
     /* margin-top: -6px; */
 }
 
