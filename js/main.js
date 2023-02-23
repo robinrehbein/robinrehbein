@@ -107,7 +107,6 @@ window.onload = function() {
                 const rect = element.getBoundingClientRect();
                 const x = $event.clientX - rect.left;
                 const y = $event.clientY - rect.top;
-                console.log(x, y)
                 element.style.setProperty('--posX', `${x}px`)
                 element.style.setProperty('--posY', `${y}px`)
         });
