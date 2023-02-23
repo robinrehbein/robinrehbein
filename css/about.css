@@ -109,6 +109,10 @@ header {
         flex-direction: column;
     }
 
+    .rr_about_img_container {
+        height: 400px;
+    }
+
     .rr_about_img {
         border-radius: 7px 7px 0 0;
         width: 100%;
