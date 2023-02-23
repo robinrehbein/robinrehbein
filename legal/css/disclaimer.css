@@ -1,6 +1,7 @@
 header {
     height: 65%;
 }
+
 .rr_disclaimer_header_title {
     font-family: 'Anaheim', sans-serif;
     padding: 34vh 10vw 0 10vw;
@@ -8,6 +9,7 @@ header {
     color: var(--text-color);
     font-size: 3.5em;
 }
+
 .rr_disclaimer_container {
     font-family: 'Anaheim', sans-serif;
     margin: 5em auto auto auto;
@@ -17,13 +19,15 @@ header {
     width: 80%;
     grid-template-columns: 1fr 99fr;
     grid-template-areas: "line card"
-                         "line card";
+        "line card";
 }
+
 .rr_line {
     background-color: var(--text-color);
     grid-area: line;
     width: 3px;
 }
+
 .rr_disclaimer_card {
     line-height: 1.5em;
     letter-spacing: 0.05em;
@@ -34,13 +38,14 @@ header {
     box-shadow: var(--box-shadow);
     transition: all ease-in-out 0.4s;
 }
-.rr_disclaimer_card:hover {
+
+/* .rr_disclaimer_card:hover {
     background-color: var(--text-color);
     color: var(--bg-color);
     transition: all ease-in-out 0.4s;
     transform: scale(1.05);
     box-shadow: var(--box-shadow-hover);
-}
+} */
 /* .rr_diclaimer_heading {
     grid-area: heading;
 } */
@@ -48,6 +53,7 @@ header {
     /* grid-area: text; */
     text-align: justify;
 }
+
 @media only screen and (max-width: 768px) {
     .rr_disclaimer_container {
         width: 100%;
@@ -55,6 +61,7 @@ header {
         grid-column-gap: 8%;
         grid-row-gap: 1em;
     }
+
     .rr_disclaimer_card {
         line-height: 1.5em;
     }

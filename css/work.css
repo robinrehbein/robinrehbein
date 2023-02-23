@@ -1,6 +1,7 @@
 header {
     height: 65%;
 }
+
 .rr_work_header_title {
     font-family: 'Anaheim', sans-serif;
     padding: 34vh 10vw 0 10vw;
@@ -8,6 +9,7 @@ header {
     color: var(--text-color);
     font-size: 3.5em;
 }
+
 .rr_work_grid_container {
     width: 80%;
     margin: 0 auto;
@@ -16,6 +18,7 @@ header {
     grid-auto-rows: minmax(400px, auto);
     grid-gap: 3em 2.5em;
 }
+
 .rr_work_card {
     box-sizing: border-box;
     width: 100%;
@@ -25,16 +28,18 @@ header {
     display: grid;
     grid-template-rows: 200px 1fr;
 }
-.rr_work_card:hover {
+
+/* .rr_work_card:hover {
     transition: all ease-in-out 0.4s;
     transform: scale(1.025);
     box-shadow: var(--box-shadow-hover);
-}
+} */
 .rr_work_card_top {
     padding: 2.4em 2em;
     border-radius: 7px 7px 0 0;
     text-align: center;
 }
+
 .rr_work_card_svg {
     margin: auto;
     /* height: calc(200px - 4.8em); */
@@ -42,21 +47,29 @@ header {
     max-height: 100%;
     max-width: 100%;
 }
+
 .rr_work_card_one .rr_work_card_top {
     background-color: #FFCD39;
 }
+
 .rr_work_card_two .rr_work_card_top {
     background-color: #58AAD3;
 }
+
 .rr_work_card_three .rr_work_card_top {
     background-color: #E2585F;
 }
+
 .rr_work_card_four .rr_work_card_top {
-    background-color: rgb(125, 177, 101); /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
+    background-color: rgb(125, 177, 101);
+    /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
 }
+
 .rr_work_card_five .rr_work_card_top {
-    background-color: rgb(110, 90, 200); /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
+    background-color: rgb(110, 90, 200);
+    /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
 }
+
 .rr_work_card_bottom {
     font-family: 'Anaheim', sans-serif;
     padding: 1em 1.5em;
@@ -68,17 +81,21 @@ header {
     background-color: var(--tile-bg-color);
     border-radius: 0 0 7px 7px;
 }
+
 .rr_project_header h3 {
     margin: 0;
 }
+
 .rr_open_link {
     margin: 0 0.5em 0 0;
 }
+
 .rr_link a {
     color: var(--text-color);
 }
+
 @media only screen and (max-width: 1000px) {
-    .rr_work_grid_container{
+    .rr_work_grid_container {
         width: 100%;
         max-width: 25em;
         grid-template-columns: 1fr;

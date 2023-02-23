@@ -1,11 +1,12 @@
 header {
     height: 100%;
 }
+
 /* .rr_index_header_wrapper { */
-    /* background-color: rgb(202, 68, 34); */
-    /* background-color: whitesmoke; */
-    /* background-color: #EADC3A; */
-    /* background-color: rgb(240, 240, 240); */
+/* background-color: rgb(202, 68, 34); */
+/* background-color: whitesmoke; */
+/* background-color: #EADC3A; */
+/* background-color: rgb(240, 240, 240); */
 /* } */
 .rr_index_header_title {
     /* Schriftart Vast Shadow */
@@ -42,6 +43,7 @@ header {
     /* font-size: 3.8em; */
     font-size: 3.5em;
 }
+
 .rr_index_header_subtitle {
     /* font-family: 'Julius Sans One', sans-serif; */
     font-family: 'Anaheim', sans-serif;
@@ -56,17 +58,18 @@ header {
     /* Schriftart Vast Shadow */
     margin: 0.4em 0 0 0;
 }
+
 /* .rr_header_subtitle_text { */
-    /* font-family: 'Julius Sans One', sans-serif; */
-    /* font-family: 'Anaheim', sans-serif; */
-    /* font-family: 'PT Mono', monospace; */
-    /* font-size: 0.3em;
+/* font-family: 'Julius Sans One', sans-serif; */
+/* font-family: 'Anaheim', sans-serif; */
+/* font-family: 'PT Mono', monospace; */
+/* font-size: 0.3em;
     color: var(--text-color);
     font-weight: lighter;
     letter-spacing: 0.6em; */
-    /* line-height: 2em; */
-    /* font-weight: bolder; */
-    /* text-transform: uppercase;
+/* line-height: 2em; */
+/* font-weight: bolder; */
+/* text-transform: uppercase;
     margin: 2.7em 0;
 } */
 /* Verwendung, wenn alignment von Maus nicht über bottom und absolut erfolgen soll  */
@@ -88,6 +91,7 @@ header {
     /* background-color: #3746A1; */
     /* background-color: rgb(240, 240, 240); */
 }
+
 .rr_cta_mouse a img {
     position: absolute;
     bottom: calc(50% - 15px);
@@ -95,6 +99,7 @@ header {
     left: calc(50% - 10px);
     animation: moveDown 1.5s infinite 1.5s ease-in-out;
 }
+
 .rr_timeline_professional_background h2,
 .rr_timeline_academic_background h2 {
     font-family: 'Anaheim', sans-serif;
@@ -105,9 +110,11 @@ header {
     letter-spacing: 0.6em;
     line-height: 2em;
 }
+
 #rr_timeline_heading {
     padding: 3em 0 0 0;
 }
+
 /* .rr_timeline_flex_container {
     margin: 0;
 } */
@@ -130,6 +137,7 @@ header {
     /* grid-row-gap: 2em; */
     /* text-align: left; */
 }
+
 .rr_timeline_grid_item {
     width: 100%;
     line-height: 1.5em;
@@ -137,11 +145,13 @@ header {
     /* position: relative; */
     text-align: left;
 }
+
 .rr_timeline {
     width: 3px;
     text-align: center;
     background-color: var(--text-color);
 }
+
 .rr_timeline_text {
     background-color: var(--tile-bg-color);
     padding: 0.3em 1em 0.3em 1.5em;
@@ -150,13 +160,14 @@ header {
     box-shadow: var(--box-shadow);
     transition: all ease-in-out 0.4s;
 }
-.rr_timeline_text:hover {
+
+/* .rr_timeline_text:hover {
     background-color: var(--text-color);
     color: var(--bg-color);
     transition: all ease-in-out 0.4s;
     transform: scale(1.05);
     box-shadow: var(--box-shadow-hover);
-}
+} */
 /* .rr_timeline_grid_item h3::after {
     content: '';
     position: absolute;
@@ -172,25 +183,30 @@ header {
     left: -10.5%;
 } */
 @keyframes moveDown {
-    0%{
+    0% {
         transform: translateY(0);
-        }
-    50%{
+    }
+
+    50% {
         transform: translateY(5px);
-        }
-    100%{
+    }
+
+    100% {
         transform: translateY(0);
-        }
+    }
 }
+
 @media only screen and (max-width: 768px) {
     .rr_index_header_title {
         font-size: 3em;
         line-height: 1em;
     }
+
     .rr_index_header_subtitle {
         line-height: normal;
         margin-top: 1.5em;
     }
+
     /* .rr_header_subtitle_text {
         font-size: 0.3em;
         color: var(--text-color);
@@ -240,13 +256,14 @@ header {
         font-weight: bold;
         font-size: 0.7em;
         text-transform: lowercase; */
-        /* font-size: 1.2em; */
-        /* font-family: 'Kano'; */
-        /* text-shadow: 0px 0px 30px #000000; */
+    /* font-size: 1.2em; */
+    /* font-family: 'Kano'; */
+    /* text-shadow: 0px 0px 30px #000000; */
     /* } */
     #rr_timeline_heading {
         padding: 4.7em 0 0 0;
     }
+
     .rr_timeline_professional_background h2,
     .rr_timeline_academic_background h2 {
         margin: 1.2em 0 0 0;
@@ -254,6 +271,7 @@ header {
         font-size: 1.6em;
         /* font-weight: bold; */
     }
+
     .rr_timeline_grid_container {
         width: 100%;
         margin: 3em auto auto auto;
@@ -261,24 +279,29 @@ header {
         grid-row-gap: 1em;
         grid-template-columns: 1fr 99fr;
         grid-template-areas: "timeline info"
-                             "timeline text";
+            "timeline text";
         grid-column-start: 2;
         grid-column-end: 3;
     }
+
     .rr_timeline_grid_item {
         box-sizing: border-box;
         width: 100%;
     }
+
     .rr_timeline {
         grid-area: timeline;
         width: 3px;
     }
+
     .rr_timeline_text {
         grid-area: text;
     }
+
     .rr_timeline_text:hover {
         transform: scale(1.03);
     }
+
     .rr_timeline_info {
         font-size: 0.9em;
         grid-area: info;
