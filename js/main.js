@@ -48,6 +48,7 @@ window.onload = function() {
             if (onscroll > 75) {
                 isScrolled = true;
                 addClass("query", "nav", "onscroll");
+                addClass("query", "nav", "rr_container");
                 // document.querySelector("nav").classList.add("onscroll");
                 if (getWidth() < 550) {
                     addClass("id", "rr_nav_logo_text", "onscroll");
@@ -57,6 +58,7 @@ window.onload = function() {
             else {
                 isScrolled = false;
                 removeClass("query", "nav", "onscroll");
+                removeClass("query", "nav", "rr_container");
                 // document.querySelector("nav").classList.remove("onscroll");
                 if (getWidth() < 550) {
                     removeClass("id", "rr_nav_logo_text", "onscroll");
@@ -74,6 +76,7 @@ window.onload = function() {
         isClicked = !isClicked;
         if (isClicked) {
             addClass("query", "nav", "onscroll");
+            addClass("query", "nav", "rr_container");
             addClass("id", "rr_nav_plus_svg", "active");
             addClass("id", "rr_nav_right", "active");
             // document.querySelector("nav").classList.add("onscroll");
@@ -87,6 +90,7 @@ window.onload = function() {
         else {
             if (!isScrolled){
                 removeClass("query", "nav", "onscroll");
+                removeClass("query", "nav", "rr_container");
                 // document.querySelector("nav").classList.remove("onscroll");                
             }
             removeClass("id", "rr_nav_plus_svg", "active");
