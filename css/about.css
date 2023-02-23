@@ -30,13 +30,31 @@ header {
 } */
 .rr_about_img {
     filter: grayscale(100%);
-    border-radius: 7px 0 0 7px;
     height: 100%;
     width: 300px;
     object-fit: cover;
     object-position: top;
     /* if me_2.jpg is used */
+    border-radius: inherit;
     transition: all ease-in-out 0.4s;
+}
+
+.rr_about_img_container {
+    position: relative;
+    border-radius: 7px 0 0 7px;
+}
+
+.rr_about_img_container::after {
+    border-radius: inherit;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: radial-gradient(100rem circle at var(--posX) var(--posY),
+            rgba(250, 250, 250, .1),
+            transparent 20%);
 }
 
 /* .rr_about_img:hover {
