@@ -50,7 +50,7 @@ nav {
     font-family: 'Anaheim', sans-serif;
     color: var(--text-color);
     border-radius: 7px;
-    border: 1px solid rgba(250, 250, 250, 0);
+    border: 3px solid rgba(250, 250, 250, 0);
     /* padding: 0.7em 3em; */
     padding: 0.3em 3em;
     margin: 1em 0 0 0;
@@ -67,7 +67,7 @@ nav {
 nav.onscroll {
     background-color: var(--tile-bg-color);
     box-shadow: var(--nav-shadow);
-    border: 1px solid rgba(250, 250, 250, .1);
+    border: 3px solid rgba(250, 250, 250, .1);
     margin: 1.5em 0 0 0;
     transition: all ease-in-out 0.4s;
 }
