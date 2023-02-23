@@ -26,8 +26,8 @@ window.onload = function() {
         document.documentElement.style.setProperty('--tile-bg-color', 'rgba(15, 15, 15, .1)');
         document.documentElement.style.setProperty('--text-color', 'rgba(238, 238, 238, 1)');
         document.documentElement.style.setProperty('--skills-color', 'rgba(10, 37, 60, 1)');
-        document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(180, 180, 180, 0.2)');
-        document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(255, 255, 255, 0.1), 0 8px 16px 0 rgba(204, 204 ,204, 0.2)');
+        // document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(180, 180, 180, 0.2)');
+        // document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(255, 255, 255, 0.1), 0 8px 16px 0 rgba(204, 204 ,204, 0.2)');
     } else {
         document.documentElement.style.setProperty('--svg-color', 'invert(0)');
         document.documentElement.style.setProperty('--bg-color', 'rgba(250, 250, 250, 1)');
@@ -35,8 +35,8 @@ window.onload = function() {
         document.documentElement.style.setProperty('--tile-bg-color', 'rgba(255, 255, 255, .1)');
         document.documentElement.style.setProperty('--text-color', 'rgba(15, 15, 15, 1)'); /* eventuell ändern auf rgba(15, 15, 15, 1), alt/original rgba(51, 51, 51, 1) */
         document.documentElement.style.setProperty('--skills-color', 'rgba(245, 218, 195, 1)');
-        document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(75, 75, 75, 0.2)');
-        document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(51, 51, 51, 0.2)');
+        // document.documentElement.style.setProperty('--nav-shadow', '0px 0px 8px rgba(75, 75, 75, 0.2)');
+        // document.documentElement.style.setProperty('--box-shadow', 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(51, 51, 51, 0.2)');
     }
     
     /* --------------------------------------------------------- */
@@ -100,15 +100,19 @@ window.onload = function() {
         }
     });
 
-    Array.from(document.getElementsByClassName('rr_container')).forEach(element => {
-        element.addEventListener('mousemove', function ($event) {
-            const rect = element.getBoundingClientRect();
-            const x = $event.clientX - rect.left;
-            const y = $event.clientY - rect.top;
-            element.style.setProperty('--posX', `${x}px`)
-            element.style.setProperty('--posY', `${y}px`)
-        })
-    });
+    document.addEventListener('mousemove', function ($event) {
+        Array.from(document
+            .getElementsByClassName('rr_container'))
+            .forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const x = $event.clientX - rect.left;
+                const y = $event.clientY - rect.top;
+                element.style.setProperty('--posX', `${x}px`)
+                element.style.setProperty('--posY', `${y}px`)
+        });
+    })
+
+   
     // if(getWidth() > 1300){
     //     addParticles();
     // }
