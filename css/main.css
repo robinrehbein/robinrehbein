@@ -197,7 +197,7 @@ footer p img {
     }
 
     nav.onscroll {
-        background-color: var(--bg-color);
+        background-color: var(--tile-bg-color);
         width: 85%;
         box-shadow: var(--nav-shadow);
         margin: 1.7em 0 0 0;
