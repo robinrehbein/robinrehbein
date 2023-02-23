@@ -2,7 +2,7 @@
 /* ############### - Global used Variables - ############### */
 /* --------------------------------------------------------- */
 var isClicked = false;
-var isScrolled = window.scrollY > 75;
+var isScrolled = false;
 
 /* ------------------------------------------------------------- */
 /* ####### - Functions onload, fire when DOM is loaded - ####### */
