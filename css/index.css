@@ -299,9 +299,9 @@ header {
         grid-area: text;
     }
 
-    .rr_timeline_text:hover {
+    /* .rr_timeline_text:hover {
         transform: scale(1.03);
-    }
+    } */
 
     .rr_timeline_info {
         font-size: 0.9em;
