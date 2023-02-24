@@ -28,6 +28,7 @@ header {
     transition: all ease-in-out 0.4s;
     display: grid;
     grid-template-rows: 200px 1fr;
+    background-color: var(--tile-bg-color);
 }
 
 /* .rr_work_card:hover {
@@ -79,7 +80,6 @@ header {
     grid-template-rows: auto 1fr auto;
     grid-row-gap: 1em;
     text-align: justify;
-    background-color: var(--tile-bg-color);
     border-radius: 0 0 7px 7px;
 }
 
