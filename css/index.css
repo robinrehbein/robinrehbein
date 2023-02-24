@@ -20,9 +20,8 @@ header {
 
     /* font-family: 'Monoton', cursive; */
     /* font-family: 'Faster One', cursive; */
-    /* font-family: 'Bungee Inline', cursive; */
-    /* font-family: 'Bungee Shade'; */
-    font-family: 'Vast Shadow', cursive;
+    font-family: 'Bungee Shade';
+    /* font-family: 'Vast Shadow', cursive; */
     /* padding: 30vh 10vw 0 10vw; */
     padding: 37vh 10vw 0 10vw;
     /* padding: 38vh 10vw 0 10vw; */
@@ -46,6 +45,7 @@ header {
 
 .rr_index_header_subtitle {
     /* font-family: 'Julius Sans One', sans-serif; */
+    /* font-family: 'Cutive Mono', sans-serif; */
     font-family: 'Anaheim', sans-serif;
     /* font-family: 'PT Mono', monospace; */
     /* font-size: 0.3em; */

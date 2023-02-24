@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Anaheim|Anonymous+Pro|Bai+Jamjuree|Black+Ops+One|Bungee|Bungee+Inline|Bungee+Shade|Chathura|Comfortaa|Cutive+Mono|Duru+Sans|Expletus+Sans|Faster+One|Flamenco|Geo|Geostar+Fill|Graduate|Iceberg|Julius+Sans+One|Jura|K2D|Lekton|Megrim|Monoton|Montserrat|Nixie+One|Overpass+Mono|PT+Mono|Plaster|Poiret+One|Press+Start+2P|Quantico|Share+Tech+Mono|Space+Mono|VT323|Vast+Shadow');
+@import url('https://fonts.googleapis.com/css?family=Anaheim|Anonymous+Pro|Bai+Jamjuree|Black+Ops+One|Bungee|Bungee+Inline|Bungee+Shade|Chathura|Comfortaa|Cutive+Mono|Duru+Sans|Expletus+Sans|Faster+One|Flamenco|Geo|Geostar+Fill|Graduate|Iceberg|Julius+Sans+One|Jura|K2D|Lekton|Megrim|Monoton|Montserrat|Nixie+One|Overpass+Mono|PT+Mono|Plaster|Poiret+One|Press+Start+2P|Quantico|Share+Tech+Mono|Space+Mono|VT323|Vast+Shadow|Gloock|Cutive+Mono|Rampart+One');
 
 :root {
     --theme-color: rgba(90, 120, 110, 1);
@@ -166,7 +166,6 @@ nav.onscroll {
     background: radial-gradient(100rem circle at var(--posX) var(--posY),
             var(--mouse-move-color),
             transparent 20%);
-
 }
 
 section {
