@@ -29,7 +29,7 @@ header {
 }
 
 .rr_disclaimer_card {
-    border: 3px solid rgba(250, 250, 250, .1);
+    border: 3px solid var(--border-color);
     line-height: 1.5em;
     letter-spacing: 0.05em;
     background-color: var(--tile-bg-color);
