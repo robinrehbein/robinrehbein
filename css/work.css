@@ -40,6 +40,20 @@ header {
     padding: 2.4em 2em;
     border-radius: 7px 7px 0 0;
     text-align: center;
+    position: relative;
+}
+
+.rr_work_card_top::after {
+    border-radius: inherit;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: radial-gradient(100rem circle at var(--posX) var(--posY),
+            var(--mouse-move-color),
+            transparent 20%);
 }
 
 .rr_work_card_svg {
