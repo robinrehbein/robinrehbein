@@ -17,17 +17,20 @@
 	});
 
 	async function gridGenerator() {
-		const url = new URL('http://127.0.0.1:5173/api/grid-generator');
-		url.searchParams.append('width', width.toString());
-		url.searchParams.append('height', height.toString());
-		url.searchParams.append('density', density.toString());
-		const response = await fetch(url, {
+		// const url = new URL('http://127.0.0.1:5173/api/grid-generator');
+		// url.searchParams.append('width', width.toString());
+		// url.searchParams.append('height', height.toString());
+		// url.searchParams.append('density', density.toString());
+		// console.log(url)
+		const response = await fetch(`/api/grid-generator?width=${width.toString()}?height=${height.toString()}?density=${density.toString()}`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'
 			}
 		});
+		console.log(response);
 		pixels = await response.json();
+		console.log(pixels);
 	}
 </script>
 

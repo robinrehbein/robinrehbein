@@ -1,11 +1,14 @@
 <script lang="ts">
-	import type { Pixel } from 'src/routes/api/grid-generator/+server';
 	import { onMount } from 'svelte';
-
+	type Pixel = {
+		x: number;
+		y: number;
+		color: { r: number; g: number; b: number; a: number };
+	};
 	export let pixels: Pixel[];
 	export let width: number;
 	export let height: number;
-	export let size: number = 10;
+	export let size: number = 100;
 
 	let canvas: HTMLCanvasElement;
 	let context: CanvasRenderingContext2D;
@@ -42,7 +45,8 @@
 		}, pixels[0]);
 	}
 
-	function drawLines(context: CanvasRenderingContext2D | null) {
+	// function drawLines(context: CanvasRenderingContext2D | null) {
+	function drawLines() {
 		console.log('Draw on canvas dots');
 
 		if (!context) {
@@ -51,7 +55,7 @@
 		}
 
 		pixels.reduce((prev, curr) => {
-			const radius = getRadius(curr.color.r, curr.color.g, curr.color.b, 10);
+			const radius = getRadius(curr.color.r, curr.color.g, curr.color.b);
 			const color = getColor(curr.color.r, curr.color.g, curr.color.b, curr.color.a);
 
 			if (prev && prev.y >= curr.y) {
@@ -75,7 +79,8 @@
 
 	onMount(() => {
 		context = canvas.getContext('2d')!;
-		drawDots();
+		// drawDots();
+		drawLines();
 	});
 </script>
 
