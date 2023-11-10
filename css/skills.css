@@ -99,13 +99,12 @@ header {
 .rr_skills_svg_child {
     display: flex;
     flex-wrap: wrap;
-    /* gap: 0.5em; */
+    gap: 1.5em;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
 .rr_skills_svg_container img {
-    margin: 0 0.7em;
     height: 2em;
 }
