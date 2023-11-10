@@ -1,9 +1,20 @@
+<script lang="ts">
+	import Window from '../Window.svelte';
+	import launch from '../../lib/transition/launch';
+
+	let mousePos = { x: 0, y: 0 };
+	function handleClick(event: MouseEvent) {
+		mousePos.x = event.clientX;
+		mousePos.y = event.clientY;
+	}
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="text-column">
+<Window>
 	<h1>About this app</h1>
 
 	<p>
@@ -19,8 +30,8 @@
 		the devtools network panel and reloading.
 	</p>
 
-	<p>
+	<!-- <p>
 		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
 		using it with JavaScript disabled!
-	</p>
-</div>
+	</p> -->
+</Window>

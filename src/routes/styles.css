@@ -15,3 +15,10 @@
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
+
+/* body {
+	min-height: 100vh;
+	background-image: url('../lib/images/background.jpg');
+	background-position: top;
+	background-size: cover;
+} */

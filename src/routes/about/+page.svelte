@@ -1,9 +1,20 @@
+<script lang="ts">
+	import Window from '../Window.svelte';
+	let mousePos = { x: 0, y: 0 };
+	function handleClick(event: MouseEvent) {
+		mousePos.x = event.clientX;
+		mousePos.y = event.clientY;
+		console.log(mousePos);
+	}
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="text-column">
+<!-- <section in:fly={{ y: 10, duration: 300, delay: 300 }} out:fly={{ y: 10, duration: 300 }}> -->
+<Window>
 	<h1>About this app</h1>
 
 	<p>
@@ -18,9 +29,9 @@
 		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
 		the devtools network panel and reloading.
 	</p>
-
+	<!-- 
 	<p>
 		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
 		using it with JavaScript disabled!
-	</p>
-</div>
+	</p> -->
+</Window>
