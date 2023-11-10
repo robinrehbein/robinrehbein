@@ -1,86 +1,59 @@
-<script lang="ts">
-	import Canvas from '$lib/canvas/Canvas.svelte';
-	import Header from '$lib/header/Header.svelte';
-	import Timeline from '$lib/timeline/Timeline.svelte';
-	import { onMount } from 'svelte';
-	import type { Pixel } from './api/grid-generator/+server';
-	import mouse from './mouse.svg';
-
-	let pixels: Pixel[] = [];
-	let height: number;
-	let width: number;
-	let density: number = 5;
-	let size: number = 170;
-
-	onMount(async () => {
-		await gridGenerator();
-	});
-
-	async function gridGenerator() {
-		// const url = new URL('http://127.0.0.1:5173/api/grid-generator');
-		// url.searchParams.append('width', width.toString());
-		// url.searchParams.append('height', height.toString());
-		// url.searchParams.append('density', density.toString());
-		// console.log(url)
-		const response = await fetch(`/api/grid-generator?width=${width.toString()}?height=${height.toString()}?density=${density.toString()}`, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		console.log(response);
-		pixels = await response.json();
-		console.log(pixels);
-	}
+<script>
+	import Counter from './Counter.svelte';
+	import welcome from '$lib/images/svelte-welcome.webp';
+	import welcome_fallback from '$lib/images/svelte-welcome.png';
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Robin Rehbein" />
+	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<svelte:window bind:innerHeight={height} bind:innerWidth={width} />
-
 <section>
-	{#if pixels.length > 0}
-		<Canvas {pixels} {width} {height} {size} />
-	{/if}
+	<h1>
+		<span class="welcome">
+			<picture>
+				<source srcset={welcome} type="image/webp" />
+				<img src={welcome_fallback} alt="Welcome" />
+			</picture>
+		</span>
 
-	<Header>
-		<h1 slot="title">Robin Rehbein</h1>
-		<h2 slot="headline">Full Stack Developer</h2>
-	</Header>
+		to your new<br />SvelteKit app
+	</h1>
 
-	<button on:click={gridGenerator}>trigger</button>
-	<div>
-		<a href="#timeline">
-			<img src={mouse} alt="Mouse to scroll down" />
-		</a>
-	</div>
+	<h2>
+		try editing <strong>src/routes/+page.svelte</strong>
+	</h2>
+
+	<Counter />
 </section>
-<Timeline />
 
-<style lang="scss">
-	div {
-		height: 35vh;
+<style>
+	section {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex: 0.6;
+	}
+
+	h1 {
+		width: 100%;
+	}
+
+	.welcome {
+		display: block;
 		position: relative;
+		width: 100%;
+		height: 0;
+		padding: 0 0 calc(100% * 495 / 2048) 0;
 	}
-	img {
-		height: 2rem;
+
+	.welcome img {
 		position: absolute;
-		bottom: 20%;
-		left: calc(50% - 10px);
-		animation: moveDown 1.5s infinite 1.5s ease-in-out;
-	}
-	@keyframes moveDown {
-		0% {
-			transform: translateY(0);
-		}
-		50% {
-			transform: translateY(10px);
-		}
-		100% {
-			transform: translateY(0);
-		}
+		width: 100%;
+		height: 100%;
+		top: 0;
+		display: block;
 	}
 </style>
