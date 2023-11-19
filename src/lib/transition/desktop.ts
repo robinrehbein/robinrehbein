@@ -1,12 +1,8 @@
 import { cubicInOut } from 'svelte/easing';
 
-export default function launch(
+export default function desktop(
 	_: unknown,
-	{
-		duration,
-		delay = 0,
-		mousePos = { x: 0, y: 0 }
-	}: { duration: number; delay?: number; mousePos?: { x: number; y: number } }
+	{ duration, delay = 0 }: { duration: number; delay?: number }
 ) {
 	// const x = event.clientX;
 	// const y = event.clientY;
@@ -16,10 +12,10 @@ export default function launch(
 		delay,
 		css: (t: number) => {
 			const cubic = cubicInOut(t);
-
 			return `
-                transform: translate(${mousePos.x}px, ${mousePos.y}px) scale(${cubic});
+                transform: scale(${95 + cubic * 5}%);
                 transform-origin: bottom;
+				opacity: ${cubic};
             `;
 		}
 	};

@@ -1,11 +1,5 @@
 <script lang="ts">
 	import Window from '../Window.svelte';
-	let mousePos = { x: 0, y: 0 };
-	function handleClick(event: MouseEvent) {
-		mousePos.x = event.clientX;
-		mousePos.y = event.clientY;
-		console.log(mousePos);
-	}
 </script>
 
 <svelte:head>

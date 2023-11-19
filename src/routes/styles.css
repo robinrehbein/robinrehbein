@@ -16,9 +16,11 @@
 	color: var(--color-text);
 }
 
-/* body {
-	min-height: 100vh;
+body {
+	height: 100vh;
+	width: 100vw;
 	background-image: url('../lib/images/background.jpg');
 	background-position: top;
 	background-size: cover;
-} */
+	overflow: hidden;
+}

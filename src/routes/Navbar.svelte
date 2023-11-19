@@ -1,7 +1,22 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
 	import { page } from '$app/stores';
-	import logo from '$lib/images/robinrehbein-logo.svg';
+	import windowStore from '$lib/store/windowStore';
+	import { goto } from '$app/navigation';
+
+	function handleClick(id: string) {
+		const window = $windowStore.find((window) => window.id === id);
+		if (!window) return;
+
+		if (window.minimized) {
+			windowStore.update(id, { minimized: false });
+			goto(`/${id}`);
+			return;
+		}
+
+		windowStore.update(id, { minimized: true });
+		goto(`/`);
+	}
 </script>
 
 <!-- <nav
@@ -15,13 +30,20 @@
 				class={cn(
 					'transition-all duration-300 min-w-16 relative bg-white rounded-xl p-2 aspect-square shadow-md hover:scale-95 after:opacity-0 after:transition-all after:duration-300',
 					{
-						'font-bold after:bg-neutral-800 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 after:opacity-100 after:h-1 after:w-1 after:rounded-full':
-							$page.url.pathname === '/'
+						'font-bold after:!bg-neutral-800': $page.url.pathname === '/home'
+					},
+					{
+						'after:bg-neutral-400 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 after:opacity-100 after:h-1 after:w-1 after:rounded-full':
+							$windowStore.map((window) => window.id).includes('home')
 					}
 				)}
-				aria-current={$page.url.pathname === '/' ? 'page' : undefined}
+				aria-current={$page.url.pathname === '/home' ? 'page' : undefined}
 			>
-				<a class="text-2xs h-full flex flex-col justify-between items-center gap-1" href="/">
+				<a
+					on:click={() => handleClick('home')}
+					class="text-2xs h-full flex flex-col justify-between items-center gap-1"
+					href="/home"
+				>
 					<!-- <img class="h-2/3" src="" alt="home" /> -->
 					<span class="text-2xl">🏡</span>
 					$ ~/home
@@ -31,13 +53,20 @@
 				class={cn(
 					'transition-all duration-300 min-w-16 relative bg-white rounded-xl p-2 aspect-square shadow-md hover:scale-95 after:transition-all after:duration-300',
 					{
-						'after:h-1 after:w-1 after:rounded-full after:bg-neutral-800 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 font-bold':
-							$page.url.pathname === '/work'
+						'font-bold after:!bg-neutral-800': $page.url.pathname === '/work'
+					},
+					{
+						'after:bg-neutral-400 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 after:opacity-100 after:h-1 after:w-1 after:rounded-full':
+							$windowStore.map((window) => window.id).includes('work')
 					}
 				)}
 				aria-current={$page.url.pathname === '/work' ? 'page' : undefined}
 			>
-				<a class="text-2xs h-full flex flex-col justify-between items-center gap-1" href="/work">
+				<a
+					on:click={() => handleClick('work')}
+					class="text-2xs h-full flex flex-col justify-between items-center gap-1"
+					href="/work"
+				>
 					<!-- <img class="h-2/3" src="" alt="work" /> -->
 					<span class="text-2xl">💼</span>
 					$ ~/work
@@ -47,13 +76,20 @@
 				class={cn(
 					'transition-all duration-300 min-w-16 relative bg-white rounded-xl p-2 aspect-square shadow-md hover:scale-95 after:transition-all after:duration-300',
 					{
-						'after:h-1 after:w-1 after:rounded-full after:bg-neutral-800 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 font-bold':
-							$page.url.pathname === '/skills'
+						'font-bold after:!bg-neutral-800': $page.url.pathname === '/skills'
+					},
+					{
+						'after:bg-neutral-400 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 after:opacity-100 after:h-1 after:w-1 after:rounded-full':
+							$windowStore.map((window) => window.id).includes('skills')
 					}
 				)}
 				aria-current={$page.url.pathname === '/skills' ? 'page' : undefined}
 			>
-				<a class="text-2xs h-full flex flex-col justify-between items-center gap-1" href="/skills">
+				<a
+					on:click={() => handleClick('skills')}
+					class="text-2xs h-full flex flex-col justify-between items-center gap-1"
+					href="/skills"
+				>
 					<!-- <img class="h-2/3" src="" alt="skills" /> -->
 					<span class="text-2xl">🕹️</span>
 					$ ~/skills
@@ -63,13 +99,20 @@
 				class={cn(
 					'transition-all duration-300 min-w-16 relative bg-white rounded-xl p-2 aspect-square shadow-md hover:scale-95 after:transition-all after:duration-300',
 					{
-						'after:h-1 after:w-1 after:rounded-full after:bg-neutral-800 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 font-bold':
-							$page.url.pathname === '/about'
+						'font-bold after:!bg-neutral-800': $page.url.pathname === '/about'
+					},
+					{
+						'after:bg-neutral-400 after:absolute after:-bottom-2 after:-translate-x-1/2 after:left-1/2 after:opacity-100 after:h-1 after:w-1 after:rounded-full':
+							$windowStore.map((window) => window.id).includes('about')
 					}
 				)}
 				aria-current={$page.url.pathname === '/about' ? 'page' : undefined}
 			>
-				<a class="text-2xs h-full flex flex-col justify-between items-center gap-1" href="/about">
+				<a
+					on:click={() => handleClick('about')}
+					class="text-2xs h-full flex flex-col justify-between items-center gap-1"
+					href="/about"
+				>
 					<!-- <img class="h-2/3" src="" alt="about" /> -->
 					<span class="text-2xl">📋</span>
 					$ ~/about
