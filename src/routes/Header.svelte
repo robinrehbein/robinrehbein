@@ -3,13 +3,19 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { fly } from 'svelte/transition';
+	import Button from './Button.svelte';
 
 	let dateTime: string;
 
 	$: settings = false;
+	$: menu = false;
 
 	function handleSettings() {
 		settings = !settings;
+	}
+
+	function handleMenu() {
+		menu = !menu;
 	}
 
 	onMount(() => {
@@ -28,8 +34,10 @@
 	class="relative flex flex-row justify-between items-center h-7 p-1 bg-neutral-100/30 backdrop-blur-sm border border-b-neutral-100/40"
 >
 	<ul class="flex flex-row gap-2 items-center justify-start">
-		<li>
-			<img class="h-5" src={logo} alt="Logo Robin Rehbein" />
+		<li class="h-5">
+			<Button handleClick={handleMenu}>
+				<img class="h-5" src={logo} alt="Logo Robin Rehbein" />
+			</Button>
 		</li>
 		<li>
 			<p class="text-xs font-bold">{$page.url.pathname}</p>
