@@ -86,6 +86,10 @@ header {
     /* #78A165; /* rgb(120, 161, 101); /* rgb(130, 185, 105) */
 }
 
+.rr_work_card_six .rr_work_card_top {
+    background-color: rgb(55, 48, 163);
+}
+
 .rr_work_card_bottom {
     font-family: 'Anaheim', sans-serif;
     padding: 1em 1.5em;
