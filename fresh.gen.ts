@@ -8,6 +8,7 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $Synthwave from "./islands/Synthwave.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -20,6 +21,7 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/Synthwave.tsx": $Synthwave,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
