@@ -1,22 +1,24 @@
-import { IconGithub, IconLogo, IconMail } from "./Icons.tsx";
+import { Button } from "./Button.tsx";
+import { IconGithub, IconHamburger, IconLogo, IconMail } from "./Icons.tsx";
 
 const Navbar = () => {
   return (
-    <nav class="flex flex-row items-center justify-between bg-neutral-50/50 border border-neutral-50 px-8 py-4 shadow-sm rounded-full w-fit m-auto gap-8">
+    // ToDo: Opacity not working currently, check how to add to custom colors in tailwind
+    <nav class="flex flex-row items-center justify-between backdrop-blur bg-background/50 border border-background px-8 py-4 shadow rounded-full w-fit m-auto gap-12">
       <ul
-        class={"text-neutral-700 flex flex-row items-center gap-2"}
+        class={"text-foreground flex flex-row items-center gap-4"}
       >
         <li>
           <IconLogo />
         </li>
         <li>
-          <a href="/" class="text-neutral-700">
+          <a href="/" class="text-foreground font-semibold">
             Robin Rehbein
           </a>
         </li>
       </ul>
       <ul
-        class={"text-neutral-700 flex flex-row items-center gap-2"}
+        class={"text-foreground md:flex flex-row items-center gap-4 hidden text-sm"}
       >
         <li>
           home.
@@ -37,15 +39,18 @@ const Navbar = () => {
         }
       </ul>
       <ul
-        class={"text-neutral-700 flex flex-row items-center gap-2"}
+        class={"text-racing-green hidden md:flex flex-row items-center gap-4"}
       >
-        <li>
-          <IconGithub />
-        </li>
         <li>
           <IconMail />
         </li>
+        <li>
+          <IconGithub />
+        </li>
       </ul>
+      <Button class={"md:hidden text-racing-green"}>
+        <IconHamburger />
+      </Button>
     </nav>
   );
 };

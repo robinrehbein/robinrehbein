@@ -8,7 +8,7 @@ export default function App({ Component }: PageProps) {
         <title>Robin Rehbein</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body>
+      <body class="bg-background text-foreground">
         <Component />
       </body>
     </html>
