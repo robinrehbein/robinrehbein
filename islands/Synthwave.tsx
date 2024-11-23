@@ -47,7 +47,7 @@ const Synthwave = () => {
       const gridSize = 40;
       const numLines = 20;
 
-      ctx.strokeStyle = "#ff00ff";
+      ctx.strokeStyle = "#5a776d";
       ctx.lineWidth = 2;
 
       // Zeichne vertikale Linien
