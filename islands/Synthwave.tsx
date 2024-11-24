@@ -30,8 +30,18 @@ const Synthwave = () => {
         sunY,
         sunRadius,
       );
-      gradient.addColorStop(0, "#ffcc00");
-      gradient.addColorStop(1, "rgba(255, 204, 0, 0)");
+      gradient.addColorStop(
+        0,
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--mustard-yellow-500",
+        ) || "#f0c775",
+      );
+      gradient.addColorStop(
+        1,
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--foreground",
+        ) || "#fefcf1",
+      );
 
       ctx.fillStyle = gradient;
       ctx.beginPath();
@@ -40,14 +50,18 @@ const Synthwave = () => {
     };
 
     let offset = 0;
-    const speed = 2;
+    const speed = .1;
 
     const drawGrid = () => {
       const horizonY = canvas.height / 2;
-      const gridSize = 40;
-      const numLines = 20;
+      const horizonX = canvas.width;
+      const gridSize = horizonY / 10;
+      const numLines = horizonX / gridSize;
 
-      ctx.strokeStyle = "#5a776d";
+      ctx.strokeStyle =
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--racing-green-500",
+        ) || "#5a776d";
       ctx.lineWidth = 2;
 
       // Zeichne vertikale Linien
