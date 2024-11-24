@@ -5,9 +5,13 @@ import Synthwave from "../islands/Synthwave.tsx";
 export default function Home() {
   return (
     <>
-      <section class="p-4 mx-auto text-center min-h-screen flex flex-col items-center justify-center">
-        <H variant={"h1"}>Robin Rehbein</H>
-        <H variant={"h2"}>Fullstack Developer</H>
+      <section class="text-center relative">
+        <div
+          class={"z-10 top-1/4 absolute left-1/2 -translate-x-1/2"}
+        >
+          <H variant={"h1"}>Robin Rehbein</H>
+          <H variant={"h2"}>Fullstack Developer</H>
+        </div>
         <Synthwave />
       </section>
       <section>

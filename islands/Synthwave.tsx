@@ -1,7 +1,17 @@
 import { useEffect, useRef } from "preact/hooks";
+import { Point } from "../lib/types.ts";
 
 const Synthwave = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const mousePositionRef = useRef({
+    x: globalThis.innerWidth / 2,
+    y: globalThis.innerHeight / 4,
+  });
+  const sunPositionRef = useRef({
+    x: globalThis.innerWidth / 2,
+    y: globalThis.innerHeight / 4,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,24 +27,87 @@ const Synthwave = () => {
       }
     };
 
-    const drawSun = () => {
-      const sunX = canvas.width / 2;
-      const sunY = canvas.height / 3;
-      const sunRadius = 100;
+    const handleMouseMove = (event: MouseEvent) => {
+      mousePositionRef.current = { x: event.clientX, y: event.clientY };
+    };
 
+    const bezier = (
+      t: number,
+      p0: Point,
+      p1: Point,
+      p2: Point,
+      p3: Point,
+    ): Point => {
+      const cX = 3 * (p1.x - p0.x);
+      const bX = 3 * (p2.x - p1.x) - cX;
+      const aX = p3.x - p0.x - cX - bX;
+
+      const cY = 3 * (p1.y - p0.y);
+      const bY = 3 * (p2.y - p1.y) - cY;
+      const aY = p3.y - p0.y - cY - bY;
+
+      const x = ((aX * t + bX) * t + cX) * t + p0.x;
+      const y = ((aY * t + bY) * t + cY) * t + p0.y;
+
+      return { x, y };
+    };
+
+    const drawSun = () => {
+      const { x: mouseX, y: mouseY } = mousePositionRef.current;
+      const { x: sunX, y: sunY } = sunPositionRef.current;
+
+      // Limit the mouse's Y-coordinate to the 60-80% range of the screen
+      const minY = canvas.height * 0.05;
+      const maxY = canvas.height * 0.35;
+      const constrainedMouseY = Math.max(minY, Math.min(mouseY, maxY));
+
+      const minX = canvas.width * 0.3;
+      const maxX = canvas.width * 0.7;
+      const constrainedMouseX = Math.max(minX, Math.min(mouseX, maxX));
+
+      // Control points for Bezier curve
+      const start = { x: sunX, y: sunY };
+      const control1 = {
+        x: sunX + (constrainedMouseX - sunX) * 0.0001,
+        y: sunY,
+      };
+      const control2 = {
+        x: constrainedMouseX - (constrainedMouseX - sunX) * 0.0001,
+        y: constrainedMouseY,
+      };
+
+      const end = { x: constrainedMouseX, y: constrainedMouseY };
+
+      // Interpolate along the Bezier curve
+      const newSunPosition = bezier(0.05, start, control1, control2, end);
+      sunPositionRef.current = newSunPosition;
+
+      const sunRadius = 200;
       const gradient = ctx.createRadialGradient(
-        sunX,
-        sunY,
+        newSunPosition.x,
+        newSunPosition.y,
         0,
-        sunX,
-        sunY,
+        newSunPosition.x,
+        newSunPosition.y,
         sunRadius,
       );
       gradient.addColorStop(
         0,
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--mustard-yellow-500",
+          "--mustard-yellow-300",
         ) || "#f0c775",
+      );
+      gradient.addColorStop(
+        .3,
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--mustard-yellow-200",
+        ) || "#fefcf1",
+      );
+      gradient.addColorStop(
+        .6,
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--mustard-yellow-100",
+        ) || "#fefcf1",
       );
       gradient.addColorStop(
         1,
@@ -45,8 +118,10 @@ const Synthwave = () => {
 
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+      //   ctx.filter = "blur(50px)";
+      ctx.arc(newSunPosition.x, newSunPosition.y, sunRadius, 0, Math.PI * 2);
       ctx.fill();
+      //   ctx.filter = "none";
     };
 
     let offset = 0;
@@ -64,19 +139,28 @@ const Synthwave = () => {
         ) || "#5a776d";
       ctx.lineWidth = 2;
 
-      // Zeichne vertikale Linien
+      ctx.beginPath();
+      ctx.moveTo(0, horizonY);
+      ctx.lineTo(canvas.width, horizonY);
+      ctx.stroke();
+
+      // Draw vertical lines
       for (let i = -numLines; i <= numLines; i++) {
         const x = (canvas.width / 2) + i * gridSize;
         ctx.beginPath();
-        ctx.moveTo(x, horizonY);
-        ctx.lineTo(x * 0.5 + canvas.width / 2 * 0.5, canvas.height);
+        ctx.moveTo(x * 0.5 + canvas.width / 2 * 0.5, horizonY);
+        ctx.lineTo(x, canvas.height);
         ctx.stroke();
       }
 
-      // Zeichne horizontale Linien
+      // Draw horizontal lines
+      // ToDo: Add perspective
       for (let i = 0; i <= numLines; i++) {
         const y = horizonY +
-          (i * gridSize + offset) % (canvas.height - horizonY);
+          (i * gridSize - offset) % (canvas.height - horizonY);
+        if (y < horizonY) {
+          continue;
+        }
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
@@ -94,10 +178,12 @@ const Synthwave = () => {
 
     handleResize();
     globalThis.addEventListener("resize", handleResize);
+    globalThis.addEventListener("mousemove", handleMouseMove);
     animate();
 
     return () => {
       globalThis.removeEventListener("resize", handleResize);
+      globalThis.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 

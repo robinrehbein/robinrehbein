@@ -6,4 +6,6 @@ type Project = {
   snippet: string;
 };
 
-export type { Project };
+type Point = { x: number; y: number };
+
+export type { Point, Project };
