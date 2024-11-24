@@ -68,11 +68,11 @@ const Synthwave = () => {
       // Control points for Bezier curve
       const start = { x: sunX, y: sunY };
       const control1 = {
-        x: sunX + (constrainedMouseX - sunX) * 0.0001,
+        x: sunX + (constrainedMouseX - sunX) * 0.000001,
         y: sunY,
       };
       const control2 = {
-        x: constrainedMouseX - (constrainedMouseX - sunX) * 0.0001,
+        x: constrainedMouseX - (constrainedMouseX - sunX) * 0.000001,
         y: constrainedMouseY,
       };
 
@@ -112,7 +112,7 @@ const Synthwave = () => {
       gradient.addColorStop(
         1,
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--foreground",
+          "--background",
         ) || "#fefcf1",
       );
 
