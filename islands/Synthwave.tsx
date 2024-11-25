@@ -94,19 +94,19 @@ const Synthwave = () => {
       gradient.addColorStop(
         0,
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--mustard-yellow-300",
+          "--racing-green-300",
         ) || "#f0c775",
       );
       gradient.addColorStop(
         .3,
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--mustard-yellow-200",
+          "--racing-green-200",
         ) || "#fefcf1",
       );
       gradient.addColorStop(
         .6,
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--mustard-yellow-100",
+          "--racing-green-100",
         ) || "#fefcf1",
       );
       gradient.addColorStop(
