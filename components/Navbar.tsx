@@ -32,6 +32,9 @@ const Navbar = () => {
         <li>
           about.
         </li>
+        <li>
+          hub.
+        </li>
         {
           /* <li>
           blog.

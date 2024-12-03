@@ -7,7 +7,7 @@ const Layout = ({ Component, state }: PageProps) => {
       <header class="fixed top-6 z-10 w-full p-4">
         <Navbar />
       </header>
-      <main>
+      <main class={"pt-32"}>
         <Component />
       </main>
     </>

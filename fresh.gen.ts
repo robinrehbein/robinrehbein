@@ -5,9 +5,11 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
+import * as $hub_index from "./routes/hub/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $HubClient from "./islands/HubClient.tsx";
 import * as $Synthwave from "./islands/Synthwave.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -16,11 +18,13 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
+    "./routes/hub/index.tsx": $hub_index,
     "./routes/index.tsx": $index,
     "./routes/projects/index.tsx": $projects_index,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/HubClient.tsx": $HubClient,
     "./islands/Synthwave.tsx": $Synthwave,
   },
   baseUrl: import.meta.url,
