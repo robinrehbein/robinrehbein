@@ -12,7 +12,7 @@ const Navbar = () => {
           <IconLogo />
         </li>
         <li>
-          <a href="/" class="text-foreground font-semibold">
+          <a href="/" class="text-foreground font-anaheim">
             Robin Rehbein
           </a>
         </li>

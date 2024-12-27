@@ -5,12 +5,16 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
+import * as $admin_index from "./routes/admin/index.tsx";
+import * as $api_login_index from "./routes/api/login/index.ts";
+import * as $api_logout_index from "./routes/api/logout/index.ts";
 import * as $hub_index from "./routes/hub/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
 import * as $Synthwave from "./islands/Synthwave.tsx";
+import * as $TimelineFilter from "./islands/TimelineFilter.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -18,6 +22,9 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
+    "./routes/admin/index.tsx": $admin_index,
+    "./routes/api/login/index.ts": $api_login_index,
+    "./routes/api/logout/index.ts": $api_logout_index,
     "./routes/hub/index.tsx": $hub_index,
     "./routes/index.tsx": $index,
     "./routes/projects/index.tsx": $projects_index,
@@ -26,6 +33,7 @@ const manifest = {
     "./islands/Counter.tsx": $Counter,
     "./islands/HubClient.tsx": $HubClient,
     "./islands/Synthwave.tsx": $Synthwave,
+    "./islands/TimelineFilter.tsx": $TimelineFilter,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
