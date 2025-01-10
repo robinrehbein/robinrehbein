@@ -1,0 +1,49 @@
+{
+  "name": "Robin's universal codespace",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "codespace",
+  "workspaceFolder": "/workspaces",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "robinrehbein",
+      "userUid": "1000",
+      "userGid": "1000"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "./local-features/fnm": {},
+    "./local-features/deno": {},
+    "./local-features/go": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.colorTheme": "SynthWave '84",
+        "workbench.sideBar.location": "right",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "extensions": [
+        "RobbOwen.synthwave-vscode",
+        "WallabyJs.console-ninja",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "albert.TabOut",
+        "ms-vsliveshare.vsliveshare",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "Orta.vscode-twoslash-queries",
+        "Cardinal90.multi-cursor-case-preserve",
+        "streetsidesoftware.code-spell-checker",
+        "oderwat.indent-rainbow",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "remoteUser": "robinrehbein",
+  "containerUser": "robinrehbein",
+  "postCreateCommand": "chmod +x .devcontainer/install.sh && .devcontainer/install.sh"
+}

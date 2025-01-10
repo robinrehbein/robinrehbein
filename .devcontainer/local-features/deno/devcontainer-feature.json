@@ -1,0 +1,23 @@
+{
+  "id": "deno",
+  "version": "1.0.0",
+  "name": "Deno - A secure runtime for JavaScript and TypeScript.",
+  "description": "Installs deno to manage Node.js and needed dependencies.",
+  "options": {
+    "denoInstallPath": {
+      "type": "string",
+      "default": "/usr/local/share/deno",
+      "description": "The path where Deno will be installed."
+    }
+  },
+  "containerEnv": {
+    "DENO_INSTALL": "/usr/local/share/deno",
+    "PATH": "/usr/local/share/deno:${PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["denoland.vscode-deno"]
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

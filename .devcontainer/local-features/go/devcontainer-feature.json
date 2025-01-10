@@ -1,0 +1,23 @@
+{
+  "id": "go",
+  "version": "1.0.0",
+  "name": "Go Runtime.",
+  "description": "Installs Go programming language.",
+  "options": {
+    "goInstallPath": {
+      "type": "string",
+      "default": "/usr/local/share/go",
+      "description": "The path where Go will be installed."
+    }
+  },
+  "containerEnv": {
+    "GO_DIR": "/usr/local/share/go",
+    "PATH": "/usr/local/share/go:${PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["golang.Go"]
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

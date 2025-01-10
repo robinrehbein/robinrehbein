@@ -1,0 +1,23 @@
+{
+  "id": "fnm",
+  "version": "1.0.0",
+  "name": "FNM ((F)ast (N)ode.js (M)anager)",
+  "description": "Installs fnm to manage Node.js and needed dependencies.",
+  "options": {
+    "nodeGypDependencies": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install dependencies to compile native node modules (node-gyp)?"
+    },
+    "fnmInstallPath": {
+      "type": "string",
+      "default": "/usr/local/share/fnm",
+      "description": "The path where FNM will be installed."
+    }
+  },
+  "containerEnv": {
+    "FNM_DIR": "/usr/local/share/fnm",
+    "PATH": "/usr/local/share/fnm:${PATH}"
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

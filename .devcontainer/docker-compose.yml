@@ -1,0 +1,26 @@
+services:
+  codespace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - LANG="C.UTF-8"
+      - SHELL=/bin/bash
+    entrypoint:
+      - /usr/local/share/ssh-init.sh
+    command: sleep infinity
+    network_mode: service:postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=robinrehbein
+
+volumes:
+  postgres_data:
