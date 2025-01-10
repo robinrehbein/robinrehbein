@@ -1,0 +1,23 @@
+{
+  "id": "pulumi",
+  "version": "1.0.0",
+  "name": "Pulumi IaC.",
+  "description": "Installs Pulumi infrastructure as code.",
+  "options": {
+    "pulumiInstallPath": {
+      "type": "string",
+      "default": "/usr/local/share/pulumi",
+      "description": "The path where Pulumi will be installed."
+    }
+  },
+  "containerEnv": {
+    "PULUMI_DIR": "/usr/local/share/pulumi",
+    "PATH": "/usr/local/share/pulumi:${PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["pulumi.pulumi-vscode-tools"]
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
