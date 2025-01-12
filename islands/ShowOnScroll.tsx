@@ -13,7 +13,9 @@ const ShowOnScroll = (
 
   useEffect(() => {
     const handleScroll = () => {
-      if (globalThis.scrollY > globalThis.innerHeight * (scrollValue || 0.5)) {
+      if (
+        globalThis.scrollY > (scrollValue || (globalThis.innerHeight * 0.5))
+      ) {
         isVisible.value = true;
       } else {
         isVisible.value = false;
@@ -27,9 +29,10 @@ const ShowOnScroll = (
   return (
     <div
       className={cn(
-        "hidden w-0 whitespace-nowrap transition-all duration-300",
+        "w-0 whitespace-nowrap transition-all duration-300 overflow-hidden opacity-0",
         {
-          "block w-full transition-all duration-300": isVisible.value,
+          "block w-full transition-all duration-300 opacity-100":
+            isVisible.value,
         },
       )}
     >

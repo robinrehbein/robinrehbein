@@ -7,10 +7,15 @@ import PgClient from "../lib/pg.ts";
 import { Project, TimetableItem } from "../lib/types.ts";
 import {
   IconArrowDown,
+  IconCircle,
   IconHeartedHands,
+  IconHtml,
   IconPin,
   IconReact,
+  IconSeparator,
 } from "../components/Icons.tsx";
+import Reveal from "../islands/Reveal.tsx";
+import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
 
 interface Data {
   items: Array<TimetableItem>;
@@ -55,13 +60,49 @@ const Home = (
             <span>
               <IconHeartedHands class={"size-6"} />
             </span>
-            Robin Rehbein Portfolio
+            <p>Robin Rehbein Portfolio</p>
+
+            <span>
+              <IconSeparator class={"size-6"} />
+            </span>
+            <p
+              class={"inline-flex items-center gap-2"}
+            >
+              <span class="relative">
+                <IconCircle
+                  class={"size-3 absolute"}
+                />
+                <IconCircle
+                  class={"size-3 animate-ping"}
+                />
+              </span>
+              Available for projects
+            </p>
           </H>
-          <div class={"font-zodiak font-medium"}>
+          <div class={"font-zodiak font-medium flex flex-col gap-1"}>
+            {
+              /* <p
+              class={"inline-flex items-center gap-2"}
+            >
+              <span class="flex items-center justify-center h-6 w-6 relative">
+                <IconCircle
+                  class={"size-3 animate-bounce"}
+                />
+                <IconCircle
+                  class={"size-3 absolute"}
+                />
+                <IconCircle
+                  class={"size-3 animate-ping"}
+                />
+              </span>
+              Available for projects
+            </p> */
+            }
             {/* TODO check font font-clash-display */}
             <p class={"inline-flex items-center gap-2"}>
               <span>
                 <IconReact class={"size-6"} />
+                {/* <IconHtml slash class={"size-6"} /> */}
               </span>
               Currently coding at
               <a
@@ -72,17 +113,16 @@ const Home = (
                 neosfer
               </a>
             </p>
-            <br />
             <p class={"inline-flex items-center gap-2"}>
               <span>
                 <IconPin class={"size-6"} />
               </span>
-              Based in Stuttgart in Germany
+              Based in Stuttgart, Germany
             </p>
           </div>
         </div>
         <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
           class={"font-clash-display uppercase font-medium text-9xl"}
           variant={"h2"}
         >
@@ -99,25 +139,29 @@ const Home = (
             }
           </span>
           <br />
-          <span>Developer</span>
+          <span>Developer.</span>
         </H>
-        <div class={"flex flex-row items-end absolute left-8 bottom-8"}>
-          <IconArrowDown class={"size-24"} />
-          <p className={"text-2xl font-zodiak w-80"}>
-            {/* Turning people's ideas into reality since 2015. */}
-            Turning people's ideas into{" "}
-            {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
-            <span
-              class={"font-medium text-mustard-yellow-950 hover:italic"}
-            >
-              &#123;code&#125;
-            </span>{" "}
-            since 2015.
-          </p>
+        <div
+          class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
+        >
+          <IconArrowDown class={"size-24 animate-bounce"} />
+          <div>
+            <p class={"text-2xl font-zodiak w-80"}>
+              {/* Turning people's ideas into reality since 2015. */}
+              Turning people's ideas into{" "}
+              {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
+              <span
+                class={"font-medium text-mustard-yellow-950 hover:italic"}
+              >
+                &#123;code&#125;
+              </span>{" "}
+              since 2015.
+            </p>
+          </div>
         </div>
         <div class={"flex flex-row justify-end items-end"}>
           <img
-            src="/me.jpg"
+            src="/me_square.jpg"
             alt="me"
             class={"object-cover object-top w-[55%] aspect-square"} // rounded-full
           />
@@ -125,8 +169,36 @@ const Home = (
         {/* <Synthwave /> */}
       </Section>
 
+      {
+        /* <Reveal>Reveal</Reveal>
+      <RevealTextOnMouseOver /> */
+      }
       <Section>
-        About me
+        <H
+          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+          class={"font-clash-display uppercase font-medium text-9xl"}
+          variant={"h2"}
+        >
+          About me.
+        </H>
+      </Section>
+      <Section>
+        <H
+          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+          class={"font-clash-display uppercase font-medium text-9xl"}
+          variant={"h2"}
+        >
+          Projects.
+        </H>
+      </Section>
+      <Section>
+        <H
+          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+          class={"font-clash-display uppercase font-medium text-9xl"}
+          variant={"h2"}
+        >
+          Contact.
+        </H>
       </Section>
 
       {
