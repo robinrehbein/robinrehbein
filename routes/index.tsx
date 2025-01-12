@@ -43,13 +43,13 @@ const Home = (
     <>
       <Section
         separator={false}
-        class="h-[calc(100dvh-8rem)] flex flex-col gap-12"
+        class="min-h-[calc(100dvh-8rem)] flex flex-col gap-12 relative"
       >
         {/* TODO Gradient */}
         {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
         <div class={"flex flex-row items-start justify-between mb-8"}>
           <H
-            class={"inline-flex gap-2 text-md font-clash-display font-medium"}
+            class={"inline-flex gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
             variant={"h1"}
           >
             <span>
@@ -57,7 +57,8 @@ const Home = (
             </span>
             Robin Rehbein Portfolio
           </H>
-          <div class={"font-clash-display font-medium"}>
+          <div class={"font-zodiak font-medium"}>
+            {/* TODO check font font-clash-display */}
             <p class={"inline-flex items-center gap-2"}>
               <span>
                 <IconReact class={"size-6"} />
@@ -66,7 +67,7 @@ const Home = (
               <a
                 href="https://neosfer.de"
                 // class={"text-[rgb(0,255,194)] underline decoration-wavy"}
-                class={"underline decoration-wavy"}
+                class={"underline decoration-wavy decoration-mustard-yellow-950"}
               >
                 neosfer
               </a>
@@ -86,31 +87,48 @@ const Home = (
           variant={"h2"}
         >
           <span>
-            Front
+            {/* Seasoned Web */}
+            Frontend
+            {
+              /* Front
             <span
               class={"font-zodiak lowercase italic font-light"}
             >
               end
-            </span>
+            </span> */
+            }
           </span>
           <br />
           <span>Developer</span>
         </H>
-        <div class={"flex flex-row justify-between items-end"}>
-          <div class={"flex flex-row items-end"}>
-            <IconArrowDown class={"size-24"} />
-            <p className={"text-2xl font-zodiak w-80"}>
-              Turning people's ideas into reality since 2015.
-            </p>
-          </div>
+        <div class={"flex flex-row items-end absolute left-8 bottom-8"}>
+          <IconArrowDown class={"size-24"} />
+          <p className={"text-2xl font-zodiak w-80"}>
+            {/* Turning people's ideas into reality since 2015. */}
+            Turning people's ideas into{" "}
+            {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
+            <span
+              class={"font-medium text-mustard-yellow-950 hover:italic"}
+            >
+              &#123;code&#125;
+            </span>{" "}
+            since 2015.
+          </p>
+        </div>
+        <div class={"flex flex-row justify-end items-end"}>
           <img
-            src="/me_square.jpg"
+            src="/me.jpg"
             alt="me"
-            class={"object-cover object-top w-[55%] h-96"} // aspect-square
+            class={"object-cover object-top w-[55%] aspect-square"} // rounded-full
           />
         </div>
         {/* <Synthwave /> */}
       </Section>
+
+      <Section>
+        About me
+      </Section>
+
       {
         /* <Section>
         <Timeline items={timelineItems} />
