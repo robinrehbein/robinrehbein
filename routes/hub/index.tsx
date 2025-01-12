@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import H from "../../components/H.tsx";
+import H from "../../components/atoms/H.tsx";
 import HubClient from "../../islands/HubClient.tsx";
 import { handleWebSocket } from "../../lib/websocket.ts";
 

@@ -5,7 +5,7 @@
 //   },
 // };
 
-import H from "../../components/H.tsx";
+import H from "../../components/atoms/H.tsx";
 
 const Projects = () => {
   return (

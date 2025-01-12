@@ -13,6 +13,7 @@ import * as $index from "./routes/index.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
+import * as $ShowOnScroll from "./islands/ShowOnScroll.tsx";
 import * as $Synthwave from "./islands/Synthwave.tsx";
 import * as $TimelineFilter from "./islands/TimelineFilter.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -32,6 +33,7 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $Counter,
     "./islands/HubClient.tsx": $HubClient,
+    "./islands/ShowOnScroll.tsx": $ShowOnScroll,
     "./islands/Synthwave.tsx": $Synthwave,
     "./islands/TimelineFilter.tsx": $TimelineFilter,
   },

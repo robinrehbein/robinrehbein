@@ -1,5 +1,5 @@
 import { Project } from "../lib/types.ts";
-import H from "./H.tsx";
+import H from "./atoms/H.tsx";
 
 const FeaturedProjects = ({ projects }: { projects: Array<Project> }) => {
   return (

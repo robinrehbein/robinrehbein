@@ -57,6 +57,18 @@ export default {
       },
       fontFamily: {
         anaheim: ["Anaheim"],
+        "clash-display": ["ClashDisplay"],
+        "zodiak": ["Zodiak"],
+      },
+      keyframes: {
+        animatedgradient: {
+          "0%": { backgroundPosition: "0% 0%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 0%" },
+        },
+      },
+      animation: {
+        gradient: "animatedgradient 12s ease infinite alternate",
       },
     },
   },

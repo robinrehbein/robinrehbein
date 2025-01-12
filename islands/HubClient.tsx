@@ -1,6 +1,6 @@
 import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useSignal } from "@preact/signals";
-import { Button } from "../components/Button.tsx";
+import { Button } from "../components/atoms/Button.tsx";
 import { useWebSocket, WebSocketMessage } from "../hooks/useWebsocket.ts";
 
 type Client = {

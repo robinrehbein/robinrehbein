@@ -1,4 +1,5 @@
-import { Button } from "./Button.tsx";
+import ShowOnScroll from "../islands/ShowOnScroll.tsx";
+import { Button } from "./atoms/Button.tsx";
 import { IconGithub, IconHamburger, IconLogo, IconMail } from "./Icons.tsx";
 
 const Navbar = () => {
@@ -11,11 +12,13 @@ const Navbar = () => {
         <li>
           <IconLogo />
         </li>
-        <li>
-          <a href="/" class="text-foreground font-anaheim">
-            Robin Rehbein
-          </a>
-        </li>
+        <ShowOnScroll>
+          <li>
+            <a href="/" class="text-foreground font-anaheim">
+              Robin Rehbein
+            </a>
+          </li>
+        </ShowOnScroll>
       </ul>
       <ul
         class={"text-foreground md:flex flex-row items-center gap-4 hidden text-sm"}

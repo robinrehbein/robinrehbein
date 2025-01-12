@@ -1,14 +1,14 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { JSX } from "preact";
-import { cn } from "../lib/utils.ts";
+import { ComponentChildren, JSX } from "preact";
+import { cn } from "../../lib/utils.ts";
 
 const headingVariants = cva(
-  "text-center font-anaheim w-fit",
+  "font-clash-display w-fit",
   {
     variants: {
       variant: {
         h1: "text-4xl font-semibold",
-        h2: "text-2xl",
+        h2: "text-2xl font-medium",
         h3: "text-xl font-medium",
         h4: "text-lg",
         h5: "text-md",
@@ -25,7 +25,7 @@ type HeadingProps =
   & JSX.HTMLAttributes<HTMLHeadingElement>
   & VariantProps<typeof headingVariants>
   & {
-    children: string | Array<string>;
+    children: string | ComponentChildren | Array<string | ComponentChildren>;
   };
 
 const H = (props: HeadingProps) => {

@@ -29,6 +29,265 @@
   font-weight: 700;
 }
 
+/**
+* @license
+*
+* Font Family: Clash Display
+* Designed by: Indian Type Foundry
+* URL: https://www.fontshare.com/fonts/clash-display
+* © 2025 Indian Type Foundry
+*
+* Clash Display Extralight 
+* Clash Display Light 
+* Clash Display Regular 
+* Clash Display Medium 
+* Clash Display Semibold 
+* Clash Display Bold 
+* Clash Display Variable (Variable font)
+
+*
+*/
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Extralight.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Extralight.woff') format('woff'),
+       url('fonts/ClashDisplay-Extralight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Light.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Light.woff') format('woff'),
+       url('fonts/ClashDisplay-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Regular.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Regular.woff') format('woff'),
+       url('fonts/ClashDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Medium.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Medium.woff') format('woff'),
+       url('fonts/ClashDisplay-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Semibold.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Semibold.woff') format('woff'),
+       url('fonts/ClashDisplay-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Bold.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Bold.woff') format('woff'),
+       url('fonts/ClashDisplay-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+/**
+* This is a variable font
+* You can control variable axes as shown below:
+* font-variation-settings: wght 700.0;
+*
+* available axes:
+'wght' (range from 200.0 to 700.0
+*/
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('fonts/ClashDisplay-Variable.woff2') format('woff2'),
+       url('fonts/ClashDisplay-Variable.woff') format('woff'),
+       url('fonts/ClashDisplay-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/**
+* @license
+*
+* Font Family: Zodiak
+* Designed by: Jérémie Hornus, Gaetan Baehr, Jean-Baptiste Morizot, Alisa Nowak, Theo Guillard
+* URL: https://www.fontshare.com/fonts/zodiak
+* © 2025 Indian Type Foundry
+*
+* Zodiak Thin 
+* Zodiak ThinItalic 
+* Zodiak Light 
+* Zodiak LightItalic 
+* Zodiak Regular 
+* Zodiak Italic 
+* Zodiak Bold 
+* Zodiak BoldItalic 
+* Zodiak Extrabold 
+* Zodiak ExtraboldItalic 
+* Zodiak Black 
+* Zodiak BlackItalic 
+* Zodiak Variable (Variable font)
+* Zodiak VariableItalic (Variable font)
+
+*
+*/
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Thin.woff2') format('woff2'),
+       url('fonts/Zodiak-Thin.woff') format('woff'),
+       url('fonts/Zodiak-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-ThinItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-ThinItalic.woff') format('woff'),
+       url('fonts/Zodiak-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Light.woff2') format('woff2'),
+       url('fonts/Zodiak-Light.woff') format('woff'),
+       url('fonts/Zodiak-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-LightItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-LightItalic.woff') format('woff'),
+       url('fonts/Zodiak-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Regular.woff2') format('woff2'),
+       url('fonts/Zodiak-Regular.woff') format('woff'),
+       url('fonts/Zodiak-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Italic.woff2') format('woff2'),
+       url('fonts/Zodiak-Italic.woff') format('woff'),
+       url('fonts/Zodiak-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Bold.woff2') format('woff2'),
+       url('fonts/Zodiak-Bold.woff') format('woff'),
+       url('fonts/Zodiak-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-BoldItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-BoldItalic.woff') format('woff'),
+       url('fonts/Zodiak-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Extrabold.woff2') format('woff2'),
+       url('fonts/Zodiak-Extrabold.woff') format('woff'),
+       url('fonts/Zodiak-Extrabold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-ExtraboldItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-ExtraboldItalic.woff') format('woff'),
+       url('fonts/Zodiak-ExtraboldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Black.woff2') format('woff2'),
+       url('fonts/Zodiak-Black.woff') format('woff'),
+       url('fonts/Zodiak-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-BlackItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-BlackItalic.woff') format('woff'),
+       url('fonts/Zodiak-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+  font-style: italic;
+}
+/**
+* This is a variable font
+* You can control variable axes as shown below:
+* font-variation-settings: wght 900.0;
+*
+* available axes:
+'wght' (range from 100.0 to 900.0
+*/
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-Variable.woff2') format('woff2'),
+       url('fonts/Zodiak-Variable.woff') format('woff'),
+       url('fonts/Zodiak-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+/**
+* This is a variable font
+* You can control variable axes as shown below:
+* font-variation-settings: wght 900.0;
+*
+* available axes:
+'wght' (range from 100.0 to 900.0
+*/
+@font-face {
+  font-family: 'Zodiak';
+  src: url('fonts/Zodiak-VariableItalic.woff2') format('woff2'),
+       url('fonts/Zodiak-VariableItalic.woff') format('woff'),
+       url('fonts/Zodiak-VariableItalic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+
 :root {
   --light: hsl(51, 88%, 97%);
   --dark: hsl(0, 0%, 7%);
@@ -65,5 +324,24 @@
   :root {
   --background: var(--dark);
   --foreground: var(--light);
+  }
+}
+
+.animate-gradient {
+  background-size: 300%;
+  -webkit-animation: animatedgradient 6s ease infinite alternate;
+  -moz-animation: animatedgradient 6s ease infinite alternate;
+  animation: animatedgradient 6s ease infinite alternate;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }

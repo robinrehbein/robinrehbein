@@ -1,5 +1,5 @@
 import { Signal } from "@preact/signals";
-import { Button } from "../components/Button.tsx";
+import { Button } from "../components/atoms/Button.tsx";
 import { cn } from "../lib/utils.ts";
 
 const TimelineFilter = (
