@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #-------------------------------------------------------------------------------------------------------------
-# Script zur Installation und Konfiguration von Pulumi
+# Script zur Installation und Konfiguration von Gleam und Erlang Abhängigkeiten
 #-------------------------------------------------------------------------------------------------------------
 
-export PULUMI_DIR="${PULUMIINSTALLPATH:-"/usr/local/share/pulumi"}"
+export GLEAM_DIR="${GLEAMINSTALLPATH:-"/usr/local/share/gleam"}"
+# ENV PATH="$GLEAM_HOME/bin:$PATH"
 
 UPDATE_RC="${UPDATE_RC:-"true"}"
 USERNAME="${USERNAME:-"${_REMOTE_USER:-"automatic"}"}"
@@ -65,48 +66,49 @@ check_packages() {
 
 export DEBIAN_FRONTEND=noninteractive
 
-check_packages apt-transport-https curl ca-certificates tar gnupg2 dirmngr
+check_packages curl git build-essential erlang rebar3
 
 if ! type git > /dev/null 2>&1; then
     check_packages git
 fi
 
-pulumi_install_snippet="$(cat << EOF
+gleam_install_snippet="$(cat << EOF
 set -e
 umask 0002
 # Do not update profile - we'll do this manually
 export PROFILE=/dev/null
-curl -fsSL https://get.pulumi.com | sudo bash -s -- --no-edit-path --install-root ${PULUMI_DIR}
+curl -sSL https://github.com/gleam-lang/gleam/releases/download/v1.7.0/gleam-v1.7.0-aarch64-unknown-linux-musl.tar.gz | sudo tar -xzf - -C ${GLEAM_DIR}
 EOF
 )"
 
-pulumi_rc_snippet="$(cat << EOF
-# Pulumi
-PULUMI_PATH="${PULUMI_DIR}"
-if [ -d "\$PULUMI_PATH" ]; then
-    export PATH="\$PULUMI_PATH/bin:\$PATH"
+gleam_rc_snippet="$(cat << EOF
+# gleam
+GLEAM_PATH="${GLEAM_DIR}"
+if [ -d "\$GLEAM_PATH" ]; then
+    export PATH="\$GLEAM_PATH/gleam:\$PATH"
+    # . "\$GLEAM_PATH/env"
 fi
 EOF
 )"
 
-if ! cat /etc/group | grep -e "^pulumi:" > /dev/null 2>&1; then
-    groupadd -r pulumi
+if ! cat /etc/group | grep -e "^gleam:" > /dev/null 2>&1; then
+    groupadd -r gleam
 fi
-usermod -a -G pulumi ${USERNAME}
+usermod -a -G gleam ${USERNAME}
 
 umask 0002
-if [ ! -d "${PULUMI_DIR}" ]; then
-    # Create pulumi dir, and set sticky bit
-    mkdir -p "${PULUMI_DIR}"
-    chown "${USERNAME}:pulumi" "${PULUMI_DIR}"
-    chmod g+rws "${PULUMI_DIR}"
-    su ${USERNAME} -c "${pulumi_install_snippet}" 2>&1
+if [ ! -d "${GLEAM_DIR}" ]; then
+    # Create gleam dir, and set sticky bit
+    mkdir -p "${GLEAM_DIR}"
+    chown "${USERNAME}:gleam" "${GLEAM_DIR}"
+    chmod g+rws "${GLEAM_DIR}"
+    su ${USERNAME} -c "${gleam_install_snippet}" 2>&1
     # Update rc files
     if [ "${UPDATE_RC}" = "true" ]; then
-        updaterc "${pulumi_rc_snippet}"
+        updaterc "${gleam_rc_snippet}"
     fi
 else
-    echo "Pulumi already installed."
+    echo "Gleam already installed."
 fi
 
 # Clean up

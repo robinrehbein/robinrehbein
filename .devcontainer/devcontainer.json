@@ -12,7 +12,8 @@
     "ghcr.io/devcontainers/features/sshd:1": {},
     "./local-features/fnm": {},
     "./local-features/deno": {},
-    "./local-features/go": {}
+    "./local-features/go": {},
+    "./local-features/gleam": {}
   },
   "customizations": {
     "vscode": {

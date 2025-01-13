@@ -48,11 +48,12 @@ const Home = (
     <>
       <Section
         separator={false}
-        class="min-h-[calc(100dvh-8rem)] flex flex-col gap-12 relative"
+        // class="min-h-[calc(100dvh-8rem)] flex flex-col gap-12 relative"
+        class="flex flex-col gap-24 relative"
       >
         {/* TODO Gradient */}
         {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
-        <div class={"flex flex-row items-start justify-between mb-8"}>
+        <div class={"flex flex-row items-start justify-between"}>
           <H
             class={"inline-flex gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
             variant={"h1"}
@@ -142,7 +143,8 @@ const Home = (
           <span>Developer.</span>
         </H>
         <div
-          class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
+          // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
+          class={"flex flex-row gap-4 items-end absolute left-8 bottom-8"}
         >
           <IconArrowDown class={"size-24 animate-bounce"} />
           <div>
@@ -177,7 +179,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-9xl"}
+            class={"font-clash-display uppercase font-medium text-7xl"}
             variant={"h2"}
           >
             About me.
@@ -189,7 +191,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-9xl"}
+            class={"font-clash-display uppercase font-medium text-7xl"}
             variant={"h2"}
           >
             Projects.
@@ -212,7 +214,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-9xl"}
+            class={"font-clash-display uppercase font-medium text-7xl"}
             variant={"h2"}
           >
             Contact.
