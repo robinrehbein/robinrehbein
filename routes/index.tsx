@@ -8,14 +8,18 @@ import { Project, TimetableItem } from "../lib/types.ts";
 import {
   IconArrowDown,
   IconCircle,
+  IconCube,
   IconHeartedHands,
   IconHtml,
+  IconKeyboard,
   IconPin,
+  IconPlant,
   IconReact,
   IconSeparator,
 } from "../components/Icons.tsx";
 import Reveal from "../islands/Reveal.tsx";
 import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
+import { Button } from "../components/atoms/Button.tsx";
 
 interface Data {
   items: Array<TimetableItem>;
@@ -153,7 +157,7 @@ const Home = (
             class={"flex flex-row items-end sticky left-8 bottom-8"}
           >
             <a href={`#${SCROLL_ANKER}`}>
-              <IconArrowDown class={"size-24 animate-bounce"} />
+              <IconArrowDown class={"size-16 md:size-24 animate-bounce"} />
             </a>
             <div>
               <p
@@ -185,7 +189,7 @@ const Home = (
       <RevealTextOnMouseOver /> */
       }
       <Section id={`${SCROLL_ANKER}`}>
-        <div class={"flex flex-row justify-between"}>
+        <div class={"flex flex-row justify-between mb-4"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -195,9 +199,33 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
+        <div class={"font-zodiak"}>
+          <p class={"mb-2"}>
+            What i like:
+          </p>
+          <ul className={"flex flex-col gap-2 mb-8"}>
+            <li class={"flex items-center gap-2"}>
+              <IconPlant class={"size-6"} />
+              Plants.
+            </li>
+            <li class={"flex items-center gap-2"}>
+              <IconCube class={"size-6"} /> Games.
+            </li>
+            <li class={"flex items-center gap-2"}>
+              <IconKeyboard class={"size-6"} /> Custom Keyboards.
+            </li>
+            <li class={"flex items-center gap-2"}>
+              <IconHtml class={"size-6"} /> Programming.
+            </li>
+          </ul>
+
+          <a href={"/about"} class={"flex flex-row gap-2 items-center"}>
+            More <IconArrowDown class={"-rotate-90 size-4"} />
+          </a>
+        </div>
       </Section>
       <Section>
-        <div class={"flex flex-row justify-between"}>
+        <div class={"flex flex-row justify-between mb-4"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -208,16 +236,11 @@ const Home = (
           <p class={"font-zodiak font-medium text-md"}>_02</p>
         </div>
 
-        <img src="/torn_poster.webp" alt="Torn Poster" />
-        <div
-          class={"w-1/2 overflow-hidden flex items-center justify-center shadow-inner rounded-3xl"}
-        >
-          <img
-            src="/iphone_artwerk_landing.webp"
-            alt="iPhone Mockup"
-            class={"object-cover"}
-          />
-        </div>
+        <img
+          src="/iphone_artwerk_landing.webp"
+          alt="iPhone Mockup"
+          class={"object-cover w-full border border-foreground bg-gradient-to-br from-foreground/95 via-foreground/90 to-foreground rounded-md"}
+        />
       </Section>
       <Section>
         <div class={"flex flex-row justify-between"}>
