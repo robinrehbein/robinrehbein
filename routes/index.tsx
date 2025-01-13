@@ -174,31 +174,51 @@ const Home = (
       <RevealTextOnMouseOver /> */
       }
       <Section>
-        <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-          class={"font-clash-display uppercase font-medium text-9xl"}
-          variant={"h2"}
-        >
-          About me.
-        </H>
+        <div class={"flex flex-row justify-between"}>
+          <H
+            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+            class={"font-clash-display uppercase font-medium text-9xl"}
+            variant={"h2"}
+          >
+            About me.
+          </H>
+          <p class={"font-zodiak font-medium text-md"}>_01</p>
+        </div>
       </Section>
       <Section>
-        <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-          class={"font-clash-display uppercase font-medium text-9xl"}
-          variant={"h2"}
+        <div class={"flex flex-row justify-between"}>
+          <H
+            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+            class={"font-clash-display uppercase font-medium text-9xl"}
+            variant={"h2"}
+          >
+            Projects.
+          </H>
+          <p class={"font-zodiak font-medium text-md"}>_02</p>
+        </div>
+
+        <img src="/torn_poster.webp" alt="Torn Poster" />
+        <div
+          class={"w-1/2 overflow-hidden flex items-center justify-center shadow-inner rounded-3xl"}
         >
-          Projects.
-        </H>
+          <img
+            src="/iphone_artwerk_landing.webp"
+            alt="iPhone Mockup"
+            class={"object-cover"}
+          />
+        </div>
       </Section>
       <Section>
-        <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-          class={"font-clash-display uppercase font-medium text-9xl"}
-          variant={"h2"}
-        >
-          Contact.
-        </H>
+        <div class={"flex flex-row justify-between"}>
+          <H
+            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
+            class={"font-clash-display uppercase font-medium text-9xl"}
+            variant={"h2"}
+          >
+            Contact.
+          </H>
+          <p class={"font-zodiak font-medium text-md"}>_03</p>
+        </div>
       </Section>
 
       {
