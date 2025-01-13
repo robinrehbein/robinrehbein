@@ -37,6 +37,8 @@ interface Data {
 //   },
 // };
 
+const SCROLL_ANKER = "_01";
+
 const Home = (
   // { data }: PageProps<
   //   { timelineItems: Array<TimetableItem>; projects: Array<Project> }
@@ -49,13 +51,14 @@ const Home = (
       <Section
         separator={false}
         // class="min-h-[calc(100dvh-8rem)] flex flex-col gap-12 relative"
-        class="flex flex-col gap-24 relative"
       >
         {/* TODO Gradient */}
         {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
-        <div class={"flex flex-row items-start justify-between"}>
+        <div
+          class={"flex flex-col md:flex-row items-start justify-between mb-24 gap-8"}
+        >
           <H
-            class={"inline-flex gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
+            class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
             variant={"h1"}
           >
             <span>
@@ -63,13 +66,13 @@ const Home = (
             </span>
             <p>Robin Rehbein Portfolio</p>
 
-            <span>
+            <span class={"hidden md:inline"}>
               <IconSeparator class={"size-6"} />
             </span>
             <p
               class={"inline-flex items-center gap-2"}
             >
-              <span class="relative">
+              <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
                   class={"size-3 absolute"}
                 />
@@ -124,7 +127,7 @@ const Home = (
         </div>
         <H
           // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-9xl"}
+          class={"font-clash-display uppercase font-medium text-9xl mb-24"}
           variant={"h2"}
         >
           <span>
@@ -142,26 +145,28 @@ const Home = (
           <br />
           <span>Developer.</span>
         </H>
-        <div
-          // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
-          class={"flex flex-row gap-4 items-end absolute left-8 bottom-8"}
-        >
-          <IconArrowDown class={"size-24 animate-bounce"} />
-          <div>
-            <p class={"text-2xl font-zodiak w-80"}>
-              {/* Turning people's ideas into reality since 2015. */}
-              Turning people's ideas into{" "}
-              {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
-              <span
-                class={"font-medium text-mustard-yellow-950 hover:italic"}
-              >
-                &#123;code&#125;
-              </span>{" "}
-              since 2015.
-            </p>
+        <div class={"flex flex-row justify-between items-end"}>
+          <div
+            // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
+            class={"flex flex-row gap-4 items-end sticky left-8 bottom-8"}
+          >
+            <a href={`#${SCROLL_ANKER}`}>
+              <IconArrowDown class={"size-24 animate-bounce"} />
+            </a>
+            <div>
+              <p class={"text-2xl font-zodiak w-80"}>
+                {/* Turning people's ideas into reality since 2015. */}
+                Turning people's ideas into{" "}
+                {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
+                <span
+                  class={"font-medium text-mustard-yellow-950 hover:italic"}
+                >
+                  &#123;code&#125;
+                </span>{" "}
+                since 2015.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class={"flex flex-row justify-end items-end"}>
           <img
             src="/me_square.jpg"
             alt="me"
@@ -175,7 +180,7 @@ const Home = (
         /* <Reveal>Reveal</Reveal>
       <RevealTextOnMouseOver /> */
       }
-      <Section>
+      <Section id={`${SCROLL_ANKER}`}>
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
