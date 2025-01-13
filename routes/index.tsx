@@ -127,7 +127,7 @@ const Home = (
         </div>
         <H
           // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-[clamp(3.5rem,8vw,8rem)] leading-none mb-24"}
+          class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
           variant={"h2"}
         >
           <span>
@@ -188,7 +188,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
+            class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             About me.
@@ -200,7 +200,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
+            class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             Projects.
@@ -223,7 +223,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
+            class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             Contact.
