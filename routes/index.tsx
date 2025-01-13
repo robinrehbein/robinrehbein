@@ -7,8 +7,10 @@ import PgClient from "../lib/pg.ts";
 import { Project, TimetableItem } from "../lib/types.ts";
 import {
   IconArrowDown,
+  IconBike,
   IconCircle,
   IconCube,
+  IconCup,
   IconHeartedHands,
   IconHtml,
   IconKeyboard,
@@ -154,7 +156,7 @@ const Home = (
         >
           <div
             // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
-            class={"flex flex-row items-end sticky left-8 bottom-8"}
+            class={"flex flex-row w-full sticky left-8 bottom-8"}
           >
             <a href={`#${SCROLL_ANKER}`}>
               <IconArrowDown class={"size-16 md:size-24 animate-bounce"} />
@@ -208,14 +210,24 @@ const Home = (
               <IconPlant class={"size-6"} />
               Plants.
             </li>
-            <li class={"flex items-center gap-2"}>
+            {
+              /* <li class={"flex items-center gap-2"}>
               <IconCube class={"size-6"} /> Games.
-            </li>
+            </li> */
+            }
             <li class={"flex items-center gap-2"}>
               <IconKeyboard class={"size-6"} /> Custom Keyboards.
             </li>
-            <li class={"flex items-center gap-2"}>
+            {
+              /* <li class={"flex items-center gap-2"}>
               <IconHtml class={"size-6"} /> Programming.
+            </li> */
+            }
+            <li class={"flex items-center gap-2"}>
+              <IconBike class={"size-6"} /> Biking.
+            </li>
+            <li class={"flex items-center gap-2"}>
+              <IconCup class={"size-6"} /> Coffee.
             </li>
           </ul>
 
@@ -238,6 +250,12 @@ const Home = (
 
         <img
           src="/iphone_artwerk_landing.webp"
+          alt="iPhone Mockup"
+          class={"object-cover w-full border border-foreground bg-gradient-to-br from-foreground/95 via-foreground/90 to-foreground rounded-md"}
+        />
+
+        <img
+          src="/plastic_wrinkled_artwerk_landing_w_bg.webp"
           alt="iPhone Mockup"
           class={"object-cover w-full border border-foreground bg-gradient-to-br from-foreground/95 via-foreground/90 to-foreground rounded-md"}
         />
