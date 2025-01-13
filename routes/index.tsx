@@ -55,7 +55,7 @@ const Home = (
         {/* TODO Gradient */}
         {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
         <div
-          class={"flex flex-col md:flex-row items-start justify-between mb-24 gap-8"}
+          class={"flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8"}
         >
           <H
             class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
@@ -127,7 +127,7 @@ const Home = (
         </div>
         <H
           // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-9xl mb-24"}
+          class={"font-clash-display uppercase font-medium text-[clamp(3.5rem,8vw,8rem)] leading-none mb-24"}
           variant={"h2"}
         >
           <span>
@@ -145,16 +145,20 @@ const Home = (
           <br />
           <span>Developer.</span>
         </H>
-        <div class={"flex flex-row justify-between items-end"}>
+        <div
+          class={"flex flex-col md:flex-row justify-between items-end gap-24"}
+        >
           <div
             // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
-            class={"flex flex-row gap-4 items-end sticky left-8 bottom-8"}
+            class={"flex flex-row items-end sticky left-8 bottom-8"}
           >
             <a href={`#${SCROLL_ANKER}`}>
               <IconArrowDown class={"size-24 animate-bounce"} />
             </a>
             <div>
-              <p class={"text-2xl font-zodiak w-80"}>
+              <p
+                class={"text-base md:text-2xl font-zodiak"}
+              >
                 {/* Turning people's ideas into reality since 2015. */}
                 Turning people's ideas into{" "}
                 {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
@@ -170,7 +174,7 @@ const Home = (
           <img
             src="/me_square.jpg"
             alt="me"
-            class={"object-cover object-top w-[55%] aspect-square"} // rounded-full
+            class={"object-cover object-top w-full md:w-[55%] aspect-square"} // rounded-full
           />
         </div>
         {/* <Synthwave /> */}
@@ -184,7 +188,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-7xl"}
+            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             About me.
@@ -196,7 +200,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-7xl"}
+            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             Projects.
@@ -219,7 +223,7 @@ const Home = (
         <div class={"flex flex-row justify-between"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
-            class={"font-clash-display uppercase font-medium text-7xl"}
+            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
             Contact.

@@ -6,6 +6,7 @@ import {
   IconHamburger,
   IconLogo,
   IconMail,
+  IconMore,
   IconSeparator,
 } from "./Icons.tsx";
 
@@ -22,8 +23,8 @@ const Navbar = () => {
         <ShowOnScroll>
           <li>
             <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
-              <p>Robin Rehbein Portfolio</p>
-              <span>
+              <p class={"hidden md:block"}>Robin Rehbein Portfolio</p>
+              <span class={"hidden md:inline"}>
                 <IconSeparator class={"size-6"} />
               </span>
               <p
@@ -79,8 +80,9 @@ const Navbar = () => {
         </li>
       </ul> */
       }
-      <Button class={"md:hidden text-racing-green"}>
-        <IconHamburger />
+      <Button class={"md:hidden text-foreground"}>
+        {/* <IconHamburger /> */}
+        <IconMore class={"size-5 rotate-90"} />
       </Button>
     </nav>
   );
