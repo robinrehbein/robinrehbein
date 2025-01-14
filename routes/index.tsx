@@ -65,7 +65,7 @@ const Home = (
         {/* TODO Gradient */}
         {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
         <div
-          class={"flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8"}
+          class={"flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16"}
         >
           <H
             class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
@@ -165,7 +165,7 @@ const Home = (
             <a href={`#${SCROLL_ANKER}`}>
               <IconArrowDown class={"size-16 md:size-24 animate-bounce"} />
             </a>
-            <div>
+            <div class={"inline-flex items-end"}>
               <p
                 class={"text-base md:text-2xl font-zodiak"}
               >
@@ -212,7 +212,7 @@ const Home = (
             What i like:
           </p>
           <ul
-            className={"flex flex-col md:flex-row gap-4 mb-8 md:mb-16 flex-wrap"}
+            className={"flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap"}
           >
             <li class={"flex items-center gap-2"}>
               <IconCup class={"size-6"} /> Coffee!
@@ -280,11 +280,11 @@ const Home = (
           </p>
         </div>
         <div>
-          <p class={"mb-8 italic font-medium"}>
+          <p class={"mb-8 md:mb-16 italic font-medium"}>
             Current positions:
           </p>
-          <ul class={"flex flex-col md:flex-row gap-8"}>
-            <li class="flex flex-row gap-8 items-start">
+          <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
+            <li class="flex flex-row gap-8 md:gap-16 items-start">
               <IconNeosfer class={"size-12"} />
               <div>
                 <p>
@@ -319,7 +319,7 @@ const Home = (
         </div>
       </Section>
       <Section>
-        <div class={"flex flex-row justify-between mb-4"}>
+        <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -329,6 +329,15 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_02</p>
         </div>
+        <Button class={"mb-16 mt-8 w-full"}>
+          <a
+            href={"/work"}
+            class={"flex flex-row gap-2 items-center justify-end"}
+          >
+            More of my work
+            <IconArrowDown class={"-rotate-90 size-4"} />
+          </a>
+        </Button>
         <ProjectCard
           title="artwerk studios"
           description="artwerk is a passion project that I co-founded with two friends. Our
@@ -349,7 +358,7 @@ const Home = (
             "/curved_2_artwerk_poster.webp",
           ]}
         />
-        <hr class={"my-16 border-foreground"} />
+        {/* <hr class={"my-16 border-foreground"} /> */}
         <ProjectCard
           title="Kirchmaier & Staudacher"
           description="Kirchmaier & Staudacher is a premier project management 
@@ -370,18 +379,9 @@ const Home = (
             "/macbook_kirchmaier_landing_3.webp",
           ]}
         />
-        <Button class={"mt-16 w-full"}>
-          <a
-            href={"/work"}
-            class={"flex flex-row gap-2 items-center justify-end"}
-          >
-            More of my work
-            <IconArrowDown class={"-rotate-90 size-4"} />
-          </a>
-        </Button>
       </Section>
       <Section>
-        <div class={"flex flex-row justify-between mb-4"}>
+        <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -391,14 +391,16 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_03</p>
         </div>
-        <div class={"flex md:flex-row flex-col gap-4 md:gap-12"}>
+        <div class={"flex md:flex-row flex-col gap-8 md:gap-16"}>
           <p
-            class={"flex items-center gap-2 italic font-medium min-w-fit"}
+            class={"italic md:flex-1 font-medium"}
           >
             {/* <IconThumbsUp class={"size-6"} /> */}
             Get in touch!
           </p>
-          <p>
+          <p
+            class={"md:flex-1"}
+          >
             I'd love to hear from you! Whether you have a question, a project
             proposal, or just want to say hello, feel free to reach out. You can
             contact me via email at{" "}
@@ -407,8 +409,7 @@ const Home = (
               href={"mailto:hello@robinrehbein.de"}
             >
               hello@robinrehbein.de
-            </a>{" "}
-            or fill out the form below. I look forward to connecting with you!
+            </a>. I look forward to connecting with you!
           </p>
         </div>
       </Section>
