@@ -1,5 +1,5 @@
 👋 Welcome to Robin's codespace! You are on our default development image. 
-   - It includes runtimes and tools for Node.js (via fnm), Go
+   - It includes runtimes and tools for Node.js (via fnm), Go, Erlang and Gleam
    - Runs on Ubuntu
 
 🔍 To explore VS Code to its fullest, search using the Command Palette (Cmd/Ctrl + Shift + P or F1).

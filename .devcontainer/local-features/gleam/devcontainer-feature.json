@@ -1,0 +1,23 @@
+{
+  "id": "gleam",
+  "version": "1.0.0",
+  "name": "Gleam",
+  "description": "Installs Gleam, Erlang and rebar3.",
+  "options": {
+    "gleamInstallPath": {
+      "type": "string",
+      "default": "/usr/local/share/gleam",
+      "description": "The path where Gleam will be installed."
+    }
+  },
+  "containerEnv": {
+    "GLEAM_INSTALL": "/usr/local/share/gleam",
+    "PATH": "/usr/local/share/gleam:${PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["Gleam.gleam"]
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

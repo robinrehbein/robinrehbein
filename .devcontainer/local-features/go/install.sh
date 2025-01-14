@@ -76,7 +76,7 @@ set -e
 umask 0002
 # Do not update profile - we'll do this manually
 export PROFILE=/dev/null
-curl -fsSL https://go.dev/dl/go1.23.4.linux-amd64.tar.gz | sudo tar -xzf - --strip-components=1 -C ${GO_DIR}
+curl -fsSL https://go.dev/dl/go1.23.4.linux-arm64.tar.gz | sudo tar -xzf - --strip-components=1 -C ${GO_DIR}
 EOF
 )"
 
