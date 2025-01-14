@@ -1,4 +1,5 @@
 import { PageProps } from "$fresh/server.ts";
+import Footer from "../components/atoms/Footer.tsx";
 import Navbar from "../components/Navbar.tsx";
 
 const Layout = ({ Component, state }: PageProps) => {
@@ -10,6 +11,7 @@ const Layout = ({ Component, state }: PageProps) => {
       <main class={"pt-32"}>
         <Component />
       </main>
+      <Footer />
     </>
   );
 };

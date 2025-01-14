@@ -30,7 +30,7 @@ const Navbar = () => {
               <p
                 class={"inline-flex items-center gap-2"}
               >
-                <span class="relative">
+                <span class="relative w-6 h-6 inline-flex items-center justify-center">
                   <IconCircle
                     class={"size-3 absolute"}
                   />

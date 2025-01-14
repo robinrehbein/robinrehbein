@@ -153,7 +153,7 @@ const Home = (
           <span>Developer.</span>
         </H>
         <div
-          class={"flex flex-col md:flex-row justify-between items-end gap-24"}
+          class={"flex flex-col md:flex-row justify-between items-end gap-12"}
         >
           <div
             // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
@@ -181,7 +181,7 @@ const Home = (
           <img
             src="/me_square.jpg"
             alt="me"
-            class={"object-cover object-top w-full md:w-[55%] aspect-square"} // rounded-full
+            class={"object-cover object-top w-full md:w-[55%] aspect-square shadow"} // rounded-full
           />
         </div>
         {/* <Synthwave /> */}
@@ -203,11 +203,12 @@ const Home = (
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
         <div class={"font-zodiak"}>
-          <p class={"mb-4 flex items-center gap-2"}>
-            <IconThumbsUp class={"size-6"} />
+          {/* <p class={"mb-4 flex items-center gap-2 font-medium"}> */}
+          <p class={"mb-4 flex items-center gap-2 italic"}>
+            {/* <IconThumbsUp class={"size-6"} /> */}
             What i like:
           </p>
-          <ul className={"flex flex-row gap-4 mb-8 flex-wrap"}>
+          <ul className={"flex flex-col md:flex-row gap-4 mb-4 flex-wrap"}>
             <li class={"flex items-center gap-2"}>
               <IconCup class={"size-6"} /> Coffee!
             </li>
@@ -231,16 +232,47 @@ const Home = (
             <li class={"flex items-center gap-2"}>
               <IconKeyboard class={"size-6"} /> Custom Keyboards.
             </li>
-            <li class={"flex items-center gap-2 grow justify-end"}>
-              <a
-                href={"/about"}
-                class={"flex flex-row gap-2 items-center"}
-              >
-                More about me
-                <IconArrowDown class={"-rotate-90 size-4"} />
-              </a>
+            <li class={"flex items-center gap-2 grow justify-end my-4 md:my-0"}>
+              <Button>
+                <a
+                  href={"/about"}
+                  class={"flex flex-row gap-2 items-center"}
+                >
+                  More about me
+                  <IconArrowDown class={"-rotate-90 size-4"} />
+                </a>
+              </Button>
             </li>
           </ul>
+          <p>
+            In my free time, I dive into the fascinating world of{" "}
+            <em>
+              <strong>
+                custom mechanical keyboards
+              </strong>
+            </em>, crafting unique and{" "}
+            personalized typing experiences that are as expressive as they are
+            functional. The pandemic unlocked a newfound passion for{" "}
+            <em>
+              <strong>
+                indoor plants
+              </strong>
+            </em>, transforming my living space into a lush sanctuary that
+            breathes life and tranquility. My love for biking takes me on{" "}
+            <em>
+              <strong>
+                thrilling adventures
+              </strong>
+            </em>, exploring hidden trails and embracing the thrill of the ride.
+            Moreover, my journey into the realm of coffee as a barista has been
+            transformative, immersing me in the{" "}
+            <em>
+              <strong>
+                rich art of coffee-making
+              </strong>
+            </em>{" "}
+            and deepening my appreciation for every aromatic brew.
+          </p>
         </div>
       </Section>
       <Section>
@@ -258,13 +290,28 @@ const Home = (
         <img
           src="/iphone_artwerk_landing.webp"
           alt="iPhone Mockup"
-          class={"object-cover w-full border border-foreground bg-gradient-to-br from-foreground/95 via-foreground/90 to-foreground rounded-md"}
+          class={"object-cover w-full shadow mb-4 aspect-square"}
         />
 
         <img
-          src="/plastic_wrinkled_artwerk_landing_w_bg.webp"
+          // src="/curved_1_artwerk_poster.webp"
+          src="/concrete_artwerk_poster.webp"
+          // src="/sidewalk_artwerk_poster.webp"
           alt="iPhone Mockup"
-          class={"object-cover w-full border border-foreground bg-gradient-to-br from-foreground/95 via-foreground/90 to-foreground rounded-md"}
+          class={"object-cover w-full shadow mb-4 aspect-square"}
+        />
+
+        <img
+          src="/macbook_artwerk_landing_light.webp"
+          alt="iPhone Mockup"
+          class={"object-cover w-full shadow mb-4 aspect-square"}
+        />
+
+        <img
+          src="/curved_2_artwerk_poster.webp"
+          // src="/flying_paper_artwerk_poster.webp"
+          alt="iPhone Mockup"
+          class={"object-cover w-full shadow mb-4 aspect-square object-top"}
         />
       </Section>
       <Section>

@@ -11,7 +11,7 @@ const Section = (
       class={cn("max-w-screen-2xl mx-auto px-8", props.class)}
       {...props}
     >
-      {separator && <hr class={"my-8 border-foreground"} />}
+      {separator && <hr class={"my-16 border-foreground"} />}
       {props.children}
     </section>
   );
