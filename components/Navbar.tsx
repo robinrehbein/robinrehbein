@@ -48,19 +48,29 @@ const Navbar = () => {
         class={"text-foreground md:flex flex-row items-center gap-4 hidden text-sm font-zodiak"} // TODO add blend mode
       >
         <li>
-          home.
+          <a href="/">
+            home.
+          </a>
         </li>
         <li>
-          work.
+          <a href="work">
+            work.
+          </a>
         </li>
         <li>
-          skills.
+          <a href="skills">
+            skills.
+          </a>
         </li>
         <li>
-          about.
+          <a href="about">
+            about.
+          </a>
         </li>
         <li>
-          hub.
+          <a href="hub">
+            hub.
+          </a>
         </li>
         {
           /* <li>

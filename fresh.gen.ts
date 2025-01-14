@@ -5,12 +5,14 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
+import * as $about_index from "./routes/about/index.tsx";
 import * as $admin_index from "./routes/admin/index.tsx";
 import * as $api_login_index from "./routes/api/login/index.ts";
 import * as $api_logout_index from "./routes/api/logout/index.ts";
 import * as $hub_index from "./routes/hub/index.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $projects_index from "./routes/projects/index.tsx";
+import * as $skills_index from "./routes/skills/index.tsx";
+import * as $work_index from "./routes/work/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
 import * as $ProjectCard from "./islands/ProjectCard.tsx";
@@ -26,12 +28,14 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
+    "./routes/about/index.tsx": $about_index,
     "./routes/admin/index.tsx": $admin_index,
     "./routes/api/login/index.ts": $api_login_index,
     "./routes/api/logout/index.ts": $api_logout_index,
     "./routes/hub/index.tsx": $hub_index,
     "./routes/index.tsx": $index,
-    "./routes/projects/index.tsx": $projects_index,
+    "./routes/skills/index.tsx": $skills_index,
+    "./routes/work/index.tsx": $work_index,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
