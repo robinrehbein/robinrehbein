@@ -23,12 +23,12 @@ const Navbar = () => {
         <ShowOnScroll>
           <li>
             <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
-              <p class={"hidden md:block"}>Robin Rehbein Portfolio</p>
+              <p>R. Rehbein Portfolio</p>
               <span class={"hidden md:inline"}>
                 <IconSeparator class={"size-6"} />
               </span>
               <p
-                class={"inline-flex items-center gap-2"}
+                class={"hidden md:block inline-flex items-center gap-2"}
               >
                 <span class="relative w-6 h-6 inline-flex items-center justify-center">
                   <IconCircle
