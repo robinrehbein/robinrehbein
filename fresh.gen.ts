@@ -14,6 +14,7 @@ import * as $index from "./routes/index.tsx";
 import * as $skills_index from "./routes/skills/index.tsx";
 import * as $work_index from "./routes/work/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $Expand from "./islands/Expand.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
 import * as $ProjectCard from "./islands/ProjectCard.tsx";
 import * as $Reveal from "./islands/Reveal.tsx";
@@ -39,6 +40,7 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/Expand.tsx": $Expand,
     "./islands/HubClient.tsx": $HubClient,
     "./islands/ProjectCard.tsx": $ProjectCard,
     "./islands/Reveal.tsx": $Reveal,

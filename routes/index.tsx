@@ -26,6 +26,7 @@ import Reveal from "../islands/Reveal.tsx";
 import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
 import { Button } from "../components/atoms/Button.tsx";
 import ProjectCard from "../islands/ProjectCard.tsx";
+import Expand from "../islands/Expand.tsx";
 
 interface Data {
   items: Array<TimetableItem>;
@@ -288,7 +289,7 @@ const Home = (
               <IconNeosfer class={"size-12"} />
               <div>
                 <p>
-                  <strong>Senior Developer</strong>
+                  <strong>Senior Developer{" "}</strong>
                   <br class={"md:hidden"} />
                   at{" "}
                   <a
@@ -300,6 +301,11 @@ const Home = (
                 </p>
                 <p>01 - 11 - 2022 till today</p>
                 {/* TODO Expand infos and description */}
+                <Expand>
+                  I started a new journey at neosfer in late 2022. neosfer is a
+                  subsidiary of Commerzbank AG and deals with innovative
+                  technologies of the future.
+                </Expand>
               </div>
             </li>
             <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
@@ -307,7 +313,7 @@ const Home = (
               <IconArtwerk class={"size-12"} />
               <div>
                 <p>
-                  <strong>Co-Founder</strong>
+                  <strong>Co-Founder{" "}</strong>
                   <br class={"md:hidden"} />at{" "}
                   <a
                     href="https://artwerk.store"
@@ -317,6 +323,14 @@ const Home = (
                   </a>
                 </p>
                 <p>14 - 03 - 2023 till today</p>
+                <Expand>
+                  As a founding member of a startup, I played a pivotal role in
+                  the development of a groundbreaking product and took on
+                  responsibilities in areas such as marketing and project
+                  management. Our venture is an exciting online shop where
+                  customers can unleash their creativity and personalize their
+                  posters in unique and captivating ways.
+                </Expand>
               </div>
             </li>
           </ul>
