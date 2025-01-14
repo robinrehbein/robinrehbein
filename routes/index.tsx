@@ -286,7 +286,7 @@ const Home = (
           </p>
           <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
             <li class="flex flex-row gap-8 md:gap-16 items-start">
-              <IconNeosfer class={"size-12"} />
+              <IconNeosfer class={"size-12 min-w-12"} />
               <div>
                 <p>
                   <strong>Senior Developer{" "}</strong>
@@ -310,7 +310,7 @@ const Home = (
             </li>
             <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
             <li class="flex flex-row gap-8 items-start">
-              <IconArtwerk class={"size-12"} />
+              <IconArtwerk class={"size-12 min-w-12"} />
               <div>
                 <p>
                   <strong>Co-Founder{" "}</strong>
