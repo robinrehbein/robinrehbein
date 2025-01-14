@@ -158,7 +158,7 @@ const Home = (
         >
           <div
             // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
-            class={"flex flex-row w-full sticky left-8 bottom-8"}
+            class={"flex flex-row w-full sticky left-8 bottom-8 gap-4"}
           >
             <a href={`#${SCROLL_ANKER}`}>
               <IconArrowDown class={"size-16 md:size-24 animate-bounce"} />

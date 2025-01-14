@@ -3,9 +3,9 @@ import { IconHeart, IconHeartedHands, IconHeartInHand } from "../Icons.tsx";
 const Footer = () => {
   return (
     <footer class={"max-w-screen-2xl mx-auto px-8 font-zodiak"}>
-      <hr class={"mt-16 mb-8 border-foreground"} />
+      <hr class={"my-16 border-foreground"} />
       <div class={"flex flex-col md:flex-row justify-between gap-4"}>
-        <ul>
+        <ul class={"flex flex-col items-end md:items-start"}>
           <li class={"hover:underline decoration-wavy"}>
             <a href="legal/html/imprint.html">Imprint</a>
           </li>
@@ -17,14 +17,8 @@ const Footer = () => {
           </li>
         </ul>
         <ul
-          class={"flex flex-col items-start md:items-end gap-4 md:gap-0"}
+          class={"flex flex-col items-end gap-4 md:gap-0"}
         >
-          <li>
-            <p class={"flex flex-row items-center gap-1"}>
-              Made with <IconHeart class={"size-5 animate-pulse"} />{" "}
-              by Robin Rehbein
-            </p>
-          </li>
           <li class={"flex flex-col md:flex-row md:gap-1"}>
             <p>
               Copyright © {new Date().getFullYear()}.
@@ -33,7 +27,10 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <hr class={"my-8 border-foreground"} />
+      <p class={"flex flex-row items-center gap-1 justify-center mt-16"}>
+        Made with <IconHeart class={"size-5 animate-pulse"} /> by Robin Rehbein
+      </p>
+      <hr class={"my-16 border-foreground"} />
     </footer>
   );
 };
