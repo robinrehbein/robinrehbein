@@ -236,7 +236,7 @@ const IconSeparator = ({ ...props }: JSX.SVGAttributes<SVGSVGElement>) => (
     fill="currentColor"
     {...props}
   >
-    <path d="M2 11H18V13H6V11ZM20"></path>
+    <path d="M19 11H5V13H19V11Z"></path>
   </svg>
 );
 

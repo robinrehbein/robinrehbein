@@ -8,7 +8,7 @@ const Section = (
 ) => {
   return (
     <section
-      class={cn("max-w-screen-2xl mx-auto px-8", props.class)}
+      class={cn("max-w-screen-2xl mx-auto px-8 font-zodiak", props.class)}
       {...props}
     >
       {separator && <hr class={"my-16 border-foreground"} />}

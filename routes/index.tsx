@@ -23,6 +23,7 @@ import {
 import Reveal from "../islands/Reveal.tsx";
 import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
 import { Button } from "../components/atoms/Button.tsx";
+import ProjectCard from "../islands/ProjectCard.tsx";
 
 interface Data {
   items: Array<TimetableItem>;
@@ -204,7 +205,7 @@ const Home = (
         </div>
         <div class={"font-zodiak"}>
           {/* <p class={"mb-4 flex items-center gap-2 font-medium"}> */}
-          <p class={"mb-4 flex items-center gap-2 italic"}>
+          <p class={"mb-4 flex items-center gap-2 italic font-medium"}>
             {/* <IconThumbsUp class={"size-6"} /> */}
             What i like:
           </p>
@@ -286,36 +287,59 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_02</p>
         </div>
-
-        <img
-          src="/iphone_artwerk_landing.webp"
-          alt="iPhone Mockup"
-          class={"object-cover w-full shadow mb-4 aspect-square"}
+        <ProjectCard
+          title="artwerk studios"
+          description="artwerk is a passion project that I co-founded with two friends. Our
+          mission is to transform your favorite songs into personalized posters,
+          capturing the essence of music and memory in unique visual art. In
+          just seconds, you can create your custom poster and see a preview. We
+          prioritize high-quality printing and use only premium paper.
+          Sustainability is also important to us, so our products are produced
+          in an environmentally friendly manner. artwerk is the perfect blend of
+          personal taste and design—a tribute to the tunes that move you. Dive
+          into the art of music with artwerk."
+          href="https://artwerk.store"
+          images={[
+            "/macbook_artwerk_landing_light.webp",
+            "/iphone_artwerk_landing.webp",
+            "/curved_3_artwerk_poster.webp",
+            "/curved_1_artwerk_poster.webp",
+            "/curved_2_artwerk_poster.webp",
+          ]}
         />
-
-        <img
-          // src="/curved_1_artwerk_poster.webp"
-          src="/concrete_artwerk_poster.webp"
-          // src="/sidewalk_artwerk_poster.webp"
-          alt="iPhone Mockup"
-          class={"object-cover w-full shadow mb-4 aspect-square"}
+        <hr class={"my-16 border-foreground"} />
+        <ProjectCard
+          title="Kirchmaier & Staudacher"
+          description="Kirchmaier & Staudacher is a premier project management 
+          company co-founded by a team dedicated to excellence in construction 
+          and real estate development. Their passion drives them to deliver personalized 
+          project solutions with precision and efficiency. They offer a seamless experience, 
+          providing instant previews of project plans and ensuring top-tier quality with 
+          every execution. Sustainability is at the core of their operations, as they 
+          strive to implement environmentally friendly practices in all their projects. 
+          Discover the perfect synergy of expertise and innovation with Kirchmaier & Staudacher, 
+          where your vision is their blueprint for success."
+          href="https://www.kirchmaier-staudacher.de/"
+          images={[
+            "/macbook_kirchmaier_landing_1.webp",
+            "/iphone_kirchmaier_landing_1.webp",
+            "/macbook_kirchmaier_landing_2.webp",
+            "/iphone_kirchmaier_landing_2.webp",
+            "/macbook_kirchmaier_landing_3.webp",
+          ]}
         />
-
-        <img
-          src="/macbook_artwerk_landing_light.webp"
-          alt="iPhone Mockup"
-          class={"object-cover w-full shadow mb-4 aspect-square"}
-        />
-
-        <img
-          src="/curved_2_artwerk_poster.webp"
-          // src="/flying_paper_artwerk_poster.webp"
-          alt="iPhone Mockup"
-          class={"object-cover w-full shadow mb-4 aspect-square object-top"}
-        />
+        <Button class={"mt-16 w-full"}>
+          <a
+            href={"/work"}
+            class={"flex flex-row gap-2 items-center justify-end"}
+          >
+            More of my work
+            <IconArrowDown class={"-rotate-90 size-4"} />
+          </a>
+        </Button>
       </Section>
       <Section>
-        <div class={"flex flex-row justify-between"}>
+        <div class={"flex flex-row justify-between mb-4"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -324,6 +348,26 @@ const Home = (
             Contact.
           </H>
           <p class={"font-zodiak font-medium text-md"}>_03</p>
+        </div>
+        <div class={"flex md:flex-row flex-col gap-4 md:gap-12"}>
+          <p
+            class={"flex items-center gap-2 italic font-medium min-w-fit"}
+          >
+            {/* <IconThumbsUp class={"size-6"} /> */}
+            Get in touch!
+          </p>
+          <p>
+            I'd love to hear from you! Whether you have a question, a project
+            proposal, or just want to say hello, feel free to reach out. You can
+            contact me via email at{" "}
+            <a
+              class={"font-medium italic"}
+              href={"mailto:hello@robinrehbein.de"}
+            >
+              hello@robinrehbein.de
+            </a>{" "}
+            or fill out the form below. I look forward to connecting with you!
+          </p>
         </div>
       </Section>
 
