@@ -18,6 +18,7 @@ import {
   IconPlant,
   IconReact,
   IconSeparator,
+  IconThumbsUp,
 } from "../components/Icons.tsx";
 import Reveal from "../islands/Reveal.tsx";
 import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
@@ -202,10 +203,11 @@ const Home = (
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
         <div class={"font-zodiak"}>
-          <p class={"mb-2"}>
+          <p class={"mb-4 flex items-center gap-2"}>
+            <IconThumbsUp class={"size-6"} />
             What i like:
           </p>
-          <ul className={"flex flex-col gap-2 mb-8"}>
+          <ul className={"flex flex-row gap-4 mb-8 flex-wrap"}>
             <li class={"flex items-center gap-2"}>
               <IconPlant class={"size-6"} />
               Plants.
@@ -213,27 +215,32 @@ const Home = (
             {
               /* <li class={"flex items-center gap-2"}>
               <IconCube class={"size-6"} /> Games.
-            </li> */
+              </li> */
             }
             <li class={"flex items-center gap-2"}>
-              <IconKeyboard class={"size-6"} /> Custom Keyboards.
+              <IconCup class={"size-6"} /> Coffee!
             </li>
             {
               /* <li class={"flex items-center gap-2"}>
               <IconHtml class={"size-6"} /> Programming.
-            </li> */
+              </li> */
             }
             <li class={"flex items-center gap-2"}>
               <IconBike class={"size-6"} /> Biking.
             </li>
             <li class={"flex items-center gap-2"}>
-              <IconCup class={"size-6"} /> Coffee.
+              <IconKeyboard class={"size-6"} /> Custom Keyboards.
+            </li>
+            <li class={"flex items-center gap-2 grow justify-end"}>
+              <a
+                href={"/about"}
+                class={"flex flex-row gap-2 items-center"}
+              >
+                More about me
+                <IconArrowDown class={"-rotate-90 size-4"} />
+              </a>
             </li>
           </ul>
-
-          <a href={"/about"} class={"flex flex-row gap-2 items-center"}>
-            More <IconArrowDown class={"-rotate-90 size-4"} />
-          </a>
         </div>
       </Section>
       <Section>
