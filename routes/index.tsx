@@ -7,6 +7,7 @@ import PgClient from "../lib/pg.ts";
 import { Project, TimetableItem } from "../lib/types.ts";
 import {
   IconArrowDown,
+  IconArtwerk,
   IconBike,
   IconCircle,
   IconCube,
@@ -14,6 +15,7 @@ import {
   IconHeartedHands,
   IconHtml,
   IconKeyboard,
+  IconNeosfer,
   IconPin,
   IconPlant,
   IconReact,
@@ -203,7 +205,7 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
-        <div class={"font-zodiak"}>
+        <div class={"font-zodiak mb-8"}>
           {/* <p class={"mb-4 flex items-center gap-2 font-medium"}> */}
           <p class={"mb-4 flex items-center gap-2 italic font-medium"}>
             {/* <IconThumbsUp class={"size-6"} /> */}
@@ -274,6 +276,44 @@ const Home = (
             </em>{" "}
             and deepening my appreciation for every aromatic brew.
           </p>
+        </div>
+        <div>
+          <p class={"mb-8 italic font-medium"}>
+            Current positions:
+          </p>
+          <ul class={"flex flex-col md:flex-row gap-8"}>
+            <li class="flex flex-row gap-8 items-start">
+              <IconNeosfer class={"size-12"} />
+              <div>
+                <p>
+                  <strong>Senior Developer</strong> at{" "}
+                  <a
+                    href="https://neosfer.de"
+                    class={"underline decoration-wavy decoration-mustard-yellow-950 font-medium hover:text-mustard-yellow-950"}
+                  >
+                    neosfer
+                  </a>
+                </p>
+                <p>01 - 11 - 2022 till today</p>
+              </div>
+            </li>
+            <span class={"w-full h-px md:h-full md:w-px bg-foreground block"} />
+            <li class="flex flex-row gap-8 items-start">
+              <IconArtwerk class={"size-12"} />
+              <div>
+                <p>
+                  <strong>Co-Founder</strong> at{" "}
+                  <a
+                    href="https://artwerk.store"
+                    class={"underline decoration-wavy decoration-racing-green font-medium hover:text-racing-green"}
+                  >
+                    artwerk studios
+                  </a>
+                </p>
+                <p>14 - 03 - 2023 till today</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </Section>
       <Section>
