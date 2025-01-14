@@ -209,8 +209,7 @@ const Home = (
           </p>
           <ul className={"flex flex-row gap-4 mb-8 flex-wrap"}>
             <li class={"flex items-center gap-2"}>
-              <IconPlant class={"size-6"} />
-              Plants.
+              <IconCup class={"size-6"} /> Coffee!
             </li>
             {
               /* <li class={"flex items-center gap-2"}>
@@ -218,7 +217,8 @@ const Home = (
               </li> */
             }
             <li class={"flex items-center gap-2"}>
-              <IconCup class={"size-6"} /> Coffee!
+              <IconPlant class={"size-6"} />
+              Plants.
             </li>
             {
               /* <li class={"flex items-center gap-2"}>
