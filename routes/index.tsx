@@ -288,7 +288,9 @@ const Home = (
               <IconNeosfer class={"size-12"} />
               <div>
                 <p>
-                  <strong>Senior Developer</strong> at{" "}
+                  <strong>Senior Developer</strong>
+                  <br class={"md:hidden"} />
+                  at{" "}
                   <a
                     href="https://neosfer.de"
                     class={"underline decoration-wavy decoration-mustard-yellow-950 font-medium hover:text-mustard-yellow-950"}
@@ -297,6 +299,7 @@ const Home = (
                   </a>
                 </p>
                 <p>01 - 11 - 2022 till today</p>
+                {/* TODO Expand infos and description */}
               </div>
             </li>
             <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
@@ -304,7 +307,8 @@ const Home = (
               <IconArtwerk class={"size-12"} />
               <div>
                 <p>
-                  <strong>Co-Founder</strong> at{" "}
+                  <strong>Co-Founder</strong>
+                  <br class={"md:hidden"} />at{" "}
                   <a
                     href="https://artwerk.store"
                     class={"underline decoration-wavy decoration-racing-green font-medium hover:text-racing-green"}
