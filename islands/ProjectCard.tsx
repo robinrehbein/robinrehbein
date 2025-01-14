@@ -20,7 +20,8 @@ const ProjectCard = (
     >
       <div class={"md:flex-1 md:h-fit md:sticky md:top-1/4"}>
         {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
-        <H variant="h3" class={"mb-4"}>
+        <H variant="h3" class={"mb-4 text-base md:text-2xl font-zodiak"}>
+          {/* <H variant="h3" class={"mb-4"}> */}
           {title}
         </H>
         <p class={"mb-8"}>
