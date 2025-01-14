@@ -184,7 +184,7 @@ const Home = (
           <img
             src="/me_square.jpg"
             alt="me"
-            class={"object-cover object-top w-full md:w-[55%] aspect-square shadow"} // rounded-full
+            class={"object-cover object-top w-full md:w-1/2 aspect-square shadow"} // rounded-full
           />
         </div>
         {/* <Synthwave /> */}
@@ -195,7 +195,7 @@ const Home = (
       <RevealTextOnMouseOver /> */
       }
       <Section id={`${SCROLL_ANKER}`}>
-        <div class={"flex flex-row justify-between mb-4"}>
+        <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
             // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
@@ -205,13 +205,15 @@ const Home = (
           </H>
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
-        <div class={"font-zodiak mb-8"}>
+        <div class={"font-zodiak mb-8 md:mb-16"}>
           {/* <p class={"mb-4 flex items-center gap-2 font-medium"}> */}
-          <p class={"mb-4 flex items-center gap-2 italic font-medium"}>
+          <p class={"mb-4 md:mb-8 italic font-medium"}>
             {/* <IconThumbsUp class={"size-6"} /> */}
             What i like:
           </p>
-          <ul className={"flex flex-col md:flex-row gap-4 mb-4 flex-wrap"}>
+          <ul
+            className={"flex flex-col md:flex-row gap-4 mb-8 md:mb-16 flex-wrap"}
+          >
             <li class={"flex items-center gap-2"}>
               <IconCup class={"size-6"} /> Coffee!
             </li>
@@ -297,7 +299,7 @@ const Home = (
                 <p>01 - 11 - 2022 till today</p>
               </div>
             </li>
-            <span class={"w-full h-px md:h-full md:w-px bg-foreground block"} />
+            <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
             <li class="flex flex-row gap-8 items-start">
               <IconArtwerk class={"size-12"} />
               <div>
