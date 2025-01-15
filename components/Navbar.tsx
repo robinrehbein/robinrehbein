@@ -20,7 +20,7 @@ const Navbar = () => {
                 <IconSeparator class={"size-6"} />
               </span>
               <p
-                class={"hidden md:block inline-flex items-center gap-2"}
+                class={"hidden md:inline-flex items-center gap-2"}
               >
                 <span class="relative w-6 h-6 inline-flex items-center justify-center">
                   <IconCircle
