@@ -19,7 +19,6 @@ import * as $MobileMenu from "./islands/MobileMenu.tsx";
 import * as $ProjectCard from "./islands/ProjectCard.tsx";
 import * as $Reveal from "./islands/Reveal.tsx";
 import * as $RevealTextOnMouseOver from "./islands/RevealTextOnMouseOver.tsx";
-import * as $ShowOnScroll from "./islands/ShowOnScroll.tsx";
 import * as $Synthwave from "./islands/Synthwave.tsx";
 import * as $TimelineFilter from "./islands/TimelineFilter.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -45,7 +44,6 @@ const manifest = {
     "./islands/ProjectCard.tsx": $ProjectCard,
     "./islands/Reveal.tsx": $Reveal,
     "./islands/RevealTextOnMouseOver.tsx": $RevealTextOnMouseOver,
-    "./islands/ShowOnScroll.tsx": $ShowOnScroll,
     "./islands/Synthwave.tsx": $Synthwave,
     "./islands/TimelineFilter.tsx": $TimelineFilter,
   },
