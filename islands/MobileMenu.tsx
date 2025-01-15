@@ -12,7 +12,6 @@ const MobileMenu = () => {
       </div>
     );
   }
-
   const isOpen = useSignal(false);
 
   return (
