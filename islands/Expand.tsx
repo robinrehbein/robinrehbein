@@ -9,10 +9,12 @@ const Expand = (
 
   return (
     <details
-      class={cn("w-full md:w-56 md:text-justify")}
+      class={cn("w-full")}
       {...props}
     >
-      <summary>{isOpen.value ? "Collapse" : "Expand"}</summary>
+      <summary class={"my-2"}>
+        {isOpen.value ? "Collapse" : "Expand"}
+      </summary>
       {children}
     </details>
   );

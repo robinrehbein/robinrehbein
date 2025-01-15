@@ -327,6 +327,31 @@ const IconArtwerk = ({ ...props }: JSX.SVGAttributes<SVGSVGElement>) => (
   </svg>
 );
 
+const IconTelekom = ({ ...props }: JSX.SVGAttributes<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    viewBox="0 0 76.728 91.282"
+    {...props}
+  >
+    {/* <g transform="matrix(.2857 0 0 .2857 71.408 28.262)" fill="#e20074"> */}
+    <g transform="matrix(.2857 0 0 .2857 71.408 28.262)" fill="currentColor">
+      <path d="m-33.599 218.73v-22.192h-15.256c-26.315 0-38.393-15.643-38.393-38.665v-232.6h4.5246c49.283 0 80.582 32.707 80.582 80.797v4.3092h18.745v-107.3h-264.58v107.3h18.745v-4.3092c0-48.09 31.298-80.797 80.582-80.797h4.5246v232.6c0 23.022-12.078 38.665-38.393 38.665h-15.256v22.192z" />
+      <path d="m16.603 111.43h-62.914v-63.129h62.914z" />
+      <path d="m-185.07 111.43h-62.914v-63.129h62.914z" />
+    </g>
+  </svg>
+);
+
+const IconMhp = ({ ...props }: JSX.SVGAttributes<SVGSVGElement>) => (
+  <svg style="isolation:isolate" viewBox="10 10 135.186 135.654" {...props}>
+    <path
+      d=" M 10 10 L 10 145.654 L 32.574 145.654 L 32.574 10 L 10 10 Z  M 77.619 10 L 68.831 62.774 L 91.405 62.774 L 100.089 10 L 77.619 10 Z  M 122.607 10 L 122.607 145.654 L 145.186 145.654 L 145.186 10 L 122.607 10 Z  M 65.041 85.383 L 55.045 145.654 L 77.619 145.654 L 87.615 85.383 L 65.041 85.383 Z "
+      fill-rule="evenodd"
+      fill="currentColor"
+    />
+  </svg>
+);
 export {
   IconArrowDown,
   IconArtwerk,
@@ -343,11 +368,13 @@ export {
   IconKeyboard,
   IconLogo,
   IconMail,
+  IconMhp,
   IconMore,
   IconNeosfer,
   IconPin,
   IconPlant,
   IconReact,
   IconSeparator,
+  IconTelekom,
   IconThumbsUp,
 };

@@ -1,20 +1,14 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import FeaturedProjects from "../components/FeaturedProducts.tsx";
 import H from "../components/atoms/H.tsx";
 import Section from "../components/atoms/Section.tsx";
-import Timeline from "../components/Timeline.tsx";
-import PgClient from "../lib/pg.ts";
-import { Project, TimetableItem } from "../lib/types.ts";
+import { TimetableItem } from "../lib/types.ts";
 import {
   IconArrowDown,
   IconArtwerk,
   IconBike,
   IconCircle,
-  IconCube,
   IconCup,
   IconGithub,
   IconHeartedHands,
-  IconHtml,
   IconKeyboard,
   IconMail,
   IconNeosfer,
@@ -22,10 +16,7 @@ import {
   IconPlant,
   IconReact,
   IconSeparator,
-  IconThumbsUp,
 } from "../components/Icons.tsx";
-import Reveal from "../islands/Reveal.tsx";
-import RevealTextOnMouseOver from "../islands/RevealTextOnMouseOver.tsx";
 import { Button } from "../components/atoms/Button.tsx";
 import ProjectCard from "../islands/ProjectCard.tsx";
 import Expand from "../islands/Expand.tsx";
@@ -310,7 +301,9 @@ const Home = (
                 </Expand>
               </div>
             </li>
-            <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
+            <li>
+              <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
+            </li>
             <li class="flex flex-row gap-8 md:gap-16 items-start">
               <IconArtwerk class={"size-12 min-w-12"} />
               <div>

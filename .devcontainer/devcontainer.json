@@ -41,7 +41,8 @@
         "streetsidesoftware.code-spell-checker",
         "oderwat.indent-rainbow",
         "ms-azuretools.vscode-docker",
-        "DBCode.dbcode"
+        "DBCode.dbcode",
+        "yoavbls.pretty-ts-errors"
       ]
     }
   },

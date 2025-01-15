@@ -11,7 +11,6 @@ import * as $api_login_index from "./routes/api/login/index.ts";
 import * as $api_logout_index from "./routes/api/logout/index.ts";
 import * as $hub_index from "./routes/hub/index.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $skills_index from "./routes/skills/index.tsx";
 import * as $work_index from "./routes/work/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Expand from "./islands/Expand.tsx";
@@ -36,7 +35,6 @@ const manifest = {
     "./routes/api/logout/index.ts": $api_logout_index,
     "./routes/hub/index.tsx": $hub_index,
     "./routes/index.tsx": $index,
-    "./routes/skills/index.tsx": $skills_index,
     "./routes/work/index.tsx": $work_index,
   },
   islands: {

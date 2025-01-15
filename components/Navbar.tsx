@@ -59,11 +59,6 @@ const Navbar = () => {
           </a>
         </li>
         <li>
-          <a href="skills">
-            skills.
-          </a>
-        </li>
-        <li>
           <a href="about">
             about.
           </a>
