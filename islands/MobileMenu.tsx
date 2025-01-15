@@ -7,9 +7,9 @@ const MobileMenu = () => {
   const isOpen = useSignal(false);
 
   return (
-    <div class={"relative"}>
+    <div class={"relative md:hidden"}>
       <Button
-        class={"md:hidden text-foreground"}
+        class={"text-foreground"}
         onClick={() => isOpen.value = !isOpen.value}
       >
         <IconMore class={"size-5 rotate-90"} />
