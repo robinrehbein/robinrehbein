@@ -1,14 +1,10 @@
-import { effect, useSignal } from "@preact/signals";
+import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
 import { IconMore } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";
 
 const MobileMenu = () => {
   const isOpen = useSignal(false);
-
-  effect(() => {
-    console.log(isOpen.value);
-  });
 
   return (
     <div class={"relative"}>
