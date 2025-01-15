@@ -1,15 +1,6 @@
 import MobileMenu from "../islands/MobileMenu.tsx";
 import ShowOnScroll from "../islands/ShowOnScroll.tsx";
-import { Button } from "./atoms/Button.tsx";
-import {
-  IconCircle,
-  IconGithub,
-  IconHamburger,
-  IconLogo,
-  IconMail,
-  IconMore,
-  IconSeparator,
-} from "./Icons.tsx";
+import { IconCircle, IconLogo, IconSeparator } from "./Icons.tsx";
 
 const Navbar = () => {
   return (
