@@ -172,10 +172,13 @@ const Projects = () => {
             technology. Starting with web design and development, I learned how
             to make websites that people find easy to use. In other jobs, I
             picked up new skills and worked with different teams to solve
-            problems and create projects that matter. These experiences have
-            helped me become flexible and skilled in many areas. Below, you can
-            see a list of my career milestones, showing my journey of learning
-            and growth.
+            problems and create projects that{" "}
+            <a
+              href="https://impact-festival.earth"
+              class={"underline decoration-wavy decoration-emerald-400"}
+            >
+              create impact
+            </a>.
           </p>
           <p class={"my-8 md:my-16 italic font-medium"}>
             Current positions:
