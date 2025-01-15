@@ -12,7 +12,6 @@ const MobileMenu = () => {
         class={"md:hidden text-foreground"}
         onClick={() => isOpen.value = !isOpen.value}
       >
-        {/* <IconHamburger /> */}
         <IconMore class={"size-5 rotate-90"} />
       </Button>
       <ul

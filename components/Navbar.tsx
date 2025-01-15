@@ -73,30 +73,8 @@ const Navbar = () => {
             hub.
           </a>
         </li>
-        {
-          /* <li>
-          blog.
-        </li> */
-        }
       </ul>
-      {
-        /* <ul
-        class={"text-racing-green hidden md:flex flex-row items-center gap-4"}
-      >
-        <li>
-          <IconMail />
-        </li>
-        <li>
-          <IconGithub />
-        </li>
-      </ul> */
-      }
       <MobileMenu />
-      {
-        /* <Button class={"md:hidden text-foreground"}>
-        <IconMore class={"size-5 rotate-90"} />
-      </Button> */
-      }
     </nav>
   );
 };

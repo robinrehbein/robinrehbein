@@ -12,9 +12,11 @@ import {
   IconCircle,
   IconCube,
   IconCup,
+  IconGithub,
   IconHeartedHands,
   IconHtml,
   IconKeyboard,
+  IconMail,
   IconNeosfer,
   IconPin,
   IconPlant,
@@ -309,7 +311,7 @@ const Home = (
               </div>
             </li>
             <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
-            <li class="flex flex-row gap-8 items-start">
+            <li class="flex flex-row gap-8 md:gap-16 items-start">
               <IconArtwerk class={"size-12 min-w-12"} />
               <div>
                 <p>
@@ -416,19 +418,42 @@ const Home = (
             {/* <IconThumbsUp class={"size-6"} /> */}
             Get in touch!
           </p>
-          <p
-            class={"md:flex-1"}
-          >
-            I'd love to hear from you! Whether you have a question, a project
-            proposal, or just want to say hello, feel free to reach out. You can
-            contact me via email at{" "}
-            <a
-              class={"font-medium italic"}
-              href={"mailto:hello@robinrehbein.de"}
+          <div>
+            <p
+              class={"md:flex-1 mb-8 md:mb-16"}
             >
-              hello@robinrehbein.de
-            </a>. I look forward to connecting with you!
-          </p>
+              I'd love to hear from you! Whether you have a question, a project
+              proposal, or just want to say hello, feel free to reach out. You
+              can contact me via email at{" "}
+              <a
+                class={"font-medium italic"}
+                href={"mailto:hello@robinrehbein.de"}
+              >
+                hello@robinrehbein.de
+              </a>. I look forward to connecting with you!
+            </p>
+            <ul
+              class={"flex flex-row items-center gap-4 md:gap-8 flex-wrap"}
+            >
+              <li>
+                <a
+                  class={"font-medium italic"}
+                  href={"mailto:hello@robinrehbein.de"}
+                >
+                  <IconMail class={"size-6 inline-flex mr-2"} />{" "}
+                  hello@robinrehbein.de
+                </a>
+              </li>
+              <li>
+                <a
+                  class={"font-medium italic"}
+                  href={"https://github.com/robinrehbein"}
+                >
+                  <IconGithub class={"size-6 inline-flex mr-2"} /> robinrehbein
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </Section>
 

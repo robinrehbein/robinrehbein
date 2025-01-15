@@ -27,10 +27,9 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <p class={"flex flex-row items-center gap-1 justify-center mt-16"}>
+      <p class={"flex flex-row items-center gap-1 justify-center my-16"}>
         Made with <IconHeart class={"size-5 animate-pulse"} /> by Robin Rehbein
       </p>
-      <hr class={"my-16 border-foreground"} />
     </footer>
   );
 };
