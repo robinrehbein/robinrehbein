@@ -76,7 +76,7 @@ set -e
 umask 0002
 # Do not update profile - we'll do this manually
 export PROFILE=/dev/null
-curl -fsSL https://deno.land/install.sh | sudo DENO_INSTALL=${DENO_INSTALL} bash -s -- -y --no-modify-path
+curl -fsSL https://deno.land/install.sh | DENO_INSTALL=${DENO_INSTALL} bash -s -- -y --no-modify-path
 EOF
 )"
 
