@@ -16,6 +16,7 @@ import * as $work_index from "./routes/work/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Expand from "./islands/Expand.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
+import * as $MobileMenu from "./islands/MobileMenu.tsx";
 import * as $ProjectCard from "./islands/ProjectCard.tsx";
 import * as $Reveal from "./islands/Reveal.tsx";
 import * as $RevealTextOnMouseOver from "./islands/RevealTextOnMouseOver.tsx";
@@ -42,6 +43,7 @@ const manifest = {
     "./islands/Counter.tsx": $Counter,
     "./islands/Expand.tsx": $Expand,
     "./islands/HubClient.tsx": $HubClient,
+    "./islands/MobileMenu.tsx": $MobileMenu,
     "./islands/ProjectCard.tsx": $ProjectCard,
     "./islands/Reveal.tsx": $Reveal,
     "./islands/RevealTextOnMouseOver.tsx": $RevealTextOnMouseOver,

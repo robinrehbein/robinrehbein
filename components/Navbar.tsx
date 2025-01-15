@@ -1,3 +1,4 @@
+import MobileMenu from "../islands/MobileMenu.tsx";
 import ShowOnScroll from "../islands/ShowOnScroll.tsx";
 import { Button } from "./atoms/Button.tsx";
 import {
@@ -90,10 +91,12 @@ const Navbar = () => {
         </li>
       </ul> */
       }
-      <Button class={"md:hidden text-foreground"}>
-        {/* <IconHamburger /> */}
+      <MobileMenu />
+      {
+        /* <Button class={"md:hidden text-foreground"}>
         <IconMore class={"size-5 rotate-90"} />
-      </Button>
+      </Button> */
+      }
     </nav>
   );
 };
