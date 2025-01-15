@@ -2,7 +2,7 @@ import { useEffect } from "preact/hooks";
 import { createElement } from "preact";
 import { useSignal } from "@preact/signals";
 import { cn } from "../lib/utils.ts";
-import { ComponentChildren } from "https://esm.sh/v128/preact@10.22.0/src/index.d.ts";
+import { ComponentChildren } from "preact";
 
 const Reveal = ({ children }: { children: ComponentChildren }) => {
   const isVisible = useSignal(false);
