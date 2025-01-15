@@ -12,27 +12,28 @@ const Navbar = () => {
         <li>
           <IconLogo />
         </li>
-        {/* <Reveal> */}
-        <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
-          <p>R. Rehbein Portfolio</p>
-          <span class={"hidden md:inline"}>
-            <IconSeparator class={"size-6"} />
-          </span>
-          <p
-            class={"hidden md:block items-center gap-2"}
-          >
-            <span class="relative w-6 h-6 inline-flex items-center justify-center">
-              <IconCircle
-                class={"size-3 absolute"}
-              />
-              <IconCircle
-                class={"size-3 animate-ping"}
-              />
+        {/* TODO fix build error on reveal */}
+        <Reveal>
+          <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
+            <p>R. Rehbein Portfolio</p>
+            <span class={"hidden md:inline"}>
+              <IconSeparator class={"size-6"} />
             </span>
-            Available for projects
-          </p>
-        </a>
-        {/* </Reveal> */}
+            <p
+              class={"hidden md:block items-center gap-2"}
+            >
+              <span class="relative w-6 h-6 inline-flex items-center justify-center">
+                <IconCircle
+                  class={"size-3 absolute"}
+                />
+                <IconCircle
+                  class={"size-3 animate-ping"}
+                />
+              </span>
+              Available for projects
+            </p>
+          </a>
+        </Reveal>
       </ul>
       <ul
         class={"text-foreground md:flex flex-row items-center gap-4 hidden text-sm font-zodiak"} // TODO add blend mode
