@@ -13,27 +13,25 @@ const Navbar = () => {
           <IconLogo />
         </li>
         <ShowOnScroll>
-          <li>
-            <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
-              <p>R. Rehbein Portfolio</p>
-              <span class={"hidden md:inline"}>
-                <IconSeparator class={"size-6"} />
+          <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
+            <p>R. Rehbein Portfolio</p>
+            <span class={"hidden md:inline"}>
+              <IconSeparator class={"size-6"} />
+            </span>
+            <p
+              class={"hidden md:inline-flex items-center gap-2"}
+            >
+              <span class="relative w-6 h-6 inline-flex items-center justify-center">
+                <IconCircle
+                  class={"size-3 absolute"}
+                />
+                <IconCircle
+                  class={"size-3 animate-ping"}
+                />
               </span>
-              <p
-                class={"hidden md:inline-flex items-center gap-2"}
-              >
-                <span class="relative w-6 h-6 inline-flex items-center justify-center">
-                  <IconCircle
-                    class={"size-3 absolute"}
-                  />
-                  <IconCircle
-                    class={"size-3 animate-ping"}
-                  />
-                </span>
-                Available for projects
-              </p>
-            </a>
-          </li>
+              Available for projects
+            </p>
+          </a>
         </ShowOnScroll>
       </ul>
       <ul
