@@ -278,7 +278,7 @@ const Home = (
             Current positions:
           </p>
           <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
-            <li class="flex flex-row gap-8 md:gap-16 items-start">
+            <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
               <IconNeosfer class={"size-12 min-w-12"} />
               <div>
                 <p>
@@ -302,7 +302,9 @@ const Home = (
               </div>
             </li>
             <li>
-              <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
+              <span
+                class={"w-full h-px md:h-12 md:w-px bg-foreground block md:flex-1"}
+              />
             </li>
             <li class="flex flex-row gap-8 md:gap-16 items-start">
               <IconArtwerk class={"size-12 min-w-12"} />
