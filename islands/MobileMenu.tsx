@@ -7,7 +7,7 @@ import { IS_BROWSER } from "$fresh/runtime.ts";
 const MobileMenu = () => {
   if (!IS_BROWSER) {
     return (
-      <div>
+      <div class={"relative md:hidden"}>
         <IconMore class={"size-5 rotate-90 md:hidden"} />
       </div>
     );

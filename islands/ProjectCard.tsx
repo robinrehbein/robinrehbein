@@ -1,4 +1,4 @@
-import { effect, useSignal } from "@preact/signals";
+import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
 import { IconArrowDown } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";

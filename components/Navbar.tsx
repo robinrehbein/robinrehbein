@@ -16,12 +16,12 @@ const Navbar = () => {
         <Reveal>
           <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
             <p>R. Rehbein Portfolio</p>
-            <span class={"hidden md:inline"}>
-              <IconSeparator class={"size-6"} />
-            </span>
             <p
-              class={"hidden md:block items-center gap-2"}
+              class={"hidden md:flex items-center gap-2"}
             >
+              <span>
+                <IconSeparator class={"size-6"} />
+              </span>
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
                   class={"size-3 absolute"}
