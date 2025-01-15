@@ -418,9 +418,9 @@ const Home = (
             {/* <IconThumbsUp class={"size-6"} /> */}
             Get in touch!
           </p>
-          <div>
+          <div class="md:flex-1">
             <p
-              class={"md:flex-1 mb-8 md:mb-16"}
+              class={"mb-8 md:mb-16"}
             >
               I'd love to hear from you! Whether you have a question, a project
               proposal, or just want to say hello, feel free to reach out. You
