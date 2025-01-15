@@ -1,10 +1,12 @@
 import { useEffect } from "preact/hooks";
-import { createElement } from "preact";
 import { useSignal } from "@preact/signals";
 import { cn } from "../lib/utils.ts";
 import { ComponentChildren } from "preact";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 const Reveal = ({ children }: { children: ComponentChildren }) => {
+  if (!IS_BROWSER) return <div>{children}</div>;
+
   const isVisible = useSignal(false);
   useEffect(() => {
     const handleScroll = () => {
