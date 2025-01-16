@@ -303,10 +303,10 @@ const Home = (
             </li>
             <li>
               <span
-                class={"w-full h-px md:h-12 md:w-px bg-foreground block md:flex-1"}
+                class={"w-full h-px md:h-12 md:w-px bg-foreground block"}
               />
             </li>
-            <li class="flex flex-row gap-8 md:gap-16 items-start">
+            <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
               <IconArtwerk class={"size-12 min-w-12"} />
               <div>
                 <p>

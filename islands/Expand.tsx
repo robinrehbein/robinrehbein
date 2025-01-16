@@ -13,7 +13,7 @@ const Expand = (
         {...props}
       >
         <summary class={"my-2"}>
-          "Expand"
+          Expand
         </summary>
         {children}
       </details>
@@ -25,6 +25,7 @@ const Expand = (
     <details
       class={cn("w-full")}
       {...props}
+      onClick={() => isOpen.value = !isOpen.value}
     >
       <summary class={"my-2"}>
         {isOpen.value ? "Collapse" : "Expand"}
