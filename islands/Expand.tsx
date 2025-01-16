@@ -23,7 +23,7 @@ const Expand = (
 
   return (
     <details
-      class={cn("w-full")}
+      class={cn("w-full cursor-pointer")}
       {...props}
       onClick={() => isOpen.value = !isOpen.value}
     >
