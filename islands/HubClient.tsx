@@ -32,12 +32,14 @@ const HubClient = () => {
 
     onMessage: (event: MessageEvent<string>) => {
       const data: ClientsMessage | MessageType = JSON.parse(event.data);
+      console.log("onmessage", data);
       if (data.type === "clients") {
         count.value = data.count;
         clients.value = data.clients;
       }
       if (data.type === "message") {
         console.log("onmessage with data", data.data);
+        alert(`Received data: ${JSON.stringify(data.data)}`);
       }
     },
   });

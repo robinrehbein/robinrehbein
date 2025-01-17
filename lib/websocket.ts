@@ -73,14 +73,15 @@ const createClient = () => {
   return { id, name: name };
 };
 
-const sendMessage = (data: any) => {
+const sendMessage = (data: any, type: "data" | "message") => {
+  console.log("sendMessage", data);
   const [[sock, _client]] = Array.from(activeConnections.entries())
     .filter(
       (
         [_socket, client],
       ) => client.id === data.id,
     );
-  sock.send(JSON.stringify({ type: "data", data }));
+  sock.send(JSON.stringify({ type, data }));
 };
 
 const handleWebSocket = (req: Request) => {
@@ -88,6 +89,7 @@ const handleWebSocket = (req: Request) => {
     const { socket, response } = Deno.upgradeWebSocket(req);
 
     socket.addEventListener("open", () => {
+      console.log("WebSocket connected!");
       const client = createClient();
       activeConnections.set(socket, client);
       broadcastClients();
@@ -95,9 +97,10 @@ const handleWebSocket = (req: Request) => {
     });
 
     socket.addEventListener("message", (event) => {
+      console.log("Message received:", event.data);
       const { data, type } = JSON.parse(event.data);
       if (type === "message") {
-        sendMessage(data);
+        sendMessage(data, type);
       }
     });
 
@@ -106,6 +109,7 @@ const handleWebSocket = (req: Request) => {
     });
 
     socket.addEventListener("close", () => {
+      console.log("WebSocket disconnected!");
       activeConnections.delete(socket);
       broadcastClients();
       console.log("Client disconnected! Total:", activeConnections.size);
