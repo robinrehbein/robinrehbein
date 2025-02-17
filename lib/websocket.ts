@@ -1,3 +1,61 @@
+enum MessageType {
+  BROADCAST = "broadcast",
+  MESSAGE = "message",
+}
+
+type BroadcastData = {
+  count: number;
+  clients: Array<{ id: string; name: string }>;
+};
+
+type MessageData =
+  | string
+  | Blob
+  | File
+  | ArrayBufferLike
+  | ArrayBufferView;
+
+type WebSocketData<T extends MessageType> = T extends MessageType.BROADCAST
+  ? BroadcastData
+  : T extends MessageType.MESSAGE ? MessageData
+  : never;
+
+type WebSocketBroadcastMessage = {
+  type: MessageType.BROADCAST;
+  data: WebSocketData<MessageType.BROADCAST>;
+};
+
+type WebSocketDataMessage = {
+  type: MessageType.MESSAGE;
+  id: string;
+  sender: WebSocketClient;
+  receiver: WebSocketClient;
+  data: WebSocketData<MessageType.MESSAGE>;
+};
+type WebSocketMessage<T extends MessageType> = T extends MessageType.BROADCAST
+  ? WebSocketBroadcastMessage
+  : T extends MessageType.MESSAGE ? WebSocketDataMessage
+  : never;
+
+type WebSocketClient = {
+  id: string;
+  name: string;
+};
+
+enum WebSocketStatus {
+  CONNECTING = "CONNECTING",
+  CONNECTED = "CONNECTED",
+  DISCONNECTED = "DISCONNECTED",
+  ERROR = "ERROR",
+}
+
+enum WebSocketEvent {
+  OPEN = "open",
+  MESSAGE = "message",
+  ERROR = "error",
+  CLOSE = "close",
+}
+
 const activeConnections = new Map<WebSocket, { id: string; name: string }>();
 
 const names = [
@@ -17,11 +75,11 @@ const names = [
   "Raven",
   "Serpent",
   "Jaguar",
+  "Viper",
   "Lynx",
   "Cobra",
   "Great",
   "Banger",
-  "Viper",
   "Griffin",
   "Leopard",
   "Cheetah",
@@ -56,67 +114,85 @@ const names = [
 ];
 
 const broadcastClients = () => {
-  const message = JSON.stringify({
-    type: "clients",
-    count: activeConnections.size,
-    clients: Array.from(activeConnections.values()),
-  });
+  const message: WebSocketMessage<MessageType.BROADCAST> = {
+    type: MessageType.BROADCAST,
+    data: {
+      count: activeConnections.size,
+      clients: Array.from(activeConnections.values()),
+    },
+  };
 
-  activeConnections.keys().forEach((socket) => socket.send(message));
+  activeConnections.keys().forEach((socket) =>
+    socket.send(JSON.stringify(message))
+  );
 };
 
-const createClient = () => {
+const createClient = (): WebSocketClient => {
   const id = crypto.randomUUID();
   const name = `${names[Math.floor(Math.random() * names.length)]} ${
     names[Math.floor(Math.random() * names.length)]
   }`;
-  return { id, name: name };
+  return { id, name };
 };
 
-const sendMessage = (data: any, type: "data" | "message") => {
-  console.log("sendMessage", data);
+const sendMessage = (
+  { data, type, sender }: WebSocketMessage<MessageType.MESSAGE>,
+) => {
   const [[sock, _client]] = Array.from(activeConnections.entries())
     .filter(
       (
         [_socket, client],
-      ) => client.id === data.id,
+      ) => client.id === sender.id,
     );
   sock.send(JSON.stringify({ type, data }));
 };
 
 const handleWebSocket = (req: Request) => {
-  if (req.headers.get("upgrade") === "websocket") {
-    const { socket, response } = Deno.upgradeWebSocket(req);
+  if (req.headers.get("upgrade") !== "websocket") return;
 
-    socket.addEventListener("open", () => {
-      console.log("WebSocket connected!");
-      const client = createClient();
-      activeConnections.set(socket, client);
-      broadcastClients();
-      console.log("Client connected! Total:", activeConnections.size);
-    });
+  const { socket, response } = Deno.upgradeWebSocket(req);
 
-    socket.addEventListener("message", (event) => {
+  socket.addEventListener(WebSocketEvent.OPEN, () => {
+    const client = createClient();
+    activeConnections.set(socket, client);
+    broadcastClients();
+    console.log("Client connected! Total:", activeConnections.size);
+  });
+
+  socket.addEventListener(
+    WebSocketEvent.MESSAGE,
+    (event: MessageEvent<WebSocketMessage<MessageType.MESSAGE>>) => {
       console.log("Message received:", event.data);
-      const { data, type } = JSON.parse(event.data);
+      const { data, type } = event.data;
+
       if (type === "message") {
-        sendMessage(data, type);
+        sendMessage(event.data);
       }
-    });
+    },
+  );
 
-    socket.addEventListener("error", (event) => {
-      socket.send(JSON.stringify({ type: "error", event }));
-    });
+  socket.addEventListener(WebSocketEvent.ERROR, (event) => {
+    socket.send(JSON.stringify({ type: "error", event }));
+  });
 
-    socket.addEventListener("close", () => {
-      console.log("WebSocket disconnected!");
-      activeConnections.delete(socket);
-      broadcastClients();
-      console.log("Client disconnected! Total:", activeConnections.size);
-    });
+  socket.addEventListener("close", () => {
+    console.log("WebSocket disconnected!");
+    activeConnections.delete(socket);
+    broadcastClients();
+    console.log("Client disconnected! Total:", activeConnections.size);
+  });
 
-    return response;
-  }
+  return response;
 };
 
-export { handleWebSocket };
+export {
+  handleWebSocket,
+  MessageType,
+  type WebSocketBroadcastMessage,
+  type WebSocketClient,
+  type WebSocketData,
+  type WebSocketDataMessage,
+  type WebSocketEvent,
+  type WebSocketMessage,
+  WebSocketStatus,
+};

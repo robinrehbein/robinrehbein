@@ -1,45 +1,53 @@
 import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
-import { useWebSocket, WebSocketMessage } from "../hooks/useWebsocket.ts";
+import { useWebSocket } from "../hooks/useWebsocket.ts";
+import {
+  MessageType,
+  WebSocketClient,
+  WebSocketEvent,
+  WebSocketMessage,
+} from "../lib/websocket.ts";
 
-type Client = {
-  id: string;
-  name: string;
+const isBroadcastData = (
+  data: any,
+): data is WebSocketMessage<MessageType.BROADCAST> => {
+  return data.type === "broadcast";
 };
 
-type MessageType = {
-  type: "message";
-  data: WebSocketMessage;
-};
-
-type ClientsMessage = {
-  type: "clients";
-  count: number;
-  clients: Array<Client>;
+const isMessageData = (
+  data: any,
+): data is WebSocketMessage<MessageType.MESSAGE> => {
+  return data.type === "message";
 };
 
 const HubClient = () => {
   if (!IS_BROWSER) return null;
 
   const count = useSignal<number>(0);
-  const clients = useSignal<Array<Client>>([]);
+  const clients = useSignal<Array<WebSocketClient>>([]);
 
   const { status, sendMessage } = useWebSocket({
-    url: `wss://${globalThis.location.host}${globalThis.location.pathname}`,
+    url: `ws://${globalThis.location.host}${globalThis.location.pathname}`,
     reconnectAttempts: 3,
     reconnectInterval: 3000,
 
-    onMessage: (event: MessageEvent<string>) => {
-      const data: ClientsMessage | MessageType = JSON.parse(event.data);
-      console.log("onmessage", data);
-      if (data.type === "clients") {
-        count.value = data.count;
-        clients.value = data.clients;
+    onMessage: (
+      event: MessageEvent<
+        string
+      >,
+    ) => {
+      const message: WebSocketMessage<
+        MessageType.MESSAGE | MessageType.BROADCAST
+      > = JSON.parse(event.data);
+
+      if (isBroadcastData(message)) {
+        count.value = message.data.count;
+        clients.value = message.data.clients;
       }
-      if (data.type === "message") {
-        console.log("onmessage with data", data.data);
-        alert(`Received data: ${JSON.stringify(data.data)}`);
+      if (isMessageData(message)) {
+        console.log("onmessage with data", message.data);
+        alert(`Received data: ${JSON.stringify(message.data)}`);
       }
     },
   });
@@ -60,12 +68,13 @@ const HubClient = () => {
             {client.name}
             <Button
               onClick={() => {
-                sendMessage(
-                  JSON.stringify({
-                    type: "message",
-                    data: client,
-                  }),
-                );
+                sendMessage({
+                  type: MessageType.MESSAGE,
+                  id: client.id,
+                  sender: client,
+                  receiver: client,
+                  data: "Hello from the Hub!",
+                });
               }}
             >
               send data

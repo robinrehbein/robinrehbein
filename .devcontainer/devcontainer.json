@@ -23,7 +23,9 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "editor.formatOnType": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        // "editor.fontFamily": "JetBrains Mono",
+        "editor.fontLigatures": true
       },
       "extensions": [
         "RobbOwen.synthwave-vscode",
@@ -34,15 +36,16 @@
         "bradlc.vscode-tailwindcss",
         "albert.TabOut",
         "ms-vsliveshare.vsliveshare",
-        "GitHub.copilot",
-        "GitHub.copilot-chat",
+        // "GitHub.copilot",
+        // "GitHub.copilot-chat",
         "Orta.vscode-twoslash-queries",
         "Cardinal90.multi-cursor-case-preserve",
         "streetsidesoftware.code-spell-checker",
         "oderwat.indent-rainbow",
         "ms-azuretools.vscode-docker",
         "DBCode.dbcode",
-        "yoavbls.pretty-ts-errors"
+        "yoavbls.pretty-ts-errors",
+        "supermaven.supermaven"
       ]
     }
   },

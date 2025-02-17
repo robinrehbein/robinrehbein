@@ -1,17 +1,12 @@
 import { IS_BROWSER } from "$fresh/runtime.ts";
 import { Signal, signal } from "@preact/signals";
 import { useCallback, useEffect } from "preact/hooks";
-
-export type WebSocketMessage =
-  | string
-  | ArrayBufferLike
-  | Blob
-  | ArrayBufferView;
-export type WebSocketStatus =
-  | "CONNECTING"
-  | "CONNECTED"
-  | "DISCONNECTED"
-  | "ERROR";
+import {
+  MessageType,
+  WebSocketBroadcastMessage,
+  WebSocketMessage,
+  WebSocketStatus,
+} from "../lib/websocket.ts";
 
 interface UseWebSocketOptions {
   url: string;
@@ -25,7 +20,7 @@ interface UseWebSocketOptions {
 
 interface UseWebSocketReturn {
   status: Signal<WebSocketStatus>;
-  sendMessage: (data: WebSocketMessage) => void;
+  sendMessage: <T extends MessageType>(data: WebSocketMessage<T>) => void;
 }
 
 export const useWebSocket = ({
@@ -37,7 +32,7 @@ export const useWebSocket = ({
   onClose,
   onOpen,
 }: UseWebSocketOptions): UseWebSocketReturn => {
-  const status = signal<WebSocketStatus>("DISCONNECTED");
+  const status = signal<WebSocketStatus>(WebSocketStatus.DISCONNECTED);
   const ws = signal<WebSocket | null>(null);
   const reconnectCount = signal(0);
 
@@ -46,12 +41,12 @@ export const useWebSocket = ({
   }, [onMessage]);
 
   const handleError = useCallback((event: Event) => {
-    status.value = "ERROR";
+    status.value = WebSocketStatus.ERROR;
     onError?.(event);
   }, [onError]);
 
   const handleClose = useCallback((event: CloseEvent) => {
-    status.value = "DISCONNECTED";
+    status.value = WebSocketStatus.DISCONNECTED;
     onClose?.(event);
 
     if (reconnectCount.value < reconnectAttempts) {
@@ -63,27 +58,30 @@ export const useWebSocket = ({
   }, [onClose, reconnectAttempts, reconnectInterval]);
 
   const handleOpen = useCallback((event: Event) => {
-    status.value = "CONNECTED";
+    status.value = WebSocketStatus.CONNECTED;
     reconnectCount.value = 0;
     onOpen?.(event);
   }, [onOpen]);
 
-  const sendMessage = useCallback((data: WebSocketMessage) => {
-    try {
-      if (!ws.value) {
-        throw new Error("WebSocket is not initialized");
-      }
+  const sendMessage = useCallback(
+    <T extends MessageType>(data: WebSocketMessage<T>) => {
+      try {
+        if (!ws.value) {
+          throw new Error("WebSocket is not initialized");
+        }
 
-      if (ws.value.readyState !== WebSocket.OPEN) {
-        throw new Error("WebSocket is not open");
-      }
+        if (ws.value.readyState !== WebSocket.OPEN) {
+          throw new Error("WebSocket is not open");
+        }
 
-      ws.value.send(data);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-      throw error;
-    }
-  }, []);
+        ws.value.send(JSON.stringify(data));
+      } catch (error) {
+        console.error("Failed to send message:", error);
+        throw error;
+      }
+    },
+    [],
+  );
 
   const initializeWebSocket = useCallback(() => {
     try {
@@ -93,7 +91,7 @@ export const useWebSocket = ({
         ws.value.close();
       }
 
-      status.value = "CONNECTING";
+      status.value = WebSocketStatus.CONNECTING;
       ws.value = new WebSocket(url);
       ws.value.onopen = handleOpen;
       ws.value.onmessage = handleMessage;
@@ -101,7 +99,7 @@ export const useWebSocket = ({
       ws.value.onclose = handleClose;
     } catch (error) {
       console.error("WebSocket initialization failed:", error);
-      status.value = "ERROR";
+      status.value = WebSocketStatus.ERROR;
     }
   }, [url, handleOpen, handleMessage, handleError, handleClose]);
 
@@ -111,7 +109,7 @@ export const useWebSocket = ({
     return () => {
       ws.value?.close();
       ws.value = null;
-      status.value = "DISCONNECTED";
+      status.value = WebSocketStatus.DISCONNECTED;
     };
   }, [url]);
 
