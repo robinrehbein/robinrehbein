@@ -66,10 +66,11 @@ export default function Hub() {
               </span>
               Currently coding at
               <a
-                href="https://neosfer.de"
-                class={"underline decoration-wavy decoration-mustard-yellow-950"}
+                  href="https://mimacom.com"
+                  className={"underline decoration-wavy decoration-[#FF0651]"}
+                  /*decoration-mustard-yellow-950*/
               >
-                neosfer
+                mimacom
               </a>
             </p>
             <p class={"inline-flex items-center gap-2"}>

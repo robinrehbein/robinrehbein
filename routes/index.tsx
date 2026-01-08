@@ -107,36 +107,35 @@ const Home = (
             </p> */
             }
             {/* TODO check font font-clash-display */}
-            <p class={"inline-flex items-center gap-2"}>
+            <p className={"inline-flex items-center gap-2"}>
               <span>
-                <IconReact class={"size-6"} />
-                {/* <IconHtml slash class={"size-6"} /> */}
+                <IconReact class={"size-6"}/>
               </span>
               Currently coding at
               <a
-                href="https://neosfer.de"
-                // class={"text-[rgb(0,255,194)] underline decoration-wavy"}
-                class={"underline decoration-wavy decoration-mustard-yellow-950"}
+                  href="https://mimacom.com"
+                  className={"underline decoration-wavy decoration-[#FF0651]"}
+                  /*decoration-mustard-yellow-950*/
               >
-                neosfer
+                mimacom
               </a>
             </p>
             <p class={"inline-flex items-center gap-2"}>
               <span>
-                <IconPin class={"size-6"} />
+                <IconPin class={"size-6"}/>
               </span>
               Based in Stuttgart, Germany
             </p>
           </div>
         </div>
         <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
+            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
+            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
           variant={"h2"}
         >
           <span>
             {/* Seasoned Web */}
-            Frontend
+            Architect
             {
               /* Front
             <span
@@ -147,7 +146,7 @@ const Home = (
             }
           </span>
           <br />
-          <span>Developer.</span>
+          <span>& Develop.</span>
         </H>
         <div
           class={"flex flex-col md:flex-row justify-between items-end gap-12"}
@@ -282,22 +281,21 @@ const Home = (
               <IconNeosfer class={"size-12 min-w-12"} />
               <div>
                 <p>
-                  <strong>Senior Developer{" "}</strong>
+                  <strong>Software Engineer Senior{" "}</strong>
                   <br class={"md:hidden"} />
                   at{" "}
                   <a
-                    href="https://neosfer.de"
-                    class={"underline decoration-wavy decoration-mustard-yellow-950 font-medium hover:text-mustard-yellow-950"}
+                    href="https://mimacom.com"
+                    class={"underline decoration-wavy decoration-[#FF0651] font-medium hover:text-[#FF0651]"}
                   >
-                    neosfer
+                    mimacom
                   </a>
                 </p>
-                <p>01 - 11 - 2022 till today</p>
+                <p>01 - 01 - 2026 till today</p>
                 {/* TODO Expand infos and description */}
                 <Expand>
-                  I started a new journey at neosfer in late 2022. neosfer is a
-                  subsidiary of Commerzbank AG and deals with innovative
-                  technologies of the future.
+                  I started a new journey at mimacom in the beginning of 2026. Mimacom is a software and consulting company dedicated to digital progress. By combining cutting-edge technology and market expertise with individual talent, I help drive our team's passion and ensure our customers' long-term success.
+                  Stay ahead in a fast-changing digital world.
                 </Expand>
               </div>
             </li>

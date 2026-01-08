@@ -53,35 +53,36 @@ const Work = () => {
           </p>
         </H>
         <div class={"font-zodiak font-medium flex flex-col gap-1"}>
-          <p class={"inline-flex items-center gap-2"}>
-            <span>
-              <IconReact class={"size-6"} />
-            </span>
+          <p className={"inline-flex items-center gap-2"}>
+              <span>
+                <IconReact class={"size-6"}/>
+              </span>
             Currently coding at
             <a
-              href="https://neosfer.de"
-              class={"underline decoration-wavy decoration-mustard-yellow-950"}
+                href="https://mimacom.com"
+                className={"underline decoration-wavy decoration-[#FF0651]"}
+                /*decoration-mustard-yellow-950*/
             >
-              neosfer
+              mimacom
             </a>
           </p>
-          <p class={"inline-flex items-center gap-2"}>
+          <p className={"inline-flex items-center gap-2"}>
             <span>
-              <IconPin class={"size-6"} />
+              <IconPin class={"size-6"}/>
             </span>
             Based in Stuttgart, Germany
           </p>
         </div>
       </div>
       <H
-        // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-        class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
-        variant={"h2"}
+          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
+          class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
+          variant={"h2"}
       >
         <span>Work.</span>
       </H>
       <ul
-        className={"flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap"}
+          className={"flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap"}
       >
         <li class={"flex items-center gap-2 grow justify-end my-4 md:my-0"}>
           <Button>

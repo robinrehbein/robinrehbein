@@ -16,7 +16,7 @@ import {
   IconCup,
   IconHeartedHands,
   IconKeyboard,
-  IconMhp,
+  IconMhp, IconMimacom,
   IconNeosfer,
   IconPin,
   IconPlant,
@@ -62,29 +62,30 @@ const Projects = () => {
             </p>
           </H>
           <div class={"font-zodiak font-medium flex flex-col gap-1"}>
-            <p class={"inline-flex items-center gap-2"}>
+            <p className={"inline-flex items-center gap-2"}>
               <span>
-                <IconReact class={"size-6"} />
+                <IconReact class={"size-6"}/>
               </span>
               Currently coding at
               <a
-                href="https://neosfer.de"
-                class={"underline decoration-wavy decoration-mustard-yellow-950"}
+                  href="https://mimacom.com"
+                  className={"underline decoration-wavy decoration-[#FF0651]"}
+                  /*decoration-mustard-yellow-950*/
               >
-                neosfer
+                mimacom
               </a>
             </p>
             <p class={"inline-flex items-center gap-2"}>
               <span>
-                <IconPin class={"size-6"} />
+                <IconPin class={"size-6"}/>
               </span>
               Based in Stuttgart, Germany
             </p>
           </div>
         </div>
         <H
-          // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
+            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
+            class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
           variant={"h2"}
         >
           <span>About Me.</span>
@@ -185,25 +186,24 @@ const Projects = () => {
           </p>
           <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
             <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconNeosfer class={"size-12 min-w-12"} />
+              <IconMimacom class={"size-12 min-w-12"}/>
               <div>
                 <p>
-                  <strong>Senior Developer{" "}</strong>
-                  <br class={"md:hidden"} />
+                  <strong>Software Engineer Senior{" "}</strong>
+                  <br class={"md:hidden"}/>
                   at{" "}
                   <a
-                    href="https://neosfer.de"
-                    class={"underline decoration-wavy decoration-mustard-yellow-950 font-medium hover:text-mustard-yellow-950"}
+                      href="https://mimacom.com"
+                      className={"underline decoration-wavy decoration-[#FF0651] font-medium hover:text-[#FF0651]"}
                   >
-                    neosfer
+                    mimacom
                   </a>
                 </p>
-                <p>01-11-2022 till today</p>
+                <p>01 - 01 - 2026 till today</p>
                 {/* TODO Expand infos and description */}
                 <Expand>
-                  I started a new journey at neosfer in late 2022. neosfer is a
-                  subsidiary of Commerzbank AG and deals with innovative
-                  technologies of the future.
+                  I started a new journey at mimacom in the beginning of 2026. Mimacom is a software and consulting company dedicated to digital progress. By combining cutting-edge technology and market expertise with individual talent, I help drive our team's passion and ensure our customers' long-term success.
+                  Stay ahead in a fast-changing digital world.
                 </Expand>
               </div>
             </li>
@@ -239,17 +239,43 @@ const Projects = () => {
             Previous positions:
           </p>
 
-          <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
+          <ul class={"flex flex-col flex-wrap md:flex-row gap-8 md:gap-16"}>
+            <li className="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
+              <IconNeosfer class={"size-12 min-w-12"}/>
+              <div>
+                <p>
+                  <strong>Senior Developer{" "}</strong>
+                  <br class={"md:hidden"}/>
+                  at{" "}
+                  <a
+                      href="https://neosfer.de"
+                      class={"underline decoration-wavy decoration-emerald-400 font-medium hover:text-emerald-400"} //decoration-mustard-yellow-950 text-mustard-yellow-950
+                  >
+                    neosfer
+                  </a>
+                </p>
+                <p>01-11-2022 till today</p>
+                {/* TODO Expand infos and description */}
+                <Expand>
+                  I started a new journey at neosfer in late 2022. neosfer is a
+                  subsidiary of Commerzbank AG and deals with innovative
+                  technologies of the future.
+                </Expand>
+              </div>
+            </li>
+            <li>
+              <span className={"w-full h-px md:h-12 md:w-px bg-foreground block"}/>
+            </li>
             <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconMhp class={"size-12 min-w-12"} />
+              <IconMhp class={"size-12 min-w-12"}/>
               <div>
                 <p>
                   <strong>Senior Consultant{" "}</strong>
-                  <br class={"md:hidden"} />
+                  <br class={"md:hidden"}/>
                   at{" "}
                   <a
-                    href="https://mhp.com"
-                    class={"underline decoration-wavy decoration-blue-700 font-medium hover:text-blue-700"}
+                      href="https://mhp.com"
+                      class={"underline decoration-wavy decoration-blue-700 font-medium hover:text-blue-700"}
                   >
                     MHP - A Porsche Company
                   </a>
@@ -268,18 +294,18 @@ const Projects = () => {
               </div>
             </li>
             <li>
-              <span class={"w-full h-px md:h-12 md:w-px bg-foreground block"} />
+              <span className={"w-full h-px md:h-12 md:w-px bg-foreground block"}/>
             </li>
 
             <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconTelekom class={"size-12 min-w-12"} />
+              <IconTelekom class={"size-12 min-w-12"}/>
               <div>
                 <p>
                   <strong>IT-Architekt{" "}</strong>
-                  <br class={"md:hidden"} />at{" "}
+                  <br class={"md:hidden"}/>at{" "}
                   <a
-                    href="https://t-systems.com"
-                    class={"underline decoration-wavy decoration-pink-500 font-medium hover:text-pink-500"}
+                      href="https://t-systems.com"
+                      class={"underline decoration-wavy decoration-pink-500 font-medium hover:text-pink-500"}
                   >
                     T-Systems / Deutsche Telekom
                   </a>
