@@ -84,7 +84,7 @@ const Home = (
                   class={"size-3 animate-ping text-red-800"}
                 />
               </span>
-              Unavailable for projects
+              <span class="line-through">Unavailable for projects</span>
             </p>
           </H>
           <div class={"font-zodiak font-medium flex flex-col gap-1"}>
