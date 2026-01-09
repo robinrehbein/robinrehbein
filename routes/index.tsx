@@ -78,10 +78,10 @@ const Home = (
             >
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
-                  class={"size-3 absolute bg-red-800"}
+                  class={"size-3 absolute text-red-800"}
                 />
                 <IconCircle
-                  class={"size-3 animate-ping bg-red-800"}
+                  class={"size-3 animate-ping text-red-800"}
                 />
               </span>
               Unavailable for projects
