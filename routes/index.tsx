@@ -11,7 +11,7 @@ import {
   IconHeartedHands,
   IconKeyboard,
   IconMail,
-  IconNeosfer,
+  IconMimacom,
   IconPin,
   IconPlant,
   IconReact,
@@ -278,7 +278,7 @@ const Home = (
           </p>
           <ul class={"flex flex-col md:flex-row gap-8 md:gap-16"}>
             <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconNeosfer class={"size-12 min-w-12"} />
+              <IconMimacom class={"size-12 min-w-12"} />
               <div>
                 <p>
                   <strong>Software Engineer Senior{" "}</strong>
