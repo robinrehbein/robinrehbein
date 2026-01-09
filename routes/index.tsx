@@ -78,13 +78,13 @@ const Home = (
             >
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
-                  class={"size-3 absolute"}
+                  class={"size-3 absolute bg-red-800"}
                 />
                 <IconCircle
-                  class={"size-3 animate-ping"}
+                  class={"size-3 animate-ping bg-red-800"}
                 />
               </span>
-              Available for projects
+              Unavailable for projects
             </p>
           </H>
           <div class={"font-zodiak font-medium flex flex-col gap-1"}>
