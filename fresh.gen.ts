@@ -9,8 +9,11 @@ import * as $about_index from "./routes/about/index.tsx";
 import * as $admin_index from "./routes/admin/index.tsx";
 import * as $api_login_index from "./routes/api/login/index.ts";
 import * as $api_logout_index from "./routes/api/logout/index.ts";
+import * as $disclaimer from "./routes/disclaimer.tsx";
 import * as $hub_index from "./routes/hub/index.tsx";
+import * as $imprint from "./routes/imprint.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $privacy from "./routes/privacy.tsx";
 import * as $work_index from "./routes/work/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Expand from "./islands/Expand.tsx";
@@ -32,8 +35,11 @@ const manifest = {
     "./routes/admin/index.tsx": $admin_index,
     "./routes/api/login/index.ts": $api_login_index,
     "./routes/api/logout/index.ts": $api_logout_index,
+    "./routes/disclaimer.tsx": $disclaimer,
     "./routes/hub/index.tsx": $hub_index,
+    "./routes/imprint.tsx": $imprint,
     "./routes/index.tsx": $index,
+    "./routes/privacy.tsx": $privacy,
     "./routes/work/index.tsx": $work_index,
   },
   islands: {

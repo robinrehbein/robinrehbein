@@ -7,13 +7,13 @@ const Footer = () => {
       <div class={"flex flex-col md:flex-row justify-between gap-4"}>
         <ul class={"flex flex-col items-end md:items-start"}>
           <li class={"hover:underline decoration-wavy"}>
-            <a href="legal/html/imprint.html">Imprint</a>
+            <a href="/imprint">Imprint</a>
           </li>
           <li class={"hover:underline decoration-wavy"}>
-            <a href="legal/html/dataprotection.html">Data Protection</a>
+            <a href="/privacy">Data Protection</a>
           </li>
           <li class={"hover:underline decoration-wavy"}>
-            <a href="legal/html/disclaimer.html">Disclaimer</a>
+            <a href="/disclaimer">Disclaimer</a>
           </li>
         </ul>
         <ul
