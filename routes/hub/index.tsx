@@ -50,13 +50,13 @@ export default function Hub() {
             >
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
-                  class={"size-3 absolute"}
+                  class={"size-3 absolute text-red-800"}
                 />
                 <IconCircle
-                  class={"size-3 animate-ping"}
+                  class={"size-3 animate-ping text-red-800"}
                 />
               </span>
-              Available for projects
+              <span class="line-through">Unavailable</span> for projects
             </p>
           </H>
           <div class={"font-zodiak font-medium flex flex-col gap-1"}>
