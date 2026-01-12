@@ -20,6 +20,7 @@ import {
 import { Button } from "../components/atoms/Button.tsx";
 import ProjectCard from "../islands/ProjectCard.tsx";
 import Expand from "../islands/Expand.tsx";
+import { projects } from "../lib/projects.ts";
 
 interface Data {
   items: Array<TimetableItem>;
@@ -351,47 +352,15 @@ const Home = (
             <IconArrowDown class={"-rotate-90 size-4"} />
           </a>
         </Button>
-        <ProjectCard
-          title="artwerk studios"
-          description="artwerk is a passion project that I co-founded with two friends. Our
-          mission is to transform your favorite songs into personalized posters,
-          capturing the essence of music and memory in unique visual art. In
-          just seconds, you can create your custom poster and see a preview. We
-          prioritize high-quality printing and use only premium paper.
-          Sustainability is also important to us, so our products are produced
-          in an environmentally friendly manner. artwerk is the perfect blend of
-          personal taste and design—a tribute to the tunes that move you. Dive
-          into the art of music with artwerk."
-          href="https://artwerk.store"
-          images={[
-            "/macbook_artwerk_landing_light.webp",
-            "/iphone_artwerk_landing.webp",
-            "/curved_3_artwerk_poster.webp",
-            "/curved_1_artwerk_poster.webp",
-            "/curved_2_artwerk_poster.webp",
-          ]}
-        />
-        {/* <hr class={"my-16 border-foreground"} /> */}
-        <ProjectCard
-          title="Kirchmaier & Staudacher"
-          description="Kirchmaier & Staudacher is a premier project management 
-          company co-founded by a team dedicated to excellence in construction 
-          and real estate development. Their passion drives them to deliver personalized 
-          project solutions with precision and efficiency. They offer a seamless experience, 
-          providing instant previews of project plans and ensuring top-tier quality with 
-          every execution. Sustainability is at the core of their operations, as they 
-          strive to implement environmentally friendly practices in all their projects. 
-          Discover the perfect synergy of expertise and innovation with Kirchmaier & Staudacher, 
-          where your vision is their blueprint for success."
-          href="https://www.kirchmaier-staudacher.de/"
-          images={[
-            "/macbook_kirchmaier_landing_1.webp",
-            "/iphone_kirchmaier_landing_1.webp",
-            "/macbook_kirchmaier_landing_2.webp",
-            "/iphone_kirchmaier_landing_2.webp",
-            "/macbook_kirchmaier_landing_3.webp",
-          ]}
-        />
+        {projects.slice(0, 2).map((project) => (
+          <ProjectCard
+            key={project.title}
+            title={project.title}
+            description={project.description}
+            href={project.href}
+            images={project.images}
+          />
+        ))}
       </Section>
       <Section>
         <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
