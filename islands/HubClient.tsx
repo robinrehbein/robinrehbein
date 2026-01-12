@@ -30,8 +30,9 @@ const HubClient = () => {
   const clients = useSignal<Array<WebSocketClient>>([]);
   const me = useSignal<WebSocketClient | null>(null);
 
+  const protocol = globalThis.location.protocol === "https:" ? "wss:" : "ws:";
   const { status, sendMessage } = useWebSocket({
-    url: `ws://${globalThis.location.host}${globalThis.location.pathname}`,
+    url: `${protocol}//${globalThis.location.host}${globalThis.location.pathname}`,
     reconnectAttempts: 3,
     reconnectInterval: 3000,
 
