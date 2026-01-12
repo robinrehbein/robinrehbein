@@ -1,6 +1,7 @@
 enum MessageType {
   BROADCAST = "broadcast",
   MESSAGE = "message",
+  WELCOME = "welcome",
 }
 
 type BroadcastData = {
@@ -32,9 +33,15 @@ type WebSocketDataMessage = {
   receiver: WebSocketClient;
   data: WebSocketData<MessageType.MESSAGE>;
 };
+type WebSocketWelcomeMessage = {
+  type: MessageType.WELCOME;
+  data: WebSocketClient;
+};
+
 type WebSocketMessage<T extends MessageType> = T extends MessageType.BROADCAST
   ? WebSocketBroadcastMessage
   : T extends MessageType.MESSAGE ? WebSocketDataMessage
+  : T extends MessageType.WELCOME ? WebSocketWelcomeMessage
   : never;
 
 type WebSocketClient = {
@@ -136,15 +143,18 @@ const createClient = (): WebSocketClient => {
 };
 
 const sendMessage = (
-  { data, type, sender }: WebSocketMessage<MessageType.MESSAGE>,
+  { data, type, receiver }: WebSocketDataMessage,
 ) => {
-  const [[sock, _client]] = Array.from(activeConnections.entries())
-    .filter(
+  const target = Array.from(activeConnections.entries())
+    .find(
       (
         [_socket, client],
-      ) => client.id === sender.id,
+      ) => client.id === receiver.id,
     );
-  sock.send(JSON.stringify({ type, data }));
+  if (target) {
+    const [sock] = target;
+    sock.send(JSON.stringify({ type, data }));
+  }
 };
 
 const handleWebSocket = (req: Request) => {
@@ -155,18 +165,28 @@ const handleWebSocket = (req: Request) => {
   socket.addEventListener(WebSocketEvent.OPEN, () => {
     const client = createClient();
     activeConnections.set(socket, client);
+    
+    // Send welcome message to the client so they know their own identity
+    socket.send(JSON.stringify({
+      type: "welcome",
+      data: client
+    }));
+
     broadcastClients();
     console.log("Client connected! Total:", activeConnections.size);
   });
 
   socket.addEventListener(
     WebSocketEvent.MESSAGE,
-    (event: MessageEvent<WebSocketMessage<MessageType.MESSAGE>>) => {
+    (event: MessageEvent<string>) => {
       console.log("Message received:", event.data);
-      const { data, type } = event.data;
-
-      if (type === "message") {
-        sendMessage(event.data);
+      try {
+        const message = JSON.parse(event.data) as WebSocketMessage<MessageType.MESSAGE>;
+        if (message.type === MessageType.MESSAGE) {
+          sendMessage(message);
+        }
+      } catch (e) {
+        console.error("Failed to parse websocket message", e);
       }
     },
   );

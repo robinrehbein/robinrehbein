@@ -103,12 +103,6 @@ export default function Hub() {
             </Button>
           </li>
         </ul>
-        <p
-          class={"mb-4 md:mb-8 italic font-medium inline-flex items-center gap-2"}
-        >
-          <IconHeartInHand class={"size-6"} />
-          Currently in maintainance mode.
-        </p>
         <HubClient />
       </Section>
     </>
