@@ -24,7 +24,8 @@ export const handler: Handlers = {
 
     const form = await req.formData();
     const title = form.get("title")?.toString() || "";
-    const slug = form.get("slug")?.toString() || title.toLowerCase().replace(/\s+/g, "-");
+    const slug = form.get("slug")?.toString() ||
+      title.toLowerCase().replace(/\s+/g, "-");
     const excerpt = form.get("excerpt")?.toString() || "";
     const content = form.get("content")?.toString() || "";
     const isFilePath = form.get("isFilePath") === "on";
@@ -55,10 +56,14 @@ export default function NewPostPage() {
   return (
     <Section separator={false}>
       <div class="mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">Create New Post</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
+          Create New Post
+        </H>
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="flex flex-col gap-2">
-            <label for="title" class="uppercase text-sm font-medium">Title</label>
+            <label for="title" class="uppercase text-sm font-medium">
+              Title
+            </label>
             <input
               type="text"
               id="title"
@@ -68,7 +73,9 @@ export default function NewPostPage() {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="slug" class="uppercase text-sm font-medium">Slug (optional)</label>
+            <label for="slug" class="uppercase text-sm font-medium">
+              Slug (optional)
+            </label>
             <input
               type="text"
               id="slug"
@@ -78,17 +85,22 @@ export default function NewPostPage() {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="excerpt" class="uppercase text-sm font-medium">Excerpt</label>
+            <label for="excerpt" class="uppercase text-sm font-medium">
+              Excerpt
+            </label>
             <textarea
               id="excerpt"
               name="excerpt"
               rows={3}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic"
               required
-            ></textarea>
+            >
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="content" class="uppercase text-sm font-medium">Content (Markdown oder Dateipfad)</label>
+            <label for="content" class="uppercase text-sm font-medium">
+              Content (Markdown oder Dateipfad)
+            </label>
             <textarea
               id="content"
               name="content"
@@ -96,7 +108,8 @@ export default function NewPostPage() {
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic font-mono text-sm"
               placeholder="Inhalt hier eingeben oder Pfad wie 'posts/mein-post.md'..."
               required
-            ></textarea>
+            >
+            </textarea>
           </div>
           <div class="flex items-center gap-4">
             <input
@@ -105,7 +118,9 @@ export default function NewPostPage() {
               name="isFilePath"
               class="size-5 accent-racing-green-800"
             />
-            <label for="isFilePath" class="uppercase text-sm font-medium">Inhalt ist ein Dateipfad</label>
+            <label for="isFilePath" class="uppercase text-sm font-medium">
+              Inhalt ist ein Dateipfad
+            </label>
           </div>
           <div class="flex items-center gap-4">
             <input
@@ -114,7 +129,9 @@ export default function NewPostPage() {
               name="published"
               class="size-5 accent-racing-green-800"
             />
-            <label for="published" class="uppercase text-sm font-medium">Publish immediately</label>
+            <label for="published" class="uppercase text-sm font-medium">
+              Publish immediately
+            </label>
           </div>
           <div class="flex gap-4">
             <Button type="submit">Create Post</Button>

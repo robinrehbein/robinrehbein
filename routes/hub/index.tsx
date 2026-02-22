@@ -6,7 +6,6 @@ import {
   IconArrowDown,
   IconCircle,
   IconHeartedHands,
-  IconHeartInHand,
   IconPin,
   IconReact,
   IconSeparator,
@@ -30,52 +29,44 @@ export default function Hub() {
       <Section
         separator={false}
       >
-        <div
-          class={"flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16"}
-        >
+        <div class="flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16">
           <H
-            class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
-            variant={"h1"}
+            class="inline-flex flex-wrap gap-2 text-md font-medium font-zodiak" // TODO check font  font-clash-display
+            variant="h1"
           >
             <span>
-              <IconHeartedHands class={"size-6"} />
+              <IconHeartedHands class="size-6" />
             </span>
             <p>Robin Rehbein Portfolio</p>
 
-            <span class={"hidden md:inline"}>
-              <IconSeparator class={"size-6"} />
+            <span class="hidden md:inline">
+              <IconSeparator class="size-6" />
             </span>
-            <p
-              class={"inline-flex items-center gap-2"}
-            >
+            <p class="inline-flex items-center gap-2">
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
-                <IconCircle
-                  class={"size-3 absolute text-red-800"}
-                />
-                <IconCircle
-                  class={"size-3 animate-ping text-red-800"}
-                />
+                <IconCircle class="size-3 absolute text-red-800" />
+                <IconCircle class="size-3 animate-ping text-red-800" />
               </span>
               <span class="line-through">Unavailable</span> for projects
             </p>
           </H>
-          <div class={"font-zodiak font-medium flex flex-col gap-1"}>
-            <p class={"inline-flex items-center gap-2"}>
+          <div class="font-zodiak font-medium flex flex-col gap-1">
+            <p class="inline-flex items-center gap-2">
               <span>
-                <IconReact class={"size-6"} />
+                <IconReact class="size-6" />
               </span>
               Currently coding at
               <a
-                  href="https://mimacom.com"
-                  className={"underline decoration-wavy decoration-[#FF0651]"}
-                  /*decoration-mustard-yellow-950*/
+                href="https://mimacom.com"
+                className="underline decoration-wavy decoration-[#FF0651]"
+                /*decoration-mustard-yellow-950*/
               >
                 mimacom
               </a>
             </p>
-            <p class={"inline-flex items-center gap-2"}>
+            <p class="inline-flex items-center gap-2">
               <span>
-                <IconPin class={"size-6"} />
+                <IconPin class="size-6" />
               </span>
               Based in Stuttgart, Germany
             </p>
@@ -83,22 +74,20 @@ export default function Hub() {
         </div>
         <H
           // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
-          class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
-          variant={"h2"}
+          class="font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"
+          variant="h2"
         >
           <span>Hub.</span>
         </H>
-        <ul
-          className={"flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap"}
-        >
-          <li class={"flex items-center gap-2 grow justify-end my-4 md:my-0"}>
+        <ul className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap">
+          <li class="flex items-center gap-2 grow justify-end my-4 md:my-0">
             <Button>
               <a
-                href={"/"}
-                class={"flex flex-row gap-2 items-center"}
+                href="/"
+                class="flex flex-row gap-2 items-center"
               >
                 Back
-                <IconArrowDown class={"rotate-90 size-4"} />
+                <IconArrowDown class="rotate-90 size-4" />
               </a>
             </Button>
           </li>

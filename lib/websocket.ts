@@ -172,7 +172,13 @@ const sendMessage = (
     );
   if (target) {
     const [sock] = target;
-    sock.send(JSON.stringify({ type: message.type, data: message.data, sender: message.sender }));
+    sock.send(
+      JSON.stringify({
+        type: message.type,
+        data: message.data,
+        sender: message.sender,
+      }),
+    );
   }
 };
 
@@ -184,11 +190,11 @@ const handleWebSocket = (req: Request) => {
   socket.addEventListener(WebSocketEvent.OPEN, () => {
     const client = createClient();
     activeConnections.set(socket, client);
-    
+
     // Send welcome message to the client so they know their own identity
     socket.send(JSON.stringify({
       type: "welcome",
-      data: client
+      data: client,
     }));
 
     broadcastClients();

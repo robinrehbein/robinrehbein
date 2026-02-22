@@ -13,6 +13,8 @@ const ProjectCard = (
     images: string[];
   },
 ) => {
+  const isElapsed = useSignal(false);
+
   const safeImages = images.length > 0 ? images : ["/logo.svg"];
   const desktopImage = safeImages[0] ?? "/logo.svg";
   const mobileImage = safeImages[1] ?? desktopImage;
@@ -22,50 +24,44 @@ const ProjectCard = (
 
   if (!IS_BROWSER) {
     return (
-      <div
-        class={"relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16"}
-      >
-        <div class={"md:flex-1 md:h-fit md:sticky md:top-1/4"}>
+      <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16">
+        <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
           {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
-          <H variant="h3" class={"mb-4 text-base md:text-2xl font-zodiak"}>
+          <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">
             {/* <H variant="h3" class={"mb-4"}> */}
             {title}
           </H>
-          <p class={"mb-8"}>
+          <p class="mb-8">
             {description}
           </p>
         </div>
-        <div class={"md:flex-1"}>
-          <div
-            class={"flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between"}
-          >
-            <Button class={"font-medium"}>
+        <div class="md:flex-1">
+          <div class="flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between">
+            <Button class="font-medium">
               <a href={href} target="_blank" rel="noopener noreferrer">
                 Visit
               </a>
             </Button>
-            <Button
-              class={"flex flex-row gap-2 items-center justify-end"}
-            >
+            <Button class="flex flex-row gap-2 items-center justify-end">
               <IconArrowDown
                 class={cn("size-4")}
               />
               Expand images
             </Button>
           </div>
-          <div class={"shadow"}>
+          <div class="shadow">
             <img
               // src="/iphone_artwerk_landing.webp"
               src={desktopImage}
               alt="Mockup"
-              class={"object-cover w-full aspect-square hidden md:block"}
+              class="object-cover w-full aspect-square hidden md:block"
             />
             <img
               src={mobileImage}
               alt="Mockup"
-              class={"object-cover w-full aspect-square md:hidden"}
+              class="object-cover w-full aspect-square md:hidden"
             />
-            <div class={"flex flew-row flex-wrap"}>
+            <div class="flex flew-row flex-wrap">
               {galleryImages.map((image) => (
                 <img
                   src={image}
@@ -79,33 +75,28 @@ const ProjectCard = (
       </div>
     );
   }
-  const isElapsed = useSignal(false);
 
   return (
-    <div
-      class={"relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16"}
-    >
-      <div class={"md:flex-1 md:h-fit md:sticky md:top-1/4"}>
+    <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16">
+      <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
         {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
-        <H variant="h3" class={"mb-4 text-base md:text-2xl font-zodiak"}>
+        <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">
           {/* <H variant="h3" class={"mb-4"}> */}
           {title}
         </H>
-        <p class={"mb-8"}>
+        <p class="mb-8">
           {description}
         </p>
       </div>
-      <div class={"md:flex-1"}>
-        <div
-          class={"flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between"}
-        >
-          <Button class={"font-medium"}>
+      <div class="md:flex-1">
+        <div class="flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between">
+          <Button class="font-medium">
             <a href={href} target="_blank" rel="noopener noreferrer">
               Visit
             </a>
           </Button>
           <Button
-            class={"flex flex-row gap-2 items-center justify-end"}
+            class="flex flex-row gap-2 items-center justify-end"
             onClick={() => {
               isElapsed.value = !isElapsed.value;
             }}
@@ -118,19 +109,19 @@ const ProjectCard = (
             {isElapsed.value ? "Collapse images" : "Expand images"}
           </Button>
         </div>
-        <div class={"shadow"}>
+        <div class="shadow">
           <img
             // src="/iphone_artwerk_landing.webp"
             src={desktopImage}
             alt="Mockup"
-            class={"object-cover w-full aspect-square hidden md:block"}
+            class="object-cover w-full aspect-square hidden md:block"
           />
           <img
             src={mobileImage}
             alt="Mockup"
-            class={"object-cover w-full aspect-square md:hidden"}
+            class="object-cover w-full aspect-square md:hidden"
           />
-          <div class={"flex flew-row flex-wrap"}>
+          <div class="flex flew-row flex-wrap">
             {galleryImages.map((image) => (
               <img
                 src={image}

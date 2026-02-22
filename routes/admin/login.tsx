@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { setCookie, getCookies } from "$std/http/cookie.ts";
+import { getCookies, setCookie } from "$std/http/cookie.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
@@ -22,7 +22,7 @@ export const handler: Handlers = {
 
     // console.log("[DEBUG_LOG] Login attempt");
     // console.log("[DEBUG_LOG] ADMIN_PASSWORD env set:", !!Deno.env.get("ADMIN_PASSWORD"));
-    
+
     if (password === adminPassword) {
       const headers = new Headers();
       setCookie(headers, {
@@ -46,13 +46,23 @@ export const handler: Handlers = {
 
 export default function LoginPage({ data }: PageProps<{ error?: string }>) {
   return (
-    <Section separator={false} class="min-h-[60vh] flex flex-col items-center justify-center">
+    <Section
+      separator={false}
+      class="min-h-[60vh] flex flex-col items-center justify-center"
+    >
       <div class="w-full max-w-md border border-foreground p-8">
-        <H variant="h2" class="text-3xl font-clash-display uppercase mb-8">Admin Login</H>
+        <H variant="h2" class="text-3xl font-clash-display uppercase mb-8">
+          Admin Login
+        </H>
         {data?.error && <p class="text-red-800 mb-4">{data.error}</p>}
         <form method="post" class="flex flex-col gap-6">
           <div class="flex flex-col gap-2">
-            <label for="password" class="font-zodiak uppercase text-sm font-medium">Password</label>
+            <label
+              for="password"
+              class="font-zodiak uppercase text-sm font-medium"
+            >
+              Password
+            </label>
             <input
               type="password"
               id="password"

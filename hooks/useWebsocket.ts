@@ -3,7 +3,6 @@ import { Signal, signal } from "@preact/signals";
 import { useCallback, useEffect } from "preact/hooks";
 import {
   MessageType,
-  WebSocketBroadcastMessage,
   WebSocketMessage,
   WebSocketStatus,
 } from "../lib/websocket.ts";

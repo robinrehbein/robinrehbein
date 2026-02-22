@@ -1,6 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
-import { getProjectById, ProjectData, saveProject } from "../../../../lib/site_data.ts";
+import {
+  getProjectById,
+  ProjectData,
+  saveProject,
+} from "../../../../lib/site_data.ts";
 import { Button } from "../../../../components/atoms/Button.tsx";
 import H from "../../../../components/atoms/H.tsx";
 import Section from "../../../../components/atoms/Section.tsx";
@@ -27,7 +31,9 @@ export const handler: Handlers<ProjectData> = {
 
     const { id } = ctx.params;
     const existingProject = await getProjectById(id);
-    if (!existingProject) return new Response("Project not found", { status: 404 });
+    if (!existingProject) {
+      return new Response("Project not found", { status: 404 });
+    }
 
     const form = await req.formData();
     const updatedProject: ProjectData = {
@@ -52,10 +58,14 @@ export default function EditProjectPage({ data }: PageProps<ProjectData>) {
   return (
     <Section separator={false}>
       <div class="mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">Edit Project</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
+          Edit Project
+        </H>
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="flex flex-col gap-2">
-            <label for="title" class="uppercase text-sm font-medium">Title</label>
+            <label for="title" class="uppercase text-sm font-medium">
+              Title
+            </label>
             <input
               type="text"
               id="title"
@@ -66,17 +76,23 @@ export default function EditProjectPage({ data }: PageProps<ProjectData>) {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="description" class="uppercase text-sm font-medium">Description</label>
+            <label for="description" class="uppercase text-sm font-medium">
+              Description
+            </label>
             <textarea
               id="description"
               name="description"
               rows={6}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic"
               required
-            >{data.description}</textarea>
+            >
+              {data.description}
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="href" class="uppercase text-sm font-medium">Link (URL)</label>
+            <label for="href" class="uppercase text-sm font-medium">
+              Link (URL)
+            </label>
             <input
               type="url"
               id="href"
@@ -87,16 +103,22 @@ export default function EditProjectPage({ data }: PageProps<ProjectData>) {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="images" class="uppercase text-sm font-medium">Images (one URL per line)</label>
+            <label for="images" class="uppercase text-sm font-medium">
+              Images (one URL per line)
+            </label>
             <textarea
               id="images"
               name="images"
               rows={5}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic font-mono text-sm"
-            >{data.images.join("\n")}</textarea>
+            >
+              {data.images.join("\n")}
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="order" class="uppercase text-sm font-medium">Order</label>
+            <label for="order" class="uppercase text-sm font-medium">
+              Order
+            </label>
             <input
               type="number"
               id="order"

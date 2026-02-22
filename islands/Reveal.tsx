@@ -5,10 +5,10 @@ import { ComponentChildren } from "preact";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
 const Reveal = ({ children }: { children: ComponentChildren }) => {
-  if (!IS_BROWSER) return <div>{children}</div>;
-
   const isVisible = useSignal(false);
+
   useEffect(() => {
+    if (!IS_BROWSER) return;
     const handleScroll = () => {
       if (globalThis.scrollY > globalThis.innerHeight * 0.5) {
         isVisible.value = true;
@@ -19,6 +19,8 @@ const Reveal = ({ children }: { children: ComponentChildren }) => {
     globalThis.addEventListener("scroll", handleScroll);
     return () => globalThis.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (!IS_BROWSER) return <div>{children}</div>;
   return (
     <div
       className={cn(

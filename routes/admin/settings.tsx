@@ -1,6 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
-import { getSettings, saveSettings, SiteSettings } from "../../lib/site_data.ts";
+import {
+  getSettings,
+  saveSettings,
+  SiteSettings,
+} from "../../lib/site_data.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
@@ -51,11 +55,15 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
   return (
     <Section separator={false}>
       <div class="mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">Site Settings</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
+          Site Settings
+        </H>
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex flex-col gap-2">
-              <label for="name" class="uppercase text-sm font-medium">Name</label>
+              <label for="name" class="uppercase text-sm font-medium">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -66,7 +74,9 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
               />
             </div>
             <div class="flex flex-col gap-2">
-              <label for="role" class="uppercase text-sm font-medium">Role</label>
+              <label for="role" class="uppercase text-sm font-medium">
+                Role
+              </label>
               <input
                 type="text"
                 id="role"
@@ -79,7 +89,9 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="location" class="uppercase text-sm font-medium">Location</label>
+            <label for="location" class="uppercase text-sm font-medium">
+              Location
+            </label>
             <input
               type="text"
               id="location"
@@ -92,7 +104,9 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex flex-col gap-2">
-              <label for="codingAtName" class="uppercase text-sm font-medium">Coding at (Name)</label>
+              <label for="codingAtName" class="uppercase text-sm font-medium">
+                Coding at (Name)
+              </label>
               <input
                 type="text"
                 id="codingAtName"
@@ -103,7 +117,9 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
               />
             </div>
             <div class="flex flex-col gap-2">
-              <label for="codingAtUrl" class="uppercase text-sm font-medium">Coding at (URL)</label>
+              <label for="codingAtUrl" class="uppercase text-sm font-medium">
+                Coding at (URL)
+              </label>
               <input
                 type="url"
                 id="codingAtUrl"
@@ -123,23 +139,31 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
               checked={data.available}
               class="size-5 accent-racing-green-800"
             />
-            <label for="available" class="uppercase text-sm font-medium">Available for projects</label>
+            <label for="available" class="uppercase text-sm font-medium">
+              Available for projects
+            </label>
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="aboutMeShort" class="uppercase text-sm font-medium">About Me (Short)</label>
+            <label for="aboutMeShort" class="uppercase text-sm font-medium">
+              About Me (Short)
+            </label>
             <textarea
               id="aboutMeShort"
               name="aboutMeShort"
               rows={6}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic"
               required
-            >{data.aboutMeShort}</textarea>
+            >
+              {data.aboutMeShort}
+            </textarea>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex flex-col gap-2">
-              <label for="contactEmail" class="uppercase text-sm font-medium">Contact Email</label>
+              <label for="contactEmail" class="uppercase text-sm font-medium">
+                Contact Email
+              </label>
               <input
                 type="email"
                 id="contactEmail"
@@ -150,7 +174,9 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
               />
             </div>
             <div class="flex flex-col gap-2">
-              <label for="githubUsername" class="uppercase text-sm font-medium">Github Username</label>
+              <label for="githubUsername" class="uppercase text-sm font-medium">
+                Github Username
+              </label>
               <input
                 type="text"
                 id="githubUsername"

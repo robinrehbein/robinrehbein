@@ -61,10 +61,14 @@ export default function EditPostPage({ data }: PageProps<BlogPost>) {
   return (
     <Section separator={false}>
       <div class="mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">Edit Post</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
+          Edit Post
+        </H>
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="flex flex-col gap-2">
-            <label for="title" class="uppercase text-sm font-medium">Title</label>
+            <label for="title" class="uppercase text-sm font-medium">
+              Title
+            </label>
             <input
               type="text"
               id="title"
@@ -86,24 +90,32 @@ export default function EditPostPage({ data }: PageProps<BlogPost>) {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="excerpt" class="uppercase text-sm font-medium">Excerpt</label>
+            <label for="excerpt" class="uppercase text-sm font-medium">
+              Excerpt
+            </label>
             <textarea
               id="excerpt"
               name="excerpt"
               rows={3}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic"
               required
-            >{data.excerpt}</textarea>
+            >
+              {data.excerpt}
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="content" class="uppercase text-sm font-medium">Content (Markdown oder Dateipfad)</label>
+            <label for="content" class="uppercase text-sm font-medium">
+              Content (Markdown oder Dateipfad)
+            </label>
             <textarea
               id="content"
               name="content"
               rows={15}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic font-mono text-sm"
               required
-            >{data.content}</textarea>
+            >
+              {data.content}
+            </textarea>
           </div>
           <div class="flex items-center gap-4">
             <input
@@ -113,7 +125,9 @@ export default function EditPostPage({ data }: PageProps<BlogPost>) {
               checked={data.isFilePath}
               class="size-5 accent-racing-green-800"
             />
-            <label for="isFilePath" class="uppercase text-sm font-medium">Inhalt ist ein Dateipfad</label>
+            <label for="isFilePath" class="uppercase text-sm font-medium">
+              Inhalt ist ein Dateipfad
+            </label>
           </div>
           <div class="flex items-center gap-4">
             <input
@@ -123,7 +137,9 @@ export default function EditPostPage({ data }: PageProps<BlogPost>) {
               checked={data.published}
               class="size-5 accent-racing-green-800"
             />
-            <label for="published" class="uppercase text-sm font-medium">Published</label>
+            <label for="published" class="uppercase text-sm font-medium">
+              Published
+            </label>
           </div>
           <div class="flex gap-4">
             <Button type="submit">Save Changes</Button>

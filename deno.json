@@ -26,6 +26,16 @@
     "gfm": "jsr:@deno/gfm@^0.10.0",
     "$std/": "https://deno.land/std@0.216.0/"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "lib": [
+      "deno.ns",
+      "deno.unstable",
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable"
+    ]
+  },
   "nodeModulesDir": "auto"
 }

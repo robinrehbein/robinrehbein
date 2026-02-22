@@ -5,15 +5,24 @@ const Synthwave = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const mousePositionRef = useRef({
-    x: globalThis.innerWidth / 2,
-    y: globalThis.innerHeight / 4,
+    x: 0,
+    y: 0,
   });
   const sunPositionRef = useRef({
-    x: globalThis.innerWidth / 2,
-    y: globalThis.innerHeight / 4,
+    x: 0,
+    y: 0,
   });
 
   useEffect(() => {
+    mousePositionRef.current = {
+      x: globalThis.innerWidth / 2,
+      y: globalThis.innerHeight / 4,
+    };
+    sunPositionRef.current = {
+      x: globalThis.innerWidth / 2,
+      y: globalThis.innerHeight / 4,
+    };
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 

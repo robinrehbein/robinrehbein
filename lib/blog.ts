@@ -1,3 +1,4 @@
+/// <reference lib="deno.unstable" />
 export interface BlogPost {
   id: string;
   slug: string;
@@ -55,7 +56,10 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   return null;
 }
 
-export async function getPostById(id: string, raw = false): Promise<BlogPost | null> {
+export async function getPostById(
+  id: string,
+  raw = false,
+): Promise<BlogPost | null> {
   const res = await kv.get<BlogPost>([BLOG_POSTS_KEY, id]);
   if (!res.value) return null;
   const post = res.value;

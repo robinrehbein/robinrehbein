@@ -84,30 +84,36 @@ export default function Blog({ data }: PageProps<BlogPost[]>) {
       </Section>
       <Section>
         <div class="flex flex-col gap-16">
-          {data.length === 0 ? (
-            <p class="italic opacity-70">No blog posts found.</p>
-          ) : (
-            data.map((post) => (
-              <div key={post.id} class="group border-b border-foreground pb-8">
-                <a href={`/blog/${post.slug}`} class="flex flex-col gap-4">
-                  <div class="flex justify-between items-start">
-                    <H variant="h3" class="text-3xl font-clash-display uppercase group-hover:italic transition-all">
-                      {post.title}
-                    </H>
-                    <span class="font-zodiak opacity-60">
-                      {new Date(post.createdAt).toLocaleDateString("de-DE")}
-                    </span>
-                  </div>
-                  <p class="font-zodiak text-lg line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div class="flex items-center gap-2 font-zodiak font-medium uppercase text-sm">
-                    Read more <IconArrowDown class="-rotate-90 size-4" />
-                  </div>
-                </a>
-              </div>
-            ))
-          )}
+          {data.length === 0
+            ? <p class="italic opacity-70">No blog posts found.</p>
+            : (
+              data.map((post) => (
+                <div
+                  key={post.id}
+                  class="group border-b border-foreground pb-8"
+                >
+                  <a href={`/blog/${post.slug}`} class="flex flex-col gap-4">
+                    <div class="flex justify-between items-start">
+                      <H
+                        variant="h3"
+                        class="text-3xl font-clash-display uppercase group-hover:italic transition-all"
+                      >
+                        {post.title}
+                      </H>
+                      <span class="font-zodiak opacity-60">
+                        {new Date(post.createdAt).toLocaleDateString("de-DE")}
+                      </span>
+                    </div>
+                    <p class="font-zodiak text-lg line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    <div class="flex items-center gap-2 font-zodiak font-medium uppercase text-sm">
+                      Read more <IconArrowDown class="-rotate-90 size-4" />
+                    </div>
+                  </a>
+                </div>
+              ))
+            )}
         </div>
       </Section>
     </>

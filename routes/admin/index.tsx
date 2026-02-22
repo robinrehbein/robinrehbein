@@ -1,7 +1,11 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import { BlogPost, deletePost, getPosts } from "../../lib/blog.ts";
-import { getProjects, ProjectData, deleteProject } from "../../lib/site_data.ts";
+import {
+  deleteProject,
+  getProjects,
+  ProjectData,
+} from "../../lib/site_data.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
@@ -15,7 +19,7 @@ export const handler: Handlers<DashboardData> = {
   async GET(req, ctx) {
     const cookies = getCookies(req.headers);
     const isBlogAdmin = cookies.auth === "admin";
-    
+
     if (!isBlogAdmin) {
       return new Response("", {
         status: 303,
@@ -55,7 +59,9 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
   return (
     <Section separator={false}>
       <div class="flex justify-between items-center mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase">Admin Dashboard</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase">
+          Admin Dashboard
+        </H>
         <div class="flex gap-4">
           <Button>
             <a href="/admin/settings">Site Settings</a>
@@ -68,7 +74,9 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
 
       <div class="mb-16">
         <div class="flex justify-between items-center mb-8">
-          <H variant="h2" class="text-2xl font-clash-display uppercase">Blog Posts</H>
+          <H variant="h2" class="text-2xl font-clash-display uppercase">
+            Blog Posts
+          </H>
           <Button>
             <a href="/admin/new">New Post</a>
           </Button>
@@ -85,28 +93,35 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
             </thead>
             <tbody>
               {data.posts.map((post) => (
-                <tr key={post.id} class="border-b border-foreground last:border-0">
+                <tr
+                  key={post.id}
+                  class="border-b border-foreground last:border-0"
+                >
                   <td class="p-4 font-medium">{post.title}</td>
                   <td class="p-4 text-sm">
-                    {post.published ? (
-                      <span class="text-racing-green-800">Published</span>
-                    ) : (
-                      <span class="text-red-800 italic">Draft</span>
-                    )}
+                    {post.published
+                      ? <span class="text-racing-green-800">Published</span>
+                      : <span class="text-red-800 italic">Draft</span>}
                   </td>
                   <td class="p-4 text-sm">
                     {new Date(post.createdAt).toLocaleDateString("de-DE")}
                   </td>
                   <td class="p-4 text-right">
                     <div class="flex justify-end gap-4">
-                      <a href={`/admin/edit/${post.id}`} class="underline hover:italic">Edit</a>
+                      <a
+                        href={`/admin/edit/${post.id}`}
+                        class="underline hover:italic"
+                      >
+                        Edit
+                      </a>
                       <form method="post" class="inline">
                         <input type="hidden" name="action" value="delete" />
                         <input type="hidden" name="id" value={post.id} />
                         <input type="hidden" name="type" value="post" />
-                        <button type="submit" class="underline text-red-800 hover:italic" onClick={(e) => {
-                          if (!confirm("Are you sure?")) e.preventDefault();
-                        }}>
+                        <button
+                          type="submit"
+                          class="underline text-red-800 hover:italic"
+                        >
                           Delete
                         </button>
                       </form>
@@ -116,7 +131,9 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
               ))}
               {data.posts.length === 0 && (
                 <tr>
-                  <td colspan={4} class="p-8 text-center italic opacity-60">No posts yet.</td>
+                  <td colspan={4} class="p-8 text-center italic opacity-60">
+                    No posts yet.
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -126,7 +143,9 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
 
       <div class="mb-16">
         <div class="flex justify-between items-center mb-8">
-          <H variant="h2" class="text-2xl font-clash-display uppercase">Projects</H>
+          <H variant="h2" class="text-2xl font-clash-display uppercase">
+            Projects
+          </H>
           <Button>
             <a href="/admin/projects/new">New Project</a>
           </Button>
@@ -142,21 +161,32 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
             </thead>
             <tbody>
               {data.projects.map((project) => (
-                <tr key={project.id} class="border-b border-foreground last:border-0">
+                <tr
+                  key={project.id}
+                  class="border-b border-foreground last:border-0"
+                >
                   <td class="p-4 font-medium">{project.title}</td>
                   <td class="p-4 text-sm">
-                    <a href={project.href} target="_blank" class="underline">{project.href}</a>
+                    <a href={project.href} target="_blank" class="underline">
+                      {project.href}
+                    </a>
                   </td>
                   <td class="p-4 text-right">
                     <div class="flex justify-end gap-4">
-                      <a href={`/admin/projects/edit/${project.id}`} class="underline hover:italic">Edit</a>
+                      <a
+                        href={`/admin/projects/edit/${project.id}`}
+                        class="underline hover:italic"
+                      >
+                        Edit
+                      </a>
                       <form method="post" class="inline">
                         <input type="hidden" name="action" value="delete" />
                         <input type="hidden" name="id" value={project.id} />
                         <input type="hidden" name="type" value="project" />
-                        <button type="submit" class="underline text-red-800 hover:italic" onClick={(e) => {
-                          if (!confirm("Are you sure?")) e.preventDefault();
-                        }}>
+                        <button
+                          type="submit"
+                          class="underline text-red-800 hover:italic"
+                        >
                           Delete
                         </button>
                       </form>
@@ -166,7 +196,9 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
               ))}
               {data.projects.length === 0 && (
                 <tr>
-                  <td colspan={3} class="p-8 text-center italic opacity-60">No projects yet.</td>
+                  <td colspan={3} class="p-8 text-center italic opacity-60">
+                    No projects yet.
+                  </td>
                 </tr>
               )}
             </tbody>

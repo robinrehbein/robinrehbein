@@ -5,22 +5,23 @@ import { cn } from "../lib/utils.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
 const MobileMenu = () => {
+  const isOpen = useSignal(false);
+
   if (!IS_BROWSER) {
     return (
-      <div class={"relative md:hidden"}>
-        <IconMore class={"size-5 rotate-90 md:hidden"} />
+      <div class="relative md:hidden">
+        <IconMore class="size-5 rotate-90 md:hidden" />
       </div>
     );
   }
-  const isOpen = useSignal(false);
 
   return (
-    <div class={"relative md:hidden"}>
+    <div class="relative md:hidden">
       <Button
-        class={"text-foreground"}
+        class="text-foreground"
         onClick={() => isOpen.value = !isOpen.value}
       >
-        <IconMore class={"size-5 rotate-90"} />
+        <IconMore class="size-5 rotate-90" />
       </Button>
       <ul
         class={cn(

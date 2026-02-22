@@ -1,3 +1,4 @@
+/// <reference lib="deno.unstable" />
 import { projects as defaultProjects } from "./projects.ts";
 
 export interface ProjectData {

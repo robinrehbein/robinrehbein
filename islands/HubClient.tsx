@@ -11,16 +11,18 @@ import {
 } from "../lib/websocket.ts";
 
 const HubClient = () => {
-  if (!IS_BROWSER) return null;
-
   const count = useSignal<number>(0);
   const clients = useSignal<Array<WebSocketClient>>([]);
   const me = useSignal<WebSocketClient | null>(null);
 
-  const protocol = globalThis.location.protocol === "https:" ? "wss:" : "ws:";
+  const protocol = IS_BROWSER
+    ? (globalThis.location.protocol === "https:" ? "wss:" : "ws:")
+    : "";
+  const host = IS_BROWSER ? globalThis.location.host : "";
+  const pathname = IS_BROWSER ? globalThis.location.pathname : "";
+
   const { status, sendMessage } = useWebSocket({
-    url:
-      `${protocol}//${globalThis.location.host}${globalThis.location.pathname}`,
+    url: IS_BROWSER ? `${protocol}//${host}${pathname}` : "",
     reconnectAttempts: 3,
     reconnectInterval: 3000,
 
@@ -67,6 +69,8 @@ const HubClient = () => {
       }
     },
   });
+
+  if (!IS_BROWSER) return null;
 
   if (status.value === "CONNECTING") {
     return (

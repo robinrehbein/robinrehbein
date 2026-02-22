@@ -45,10 +45,14 @@ export default function NewProjectPage() {
   return (
     <Section separator={false}>
       <div class="mb-16">
-        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">Create New Project</H>
+        <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
+          Create New Project
+        </H>
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="flex flex-col gap-2">
-            <label for="title" class="uppercase text-sm font-medium">Title</label>
+            <label for="title" class="uppercase text-sm font-medium">
+              Title
+            </label>
             <input
               type="text"
               id="title"
@@ -58,17 +62,22 @@ export default function NewProjectPage() {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="description" class="uppercase text-sm font-medium">Description</label>
+            <label for="description" class="uppercase text-sm font-medium">
+              Description
+            </label>
             <textarea
               id="description"
               name="description"
               rows={6}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic"
               required
-            ></textarea>
+            >
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="href" class="uppercase text-sm font-medium">Link (URL)</label>
+            <label for="href" class="uppercase text-sm font-medium">
+              Link (URL)
+            </label>
             <input
               type="url"
               id="href"
@@ -78,17 +87,22 @@ export default function NewProjectPage() {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="images" class="uppercase text-sm font-medium">Images (one URL per line)</label>
+            <label for="images" class="uppercase text-sm font-medium">
+              Images (one URL per line)
+            </label>
             <textarea
               id="images"
               name="images"
               rows={5}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic font-mono text-sm"
               placeholder="/images/project1.jpg"
-            ></textarea>
+            >
+            </textarea>
           </div>
           <div class="flex flex-col gap-2">
-            <label for="order" class="uppercase text-sm font-medium">Order</label>
+            <label for="order" class="uppercase text-sm font-medium">
+              Order
+            </label>
             <input
               type="number"
               id="order"

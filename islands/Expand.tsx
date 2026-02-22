@@ -6,20 +6,21 @@ import { IS_BROWSER } from "$fresh/runtime.ts";
 const Expand = (
   { children, ...props }: JSX.HTMLAttributes<HTMLDetailsElement>,
 ) => {
+  const isOpen = useSignal(false);
+
   if (!IS_BROWSER) {
     return (
       <details
         class={cn("w-full")}
         {...props}
       >
-        <summary class={"my-2"}>
+        <summary class="my-2">
           Expand
         </summary>
         {children}
       </details>
     );
   }
-  const isOpen = useSignal(false);
 
   return (
     <details
@@ -27,7 +28,7 @@ const Expand = (
       {...props}
       onClick={() => isOpen.value = !isOpen.value}
     >
-      <summary class={"my-2"}>
+      <summary class="my-2">
         {isOpen.value ? "Collapse" : "Expand"}
       </summary>
       {children}

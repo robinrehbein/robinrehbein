@@ -1,10 +1,13 @@
+/** @jsxImportSource preact */
+/** @jsxRuntime automatic */
+// deno-lint-ignore-file react-no-danger
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { BlogPost, getPostBySlug } from "../../lib/blog.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
 import { IconArrowDown } from "../../components/Icons.tsx";
-import { render, CSS } from "gfm";
+import { CSS, render } from "gfm";
 
 export const handler: Handlers<BlogPost> = {
   async GET(_req, ctx) {
@@ -23,9 +26,10 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
   return (
     <>
       <head>
-          <title>{`${data.title} | Robin Rehbein`}</title>
-        <style dangerouslySetInnerHTML={{ __html: CSS }} />
-        <style dangerouslySetInnerHTML={{ __html: `
+        <title>{`${data.title} | Robin Rehbein`}</title>
+        <style>{CSS}</style>
+        <style>
+          {`
           .markdown-body {
             background-color: transparent !important;
             color: currentColor !important;
@@ -38,7 +42,8 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
             padding-bottom: 0.5rem;
             margin-top: 2rem;
           }
-        `}} />
+        `}
+        </style>
       </head>
       <Section separator={false}>
         <div class="mb-16">
@@ -49,7 +54,7 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
             </a>
           </Button>
         </div>
-        
+
         <div class="flex flex-col gap-8 mb-16">
           <span class="font-zodiak opacity-60 text-lg">
             {new Date(data.createdAt).toLocaleDateString("de-DE")}
@@ -64,7 +69,7 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
       </Section>
 
       <Section>
-        <div 
+        <div
           class="markdown-body font-zodiak text-lg leading-relaxed"
           dangerouslySetInnerHTML={{ __html: html }}
         />
@@ -72,7 +77,7 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
 
       <Section>
         <div class="mt-16 pt-8 border-t border-foreground">
-           <Button>
+          <Button>
             <a href="/blog" class="flex flex-row gap-2 items-center">
               <IconArrowDown class="rotate-90 size-4" />
               Back to Blog
