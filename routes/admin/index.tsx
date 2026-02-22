@@ -1,117 +1,178 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
-import PgClient from "../../lib/pg.ts";
-import { TimetableItem } from "../../lib/types.ts";
-import Login from "./(_components)/Login.tsx";
+import { BlogPost, deletePost, getPosts } from "../../lib/blog.ts";
+import { getProjects, ProjectData, deleteProject } from "../../lib/site_data.ts";
+import { Button } from "../../components/atoms/Button.tsx";
+import H from "../../components/atoms/H.tsx";
+import Section from "../../components/atoms/Section.tsx";
 
-interface Data {
-  isAllowed: boolean;
-  items?: Array<TimetableItem>;
+interface DashboardData {
+  posts: BlogPost[];
+  projects: ProjectData[];
 }
-const validateSession = (headers: Headers): boolean => {
-  const cookies = getCookies(headers);
-  return cookies.session === "bar";
-};
 
-export const handler: Handlers = {
+export const handler: Handlers<DashboardData> = {
   async GET(req, ctx) {
-    const isAllowed = validateSession(req.headers);
-    if (!isAllowed) {
-      return ctx.render({ isAllowed });
+    const cookies = getCookies(req.headers);
+    const isBlogAdmin = cookies.auth === "admin";
+    
+    if (!isBlogAdmin) {
+      return new Response("", {
+        status: 303,
+        headers: { Location: "/admin/login" },
+      });
     }
-    const pgClient = new PgClient();
-    const items = await pgClient.queryObject<Array<TimetableItem>>(
-      "SELECT * FROM timetable_items",
-    );
-    return ctx.render({ items: items, isAllowed });
+    const posts = await getPosts();
+    const projects = await getProjects();
+    return ctx.render({ posts, projects });
   },
-  async POST(req, ctx) {
-    const isAllowed = validateSession(req.headers);
-    if (!isAllowed) {
-      return ctx.render({ isAllowed });
+  async POST(req, _ctx) {
+    const cookies = getCookies(req.headers);
+    if (cookies.auth !== "admin") {
+      return new Response("Unauthorized", { status: 401 });
     }
     const form = await req.formData();
-    const position = form.get("position")?.toString() || "";
-    const description = form.get("description")?.toString() || "";
-    const started_at = new Date(form.get("started_at")?.toString() || "");
-    const quit_at = new Date(form.get("quit_at")?.toString() || "");
-    const location = form.get("location")?.toString() || "";
-    const tech_stack_id = Number(form.get("tech_stack_id")) || 1;
-    const company = form.get("company")?.toString() || "";
-    const job_title = form.get("job_title")?.toString() || "";
+    const action = form.get("action")?.toString();
+    const id = form.get("id")?.toString();
+    const type = form.get("type")?.toString();
 
-    // Insert new item into database.
-    const client = new PgClient();
-    await client.createTransaction(
-      {
-        position: position,
-        description: description,
-        started_at: started_at,
-        job_title: job_title,
-        quit_at: quit_at,
-        location: location,
-        tech_stack_id: tech_stack_id,
-        company: company,
-      },
-    );
+    if (action === "delete" && id) {
+      if (type === "post") {
+        await deletePost(id);
+      } else if (type === "project") {
+        await deleteProject(id);
+      }
+    }
 
-    // Add email to list.
-
-    // Redirect user to thank you page.
-    // const headers = new Headers();
-    // headers.set("location", "/thanks-for-subscribing");
-    // return new Response(null, {
-    //   status: 303, // See Other
-    //   headers,
-    // });
-    const pgClient = new PgClient();
-    const items = await pgClient.queryObject<Array<TimetableItem>>(
-      "SELECT * FROM timetable_items",
-    );
-    return ctx.render({ items: items, isAllowed });
+    return new Response("", {
+      status: 303,
+      headers: { Location: "/admin" },
+    });
   },
 };
 
-const Admin = ({ data }: PageProps<Data>) => {
-  if (!data.isAllowed) {
-    return (
-      <>
-        <div>You are not logged in.</div>
-        <Login />
-      </>
-    );
-  }
+export default function AdminDashboard({ data }: PageProps<DashboardData>) {
   return (
-    <>
-      <div>
-        <ul>
-          {data.items?.map((item) => <li>{item.job_title}</li>)}
-          <li>
-            <form method={"post"}>
-              <label htmlFor="position">Position</label>
-              <input type="text" />
-              <label htmlFor="description">Description</label>
-              <input type="text" />
-              <label htmlFor="started_at">Started at</label>
-              <input type="text" />
-              <label htmlFor="quit_at">Quit at</label>
-              <input type="text" />
-              <label htmlFor="job_title">Job Title</label>
-              <input type="text" />
-              <label htmlFor="location">Location</label>
-              <input type="text" />
-              <label htmlFor="tech_stack_id">Tech stack id</label>
-              <input type="text" />
-              <label htmlFor="company">Company</label>
-              <input type="text" />
-              <button type="submit">Save</button>
-            </form>
-          </li>
-        </ul>
-        <a href="/api/logout">Logout</a>
+    <Section separator={false}>
+      <div class="flex justify-between items-center mb-16">
+        <H variant="h1" class="text-4xl font-clash-display uppercase">Admin Dashboard</H>
+        <div class="flex gap-4">
+          <Button>
+            <a href="/admin/settings">Site Settings</a>
+          </Button>
+          <Button>
+            <a href="/api/logout">Logout</a>
+          </Button>
+        </div>
       </div>
-    </>
-  );
-};
 
-export default Admin;
+      <div class="mb-16">
+        <div class="flex justify-between items-center mb-8">
+          <H variant="h2" class="text-2xl font-clash-display uppercase">Blog Posts</H>
+          <Button>
+            <a href="/admin/new">New Post</a>
+          </Button>
+        </div>
+        <div class="border border-foreground">
+          <table class="w-full text-left font-zodiak">
+            <thead>
+              <tr class="border-b border-foreground uppercase text-sm">
+                <th class="p-4">Title</th>
+                <th class="p-4">Status</th>
+                <th class="p-4">Created At</th>
+                <th class="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.posts.map((post) => (
+                <tr key={post.id} class="border-b border-foreground last:border-0">
+                  <td class="p-4 font-medium">{post.title}</td>
+                  <td class="p-4 text-sm">
+                    {post.published ? (
+                      <span class="text-racing-green-800">Published</span>
+                    ) : (
+                      <span class="text-red-800 italic">Draft</span>
+                    )}
+                  </td>
+                  <td class="p-4 text-sm">
+                    {new Date(post.createdAt).toLocaleDateString("de-DE")}
+                  </td>
+                  <td class="p-4 text-right">
+                    <div class="flex justify-end gap-4">
+                      <a href={`/admin/edit/${post.id}`} class="underline hover:italic">Edit</a>
+                      <form method="post" class="inline">
+                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="id" value={post.id} />
+                        <input type="hidden" name="type" value="post" />
+                        <button type="submit" class="underline text-red-800 hover:italic" onClick={(e) => {
+                          if (!confirm("Are you sure?")) e.preventDefault();
+                        }}>
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {data.posts.length === 0 && (
+                <tr>
+                  <td colspan={4} class="p-8 text-center italic opacity-60">No posts yet.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <div class="flex justify-between items-center mb-8">
+          <H variant="h2" class="text-2xl font-clash-display uppercase">Projects</H>
+          <Button>
+            <a href="/admin/projects/new">New Project</a>
+          </Button>
+        </div>
+        <div class="border border-foreground">
+          <table class="w-full text-left font-zodiak">
+            <thead>
+              <tr class="border-b border-foreground uppercase text-sm">
+                <th class="p-4">Title</th>
+                <th class="p-4">Link</th>
+                <th class="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.projects.map((project) => (
+                <tr key={project.id} class="border-b border-foreground last:border-0">
+                  <td class="p-4 font-medium">{project.title}</td>
+                  <td class="p-4 text-sm">
+                    <a href={project.href} target="_blank" class="underline">{project.href}</a>
+                  </td>
+                  <td class="p-4 text-right">
+                    <div class="flex justify-end gap-4">
+                      <a href={`/admin/projects/edit/${project.id}`} class="underline hover:italic">Edit</a>
+                      <form method="post" class="inline">
+                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="id" value={project.id} />
+                        <input type="hidden" name="type" value="project" />
+                        <button type="submit" class="underline text-red-800 hover:italic" onClick={(e) => {
+                          if (!confirm("Are you sure?")) e.preventDefault();
+                        }}>
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {data.projects.length === 0 && (
+                <tr>
+                  <td colspan={3} class="p-8 text-center italic opacity-60">No projects yet.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Section>
+  );
+}

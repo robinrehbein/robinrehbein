@@ -1,6 +1,6 @@
 import H from "../components/atoms/H.tsx";
 import Section from "../components/atoms/Section.tsx";
-import { TimetableItem } from "../lib/types.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import {
   IconArrowDown,
   IconArtwerk,
@@ -20,56 +20,41 @@ import {
 import { Button } from "../components/atoms/Button.tsx";
 import ProjectCard from "../islands/ProjectCard.tsx";
 import Expand from "../islands/Expand.tsx";
-import { projects } from "../lib/projects.ts";
+import { getProjects, getSettings, ProjectData, SiteSettings } from "../lib/site_data.ts";
 
 interface Data {
-  items: Array<TimetableItem>;
+  settings: SiteSettings;
+  projects: ProjectData[];
 }
 
-// export const handler: Handlers = {
-//   async GET(req, ctx) {
-//     const pgClient = new PgClient();
-//     const timelineItems = await pgClient.queryObject<Array<TimetableItem>>(
-//       "SELECT * FROM timetable_items",
-//     );
-//     const projects = await pgClient.queryObject<Array<Project>>(
-//       "SELECT p.id, p.title, p.url, pc.image_url, pc.description FROM projects p LEFT JOIN project_contents pc ON p.id = pc.fk_project WHERE featured = true",
-//     );
-//     return ctx.render({
-//       timelineItems,
-//       projects,
-//     });
-//   },
-// };
+export const handler: Handlers<Data> = {
+  async GET(_req, ctx) {
+    const settings = await getSettings();
+    const projects = await getProjects();
+    return ctx.render({ settings, projects });
+  },
+};
 
 const SCROLL_ANKER = "_01";
 
-const Home = (
-  // { data }: PageProps<
-  //   { timelineItems: Array<TimetableItem>; projects: Array<Project> }
-  // >,
-) => {
-  // const { timelineItems, projects } = data;
-  // console.log(timelineItems, projects);
+const Home = ({ data }: PageProps<Data>) => {
+  const { settings, projects } = data;
   return (
     <>
       <Section
         separator={false}
-        // class="min-h-[calc(100dvh-8rem)] flex flex-col gap-12 relative"
       >
-        {/* TODO Gradient */}
-        {/* bg-gradient-to-br from-mustard-yellow-200 via-racing-green-500 to-racing-green-800 text-transparent bg-clip-text animate-gradient */}
         <div
           class={"flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16"}
         >
           <H
-            class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"} // TODO check font  font-clash-display
+            class={"inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"}
             variant={"h1"}
           >
             <span>
               <IconHeartedHands class={"size-6"} />
             </span>
-            <p>Robin Rehbein Portfolio</p>
+            <p>{settings.name} Portfolio</p>
 
             <span class={"hidden md:inline"}>
               <IconSeparator class={"size-6"} />
@@ -79,81 +64,53 @@ const Home = (
             >
               <span class="relative w-6 h-6 inline-flex items-center justify-center">
                 <IconCircle
-                  class={"size-3 absolute text-red-800"}
+                  class={`size-3 absolute ${settings.available ? "text-racing-green" : "text-red-800"}`}
                 />
                 <IconCircle
-                  class={"size-3 animate-ping text-red-800"}
+                  class={`size-3 animate-ping ${settings.available ? "text-racing-green" : "text-red-800"}`}
                 />
               </span>
-              <span class="line-through">Unavailable</span> for projects
+              {settings.available ? "Available" : <span class="line-through">Unavailable</span>} for projects
             </p>
           </H>
           <div class={"font-zodiak font-medium flex flex-col gap-1"}>
-            {
-              /* <p
-              class={"inline-flex items-center gap-2"}
-            >
-              <span class="flex items-center justify-center h-6 w-6 relative">
-                <IconCircle
-                  class={"size-3 animate-bounce"}
-                />
-                <IconCircle
-                  class={"size-3 absolute"}
-                />
-                <IconCircle
-                  class={"size-3 animate-ping"}
-                />
-              </span>
-              Available for projects
-            </p> */
-            }
-            {/* TODO check font font-clash-display */}
             <p className={"inline-flex items-center gap-2"}>
               <span>
                 <IconReact class={"size-6"}/>
               </span>
               Currently coding at
               <a
-                  href="https://mimacom.com"
+                  href={settings.codingAt.url}
                   className={"underline decoration-wavy decoration-[#FF0651]"}
-                  /*decoration-mustard-yellow-950*/
               >
-                mimacom
+                {settings.codingAt.name}
               </a>
             </p>
             <p class={"inline-flex items-center gap-2"}>
               <span>
                 <IconPin class={"size-6"}/>
               </span>
-              Based in Stuttgart, Germany
+              Based in {settings.location}
             </p>
           </div>
         </div>
         <H
-            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight add fontsize clamp
             class={"font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"}
           variant={"h2"}
         >
           <span>
-            {/* Seasoned Web */}
-            Architect
-            {
-              /* Front
-            <span
-              class={"font-zodiak lowercase italic font-light"}
-            >
-              end
-            </span> */
-            }
+            {settings.role.split("&").map((part, i, arr) => (
+              <>
+                {part}{i < arr.length - 1 && "&"}
+                {i < arr.length - 1 && <br />}
+              </>
+            ))}
           </span>
-          <br />
-          <span>& Develop.</span>
         </H>
         <div
           class={"flex flex-col md:flex-row justify-between items-end gap-12"}
         >
           <div
-            // class={"flex flex-row gap-4 items-end absolute left-8 top-[calc(100dvh-16rem)]"}
             class={"flex flex-row w-full sticky left-8 bottom-8 gap-4"}
           >
             <a href={`#${SCROLL_ANKER}`}>
@@ -163,9 +120,7 @@ const Home = (
               <p
                 class={"text-base md:text-2xl font-zodiak"}
               >
-                {/* Turning people's ideas into reality since 2015. */}
                 Turning people's ideas into{" "}
-                {/* <span class={"font-anaheim"}>&lt;&gt;web&lt;/&gt;</span> since 2015. */}
                 <span
                   class={"font-medium text-mustard-yellow-950 hover:italic"}
                 >
@@ -178,20 +133,14 @@ const Home = (
           <img
             src="/me_square.jpg"
             alt="me"
-            class={"object-cover object-top w-full md:w-1/2 aspect-square shadow"} // rounded-full
+            class={"object-cover object-top w-full md:w-1/2 aspect-square shadow"}
           />
         </div>
-        {/* <Synthwave /> */}
       </Section>
 
-      {
-        /* <Reveal>Reveal</Reveal>
-      <RevealTextOnMouseOver /> */
-      }
       <Section id={`${SCROLL_ANKER}`}>
         <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
-            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
@@ -200,9 +149,7 @@ const Home = (
           <p class={"font-zodiak font-medium text-md"}>_01</p>
         </div>
         <div class={"font-zodiak mb-8 md:mb-16"}>
-          {/* <p class={"mb-4 flex items-center gap-2 font-medium"}> */}
           <p class={"mb-4 md:mb-8 italic font-medium"}>
-            {/* <IconThumbsUp class={"size-6"} /> */}
             What i like:
           </p>
           <ul
@@ -211,20 +158,10 @@ const Home = (
             <li class={"flex items-center gap-2"}>
               <IconCup class={"size-6"} /> Coffee!
             </li>
-            {
-              /* <li class={"flex items-center gap-2"}>
-              <IconCube class={"size-6"} /> Games.
-              </li> */
-            }
             <li class={"flex items-center gap-2"}>
               <IconPlant class={"size-6"} />
               Plants.
             </li>
-            {
-              /* <li class={"flex items-center gap-2"}>
-              <IconHtml class={"size-6"} /> Programming.
-              </li> */
-            }
             <li class={"flex items-center gap-2"}>
               <IconBike class={"size-6"} /> Biking.
             </li>
@@ -244,33 +181,7 @@ const Home = (
             </li>
           </ul>
           <p>
-            In my free time, I dive into the fascinating world of{" "}
-            <em>
-              <strong>
-                custom mechanical keyboards
-              </strong>
-            </em>, crafting unique and{" "}
-            personalized typing experiences that are as expressive as they are
-            functional. The pandemic unlocked a newfound passion for{" "}
-            <em>
-              <strong>
-                indoor plants
-              </strong>
-            </em>, transforming my living space into a lush sanctuary that
-            breathes life and tranquility. My love for biking takes me on{" "}
-            <em>
-              <strong>
-                thrilling adventures
-              </strong>
-            </em>, exploring hidden trails and embracing the thrill of the ride.
-            Moreover, my journey into the realm of coffee as a barista has been
-            transformative, immersing me in the{" "}
-            <em>
-              <strong>
-                rich art of coffee-making
-              </strong>
-            </em>{" "}
-            and deepening my appreciation for every aromatic brew.
+            {settings.aboutMeShort}
           </p>
         </div>
         <div>
@@ -293,7 +204,6 @@ const Home = (
                   </a>
                 </p>
                 <p>01 - 01 - 2026 till today</p>
-                {/* TODO Expand infos and description */}
                 <Expand>
                   I started a new journey at mimacom in the beginning of 2026. Mimacom is a software and consulting company dedicated to digital progress. By combining cutting-edge technology and market expertise with individual talent, I help drive our team's passion and ensure our customers' long-term success.
                   Stay ahead in a fast-changing digital world.
@@ -335,7 +245,6 @@ const Home = (
       <Section>
         <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
-            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
@@ -354,7 +263,7 @@ const Home = (
         </Button>
         {projects.slice(0, 2).map((project) => (
           <ProjectCard
-            key={project.title}
+            key={project.id}
             title={project.title}
             description={project.description}
             href={project.href}
@@ -365,7 +274,6 @@ const Home = (
       <Section>
         <div class={"flex flex-row justify-between mb-4 md:mb-8"}>
           <H
-            // TODO check tracking and leading and color text-racing-green-800 leading-[7rem] tracking-tight
             class={"font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"}
             variant={"h2"}
           >
@@ -377,7 +285,6 @@ const Home = (
           <p
             class={"italic md:flex-1 font-medium"}
           >
-            {/* <IconThumbsUp class={"size-6"} /> */}
             Get in touch!
           </p>
           <div class="md:flex-1">
@@ -389,9 +296,9 @@ const Home = (
               can contact me via email at{" "}
               <a
                 class={"font-medium italic"}
-                href={"mailto:hello@robinrehbein.de"}
+                href={`mailto:${settings.contactEmail}`}
               >
-                hello@robinrehbein.de
+                {settings.contactEmail}
               </a>. I look forward to connecting with you!
             </p>
             <ul
@@ -400,33 +307,24 @@ const Home = (
               <li>
                 <a
                   class={"font-medium italic"}
-                  href={"mailto:hello@robinrehbein.de"}
+                  href={`mailto:${settings.contactEmail}`}
                 >
                   <IconMail class={"size-6 inline-flex mr-2"} />{" "}
-                  hello@robinrehbein.de
+                  {settings.contactEmail}
                 </a>
               </li>
               <li>
                 <a
                   class={"font-medium italic"}
-                  href={"https://github.com/robinrehbein"}
+                  href={`https://github.com/${settings.githubUsername}`}
                 >
-                  <IconGithub class={"size-6 inline-flex mr-2"} /> robinrehbein
+                  <IconGithub class={"size-6 inline-flex mr-2"} /> {settings.githubUsername}
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </Section>
-
-      {
-        /* <Section>
-        <Timeline items={timelineItems} />
-      </Section>
-      <Section>
-        <FeaturedProjects projects={projects} />
-      </Section> */
-      }
     </>
   );
 };

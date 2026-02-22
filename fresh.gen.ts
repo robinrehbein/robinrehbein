@@ -6,9 +6,17 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $about_index from "./routes/about/index.tsx";
+import * as $admin_edit_id_ from "./routes/admin/edit/[id].tsx";
 import * as $admin_index from "./routes/admin/index.tsx";
+import * as $admin_login from "./routes/admin/login.tsx";
+import * as $admin_new from "./routes/admin/new.tsx";
+import * as $admin_projects_edit_id_ from "./routes/admin/projects/edit/[id].tsx";
+import * as $admin_projects_new from "./routes/admin/projects/new.tsx";
+import * as $admin_settings from "./routes/admin/settings.tsx";
 import * as $api_login_index from "./routes/api/login/index.ts";
 import * as $api_logout_index from "./routes/api/logout/index.ts";
+import * as $blog_slug_ from "./routes/blog/[slug].tsx";
+import * as $blog_index from "./routes/blog/index.tsx";
 import * as $disclaimer from "./routes/disclaimer.tsx";
 import * as $hub_index from "./routes/hub/index.tsx";
 import * as $imprint from "./routes/imprint.tsx";
@@ -32,9 +40,17 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
     "./routes/about/index.tsx": $about_index,
+    "./routes/admin/edit/[id].tsx": $admin_edit_id_,
     "./routes/admin/index.tsx": $admin_index,
+    "./routes/admin/login.tsx": $admin_login,
+    "./routes/admin/new.tsx": $admin_new,
+    "./routes/admin/projects/edit/[id].tsx": $admin_projects_edit_id_,
+    "./routes/admin/projects/new.tsx": $admin_projects_new,
+    "./routes/admin/settings.tsx": $admin_settings,
     "./routes/api/login/index.ts": $api_login_index,
     "./routes/api/logout/index.ts": $api_logout_index,
+    "./routes/blog/[slug].tsx": $blog_slug_,
+    "./routes/blog/index.tsx": $blog_index,
     "./routes/disclaimer.tsx": $disclaimer,
     "./routes/hub/index.tsx": $hub_index,
     "./routes/imprint.tsx": $imprint,

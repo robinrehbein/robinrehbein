@@ -27,7 +27,7 @@ const MobileMenu = () => {
           "opacity-0 overflow-hidden transition-all absolute right-0 top-10 items-end pt-0.5 flex flex-col gap-4 z-10 font-zodiak",
           {
             // TODO fix new height
-            "h-[188px] opacity-100": isOpen.value,
+            "h-[224px] opacity-100": isOpen.value,
           },
         )}
       >
@@ -37,22 +37,27 @@ const MobileMenu = () => {
           </a>
         </li>
         <li>
-          <a href="work">
+          <a href="/work">
             work.
           </a>
         </li>
         <li>
-          <a href="skills">
+          <a href="/blog">
+            blog.
+          </a>
+        </li>
+        <li>
+          <a href="/skills">
             skills.
           </a>
         </li>
         <li>
-          <a href="about">
+          <a href="/about">
             about.
           </a>
         </li>
         <li>
-          <a href="hub">
+          <a href="/hub">
             hub.
           </a>
         </li>

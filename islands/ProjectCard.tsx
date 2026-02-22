@@ -10,13 +10,20 @@ const ProjectCard = (
     title: string;
     description: string;
     href: string;
-    images: [string, string, string, string, string];
+    images: string[];
   },
 ) => {
+  const safeImages = images.length > 0 ? images : ["/logo.svg"];
+  const desktopImage = safeImages[0] ?? "/logo.svg";
+  const mobileImage = safeImages[1] ?? desktopImage;
+  const galleryImages = safeImages.length > 2
+    ? safeImages.slice(2)
+    : [desktopImage];
+
   if (!IS_BROWSER) {
     return (
       <div
-        class={"relative flex flex-col md:flex-row even:md:flex-row-reverse even:border-b even:pb-16 even:mb-16 even:border-foreground gap-8 md:gap-16"}
+        class={"relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16"}
       >
         <div class={"md:flex-1 md:h-fit md:sticky md:top-1/4"}>
           {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
@@ -49,17 +56,17 @@ const ProjectCard = (
           <div class={"shadow"}>
             <img
               // src="/iphone_artwerk_landing.webp"
-              src={images[0]}
+              src={desktopImage}
               alt="Mockup"
               class={"object-cover w-full aspect-square hidden md:block"}
             />
             <img
-              src={images[1]}
+              src={mobileImage}
               alt="Mockup"
               class={"object-cover w-full aspect-square md:hidden"}
             />
             <div class={"flex flew-row flex-wrap"}>
-              {images.slice(2).map((image) => (
+              {galleryImages.map((image) => (
                 <img
                   src={image}
                   alt="Mockup"
@@ -76,7 +83,7 @@ const ProjectCard = (
 
   return (
     <div
-      class={"relative flex flex-col md:flex-row even:md:flex-row-reverse even:border-b even:pb-16 even:mb-16 even:border-foreground gap-8 md:gap-16"}
+      class={"relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16"}
     >
       <div class={"md:flex-1 md:h-fit md:sticky md:top-1/4"}>
         {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
@@ -114,17 +121,17 @@ const ProjectCard = (
         <div class={"shadow"}>
           <img
             // src="/iphone_artwerk_landing.webp"
-            src={images[0]}
+            src={desktopImage}
             alt="Mockup"
             class={"object-cover w-full aspect-square hidden md:block"}
           />
           <img
-            src={images[1]}
+            src={mobileImage}
             alt="Mockup"
             class={"object-cover w-full aspect-square md:hidden"}
           />
           <div class={"flex flew-row flex-wrap"}>
-            {images.slice(2).map((image) => (
+            {galleryImages.map((image) => (
               <img
                 src={image}
                 alt="Mockup"

@@ -44,17 +44,22 @@ const Navbar = () => {
           </a>
         </li>
         <li>
-          <a href="work">
+          <a href="/work">
             work.
           </a>
         </li>
         <li>
-          <a href="about">
+          <a href="/blog">
+            blog.
+          </a>
+        </li>
+        <li>
+          <a href="/about">
             about.
           </a>
         </li>
         <li>
-          <a href="hub">
+          <a href="/hub">
             hub.
           </a>
         </li>

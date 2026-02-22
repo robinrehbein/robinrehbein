@@ -254,7 +254,7 @@ const Projects = () => {
                     neosfer
                   </a>
                 </p>
-                <p>01-11-2022 till today</p>
+                <p>01-11-2022 till 31-12-2025</p>
                 {/* TODO Expand infos and description */}
                 <Expand>
                   I started a new journey at neosfer in late 2022. neosfer is a
@@ -280,7 +280,7 @@ const Projects = () => {
                     MHP - A Porsche Company
                   </a>
                 </p>
-                <p>01-08-2019 till 31-12-2021</p>
+                <p>01-08-2019 till 31-12-2022</p>
                 {/* TODO Expand infos and description */}
                 <Expand>
                   At MHP - A Porsche Company, I initially worked as a

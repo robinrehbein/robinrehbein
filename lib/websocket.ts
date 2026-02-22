@@ -2,6 +2,7 @@ enum MessageType {
   BROADCAST = "broadcast",
   MESSAGE = "message",
   WELCOME = "welcome",
+  FILE = "file",
 }
 
 type BroadcastData = {
@@ -16,9 +17,17 @@ type MessageData =
   | ArrayBufferLike
   | ArrayBufferView;
 
+type FileData = {
+  fileName: string;
+  fileType: string;
+  fileData: string; // Base64 encoded for simplicity in JSON
+  size: number;
+};
+
 type WebSocketData<T extends MessageType> = T extends MessageType.BROADCAST
   ? BroadcastData
   : T extends MessageType.MESSAGE ? MessageData
+  : T extends MessageType.FILE ? FileData
   : never;
 
 type WebSocketBroadcastMessage = {
@@ -33,6 +42,15 @@ type WebSocketDataMessage = {
   receiver: WebSocketClient;
   data: WebSocketData<MessageType.MESSAGE>;
 };
+
+type WebSocketFileMessage = {
+  type: MessageType.FILE;
+  id: string;
+  sender: WebSocketClient;
+  receiver: WebSocketClient;
+  data: WebSocketData<MessageType.FILE>;
+};
+
 type WebSocketWelcomeMessage = {
   type: MessageType.WELCOME;
   data: WebSocketClient;
@@ -41,6 +59,7 @@ type WebSocketWelcomeMessage = {
 type WebSocketMessage<T extends MessageType> = T extends MessageType.BROADCAST
   ? WebSocketBroadcastMessage
   : T extends MessageType.MESSAGE ? WebSocketDataMessage
+  : T extends MessageType.FILE ? WebSocketFileMessage
   : T extends MessageType.WELCOME ? WebSocketWelcomeMessage
   : never;
 
@@ -143,17 +162,17 @@ const createClient = (): WebSocketClient => {
 };
 
 const sendMessage = (
-  { data, type, receiver }: WebSocketDataMessage,
+  message: WebSocketDataMessage | WebSocketFileMessage,
 ) => {
   const target = Array.from(activeConnections.entries())
     .find(
       (
         [_socket, client],
-      ) => client.id === receiver.id,
+      ) => client.id === message.receiver.id,
     );
   if (target) {
     const [sock] = target;
-    sock.send(JSON.stringify({ type, data }));
+    sock.send(JSON.stringify({ type: message.type, data: message.data, sender: message.sender }));
   }
 };
 
@@ -181,8 +200,13 @@ const handleWebSocket = (req: Request) => {
     (event: MessageEvent<string>) => {
       console.log("Message received:", event.data);
       try {
-        const message = JSON.parse(event.data) as WebSocketMessage<MessageType.MESSAGE>;
-        if (message.type === MessageType.MESSAGE) {
+        const message = JSON.parse(event.data) as WebSocketMessage<
+          MessageType.MESSAGE | MessageType.FILE
+        >;
+        if (
+          message.type === MessageType.MESSAGE ||
+          message.type === MessageType.FILE
+        ) {
           sendMessage(message);
         }
       } catch (e) {
@@ -213,6 +237,7 @@ export {
   type WebSocketData,
   type WebSocketDataMessage,
   type WebSocketEvent,
+  type WebSocketFileMessage,
   type WebSocketMessage,
   WebSocketStatus,
 };
