@@ -23,6 +23,7 @@ import * as $imprint from "./routes/imprint.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $privacy from "./routes/privacy.tsx";
 import * as $work_index from "./routes/work/index.tsx";
+import * as $CookieBanner from "./islands/CookieBanner.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Expand from "./islands/Expand.tsx";
 import * as $HubClient from "./islands/HubClient.tsx";
@@ -32,6 +33,7 @@ import * as $Reveal from "./islands/Reveal.tsx";
 import * as $RevealTextOnMouseOver from "./islands/RevealTextOnMouseOver.tsx";
 import * as $Synthwave from "./islands/Synthwave.tsx";
 import * as $TimelineFilter from "./islands/TimelineFilter.tsx";
+import * as $Tracking from "./islands/Tracking.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -59,6 +61,7 @@ const manifest = {
     "./routes/work/index.tsx": $work_index,
   },
   islands: {
+    "./islands/CookieBanner.tsx": $CookieBanner,
     "./islands/Counter.tsx": $Counter,
     "./islands/Expand.tsx": $Expand,
     "./islands/HubClient.tsx": $HubClient,
@@ -68,6 +71,7 @@ const manifest = {
     "./islands/RevealTextOnMouseOver.tsx": $RevealTextOnMouseOver,
     "./islands/Synthwave.tsx": $Synthwave,
     "./islands/TimelineFilter.tsx": $TimelineFilter,
+    "./islands/Tracking.tsx": $Tracking,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

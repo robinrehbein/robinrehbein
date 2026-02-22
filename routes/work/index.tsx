@@ -111,15 +111,17 @@ const Work = ({ data }: PageProps<Data>) => {
         </ul>
       </Section>
       <Section>
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            href={project.href}
-            images={project.images}
-          />
-        ))}
+        <div>
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              href={project.href}
+              images={project.images}
+            />
+          ))}
+        </div>
       </Section>
     </>
   );

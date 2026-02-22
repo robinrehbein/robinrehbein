@@ -261,15 +261,17 @@ const Home = ({ data }: PageProps<Data>) => {
             <IconArrowDown class="-rotate-90 size-4" />
           </a>
         </Button>
-        {projects.slice(0, 2).map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            href={project.href}
-            images={project.images}
-          />
-        ))}
+        <div class="mt-16">
+          {projects.slice(0, 2).map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              href={project.href}
+              images={project.images}
+            />
+          ))}
+        </div>
       </Section>
       <Section>
         <div class="flex flex-row justify-between mb-4 md:mb-8">
