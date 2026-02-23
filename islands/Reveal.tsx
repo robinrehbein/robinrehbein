@@ -2,7 +2,7 @@ import { useEffect } from "preact/hooks";
 import { useSignal } from "@preact/signals";
 import { cn } from "../lib/utils.ts";
 import { ComponentChildren } from "preact";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 
 const Reveal = ({ children }: { children: ComponentChildren }) => {
   const isVisible = useSignal(false);

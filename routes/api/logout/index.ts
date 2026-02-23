@@ -1,8 +1,9 @@
-import { Handlers } from "$fresh/server.ts";
-import { deleteCookie } from "$std/http/cookie.ts";
+import { deleteCookie } from "@std/http/cookie";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers = {
-  GET(req) {
+export const handler = define.handlers({
+  GET(ctx) {
+    const req = ctx.req;
     const url = new URL(req.url);
     const headers = new Headers();
     deleteCookie(headers, "session", { path: "/admin", domain: url.hostname });
@@ -14,4 +15,4 @@ export const handler: Handlers = {
       headers,
     });
   },
-};
+});

@@ -1,11 +1,13 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies, setCookie } from "$std/http/cookie.ts";
+import { PageProps } from "fresh";
+import { getCookies, setCookie } from "@std/http/cookie";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers = {
-  GET(req, ctx) {
+export const handler = define.handlers({
+  GET(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth === "admin") {
       return new Response("", {
@@ -13,9 +15,9 @@ export const handler: Handlers = {
         headers: { Location: "/admin" },
       });
     }
-    return ctx.render();
   },
-  async POST(req, ctx) {
+  async POST(ctx) {
+    const req = ctx.req;
     const form = await req.formData();
     const password = form.get("password")?.toString();
     const adminPassword = Deno.env.get("ADMIN_PASSWORD") || "admin123";
@@ -39,10 +41,10 @@ export const handler: Handlers = {
         headers,
       });
     } else {
-      return ctx.render({ error: "Invalid password" });
+      return { data: { error: "Invalid password" } };
     }
   },
-};
+});
 
 export default function LoginPage({ data }: PageProps<{ error?: string }>) {
   return (

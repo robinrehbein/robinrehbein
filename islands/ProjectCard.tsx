@@ -3,7 +3,7 @@ import { Button } from "../components/atoms/Button.tsx";
 import { IconArrowDown } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";
 import H from "../components/atoms/H.tsx";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 
 const ProjectCard = (
   { title, description, href, images }: {

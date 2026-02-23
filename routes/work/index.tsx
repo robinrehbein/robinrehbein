@@ -1,4 +1,4 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
@@ -17,19 +17,20 @@ import {
   SiteSettings,
 } from "../../lib/site_data.ts";
 import ProjectCard from "../../islands/ProjectCard.tsx";
+import { define } from "@/utils.ts";
 
 interface Data {
   settings: SiteSettings;
   projects: ProjectData[];
 }
 
-export const handler: Handlers<Data> = {
-  async GET(_req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
     const settings = await getSettings();
     const projects = await getProjects();
-    return ctx.render({ settings, projects });
+    return { data: { settings, projects } };
   },
-};
+});
 
 const Work = ({ data }: PageProps<Data>) => {
   const { settings, projects } = data;

@@ -1,6 +1,6 @@
 import { useEffect } from "preact/hooks";
 import { useSignal } from "@preact/signals";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 import { Button } from "../components/atoms/Button.tsx";
 
 const CookieBanner = () => {

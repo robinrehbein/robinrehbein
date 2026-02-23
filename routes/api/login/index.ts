@@ -1,8 +1,9 @@
-import { Handlers } from "$fresh/server.ts";
-import { setCookie } from "$std/http/cookie.ts";
+import { setCookie } from "@std/http/cookie";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers = {
-  async POST(req) {
+export const handler = define.handlers({
+  async POST(ctx) {
+    const req = ctx.req;
     const url = new URL(req.url);
     const form = await req.formData();
     if (form.get("username") === "deno" && form.get("password") === "land") {
@@ -28,4 +29,4 @@ export const handler: Handlers = {
       });
     }
   },
-};
+});

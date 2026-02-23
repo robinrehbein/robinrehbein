@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
 import { IconMore } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 
 const MobileMenu = () => {
   const isOpen = useSignal(false);

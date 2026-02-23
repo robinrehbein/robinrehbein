@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 
 // Umami Tracking Settings
 // Replace with your own Umami Website ID and Script URL

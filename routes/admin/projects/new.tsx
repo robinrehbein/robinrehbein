@@ -1,12 +1,13 @@
-import { Handlers } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { getCookies } from "@std/http/cookie";
 import { ProjectData, saveProject } from "../../../lib/site_data.ts";
 import { Button } from "../../../components/atoms/Button.tsx";
 import H from "../../../components/atoms/H.tsx";
 import Section from "../../../components/atoms/Section.tsx";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers = {
-  GET(req, ctx) {
+export const handler = define.handlers({
+  GET(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("", {
@@ -14,9 +15,9 @@ export const handler: Handlers = {
         headers: { Location: "/admin/login" },
       });
     }
-    return ctx.render();
   },
-  async POST(req, _ctx) {
+  async POST(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("Unauthorized", { status: 401 });
@@ -39,7 +40,7 @@ export const handler: Handlers = {
       headers: { Location: "/admin" },
     });
   },
-};
+});
 
 export default function NewProjectPage() {
   return (

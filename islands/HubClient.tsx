@@ -1,4 +1,4 @@
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
 import H from "../components/atoms/H.tsx";

@@ -1,4 +1,4 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import { BlogPost, getPublishedPosts } from "../../lib/blog.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
@@ -11,13 +11,14 @@ import {
   IconReact,
   IconSeparator,
 } from "../../components/Icons.tsx";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers<BlogPost[]> = {
-  async GET(_req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
     const posts = await getPublishedPosts();
-    return ctx.render(posts);
+    return { data: posts };
   },
-};
+});
 
 export default function Blog({ data }: PageProps<BlogPost[]>) {
   return (

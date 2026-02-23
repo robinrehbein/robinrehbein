@@ -1,12 +1,14 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { HttpError, PageProps } from "fresh";
+import { getCookies } from "@std/http/cookie";
 import { BlogPost, getPostById, savePost } from "../../../lib/blog.ts";
 import { Button } from "../../../components/atoms/Button.tsx";
 import H from "../../../components/atoms/H.tsx";
 import Section from "../../../components/atoms/Section.tsx";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers<BlogPost> = {
-  async GET(req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("", {
@@ -16,10 +18,11 @@ export const handler: Handlers<BlogPost> = {
     }
     const { id } = ctx.params;
     const post = await getPostById(id, true); // raw = true
-    if (!post) return ctx.renderNotFound();
-    return ctx.render(post);
+    if (!post) throw new HttpError(404);
+    return { data: post };
   },
-  async POST(req, ctx) {
+  async POST(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("Unauthorized", { status: 401 });
@@ -55,7 +58,7 @@ export const handler: Handlers<BlogPost> = {
       headers: { Location: "/admin" },
     });
   },
-};
+});
 
 export default function EditPostPage({ data }: PageProps<BlogPost>) {
   return (

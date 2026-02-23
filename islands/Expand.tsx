@@ -1,7 +1,7 @@
 import { useSignal } from "@preact/signals";
 import { JSX } from "preact/jsx-runtime";
 import { cn } from "../lib/utils.ts";
-import { IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "fresh/runtime";
 
 const Expand = (
   { children, ...props }: JSX.HTMLAttributes<HTMLDetailsElement>,

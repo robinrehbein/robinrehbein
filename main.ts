@@ -1,13 +1,15 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
+import "@std/dotenv/load";
+import { App, staticFiles } from "fresh";
+import { type State } from "@/utils.ts";
 
-import "$std/dotenv/load.ts";
+export const app = new App<State>();
 
-import { start } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
-import config from "./fresh.config.ts";
+app.use(staticFiles());
+app.fsRoutes();
 
-await start(manifest, config);
+if (import.meta.main) {
+  app.listen({
+    hostname: "0.0.0.0",
+    port: Number(Deno.env.get("PORT") ?? "8000"),
+  });
+}

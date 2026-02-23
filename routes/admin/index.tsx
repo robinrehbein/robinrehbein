@@ -1,5 +1,5 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { PageProps } from "fresh";
+import { getCookies } from "@std/http/cookie";
 import { BlogPost, deletePost, getPosts } from "../../lib/blog.ts";
 import {
   deleteProject,
@@ -9,14 +9,16 @@ import {
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
+import { define } from "@/utils.ts";
 
 interface DashboardData {
   posts: BlogPost[];
   projects: ProjectData[];
 }
 
-export const handler: Handlers<DashboardData> = {
-  async GET(req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     const isBlogAdmin = cookies.auth === "admin";
 
@@ -28,9 +30,10 @@ export const handler: Handlers<DashboardData> = {
     }
     const posts = await getPosts();
     const projects = await getProjects();
-    return ctx.render({ posts, projects });
+    return { data: { posts, projects } };
   },
-  async POST(req, _ctx) {
+  async POST(_ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("Unauthorized", { status: 401 });
@@ -53,7 +56,7 @@ export const handler: Handlers<DashboardData> = {
       headers: { Location: "/admin" },
     });
   },
-};
+});
 
 export default function AdminDashboard({ data }: PageProps<DashboardData>) {
   return (

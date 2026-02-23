@@ -1,5 +1,5 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { HttpError, PageProps } from "fresh";
+import { getCookies } from "@std/http/cookie";
 import {
   getProjectById,
   ProjectData,
@@ -8,9 +8,11 @@ import {
 import { Button } from "../../../../components/atoms/Button.tsx";
 import H from "../../../../components/atoms/H.tsx";
 import Section from "../../../../components/atoms/Section.tsx";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers<ProjectData> = {
-  async GET(req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("", {
@@ -20,10 +22,11 @@ export const handler: Handlers<ProjectData> = {
     }
     const { id } = ctx.params;
     const project = await getProjectById(id);
-    if (!project) return ctx.renderNotFound();
-    return ctx.render(project);
+    if (!project) throw new HttpError(404);
+    return { data: project };
   },
-  async POST(req, ctx) {
+  async POST(ctx) {
+    const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {
       return new Response("Unauthorized", { status: 401 });
@@ -52,7 +55,7 @@ export const handler: Handlers<ProjectData> = {
       headers: { Location: "/admin" },
     });
   },
-};
+});
 
 export default function EditProjectPage({ data }: PageProps<ProjectData>) {
   return (

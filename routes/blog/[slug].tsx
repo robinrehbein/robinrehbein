@@ -1,24 +1,26 @@
 /** @jsxImportSource preact */
 /** @jsxRuntime automatic */
 // deno-lint-ignore-file react-no-danger
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import { BlogPost, getPostBySlug } from "../../lib/blog.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
 import { IconArrowDown } from "../../components/Icons.tsx";
 import { CSS, render } from "gfm";
+import { define } from "@/utils.ts";
+import { HttpError } from "fresh";
 
-export const handler: Handlers<BlogPost> = {
-  async GET(_req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
     const { slug } = ctx.params;
     const post = await getPostBySlug(slug);
     if (!post) {
-      return ctx.renderNotFound();
+      throw new HttpError(404);
     }
-    return ctx.render(post);
+    return { data: post };
   },
-};
+});
 
 export default function BlogPostPage({ data }: PageProps<BlogPost>) {
   const html = render(data.content);

@@ -1,4 +1,3 @@
-import { Handlers } from "$fresh/server.ts";
 import { Button } from "../../components/atoms/Button.tsx";
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
@@ -12,16 +11,17 @@ import {
 } from "../../components/Icons.tsx";
 import HubClient from "../../islands/HubClient.tsx";
 import { handleWebSocket } from "../../lib/websocket.ts";
+import { define } from "@/utils.ts";
 
-export const handler: Handlers = {
-  async GET(req, ctx) {
+export const handler = define.handlers({
+  async GET(ctx) {
+    const req = ctx.req;
     const res = await handleWebSocket(req);
     if (res) {
       return res;
     }
-    return ctx.render();
   },
-};
+});
 
 export default function Hub() {
   return (
