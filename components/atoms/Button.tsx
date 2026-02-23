@@ -1,13 +1,11 @@
 import { JSX } from "preact";
-import { IS_BROWSER } from "fresh/runtime";
 import { cn } from "../../lib/utils.ts";
 
-export function Button(props: JSX.HTMLAttributes<HTMLButtonElement>) {
+export function Button(props: JSX.IntrinsicElements["button"]) {
   return (
     <button
       {...props}
-      disabled={!IS_BROWSER || props.disabled}
-      class={cn(props.class)}
+      class={cn(props.class as string | undefined)}
     />
   );
 }

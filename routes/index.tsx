@@ -34,7 +34,7 @@ interface Data {
 }
 
 export const handler = define.handlers({
-  async GET(ctx) {
+  async GET(_ctx) {
     const settings = await getSettings();
     const projects = await getProjects();
     return { data: { settings, projects } };

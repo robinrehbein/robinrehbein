@@ -32,7 +32,7 @@ export const handler = define.handlers({
     const projects = await getProjects();
     return { data: { posts, projects } };
   },
-  async POST(_ctx) {
+  async POST(ctx) {
     const req = ctx.req;
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "admin") {

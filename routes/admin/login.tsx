@@ -15,6 +15,7 @@ export const handler = define.handlers({
         headers: { Location: "/admin" },
       });
     }
+    return { data: {} };
   },
   async POST(ctx) {
     const req = ctx.req;

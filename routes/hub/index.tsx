@@ -20,6 +20,7 @@ export const handler = define.handlers({
     if (res) {
       return res;
     }
+    return ctx.render(null);
   },
 });
 
