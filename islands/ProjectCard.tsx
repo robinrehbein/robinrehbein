@@ -1,18 +1,21 @@
 import { useSignal } from "@preact/signals";
+import type { JSX } from "preact";
 import { Button } from "../components/atoms/Button.tsx";
 import { IconArrowDown } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";
 import H from "../components/atoms/H.tsx";
 import { IS_BROWSER } from "fresh/runtime";
 
+interface ProjectCardProps {
+  title: string;
+  description: string;
+  href: string;
+  images: string[];
+}
+
 const ProjectCard = (
-  { title, description, href, images }: {
-    title: string;
-    description: string;
-    href: string;
-    images: string[];
-  },
-) => {
+  { title, description, href, images }: ProjectCardProps,
+): JSX.Element => {
   const isElapsed = useSignal(false);
 
   const safeImages = images.length > 0 ? images : ["/logo.svg"];
