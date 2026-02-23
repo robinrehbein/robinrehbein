@@ -64,20 +64,17 @@ export const useWebSocket = ({
 
   const sendMessage = useCallback(
     <T extends MessageType>(data: WebSocketMessage<T>) => {
-      try {
-        if (!ws.value) {
-          throw new Error("WebSocket is not initialized");
-        }
-
-        if (ws.value.readyState !== WebSocket.OPEN) {
-          throw new Error("WebSocket is not open");
-        }
-
-        ws.value.send(JSON.stringify(data));
-      } catch (error) {
-        console.error("Failed to send message:", error);
-        throw error;
+      if (!ws.value) {
+        console.error("Failed to send message: WebSocket is not initialized");
+        return;
       }
+
+      if (ws.value.readyState !== WebSocket.OPEN) {
+        console.error("Failed to send message: WebSocket is not open");
+        return;
+      }
+
+      ws.value.send(JSON.stringify(data));
     },
     [],
   );

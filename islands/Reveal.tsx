@@ -10,17 +10,18 @@ const Reveal = ({ children }: { children: ComponentChildren }) => {
   useEffect(() => {
     if (!IS_BROWSER) return;
     const handleScroll = () => {
-      if (globalThis.scrollY > globalThis.innerHeight * 0.5) {
-        isVisible.value = true;
-      } else {
-        isVisible.value = false;
-      }
+      isVisible.value = globalThis.scrollY > globalThis.innerHeight * 0.5;
     };
     globalThis.addEventListener("scroll", handleScroll);
     return () => globalThis.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!IS_BROWSER) return <div>{children}</div>;
+  if (!IS_BROWSER)
+    return (
+      <div class="w-0 whitespace-nowrap transition-all duration-300 overflow-hidden opacity-0">
+        {children}
+      </div>
+    );
   return (
     <div
       className={cn(

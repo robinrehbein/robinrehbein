@@ -24,7 +24,7 @@ const ProjectCard = (
 
   if (!IS_BROWSER) {
     return (
-      <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16">
+      <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse not-first:border-t not-first:pt-16 not-first:mt-16 border-foreground gap-8 md:gap-16">
         <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
           {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
           <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">
@@ -77,7 +77,7 @@ const ProjectCard = (
   }
 
   return (
-    <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-16 [&:not(:first-child)]:mt-16 border-foreground gap-8 md:gap-16">
+    <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse not-first:border-t not-first:pt-16 not-first:mt-16 border-foreground gap-8 md:gap-16">
       <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
         {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
         <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">

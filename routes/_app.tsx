@@ -1,4 +1,6 @@
 import { type PageProps } from "fresh";
+const UMAMI_SCRIPT_SRC = "https://umami.robinrehbein.de/script.js";
+
 export default function App({ Component }: PageProps) {
   return (
     <html>
@@ -9,8 +11,8 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="/styles.css" />
         <script
           defer
-          src="https://umami.robinrehbein.de/script.js"
-          data-website-id="1baf85dd-71e2-46e9-9a32-d65eddfb2d48"
+          src={UMAMI_SCRIPT_SRC}
+          crossOrigin="anonymous"
         >
         </script>
       </head>
