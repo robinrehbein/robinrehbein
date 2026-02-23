@@ -1,15 +1,12 @@
-/** @jsxImportSource preact */
-/** @jsxRuntime automatic */
-// deno-lint-ignore-file react-no-danger
-import { PageProps } from "fresh";
-import { BlogPost, getPostBySlug } from "../../lib/blog.ts";
-import { Button } from "../../components/atoms/Button.tsx";
-import H from "../../components/atoms/H.tsx";
-import Section from "../../components/atoms/Section.tsx";
-import { IconArrowDown } from "../../components/Icons.tsx";
+import { HttpError, PageProps } from "fresh";
+import { Head } from "fresh/runtime";
+import { BlogPost, getPostBySlug } from "@/lib/blog.ts";
+
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
+import { IconArrowDown } from "@/components/Icons.tsx";
 import { CSS, render } from "gfm";
 import { define } from "@/utils.ts";
-import { HttpError } from "fresh";
 
 export const handler = define.handlers({
   async GET(ctx) {
@@ -23,11 +20,12 @@ export const handler = define.handlers({
 });
 
 export default function BlogPostPage({ data }: PageProps<BlogPost>) {
+  // render() from @deno/gfm sanitizes the output
   const html = render(data.content);
 
   return (
     <>
-      <head>
+      <Head>
         <title>{`${data.title} | Robin Rehbein`}</title>
         <style>{CSS}</style>
         <style>
@@ -46,15 +44,13 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
           }
         `}
         </style>
-      </head>
+      </Head>
       <Section separator={false}>
         <div class="mb-16">
-          <Button>
-            <a href="/blog" class="flex flex-row gap-2 items-center">
-              <IconArrowDown class="rotate-90 size-4" />
-              Back to Blog
-            </a>
-          </Button>
+          <a href="/blog" class="flex flex-row gap-2 items-center">
+            <IconArrowDown class="rotate-90 size-4" />
+            Back to Blog
+          </a>
         </div>
 
         <div class="flex flex-col gap-8 mb-16">
@@ -73,18 +69,17 @@ export default function BlogPostPage({ data }: PageProps<BlogPost>) {
       <Section>
         <div
           class="markdown-body font-zodiak text-lg leading-relaxed"
+          // deno-lint-ignore react-no-danger
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </Section>
 
       <Section>
         <div class="mt-16 pt-8 border-t border-foreground">
-          <Button>
-            <a href="/blog" class="flex flex-row gap-2 items-center">
-              <IconArrowDown class="rotate-90 size-4" />
-              Back to Blog
-            </a>
-          </Button>
+          <a href="/blog" class="flex flex-row gap-2 items-center">
+            <IconArrowDown class="rotate-90 size-4" />
+            Back to Blog
+          </a>
         </div>
       </Section>
     </>

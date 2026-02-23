@@ -1,10 +1,18 @@
 import "@std/dotenv/load";
-import { App, staticFiles } from "fresh";
+import { App, csrf, staticFiles } from "fresh";
 import { type State } from "@/utils.ts";
 
 export const app = new App<State>();
 
 app.use(staticFiles());
+app.use(csrf());
+app.use(async (ctx) => {
+  const res = await ctx.next();
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  return res;
+});
 app.fsRoutes();
 
 if (import.meta.main) {

@@ -1,36 +1,17 @@
 import { PageProps } from "fresh";
-import { getCookies } from "@std/http/cookie";
-import {
-  getSettings,
-  saveSettings,
-  SiteSettings,
-} from "../../lib/site_data.ts";
-import { Button } from "../../components/atoms/Button.tsx";
-import H from "../../components/atoms/H.tsx";
-import Section from "../../components/atoms/Section.tsx";
+import { getSettings, saveSettings, SiteSettings } from "@/lib/site_data.ts";
+import { Button } from "@/components/atoms/Button.tsx";
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
 import { define } from "@/utils.ts";
 
 export const handler = define.handlers({
-  async GET(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("", {
-        status: 303,
-        headers: { Location: "/admin/login" },
-      });
-    }
+  async GET(_ctx) {
     const settings = await getSettings();
     return { data: settings };
   },
   async POST(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
-    const form = await req.formData();
+    const form = await ctx.req.formData();
     const settings: SiteSettings = {
       name: form.get("name")?.toString() || "",
       role: form.get("role")?.toString() || "",
@@ -193,9 +174,7 @@ export default function SettingsPage({ data }: PageProps<SiteSettings>) {
 
           <div class="flex gap-4">
             <Button type="submit">Save Settings</Button>
-            <Button>
-              <a href="/admin">Cancel</a>
-            </Button>
+            <a href="/admin">Cancel</a>
           </div>
         </form>
       </div>

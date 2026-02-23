@@ -1,37 +1,35 @@
-import { getCookies } from "@std/http/cookie";
-import { BlogPost, savePost } from "../../lib/blog.ts";
-import { Button } from "../../components/atoms/Button.tsx";
-import H from "../../components/atoms/H.tsx";
-import Section from "../../components/atoms/Section.tsx";
+import { PageProps } from "fresh";
+import { BlogPost, getPostBySlug, savePost } from "@/lib/blog.ts";
+import { Button } from "@/components/atoms/Button.tsx";
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
 import { define } from "@/utils.ts";
 
 export const handler = define.handlers({
-  GET(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("", {
-        status: 303,
-        headers: { Location: "/admin/login" },
-      });
-    }
-    return { data: null };
+  GET(_ctx) {
+    return { data: {} };
   },
   async POST(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
-    const form = await req.formData();
+    const form = await ctx.req.formData();
     const title = form.get("title")?.toString() || "";
-    const slug = form.get("slug")?.toString() ||
-      title.toLowerCase().replace(/\s+/g, "-");
+    const rawSlug = form.get("slug")?.toString() || "";
+    const slug = (rawSlug || title.toLowerCase().replace(/\s+/g, "-")).replace(
+      /[^a-z0-9-]/g,
+      "",
+    );
     const excerpt = form.get("excerpt")?.toString() || "";
     const content = form.get("content")?.toString() || "";
     const isFilePath = form.get("isFilePath") === "on";
     const published = form.get("published") === "on";
+
+    const existing = await getPostBySlug(slug);
+    if (existing) {
+      return {
+        data: {
+          error: `Slug "${slug}" is already in use. Choose a different slug.`,
+        },
+      };
+    }
 
     const post: BlogPost = {
       id: crypto.randomUUID(),
@@ -54,13 +52,16 @@ export const handler = define.handlers({
   },
 });
 
-export default function NewPostPage() {
+export default function NewPostPage(
+  { data }: PageProps<{ error?: string }>,
+) {
   return (
     <Section separator={false}>
       <div class="mb-16">
         <H variant="h1" class="text-4xl font-clash-display uppercase mb-8">
           Create New Post
         </H>
+        {data?.error && <p class="text-red-800 mb-4">{data.error}</p>}
         <form method="post" class="flex flex-col gap-8 max-w-4xl font-zodiak">
           <div class="flex flex-col gap-2">
             <label for="title" class="uppercase text-sm font-medium">
@@ -101,14 +102,14 @@ export default function NewPostPage() {
           </div>
           <div class="flex flex-col gap-2">
             <label for="content" class="uppercase text-sm font-medium">
-              Content (Markdown oder Dateipfad)
+              Content (Markdown or file path)
             </label>
             <textarea
               id="content"
               name="content"
               rows={15}
               class="border border-foreground bg-transparent p-3 focus:outline-none focus:italic font-mono text-sm"
-              placeholder="Inhalt hier eingeben oder Pfad wie 'posts/mein-post.md'..."
+              placeholder="Write content here or enter a path like 'posts/my-post.md'..."
               required
             >
             </textarea>
@@ -121,7 +122,7 @@ export default function NewPostPage() {
               class="size-5 accent-racing-green-800"
             />
             <label for="isFilePath" class="uppercase text-sm font-medium">
-              Inhalt ist ein Dateipfad
+              Content is a file path
             </label>
           </div>
           <div class="flex items-center gap-4">
@@ -137,9 +138,7 @@ export default function NewPostPage() {
           </div>
           <div class="flex gap-4">
             <Button type="submit">Create Post</Button>
-            <Button>
-              <a href="/admin">Cancel</a>
-            </Button>
+            <a href="/admin">Cancel</a>
           </div>
         </form>
       </div>

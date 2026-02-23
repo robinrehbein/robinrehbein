@@ -1,14 +1,8 @@
 import { PageProps } from "fresh";
-import { getCookies } from "@std/http/cookie";
-import { BlogPost, deletePost, getPosts } from "../../lib/blog.ts";
-import {
-  deleteProject,
-  getProjects,
-  ProjectData,
-} from "../../lib/site_data.ts";
-import { Button } from "../../components/atoms/Button.tsx";
-import H from "../../components/atoms/H.tsx";
-import Section from "../../components/atoms/Section.tsx";
+import { BlogPost, deletePost, getPosts } from "@/lib/blog.ts";
+import { deleteProject, getProjects, ProjectData } from "@/lib/site_data.ts";
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
 import { define } from "@/utils.ts";
 
 interface DashboardData {
@@ -17,28 +11,13 @@ interface DashboardData {
 }
 
 export const handler = define.handlers({
-  async GET(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    const isBlogAdmin = cookies.auth === "admin";
-
-    if (!isBlogAdmin) {
-      return new Response("", {
-        status: 303,
-        headers: { Location: "/admin/login" },
-      });
-    }
+  async GET(_ctx) {
     const posts = await getPosts();
     const projects = await getProjects();
     return { data: { posts, projects } };
   },
   async POST(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("Unauthorized", { status: 401 });
-    }
-    const form = await req.formData();
+    const form = await ctx.req.formData();
     const action = form.get("action")?.toString();
     const id = form.get("id")?.toString();
     const type = form.get("type")?.toString();
@@ -66,12 +45,8 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
           Admin Dashboard
         </H>
         <div class="flex gap-4">
-          <Button>
-            <a href="/admin/settings">Site Settings</a>
-          </Button>
-          <Button>
-            <a href="/api/logout">Logout</a>
-          </Button>
+          <a href="/admin/settings">Site Settings</a>
+          <a href="/api/logout">Logout</a>
         </div>
       </div>
 
@@ -80,9 +55,7 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
           <H variant="h2" class="text-2xl font-clash-display uppercase">
             Blog Posts
           </H>
-          <Button>
-            <a href="/admin/new">New Post</a>
-          </Button>
+          <a href="/admin/new">New Post</a>
         </div>
         <div class="border border-foreground">
           <table class="w-full text-left font-zodiak">
@@ -149,9 +122,7 @@ export default function AdminDashboard({ data }: PageProps<DashboardData>) {
           <H variant="h2" class="text-2xl font-clash-display uppercase">
             Projects
           </H>
-          <Button>
-            <a href="/admin/projects/new">New Project</a>
-          </Button>
+          <a href="/admin/projects/new">New Project</a>
         </div>
         <div class="border border-foreground">
           <table class="w-full text-left font-zodiak">

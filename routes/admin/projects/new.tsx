@@ -1,37 +1,22 @@
-import { getCookies } from "@std/http/cookie";
-import { ProjectData, saveProject } from "../../../lib/site_data.ts";
-import { Button } from "../../../components/atoms/Button.tsx";
-import H from "../../../components/atoms/H.tsx";
-import Section from "../../../components/atoms/Section.tsx";
+import { ProjectData, saveProject } from "@/lib/site_data.ts";
+import { Button } from "@/components/atoms/Button.tsx";
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
 import { define } from "@/utils.ts";
 
 export const handler = define.handlers({
-  GET(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("", {
-        status: 303,
-        headers: { Location: "/admin/login" },
-      });
-    }
+  GET(_ctx) {
     return { data: null };
   },
   async POST(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
-    const form = await req.formData();
+    const form = await ctx.req.formData();
     const project: ProjectData = {
       id: crypto.randomUUID(),
       title: form.get("title")?.toString() || "",
       description: form.get("description")?.toString() || "",
       href: form.get("href")?.toString() || "",
       images: form.get("images")?.toString().split("\n").filter(Boolean) || [],
-      order: parseInt(form.get("order")?.toString() || "0"),
+      order: parseInt(form.get("order")?.toString() || "0", 10),
     };
 
     await saveProject(project);
@@ -116,9 +101,7 @@ export default function NewProjectPage() {
           </div>
           <div class="flex gap-4">
             <Button type="submit">Create Project</Button>
-            <Button>
-              <a href="/admin">Cancel</a>
-            </Button>
+            <a href="/admin">Cancel</a>
           </div>
         </form>
       </div>

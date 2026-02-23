@@ -17,7 +17,7 @@ import {
   IconReact,
   IconSeparator,
 } from "../components/Icons.tsx";
-import { Button } from "../components/atoms/Button.tsx";
+
 import ProjectCard from "../islands/ProjectCard.tsx";
 import Expand from "../islands/Expand.tsx";
 import {
@@ -168,15 +168,10 @@ const Home = ({ data }: PageProps<Data>) => {
               <IconKeyboard class="size-6" /> Custom Keyboards.
             </li>
             <li class="flex items-center gap-2 grow justify-end my-4 md:my-0">
-              <Button>
-                <a
-                  href="/about"
-                  class="flex flex-row gap-2 items-center"
-                >
-                  More about me
-                  <IconArrowDown class="-rotate-90 size-4" />
-                </a>
-              </Button>
+              <a href="/about" class="flex flex-row gap-2 items-center">
+                More about me
+                <IconArrowDown class="-rotate-90 size-4" />
+              </a>
             </li>
           </ul>
           <p>
@@ -253,15 +248,13 @@ const Home = ({ data }: PageProps<Data>) => {
           </H>
           <p class="font-zodiak font-medium text-md">_02</p>
         </div>
-        <Button class="mb-16 mt-8 w-full">
-          <a
-            href="/work"
-            class="flex flex-row gap-2 items-center justify-end"
-          >
-            More of my work
-            <IconArrowDown class="-rotate-90 size-4" />
-          </a>
-        </Button>
+        <a
+          href="/work"
+          class="mb-16 mt-8 w-full flex flex-row gap-2 items-center justify-end"
+        >
+          More of my work
+          <IconArrowDown class="-rotate-90 size-4" />
+        </a>
         <div class="mt-16">
           {projects.slice(0, 2).map((project) => (
             <ProjectCard

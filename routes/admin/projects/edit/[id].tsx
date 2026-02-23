@@ -1,51 +1,32 @@
 import { HttpError, PageProps } from "fresh";
-import { getCookies } from "@std/http/cookie";
-import {
-  getProjectById,
-  ProjectData,
-  saveProject,
-} from "../../../../lib/site_data.ts";
-import { Button } from "../../../../components/atoms/Button.tsx";
-import H from "../../../../components/atoms/H.tsx";
-import Section from "../../../../components/atoms/Section.tsx";
+import { getProjectById, ProjectData, saveProject } from "@/lib/site_data.ts";
+import { Button } from "@/components/atoms/Button.tsx";
+import H from "@/components/atoms/H.tsx";
+import Section from "@/components/atoms/Section.tsx";
 import { define } from "@/utils.ts";
 
 export const handler = define.handlers({
   async GET(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("", {
-        status: 303,
-        headers: { Location: "/admin/login" },
-      });
-    }
     const { id } = ctx.params;
     const project = await getProjectById(id);
     if (!project) throw new HttpError(404);
     return { data: project };
   },
   async POST(ctx) {
-    const req = ctx.req;
-    const cookies = getCookies(req.headers);
-    if (cookies.auth !== "admin") {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
     const { id } = ctx.params;
     const existingProject = await getProjectById(id);
     if (!existingProject) {
       return new Response("Project not found", { status: 404 });
     }
 
-    const form = await req.formData();
+    const form = await ctx.req.formData();
     const updatedProject: ProjectData = {
       id,
       title: form.get("title")?.toString() || "",
       description: form.get("description")?.toString() || "",
       href: form.get("href")?.toString() || "",
       images: form.get("images")?.toString().split("\n").filter(Boolean) || [],
-      order: parseInt(form.get("order")?.toString() || "0"),
+      order: parseInt(form.get("order")?.toString() || "0", 10),
     };
 
     await saveProject(updatedProject);
@@ -133,9 +114,7 @@ export default function EditProjectPage({ data }: PageProps<ProjectData>) {
           </div>
           <div class="flex gap-4">
             <Button type="submit">Save Changes</Button>
-            <Button>
-              <a href="/admin">Cancel</a>
-            </Button>
+            <a href="/admin">Cancel</a>
           </div>
         </form>
       </div>

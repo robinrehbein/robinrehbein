@@ -1,5 +1,5 @@
-/// <reference lib="deno.unstable" />
 import { projects as defaultProjects } from "./projects.ts";
+import { kv } from "@/lib/kv.ts";
 
 export interface ProjectData {
   id: string;
@@ -23,8 +23,6 @@ export interface SiteSettings {
   contactEmail: string;
   githubUsername: string;
 }
-
-const kv = await Deno.openKv();
 
 const PROJECTS_KEY = "projects";
 const SETTINGS_KEY = "site_settings";

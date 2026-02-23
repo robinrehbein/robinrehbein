@@ -40,11 +40,14 @@ const ProjectCard = (
         </div>
         <div class="md:flex-1">
           <div class="flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between">
-            <Button class="font-medium">
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                Visit
-              </a>
-            </Button>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-medium"
+            >
+              Visit
+            </a>
             <Button class="flex flex-row gap-2 items-center justify-end">
               <IconArrowDown
                 class={cn("size-4")}
@@ -64,7 +67,7 @@ const ProjectCard = (
               alt="Mockup"
               class="object-cover w-full aspect-square md:hidden"
             />
-            <div class="flex flew-row flex-wrap">
+            <div class="flex flex-row flex-wrap">
               {galleryImages.map((image) => (
                 <img
                   src={image}
@@ -124,7 +127,7 @@ const ProjectCard = (
             alt="Mockup"
             class="object-cover w-full aspect-square md:hidden"
           />
-          <div class="flex flew-row flex-wrap">
+          <div class="flex flex-row flex-wrap">
             {galleryImages.map((image) => (
               <img
                 src={image}

@@ -1,0 +1,66 @@
+{
+  "mcpServers": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-1b33e7e0-c27a-4734-99c2-4aa3b96c57d8"
+      }
+    },
+    "zai-mcp-server": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@z_ai/mcp-server"
+      ],
+      "env": {
+        "Z_AI_MODE": "ZAI",
+        "Z_AI_API_KEY": "439ca88c933f4e9bbb1f90991e4225b7.uPd50FEMYhdg85X3"
+      }
+    },
+    "web-search-prime": {
+      "type": "streamable-http",
+      "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "Bearer 439ca88c933f4e9bbb1f90991e4225b7.uPd50FEMYhdg85X3"
+      }
+    },
+    "web-reader": {
+      "type": "streamable-http",
+      "url": "https://api.z.ai/api/mcp/web_reader/mcp",
+      "headers": {
+        "Authorization": "Bearer 439ca88c933f4e9bbb1f90991e4225b7.uPd50FEMYhdg85X3"
+      }
+    },
+    "zread": {
+      "type": "streamable-http",
+      "url": "https://api.z.ai/api/mcp/zread/mcp",
+      "headers": {
+        "Authorization": "Bearer 439ca88c933f4e9bbb1f90991e4225b7.uPd50FEMYhdg85X3"
+      }
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { PageProps } from "fresh";
 import { BlogPost, getPublishedPosts } from "../../lib/blog.ts";
-import { Button } from "../../components/atoms/Button.tsx";
+
 import H from "../../components/atoms/H.tsx";
 import Section from "../../components/atoms/Section.tsx";
 import {
@@ -74,12 +74,10 @@ export default function Blog({ data }: PageProps<BlogPost[]>) {
         </H>
         <ul class="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap">
           <li class="flex items-center gap-2 grow justify-end my-4 md:my-0">
-            <Button>
-              <a href="/" class="flex flex-row gap-2 items-center">
-                Back
-                <IconArrowDown class="rotate-90 size-4" />
-              </a>
-            </Button>
+            <a href="/" class="flex flex-row gap-2 items-center">
+              Back
+              <IconArrowDown class="rotate-90 size-4" />
+            </a>
           </li>
         </ul>
       </Section>
