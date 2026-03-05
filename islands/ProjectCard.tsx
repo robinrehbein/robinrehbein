@@ -4,7 +4,6 @@ import { Button } from "../components/atoms/Button.tsx";
 import { IconArrowDown } from "../components/Icons.tsx";
 import { cn } from "../lib/utils.ts";
 import H from "../components/atoms/H.tsx";
-import { IS_BROWSER } from "fresh/runtime";
 
 interface ProjectCardProps {
   title: string;
@@ -25,69 +24,10 @@ const ProjectCard = (
     ? safeImages.slice(2)
     : [desktopImage];
 
-  if (!IS_BROWSER) {
-    return (
-      <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse not-first:border-t not-first:pt-16 not-first:mt-16 border-foreground gap-8 md:gap-16">
-        <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
-          {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
-          <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">
-            {/* <H variant="h3" class={"mb-4"}> */}
-            {title}
-          </H>
-          <p class="mb-8">
-            {description}
-          </p>
-        </div>
-        <div class="md:flex-1">
-          <div class="flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between">
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-medium"
-            >
-              Visit
-            </a>
-            <Button class="flex flex-row gap-2 items-center justify-end">
-              <IconArrowDown
-                class={cn("size-4")}
-              />
-              Expand images
-            </Button>
-          </div>
-          <div class="shadow">
-            <img
-              // src="/iphone_artwerk_landing.webp"
-              src={desktopImage}
-              alt="Mockup"
-              class="object-cover w-full aspect-square hidden md:block"
-            />
-            <img
-              src={mobileImage}
-              alt="Mockup"
-              class="object-cover w-full aspect-square md:hidden"
-            />
-            <div class="flex flex-row flex-wrap">
-              {galleryImages.map((image) => (
-                <img
-                  src={image}
-                  alt="Mockup"
-                  class={cn("object-cover w-1/3 aspect-square")}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div class="relative flex flex-col md:flex-row even:md:flex-row-reverse not-first:border-t not-first:pt-16 not-first:mt-16 border-foreground gap-8 md:gap-16">
       <div class="md:flex-1 md:h-fit md:sticky md:top-1/4">
-        {/* <H variant="h3" class={"mb-4 italic font-zodiak font-medium text-base"}> */}
         <H variant="h3" class="mb-4 text-base md:text-2xl font-zodiak">
-          {/* <H variant="h3" class={"mb-4"}> */}
           {title}
         </H>
         <p class="mb-8">
@@ -96,11 +36,14 @@ const ProjectCard = (
       </div>
       <div class="md:flex-1">
         <div class="flex flex-row md:flex-row-reverse sticky top-14 inset-x-4 mb-8 justify-between">
-          <Button class="font-medium">
-            <a href={href} target="_blank" rel="noopener noreferrer">
-              Visit
-            </a>
-          </Button>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium"
+          >
+            Visit
+          </a>
           <Button
             class="flex flex-row gap-2 items-center justify-end"
             onClick={() => {
@@ -117,7 +60,6 @@ const ProjectCard = (
         </div>
         <div class="shadow">
           <img
-            // src="/iphone_artwerk_landing.webp"
             src={desktopImage}
             alt="Mockup"
             class="object-cover w-full aspect-square hidden md:block"

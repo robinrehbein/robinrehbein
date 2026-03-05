@@ -1,4 +1,4 @@
-import { IS_BROWSER } from "fresh/runtime";
+import { useEffect } from "preact/hooks";
 import { useSignal } from "@preact/signals";
 import { Button } from "../components/atoms/Button.tsx";
 import H from "../components/atoms/H.tsx";
@@ -11,18 +11,27 @@ import {
 } from "../lib/websocket.ts";
 
 const HubClient = () => {
+  const isClient = useSignal(false);
   const count = useSignal<number>(0);
   const clients = useSignal<Array<WebSocketClient>>([]);
   const me = useSignal<WebSocketClient | null>(null);
 
-  const protocol = IS_BROWSER
+  useEffect(() => {
+    isClient.value = true;
+  }, []);
+
+  const protocol = typeof globalThis.location !== "undefined"
     ? (globalThis.location.protocol === "https:" ? "wss:" : "ws:")
     : "";
-  const host = IS_BROWSER ? globalThis.location.host : "";
-  const pathname = IS_BROWSER ? globalThis.location.pathname : "";
+  const host = typeof globalThis.location !== "undefined"
+    ? globalThis.location.host
+    : "";
+  const pathname = typeof globalThis.location !== "undefined"
+    ? globalThis.location.pathname
+    : "";
 
   const { status, sendMessage } = useWebSocket({
-    url: IS_BROWSER ? `${protocol}//${host}${pathname}` : "",
+    url: isClient.value ? `${protocol}//${host}${pathname}` : "",
     reconnectAttempts: 3,
     reconnectInterval: 3000,
 
@@ -70,7 +79,7 @@ const HubClient = () => {
     },
   });
 
-  if (!IS_BROWSER) return null;
+  if (!isClient.value) return null;
 
   if (status.value === "CONNECTING") {
     return (

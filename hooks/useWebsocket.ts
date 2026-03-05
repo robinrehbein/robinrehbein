@@ -1,5 +1,4 @@
-import { IS_BROWSER } from "fresh/runtime";
-import { Signal, signal } from "@preact/signals";
+import { type Signal, signal } from "@preact/signals";
 import { useCallback, useEffect } from "preact/hooks";
 import {
   MessageType,
@@ -81,7 +80,7 @@ export const useWebSocket = ({
 
   const initializeWebSocket = useCallback(() => {
     try {
-      if (!IS_BROWSER) return;
+      if (typeof window === "undefined" || !url) return;
 
       if (ws.value?.readyState === WebSocket.OPEN) {
         ws.value.close();

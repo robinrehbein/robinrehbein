@@ -1,0 +1,9 @@
+_fresh/
+.vite/
+node_modules/
+.git/
+.devcontainer/
+.ai/
+.claude/
+.codex/
+.idea/

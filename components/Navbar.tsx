@@ -10,7 +10,6 @@ const Navbar = () => {
         <li>
           <IconLogo />
         </li>
-        {/* TODO fix build error on reveal */}
         <Reveal>
           <a href="/" class="text-foreground font-zodiak flex flex-row gap-2">
             <p>R. Rehbein Portfolio</p>

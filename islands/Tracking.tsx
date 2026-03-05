@@ -1,5 +1,4 @@
 import { useEffect } from "preact/hooks";
-import { IS_BROWSER } from "fresh/runtime";
 
 // Umami Tracking Settings
 // Replace with your own Umami Website ID and Script URL
@@ -8,7 +7,7 @@ const UMAMI_SCRIPT_URL = "https://cloud.umami.is/script.js";
 
 const Tracking = () => {
   useEffect(() => {
-    if (!IS_BROWSER) return;
+    if (typeof window === "undefined") return;
 
     const initTracking = () => {
       const consent = localStorage.getItem("cookie-consent");

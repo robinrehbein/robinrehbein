@@ -1,13 +1,12 @@
 import { useEffect } from "preact/hooks";
 import { useSignal } from "@preact/signals";
-import { IS_BROWSER } from "fresh/runtime";
 import { Button } from "../components/atoms/Button.tsx";
 
 const CookieBanner = () => {
   const isVisible = useSignal(false);
 
   useEffect(() => {
-    if (!IS_BROWSER) return;
+    if (typeof window === "undefined") return;
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
       isVisible.value = true;

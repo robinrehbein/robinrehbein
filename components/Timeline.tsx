@@ -1,5 +1,3 @@
-import { useSignal } from "@preact/signals";
-import TimelineFilter from "../islands/TimelineFilter.tsx";
 import { TimetableItem } from "../lib/types.ts";
 import { cn } from "../lib/utils.ts";
 import H from "./atoms/H.tsx";
@@ -7,11 +5,9 @@ import H from "./atoms/H.tsx";
 const Timeline = (
   { items }: { items?: Array<TimetableItem> },
 ) => {
-  const isStructured = useSignal(false);
   return (
     <>
       <H variant="h2" class={cn("font-semibold")}>Timeline</H>
-      <TimelineFilter isStructured={isStructured} />
       <ul class={cn("max-w-screen-md")}>
         {items?.map((item) => (
           <li
