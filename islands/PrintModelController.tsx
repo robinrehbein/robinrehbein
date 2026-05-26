@@ -108,6 +108,7 @@ export default function PrintModelController() {
     let model: ThreeModule.Object3D | null = null;
     let layerLines: ThreeModule.Group | null = null;
     let animation = 0;
+    let resizeObserver: ResizeObserver | null = null;
 
     const root = document.querySelector<HTMLElement>("[data-print-viewer]");
     const mount = root?.querySelector<HTMLElement>("[data-viewer-mount]");
@@ -381,11 +382,6 @@ export default function PrintModelController() {
     }
 
     async function loadFile(file: File) {
-      if (!runtime) {
-        setStatus("error", "Viewer ist noch nicht bereit.");
-        return;
-      }
-
       const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
       if (!["stl", "step", "stp", "3mf"].includes(extension)) {
         setStatus(
@@ -399,6 +395,9 @@ export default function PrintModelController() {
       if (fileEl) fileEl.textContent = file.name;
 
       try {
+        // Lazily boot the 3D runtime on first use; surfaces load errors here.
+        await ensureViewer();
+        if (disposed || !runtime) return;
         const buffer = await file.arrayBuffer();
         let object: ThreeModule.Object3D;
         if (extension === "stl") {
@@ -430,17 +429,27 @@ export default function PrintModelController() {
     }
 
     function assignFile(file: File) {
+      // Populate the form's file input (for submission) without dispatching a
+      // change event — loadFile is called explicitly below, so dispatching
+      // would load the same file twice.
       if (fileInput) {
         const transfer = new DataTransfer();
         transfer.items.add(file);
         fileInput.files = transfer.files;
-        fileInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
       void loadFile(file);
     }
 
-    async function init() {
-      setStatus("loading", "Viewer wird geladen ...");
+    // The 3D runtime (three.js + WebGL) is heavy and loaded lazily. This is
+    // idempotent: the scene is built once, on first call. Interaction wiring
+    // does NOT depend on this completing — see the synchronous setup below.
+    let viewerPromise: Promise<void> | null = null;
+    function ensureViewer(): Promise<void> {
+      if (!viewerPromise) viewerPromise = buildViewer();
+      return viewerPromise;
+    }
+
+    async function buildViewer() {
       runtime = await loadRuntime();
       if (disposed) return;
 
@@ -478,7 +487,7 @@ export default function PrintModelController() {
         camera.updateProjectionMatrix();
       };
       resize();
-      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver = new ResizeObserver(resize);
       resizeObserver.observe(viewerMount);
 
       const animate = () => {
@@ -489,61 +498,68 @@ export default function PrintModelController() {
       };
       animate();
 
-      const syncAndRedraw = () => {
-        syncForm();
-        updateMaterial();
-        drawLayerLines();
-      };
-      materialInput?.addEventListener("change", syncAndRedraw);
-      colorInput?.addEventListener("input", syncAndRedraw);
-      layerInput?.addEventListener("input", syncAndRedraw);
-      nozzleInput?.addEventListener("input", syncAndRedraw);
-      layerToggle?.addEventListener("change", syncAndRedraw);
-      fileInput?.addEventListener("change", () => {
-        const file = fileInput.files?.[0];
-        if (file) void loadFile(file);
-      });
-      viewerDropzone.addEventListener(
-        "dragover",
-        (event) => event.preventDefault(),
-      );
-      viewerDropzone.addEventListener("drop", (event) => {
-        event.preventDefault();
-        const file = event.dataTransfer?.files?.[0];
-        if (file) assignFile(file);
-      });
-      viewerDropzone.addEventListener("click", () => fileInput?.click());
-
-      syncForm();
-      setStatus("idle", "STL, STEP/STP oder 3MF hier ablegen.");
-
-      return () => {
-        resizeObserver.disconnect();
-        materialInput?.removeEventListener("change", syncAndRedraw);
-        colorInput?.removeEventListener("input", syncAndRedraw);
-        layerInput?.removeEventListener("input", syncAndRedraw);
-        nozzleInput?.removeEventListener("input", syncAndRedraw);
-        layerToggle?.removeEventListener("change", syncAndRedraw);
-      };
+      // A model may have been dropped/selected before the runtime finished
+      // booting; render it now and apply current settings.
+      updateMaterial();
+      drawLayerLines();
     }
 
-    let cleanup: (() => void) | undefined;
-    void init()
-      .then((result) => {
-        cleanup = result;
-      })
-      .catch((error) => {
-        setStatus(
-          "error",
-          error instanceof Error
-            ? `Viewer konnte nicht gestartet werden: ${error.message}`
-            : "Viewer konnte nicht gestartet werden.",
-        );
-      });
+    // --- Interaction wiring (synchronous, independent of the 3D runtime) ---
+    // These must attach the moment the island hydrates so drag & drop and
+    // clicking work immediately, even while three.js is still loading.
+    const syncAndRedraw = () => {
+      syncForm();
+      updateMaterial();
+      drawLayerLines();
+    };
+    const onFileInput = () => {
+      const file = fileInput?.files?.[0];
+      if (file) void loadFile(file);
+    };
+    const onDragOver = (event: Event) => event.preventDefault();
+    const onDrop = (event: DragEvent) => {
+      event.preventDefault();
+      const file = event.dataTransfer?.files?.[0];
+      if (file) assignFile(file);
+    };
+    const onClick = () => fileInput?.click();
+
+    materialInput?.addEventListener("change", syncAndRedraw);
+    colorInput?.addEventListener("input", syncAndRedraw);
+    layerInput?.addEventListener("input", syncAndRedraw);
+    nozzleInput?.addEventListener("input", syncAndRedraw);
+    layerToggle?.addEventListener("change", syncAndRedraw);
+    fileInput?.addEventListener("change", onFileInput);
+    viewerDropzone.addEventListener("dragover", onDragOver);
+    viewerDropzone.addEventListener("drop", onDrop);
+    viewerDropzone.addEventListener("click", onClick);
+
+    syncForm();
+    setStatus("idle", "STL, STEP/STP oder 3MF hier ablegen.");
+
+    // Boot the 3D scene in the background so the empty viewer renders, but do
+    // not block interaction on it. Failures surface as a status message.
+    void ensureViewer().catch((error) => {
+      setStatus(
+        "error",
+        error instanceof Error
+          ? `Viewer konnte nicht gestartet werden: ${error.message}`
+          : "Viewer konnte nicht gestartet werden.",
+      );
+    });
 
     return () => {
       disposed = true;
-      cleanup?.();
+      resizeObserver?.disconnect();
+      materialInput?.removeEventListener("change", syncAndRedraw);
+      colorInput?.removeEventListener("input", syncAndRedraw);
+      layerInput?.removeEventListener("input", syncAndRedraw);
+      nozzleInput?.removeEventListener("input", syncAndRedraw);
+      layerToggle?.removeEventListener("change", syncAndRedraw);
+      fileInput?.removeEventListener("change", onFileInput);
+      viewerDropzone.removeEventListener("dragover", onDragOver);
+      viewerDropzone.removeEventListener("drop", onDrop);
+      viewerDropzone.removeEventListener("click", onClick);
       if (animation) cancelAnimationFrame(animation);
       controls?.dispose();
       renderer?.dispose();
