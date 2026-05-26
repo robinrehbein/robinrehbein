@@ -161,6 +161,19 @@ textarea {
   background: transparent;
 }
 
+.nav-action {
+  width: auto;
+  white-space: nowrap;
+}
+
+.nav-links {
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
 .section {
   padding: clamp(4.5rem, 9vw, 8rem) 0;
   border-top: 1px solid var(--line);
@@ -209,5 +222,11 @@ textarea {
 
   .button {
     width: 100%;
+  }
+
+  .nav-action {
+    min-height: 2.65rem;
+    padding: 0.65rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
