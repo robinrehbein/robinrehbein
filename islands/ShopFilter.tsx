@@ -51,6 +51,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
           </button>
           {categories.map((cat) => (
             <button
+              key={cat}
               type="button"
               onClick={() => (category.value = cat)}
               aria-pressed={category.value === cat}
@@ -75,7 +76,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
             ) => (material.value = (e.target as HTMLSelectElement).value)}
           >
             <option value="all">Alle Materialien</option>
-            {materials.map((m) => <option value={m}>{m}</option>)}
+            {materials.map((m) => <option key={m} value={m}>{m}</option>)}
           </select>
         </label>
 
@@ -106,7 +107,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
         ? (
           <div class="mt-10 flex flex-col gap-12">
             {groups.map((group) => (
-              <section>
+              <section key={group.category}>
                 <h2 class="display text-3xl font-semibold">
                   {categoryLabel(group.category)}
                 </h2>

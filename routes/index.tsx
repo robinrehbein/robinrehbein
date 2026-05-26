@@ -1,8 +1,51 @@
 import { Head } from "fresh/runtime";
+import { define } from "@/utils.ts";
+import { getKv } from "@/lib/kv.ts";
+import { listProducts } from "@/lib/products.ts";
+import { categoryLabel, type Product } from "@/lib/catalog.ts";
+import { formatFrom } from "@/lib/price.ts";
 import ShopFilter from "@/islands/ShopFilter.tsx";
-import { products } from "@/lib/content.ts";
 
-export default function Home() {
+export const handler = define.handlers({
+  async GET() {
+    const products = await listProducts(await getKv());
+    return { data: products };
+  },
+});
+
+function Featured({ product }: { product: Product }) {
+  return (
+    <a
+      href={`/shop/${product.slug}`}
+      class="card group grid overflow-hidden md:grid-cols-2"
+    >
+      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--steel)] md:aspect-auto">
+        <img
+          src={product.images[0]}
+          alt={product.name}
+          class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+        />
+      </div>
+      <div class="flex flex-col justify-center gap-4 p-8 md:p-10">
+        <p class="eyebrow text-[var(--clay)]">
+          Diesen Monat · {categoryLabel(product.category)}
+        </p>
+        <h2 class="display text-4xl font-semibold md:text-6xl">
+          {product.name}
+        </h2>
+        <p class="max-w-md leading-8 opacity-80">{product.description}</p>
+        <p class="text-lg font-semibold">
+          {formatFrom(product.fromPriceCents)}
+        </p>
+      </div>
+    </a>
+  );
+}
+
+export default define.page<typeof handler>(function Home({ data }) {
+  const products = data;
+  const featured = products[0];
+
   return (
     <>
       <Head>
@@ -10,23 +53,20 @@ export default function Home() {
       </Head>
 
       <section class="shell py-12 md:py-16">
-        <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p class="eyebrow text-[var(--clay)]">3D Print Studio</p>
-            <h1 class="display mt-4 max-w-3xl text-5xl font-semibold md:text-7xl">
-              3D-gedruckte Objekte, kleine Serien.
-            </h1>
-            <p class="mt-5 max-w-xl text-lg leading-8">
-              Vasen, Ordnungsteile und Pflanzenhelfer aus Stuttgart. Klare
-              Objekte, sauber gedruckt, in kleinen Auflagen.
-            </p>
-          </div>
-          <a href="/printauftrag" class="button secondary w-fit shrink-0">
-            Eigenes Modell drucken
-          </a>
+        <div class="mb-10">
+          <p class="eyebrow text-[var(--clay)]">3D Print Studio</p>
+          <h1 class="display mt-4 max-w-3xl text-5xl font-semibold md:text-7xl">
+            3D-gedruckte Objekte, kleine Serien.
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-8">
+            Vasen, Planter und Keycaps für Choc-LP-Switches aus Stuttgart. Klare
+            Objekte, sauber gedruckt, in kleinen Auflagen.
+          </p>
         </div>
 
-        <div class="mt-10">
+        {featured && <Featured product={featured} />}
+
+        <div class="mt-12">
           <ShopFilter products={products} />
         </div>
       </section>
@@ -39,7 +79,7 @@ export default function Home() {
               Dein Modell, mein Druckprozess.
             </h2>
             <p class="mt-3 max-w-2xl leading-8">
-              STL- oder STEP-Datei hochladen, Material und Finish waehlen,
+              STL- oder STEP-Datei hochladen, Material und Finish wählen,
               technische Hinweise direkt mitgeben.
             </p>
           </div>
@@ -55,9 +95,9 @@ export default function Home() {
             Hinter dem Studio steht Robin Rehbein, Senior Software Engineer aus
             Stuttgart.
           </p>
-          <a href="/about" class="button secondary">Mehr ueber Robin</a>
+          <a href="/about" class="button secondary">Mehr über Robin</a>
         </div>
       </section>
     </>
   );
-}
+});
