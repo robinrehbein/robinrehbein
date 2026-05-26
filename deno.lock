@@ -61,6 +61,7 @@
     "npm:marked@12": "12.0.2",
     "npm:occt-import-js@^0.0.23": "0.0.23",
     "npm:playwright@*": "1.59.1",
+    "npm:preact-render-to-string@^6.6.2": "6.6.6_preact@10.27.2",
     "npm:preact-render-to-string@^6.6.3": "6.6.6_preact@10.27.2",
     "npm:preact@10.27.2": "10.27.2",
     "npm:preact@^10.27.0": "10.27.2",
@@ -129,7 +130,7 @@
         "npm:@preact/signals@^2.2.1",
         "npm:esbuild-wasm",
         "npm:esbuild@0.25.7",
-        "npm:preact-render-to-string",
+        "npm:preact-render-to-string@^6.6.3",
         "npm:preact@^10.27.0",
         "npm:preact@^10.27.2"
       ]
@@ -1627,6 +1628,7 @@
       "npm:@tailwindcss/vite@^4.1.12",
       "npm:class-variance-authority@~0.7.1",
       "npm:occt-import-js@^0.0.23",
+      "npm:preact-render-to-string@^6.6.2",
       "npm:preact@^10.27.2",
       "npm:tailwind-merge@^2.6.1",
       "npm:tailwindcss@^4.1.10",
