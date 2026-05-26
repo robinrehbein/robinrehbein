@@ -12,7 +12,7 @@ export default function App({ Component }: PageProps) {
           name="description"
           content="Robin Rehbein entwickelt digitale Produkte, schreibt über Webtechnologie und bietet 3D gedruckte Objekte sowie individuelle Druckaufträge an."
         />
-        <title>Robin Rehbein - Code, Blog & 3D Print Studio</title>
+        <title>Robin Rehbein - 3D Print Studio Shop</title>
       </Head>
       <body>
         <Component />
