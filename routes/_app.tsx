@@ -1,14 +1,20 @@
 import { type PageProps } from "fresh";
+import { Head } from "fresh/runtime";
+import "@/assets/styles.css";
 
 export default function App({ Component }: PageProps) {
   return (
-    <html>
-      <head>
-        <meta charset="utf-8" />
+    <html lang="de">
+      <Head>
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Robin Rehbein Portfolio - home.</title>
-      </head>
-      <body class="bg-background text-foreground">
+        <meta
+          name="description"
+          content="Robin Rehbein entwickelt digitale Produkte, schreibt über Webtechnologie und bietet 3D gedruckte Objekte sowie individuelle Druckaufträge an."
+        />
+        <title>Robin Rehbein - Code, Blog & 3D Print Studio</title>
+      </Head>
+      <body>
         <Component />
       </body>
     </html>

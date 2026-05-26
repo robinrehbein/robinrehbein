@@ -1,87 +1,38 @@
-import { HttpError, PageProps } from "fresh";
+import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
-import { BlogPost, getPostBySlug } from "@/lib/blog.ts";
-
-import H from "@/components/atoms/H.tsx";
-import Section from "@/components/atoms/Section.tsx";
-import { IconArrowDown } from "@/components/Icons.tsx";
-import { CSS, render } from "gfm";
 import { define } from "@/utils.ts";
+import { posts } from "@/lib/content.ts";
 
 export const handler = define.handlers({
-  async GET(ctx) {
-    const { slug } = ctx.params;
-    const post = await getPostBySlug(slug);
+  GET(ctx) {
+    const post = posts.find((item) => item.slug === ctx.params.slug);
     if (!post) {
-      throw new HttpError(404);
+      throw new HttpError(404, "Article not found");
     }
-    return { data: post };
+    return { data: { post } };
   },
 });
 
-export default function BlogPostPage({ data }: PageProps<BlogPost>) {
-  // render() from @deno/gfm sanitizes the output
-  const html = render(data.content);
+export default define.page<typeof handler>(({ data }) => {
+  const { post } = data;
 
   return (
     <>
       <Head>
-        <title>{`${data.title} | Robin Rehbein`}</title>
-        <style>{CSS}</style>
-        <style>
-          {`
-          .markdown-body {
-            background-color: transparent !important;
-            color: currentColor !important;
-            font-family: inherit !important;
-          }
-          .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
-            font-family: 'Clash Display', sans-serif !important;
-            text-transform: uppercase;
-            border-bottom: 1px solid currentColor;
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-          }
-        `}
-        </style>
+        <title>{post.title} - Robin Rehbein</title>
       </Head>
-      <Section separator={false}>
-        <div class="mb-16">
-          <a href="/blog" class="flex flex-row gap-2 items-center">
-            <IconArrowDown class="rotate-90 size-4" />
-            Back to Blog
-          </a>
+      <article class="shell max-w-3xl py-16">
+        <a href="/blog" class="eyebrow text-[var(--clay)]">Zurueck zum Blog</a>
+        <h1 class="display mt-5 text-6xl font-semibold md:text-8xl">
+          {post.title}
+        </h1>
+        <p class="mt-6 text-sm font-semibold opacity-70">
+          {post.date} · {post.tag} · {post.readTime}
+        </p>
+        <div class="mt-10 grid gap-6 text-xl leading-9">
+          {post.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
-
-        <div class="flex flex-col gap-8 mb-16">
-          <span class="font-zodiak opacity-60 text-lg">
-            {new Date(data.createdAt).toLocaleDateString("de-DE")}
-          </span>
-          <H
-            class="font-clash-display uppercase font-medium text-[clamp(2.5rem,6vw,5rem)] leading-none"
-            variant="h1"
-          >
-            {data.title}
-          </H>
-        </div>
-      </Section>
-
-      <Section>
-        <div
-          class="markdown-body font-zodiak text-lg leading-relaxed"
-          // deno-lint-ignore react-no-danger
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </Section>
-
-      <Section>
-        <div class="mt-16 pt-8 border-t border-foreground">
-          <a href="/blog" class="flex flex-row gap-2 items-center">
-            <IconArrowDown class="rotate-90 size-4" />
-            Back to Blog
-          </a>
-        </div>
-      </Section>
+      </article>
     </>
   );
-}
+});

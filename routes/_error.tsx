@@ -2,21 +2,29 @@ import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
 
 export default function ErrorPage({ error }: { error: unknown }) {
-  if (error instanceof HttpError && error.status === 404) {
-    return (
-      <>
-        <Head>
-          <title>404 - Page not found</title>
-        </Head>
-        <div class="px-4 py-8 mx-auto">
-          <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-            <h1 class="text-4xl font-bold">404 - Page not found</h1>
-            <p class="my-4">The page you were looking for doesn't exist.</p>
-            <a href="/" class="underline">Go back home</a>
-          </div>
+  const isNotFound = error instanceof HttpError && error.status === 404;
+
+  return (
+    <>
+      <Head>
+        <title>{isNotFound ? "404" : "Fehler"} - Robin Rehbein</title>
+      </Head>
+      <section class="shell grid min-h-[70vh] place-items-center py-16 text-center">
+        <div>
+          <p class="eyebrow text-[var(--clay)]">
+            {isNotFound ? "Nicht gefunden" : "Fehler"}
+          </p>
+          <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
+            {isNotFound ? "404." : "Oh no."}
+          </h1>
+          <p class="mt-6 text-xl opacity-75">
+            {isNotFound
+              ? "Diese Seite existiert nicht oder wurde verschoben."
+              : "Etwas ist schiefgelaufen."}
+          </p>
+          <a href="/" class="button mt-8">Zur Startseite</a>
         </div>
-      </>
-    );
-  }
-  return <h1>Oh no... something went wrong.</h1>;
+      </section>
+    </>
+  );
 }

@@ -1,23 +1,15 @@
-import { PageProps } from "fresh";
-import Footer from "../components/atoms/Footer.tsx";
-import Navbar from "../components/Navbar.tsx";
-import CookieBanner from "../islands/CookieBanner.tsx";
-import Tracking from "../islands/Tracking.tsx";
+import { type PageProps } from "fresh";
+import SiteFooter from "@/components/SiteFooter.tsx";
+import SiteNav from "@/components/SiteNav.tsx";
 
-const Layout = ({ Component, state: _state }: PageProps) => {
+export default function Layout({ Component }: PageProps) {
   return (
     <>
-      <Tracking />
-      <header class="fixed top-0 z-10 w-full">
-        <Navbar />
-      </header>
-      <main class="pt-32">
+      <SiteNav />
+      <main>
         <Component />
       </main>
-      <Footer />
-      <CookieBanner />
+      <SiteFooter />
     </>
   );
-};
-
-export default Layout;
+}
