@@ -30,7 +30,7 @@ export default define.page<typeof handler>(({ data }) => {
           />
         </div>
         <div>
-          <a href="/shop" class="eyebrow text-[var(--clay)]">
+          <a href="/" class="eyebrow text-[var(--clay)]">
             Zurueck zum Shop
           </a>
           <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
@@ -51,16 +51,12 @@ export default define.page<typeof handler>(({ data }) => {
               <p class="mt-2 text-lg">{product.material.join(", ")}</p>
             </div>
             <div class="card p-4 sm:col-span-2">
-              <p class="eyebrow">Marketplace</p>
-              <p class="mt-2">SKU: {product.marketplace.sku}</p>
-              <p>Listing: {product.marketplace.etsyListingId}</p>
+              <p class="eyebrow">Oberflaeche</p>
+              <p class="mt-2 text-lg">{product.finish}</p>
             </div>
           </div>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/printauftrag" class="button">Aehnliches Teil anfragen</a>
-            <a href={product.marketplace.embedUrl} class="button secondary">
-              Etsy-Listing vorbereiten
-            </a>
           </div>
         </div>
       </section>

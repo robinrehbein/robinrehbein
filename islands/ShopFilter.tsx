@@ -10,7 +10,11 @@ export default function ShopFilter({ products }: { products: Product[] }) {
 
   return (
     <div>
-      <div class="flex flex-wrap gap-2">
+      <div
+        class="flex flex-wrap gap-2"
+        role="group"
+        aria-label="Kategorie filtern"
+      >
         {categories.map((category) => {
           const isActive = active.value === category;
           return (
