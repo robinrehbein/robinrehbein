@@ -6,7 +6,8 @@
     "check": "deno fmt --check main.ts client.ts utils.ts vite.config.ts deno.json assets/styles.css routes components islands lib && deno lint main.ts client.ts utils.ts vite.config.ts routes components islands lib && deno check main.ts client.ts utils.ts vite.config.ts routes/**/*.ts routes/**/*.tsx components/**/*.tsx islands/**/*.tsx lib/**/*.ts",
     "dev": "deno run -A vite --host",
     "build": "deno run -A vite build",
-    "start": "deno serve -A _fresh/server.js"
+    "start": "deno serve -A _fresh/server.js",
+    "test": "deno test -A"
   },
   "lint": { "rules": { "tags": ["fresh", "recommended"] } },
   "exclude": ["**/_fresh/*", ".vite/**", ".kilocode/**", "node_modules/**"],
@@ -18,6 +19,7 @@
     "fresh/internal": "jsr:@fresh/core@^2.2.0/internal",
     "occt-import-js": "npm:occt-import-js@^0.0.23",
     "preact": "npm:preact@^10.27.2",
+    "preact-render-to-string": "npm:preact-render-to-string@^6.6.2",
     "preact/": "npm:preact@^10.27.2/",
     "preact/jsx-runtime": "npm:preact@^10.27.2/jsx-runtime",
     "preact/jsx-dev-runtime": "npm:preact@^10.27.2/jsx-dev-runtime",
