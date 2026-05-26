@@ -15,3 +15,10 @@ Deno.test("uploadFileName sanitises unsafe extension chars", () => {
   const name = uploadFileName("a.p n g", "x", 5);
   assertEquals(name, "x-5.png");
 });
+
+Deno.test("uploadFileName neutralises path traversal in the slug", () => {
+  const name = uploadFileName("x.png", "../../etc/passwd", 5);
+  assert(!name.includes("/"), `filename must not contain '/': ${name}`);
+  assert(!name.includes(".."), `filename must not contain '..': ${name}`);
+  assertEquals(name, "etc-passwd-5.png");
+});

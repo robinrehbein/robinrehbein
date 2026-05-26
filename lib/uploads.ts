@@ -9,7 +9,11 @@ export function uploadFileName(
   const dot = originalName.lastIndexOf(".");
   const rawExt = dot >= 0 ? originalName.slice(dot + 1) : "";
   const ext = rawExt.toLowerCase().replace(/[^a-z0-9]/g, "") || "bin";
-  return `${slug}-${now}.${ext}`;
+  // Sanitise the slug so a hostile value (e.g. "../x") cannot escape the
+  // upload directory or inject path separators into the filename.
+  const safeSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "file";
+  return `${safeSlug}-${now}.${ext}`;
 }
 
 /** Persist an uploaded file into static/uploads and return its public path. */
