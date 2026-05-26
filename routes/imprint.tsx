@@ -1,135 +1,45 @@
-import H from "../components/atoms/H.tsx";
-import Section from "../components/atoms/Section.tsx";
-import {
-  IconArrowDown,
-  IconCircle,
-  IconHeartedHands,
-  IconPin,
-  IconReact,
-  IconSeparator,
-} from "../components/Icons.tsx";
+import { Head } from "fresh/runtime";
 
-const Imprint = () => {
+export default function Imprint() {
   return (
     <>
-      <Section separator={false}>
-        <div class="flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16">
-          <H
-            class="inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"
-            variant="h1"
-          >
-            <span>
-              <IconHeartedHands class="size-6" />
-            </span>
-            <p>Robin Rehbein Portfolio</p>
-
-            <span class="hidden md:inline">
-              <IconSeparator class="size-6" />
-            </span>
-            <p class="inline-flex items-center gap-2">
-              <span class="relative w-6 h-6 inline-flex items-center justify-center">
-                <IconCircle class="size-3 absolute text-red-800" />
-                <IconCircle class="size-3 animate-ping text-red-800" />
-              </span>
-              <span class="line-through">Unavailable</span> for projects
+      <Head>
+        <title>Impressum - Robin Rehbein</title>
+      </Head>
+      <section class="shell max-w-3xl py-16">
+        <p class="eyebrow text-[var(--clay)]">Legal</p>
+        <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
+          Impressum.
+        </h1>
+        <div class="mt-10 grid gap-8 text-lg leading-8">
+          <section>
+            <h2 class="display text-3xl font-semibold">
+              Angaben gemaess § 5 TMG
+            </h2>
+            <p class="mt-3">
+              Robin Rehbein<br />
+              [Strasse und Hausnummer]<br />
+              [PLZ und Ort]
             </p>
-          </H>
-          <div class="font-zodiak font-medium flex flex-col gap-1">
-            <p className="inline-flex items-center gap-2">
-              <span>
-                <IconReact class="size-6" />
-              </span>
-              Currently coding at
-              <a
-                href="https://mimacom.com"
-                className="underline decoration-wavy decoration-[#FF0651]"
-              >
-                mimacom
+          </section>
+          <section>
+            <h2 class="display text-3xl font-semibold">Kontakt</h2>
+            <p class="mt-3">
+              E-Mail:{" "}
+              <a class="underline" href="mailto:hello@robinrehbein.de">
+                hello@robinrehbein.de
               </a>
             </p>
-            <p class="inline-flex items-center gap-2">
-              <span>
-                <IconPin class="size-6" />
-              </span>
-              Based in Stuttgart, Germany
+          </section>
+          <section>
+            <h2 class="display text-3xl font-semibold">Umsatzsteuer-ID</h2>
+            <p class="mt-3">
+              Umsatzsteuer-Identifikationsnummer gemaess § 27 a
+              Umsatzsteuergesetz: [Umsatzsteuer-ID]
             </p>
-          </div>
+          </section>
         </div>
-
-        <H
-          class="font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"
-          variant="h2"
-        >
-          <span>Imprint.</span>
-        </H>
-
-        <ul className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap">
-          <li class="flex items-center gap-2 grow justify-end my-4 md:my-0">
-            <a href="/" class="flex flex-row gap-2 items-center">
-              Back
-              <IconArrowDown class="rotate-90 size-4" />
-            </a>
-          </li>
-        </ul>
-      </Section>
-
-      <Section>
-        <div class="font-zodiak max-w-3xl">
-          <H
-            variant="h3"
-            class="text-2xl font-medium mb-8 uppercase font-clash-display"
-          >
-            Angaben gemäß § 5 TMG
-          </H>
-          <p class="mb-12">
-            Robin Rehbein<br />
-            [Straße und Hausnummer]<br />
-            [PLZ und Ort]
-          </p>
-
-          <H
-            variant="h3"
-            class="text-2xl font-medium mb-8 uppercase font-clash-display"
-          >
-            Kontakt
-          </H>
-          <p class="mb-12">
-            E-Mail:{" "}
-            <a
-              href="mailto:hello@robinrehbein.de"
-              class="underline decoration-wavy decoration-mustard-yellow-950"
-            >
-              hello@robinrehbein.de
-            </a>
-          </p>
-
-          <H
-            variant="h3"
-            class="text-2xl font-medium mb-8 uppercase font-clash-display"
-          >
-            Umsatzsteuer-ID
-          </H>
-          <p class="mb-12">
-            Umsatzsteuer-Identifikationsnummer gemäß § 27 a
-            Umsatzsteuergesetz:<br />
-            [Umsatzsteuer-ID]
-          </p>
-
-          <H
-            variant="h3"
-            class="text-2xl font-medium mb-8 uppercase font-clash-display"
-          >
-            Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
-          </H>
-          <p class="mb-12">
-            Robin Rehbein<br />
-            [Straße und Hausnummer]<br />
-            [PLZ und Ort]
-          </p>
-        </div>
-      </Section>
+      </section>
     </>
   );
-};
-
-export default Imprint;
+}

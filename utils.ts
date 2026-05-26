@@ -1,7 +1,7 @@
 import { createDefine } from "fresh";
 
 export interface State {
-  auth?: string;
+  requestId?: string;
 }
 
 export const define = createDefine<State>();

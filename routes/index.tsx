@@ -1,323 +1,175 @@
-import H from "../components/atoms/H.tsx";
-import Section from "../components/atoms/Section.tsx";
-import { PageProps } from "fresh";
-import {
-  IconArrowDown,
-  IconArtwerk,
-  IconBike,
-  IconCircle,
-  IconCup,
-  IconGithub,
-  IconHeartedHands,
-  IconKeyboard,
-  IconMail,
-  IconMimacom,
-  IconPin,
-  IconPlant,
-  IconReact,
-  IconSeparator,
-} from "../components/Icons.tsx";
+import { Head } from "fresh/runtime";
+import ProductCard from "@/components/ProductCard.tsx";
+import { marketplaceChannels, posts, products } from "@/lib/content.ts";
 
-import ProjectCard from "../islands/ProjectCard.tsx";
-import Expand from "../islands/Expand.tsx";
-import {
-  getProjects,
-  getSettings,
-  ProjectData,
-  SiteSettings,
-} from "../lib/site_data.ts";
-import { define } from "@/utils.ts";
+const stats = [
+  ["2015", "Turning people's ideas into code"],
+  ["Stuttgart", "Based in Germany"],
+  ["mimacom", "Software Engineer Senior"],
+  ["artwerk", "Co-Founder"],
+];
 
-interface Data {
-  settings: SiteSettings;
-  projects: ProjectData[];
-}
-
-export const handler = define.handlers({
-  async GET(_ctx) {
-    const settings = await getSettings();
-    const projects = await getProjects();
-    return { data: { settings, projects } };
-  },
-});
-
-const SCROLL_ANKER = "_01";
-
-const Home = ({ data }: PageProps<Data>) => {
-  const { settings, projects } = data;
+export default function Home() {
   return (
     <>
-      <Section
-        separator={false}
-      >
-        <div class="flex flex-col md:flex-row items-start justify-between mb-24 md:mb-64 gap-8 md:gap-16">
-          <H
-            class="inline-flex flex-wrap gap-2 text-md font-medium font-zodiak"
-            variant="h1"
-          >
-            <span>
-              <IconHeartedHands class="size-6" />
-            </span>
-            <p>{settings.name} Portfolio</p>
+      <Head>
+        <title>Robin Rehbein - Code, Blog & 3D Print Studio</title>
+      </Head>
 
-            <span class="hidden md:inline">
-              <IconSeparator class="size-6" />
-            </span>
-            <p class="inline-flex items-center gap-2">
-              <span class="relative w-6 h-6 inline-flex items-center justify-center">
-                <IconCircle
-                  class={`size-3 absolute ${
-                    settings.available ? "text-racing-green" : "text-red-800"
-                  }`}
-                />
-                <IconCircle
-                  class={`size-3 animate-ping ${
-                    settings.available ? "text-racing-green" : "text-red-800"
-                  }`}
-                />
-              </span>
-              {settings.available
-                ? "Available"
-                : <span class="line-through">Unavailable</span>} for projects
-            </p>
-          </H>
-          <div class="font-zodiak font-medium flex flex-col gap-1">
-            <p className="inline-flex items-center gap-2">
-              <span>
-                <IconReact class="size-6" />
-              </span>
-              Currently coding at
-              <a
-                href={settings.codingAt.url}
-                className="underline decoration-wavy decoration-[#FF0651]"
-              >
-                {settings.codingAt.name}
-              </a>
-            </p>
-            <p class="inline-flex items-center gap-2">
-              <span>
-                <IconPin class="size-6" />
-              </span>
-              Based in {settings.location}
-            </p>
-          </div>
-        </div>
-        <H
-          class="font-clash-display uppercase font-medium text-[clamp(3rem,8vw,8rem)] leading-none mb-24"
-          variant="h2"
-        >
-          <span>
-            {settings.role.split("&").map((part, i, arr) => (
-              <>
-                {part}
-                {i < arr.length - 1 && "&"}
-                {i < arr.length - 1 && <br />}
-              </>
-            ))}
-          </span>
-        </H>
-        <div class="flex flex-col md:flex-row justify-between items-end gap-12">
-          <div class="flex flex-row w-full sticky left-8 bottom-8 gap-4">
-            <a href={`#${SCROLL_ANKER}`}>
-              <IconArrowDown class="size-16 md:size-24 animate-bounce" />
-            </a>
-            <div class="inline-flex items-end">
-              <p class="text-base md:text-2xl font-zodiak">
-                Turning people's ideas into{" "}
-                <span class="font-medium text-mustard-yellow-950 hover:italic">
-                  &#123;code&#125;
-                </span>{" "}
-                since 2015.
-              </p>
-            </div>
-          </div>
-          <img
-            src="/me_square.jpg"
-            alt="me"
-            class="object-cover object-top w-full md:w-1/2 aspect-square shadow"
-          />
-        </div>
-      </Section>
-
-      <Section id={`${SCROLL_ANKER}`}>
-        <div class="flex flex-row justify-between mb-4 md:mb-8">
-          <H
-            class="font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"
-            variant="h2"
-          >
-            About me.
-          </H>
-          <p class="font-zodiak font-medium text-md">_01</p>
-        </div>
-        <div class="font-zodiak mb-8 md:mb-16">
-          <p class="mb-4 md:mb-8 italic font-medium">
-            What i like:
-          </p>
-          <ul className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-16 flex-wrap">
-            <li class="flex items-center gap-2">
-              <IconCup class="size-6" /> Coffee!
-            </li>
-            <li class="flex items-center gap-2">
-              <IconPlant class="size-6" />
-              Plants.
-            </li>
-            <li class="flex items-center gap-2">
-              <IconBike class="size-6" /> Biking.
-            </li>
-            <li class="flex items-center gap-2">
-              <IconKeyboard class="size-6" /> Custom Keyboards.
-            </li>
-            <li class="flex items-center gap-2 grow justify-end my-4 md:my-0">
-              <a href="/about" class="flex flex-row gap-2 items-center">
-                More about me
-                <IconArrowDown class="-rotate-90 size-4" />
-              </a>
-            </li>
-          </ul>
-          <p>
-            {settings.aboutMeShort}
-          </p>
-        </div>
+      <section class="shell grid min-h-[calc(100vh-5rem)] items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
-          <p class="mb-8 md:mb-16 italic font-medium">
-            Current positions:
+          <div class="flex flex-wrap gap-2">
+            <span class="pill eyebrow">Unavailable for projects</span>
+            <span class="pill eyebrow">3D Print Studio live</span>
+          </div>
+          <h1 class="display mt-8 max-w-4xl text-[clamp(4.4rem,13vw,10.5rem)] font-semibold">
+            Architect & Develop.
+          </h1>
+          <p class="mt-8 max-w-2xl text-xl leading-8 md:text-2xl">
+            Ich bin Robin Rehbein, Senior Software Engineer aus Stuttgart. Ich
+            entwickle digitale Produkte, schreibe ueber Webtechnologie und
+            bringe neue Ideen als 3D gedruckte Objekte auf den Tisch.
           </p>
-          <ul class="flex flex-col md:flex-row gap-8 md:gap-16">
-            <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconMimacom class="size-12 min-w-12" />
-              <div>
-                <p>
-                  <strong>Software Engineer Senior</strong>
-                  <br class="md:hidden" />
-                  at{" "}
-                  <a
-                    href="https://mimacom.com"
-                    class="underline decoration-wavy decoration-[#FF0651] font-medium hover:text-[#FF0651]"
-                  >
-                    mimacom
-                  </a>
-                </p>
-                <p>01 - 01 - 2026 till today</p>
-                <Expand>
-                  I started a new journey at mimacom in the beginning of 2026.
-                  Mimacom is a software and consulting company dedicated to
-                  digital progress. By combining cutting-edge technology and
-                  market expertise with individual talent, I help drive our
-                  team's passion and ensure our customers' long-term success.
-                  Stay ahead in a fast-changing digital world.
-                </Expand>
-              </div>
-            </li>
-            <li>
-              <span class="w-full h-px md:h-12 md:w-px bg-foreground block" />
-            </li>
-            <li class="flex flex-row gap-8 md:gap-16 items-start md:flex-1">
-              <IconArtwerk class="size-12 min-w-12" />
-              <div>
-                <p>
-                  <strong>Co-Founder</strong>
-                  <br class="md:hidden" />at{" "}
-                  <a
-                    href="https://artwerk.store"
-                    class="underline decoration-wavy decoration-racing-green font-medium hover:text-racing-green"
-                  >
-                    artwerk studios
-                  </a>
-                </p>
-                <p>14 - 03 - 2023 till today</p>
-                <Expand>
-                  As a founding member of a startup, I played a pivotal role in
-                  the development of a groundbreaking product and took on
-                  responsibilities in areas such as marketing and project
-                  management. Our venture is an exciting online shop where
-                  customers can unleash their creativity and personalize their
-                  posters in unique and captivating ways.
-                </Expand>
-              </div>
-            </li>
-          </ul>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/shop" class="button">Shop ansehen</a>
+            <a href="/printauftrag" class="button secondary">
+              STL/STEP hochladen
+            </a>
+          </div>
         </div>
-      </Section>
-      <Section>
-        <div class="flex flex-row justify-between mb-4 md:mb-8">
-          <H
-            class="font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"
-            variant="h2"
-          >
-            Projects.
-          </H>
-          <p class="font-zodiak font-medium text-md">_02</p>
-        </div>
-        <a
-          href="/work"
-          class="mb-16 mt-8 w-full flex flex-row gap-2 items-center justify-end"
-        >
-          More of my work
-          <IconArrowDown class="-rotate-90 size-4" />
-        </a>
-        <div class="mt-16">
-          {projects.slice(0, 2).map((project) => (
-            <ProjectCard
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              href={project.href}
-              images={project.images}
+
+        <div class="relative">
+          <div class="maker-grid aspect-[4/5] overflow-hidden rounded-[8px] border border-[var(--ink)] bg-[var(--clay)] p-5">
+            <img
+              src="/me.jpg"
+              alt="Robin Rehbein"
+              class="h-full w-full rounded-[4px] object-cover grayscale-[0.15]"
             />
+          </div>
+          <div class="absolute -bottom-5 -left-4 max-w-xs rounded-[8px] border border-[var(--ink)] bg-[var(--lime)] p-4 shadow-xl">
+            <p class="eyebrow">Since 2015</p>
+            <p class="mt-2 text-lg font-semibold">
+              Turning people's ideas into {"{code}"} and printable things.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell grid gap-4 md:grid-cols-4">
+          {stats.map(([value, label]) => (
+            <div class="border-t border-[var(--ink)] pt-4">
+              <p class="display text-4xl font-semibold">{value}</p>
+              <p class="mt-2 text-sm opacity-70">{label}</p>
+            </div>
           ))}
         </div>
-      </Section>
-      <Section>
-        <div class="flex flex-row justify-between mb-4 md:mb-8">
-          <H
-            class="font-clash-display uppercase font-medium text-[clamp(2.5rem,8vw,4.5rem)]"
-            variant="h2"
-          >
-            Contact.
-          </H>
-          <p class="font-zodiak font-medium text-md">_03</p>
-        </div>
-        <div class="flex md:flex-row flex-col gap-8 md:gap-16">
-          <p class="italic md:flex-1 font-medium">
-            Get in touch!
-          </p>
-          <div class="md:flex-1">
-            <p class="mb-8 md:mb-16">
-              I'd love to hear from you! Whether you have a question, a project
-              proposal, or just want to say hello, feel free to reach out. You
-              can contact me via email at{" "}
-              <a
-                class="font-medium italic"
-                href={`mailto:${settings.contactEmail}`}
-              >
-                {settings.contactEmail}
-              </a>. I look forward to connecting with you!
+      </section>
+
+      <section class="section">
+        <div class="shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <p class="eyebrow text-[var(--clay)]">About</p>
+            <h2 class="display mt-4 text-6xl font-semibold md:text-7xl">
+              Code, Kaffee, Pflanzen, Bikes und Custom Keyboards.
+            </h2>
+          </div>
+          <div class="grid gap-5 text-lg leading-8">
+            <p>
+              Ich habe 2018 mein Studium in Computer Science und Communications
+              abgeschlossen und seitdem in Beratung, Produktentwicklung und
+              technischen Architekturen gearbeitet.
             </p>
-            <ul class="flex flex-row items-center gap-4 md:gap-8 flex-wrap">
-              <li>
-                <a
-                  class="font-medium italic"
-                  href={`mailto:${settings.contactEmail}`}
-                >
-                  <IconMail class="size-6 inline-flex mr-2" />{" "}
-                  {settings.contactEmail}
-                </a>
-              </li>
-              <li>
-                <a
-                  class="font-medium italic"
-                  href={`https://github.com/${settings.githubUsername}`}
-                >
-                  <IconGithub class="size-6 inline-flex mr-2" />{" "}
-                  {settings.githubUsername}
-                </a>
-              </li>
-            </ul>
+            <p>
+              Aktuell code ich bei mimacom. Als Co-Founder von artwerk studios
+              verbinde ich Produkt, Design, Commerce und Umsetzung aus erster
+              Hand. Diese Seite fuehrt genau diese Interessen zusammen.
+            </p>
+            <a href="/about" class="button secondary w-fit">Mehr ueber Robin</a>
           </div>
         </div>
-      </Section>
+      </section>
+
+      <section class="section bg-[rgba(40,49,59,0.94)] text-[var(--paper)]">
+        <div class="shell">
+          <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <p class="eyebrow text-[var(--lime)]">Shop</p>
+              <h2 class="display mt-4 text-6xl font-semibold md:text-8xl">
+                3D printed objects.
+              </h2>
+            </div>
+            <a
+              href="/shop"
+              class="button border-[var(--paper)] bg-[var(--paper)] text-[var(--ink)]"
+            >
+              Alle Produkte
+            </a>
+          </div>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            {products.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell grid gap-8 lg:grid-cols-[1fr_1fr]">
+          <div class="card p-6 md:p-8">
+            <p class="eyebrow text-[var(--clay)]">Custom Print</p>
+            <h2 class="display mt-4 text-5xl font-semibold">
+              Dein Modell, mein Druckprozess.
+            </h2>
+            <p class="mt-5 text-lg leading-8">
+              Nutzer koennen STL- oder STEP-Dateien hochladen, Material und
+              Finish waehlen und direkt technische Hinweise mitgeben. Der erste
+              Schritt ist ein sauberer Anfrage-Flow statt ein blinder Checkout.
+            </p>
+            <a href="/printauftrag" class="button mt-6">Druckauftrag starten</a>
+          </div>
+          <div class="card p-6 md:p-8">
+            <p class="eyebrow text-[var(--clay)]">Marketplace Ready</p>
+            <h2 class="display mt-4 text-5xl font-semibold">
+              Etsy und andere Kanaele koennen andocken.
+            </h2>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              {marketplaceChannels.map((channel) => (
+                <span class="rounded-[6px] border border-[var(--line)] bg-white/30 p-4 font-semibold">
+                  {channel}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p class="eyebrow text-[var(--clay)]">Blog</p>
+              <h2 class="display mt-4 text-6xl font-semibold md:text-8xl">
+                Werkstattnotizen.
+              </h2>
+            </div>
+            <a href="/blog" class="button secondary">Alle Artikel</a>
+          </div>
+          <div class="mt-10 grid gap-4 md:grid-cols-3">
+            {posts.map((post) => (
+              <a href={`/blog/${post.slug}`} class="card block p-5">
+                <p class="eyebrow text-[var(--clay)]">
+                  {post.tag} · {post.readTime}
+                </p>
+                <h3 class="display mt-4 text-3xl font-semibold">
+                  {post.title}
+                </h3>
+                <p class="mt-4 text-sm opacity-76">{post.excerpt}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
-};
-
-export default Home;
+}
