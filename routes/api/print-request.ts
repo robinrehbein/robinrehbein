@@ -1,7 +1,7 @@
 import { define } from "@/utils.ts";
 import { materials } from "@/lib/content.ts";
 
-const allowedExtensions = [".stl", ".step", ".stp"];
+const allowedExtensions = [".stl", ".step", ".stp", ".3mf"];
 
 export const handler = define.handlers({
   async POST(ctx) {
@@ -26,7 +26,7 @@ export const handler = define.handlers({
 
     if (!(model instanceof File) || !model.name) {
       return Response.json({
-        error: "Bitte eine STL-, STP- oder STEP-Datei hochladen.",
+        error: "Bitte eine STL-, STP-, STEP- oder 3MF-Datei hochladen.",
       }, {
         status: 400,
       });
@@ -39,7 +39,7 @@ export const handler = define.handlers({
 
     if (!hasAllowedExtension) {
       return Response.json({
-        error: "Erlaubt sind nur .stl, .stp und .step Dateien.",
+        error: "Erlaubt sind nur .stl, .stp, .step und .3mf Dateien.",
       }, {
         status: 400,
       });

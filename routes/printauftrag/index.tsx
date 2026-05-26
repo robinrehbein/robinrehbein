@@ -2,10 +2,12 @@ import { Head } from "fresh/runtime";
 import PrintRequestForm, {
   type RequestMessage,
 } from "@/components/PrintRequestForm.tsx";
+import PrintModelWorkbench from "@/components/PrintModelWorkbench.tsx";
+import PrintModelController from "@/islands/PrintModelController.tsx";
 import { materials } from "@/lib/content.ts";
 import { define } from "@/utils.ts";
 
-const allowedExtensions = [".stl", ".step", ".stp"];
+const allowedExtensions = [".stl", ".step", ".stp", ".3mf"];
 
 function validatePrintRequest(form: FormData): RequestMessage {
   const name = form.get("name")?.toString().trim();
@@ -25,7 +27,7 @@ function validatePrintRequest(form: FormData): RequestMessage {
   if (!(model instanceof File) || !model.name) {
     return {
       type: "error",
-      text: "Bitte eine STL-, STP- oder STEP-Datei hochladen.",
+      text: "Bitte eine STL-, STP-, STEP- oder 3MF-Datei hochladen.",
     };
   }
 
@@ -37,7 +39,7 @@ function validatePrintRequest(form: FormData): RequestMessage {
   if (!hasAllowedExtension) {
     return {
       type: "error",
-      text: "Erlaubt sind nur .stl, .stp und .step Dateien.",
+      text: "Erlaubt sind nur .stl, .stp, .step und .3mf Dateien.",
     };
   }
 
@@ -69,33 +71,70 @@ export default define.page<typeof handler>(({ data }) => {
       <Head>
         <title>Druckauftrag - Robin Rehbein 3D Print Studio</title>
       </Head>
-      <section class="shell grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <p class="eyebrow text-[var(--clay)]">STL / STEP Upload</p>
-          <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
-            Lass dein Modell drucken.
-          </h1>
-          <p class="mt-6 text-xl leading-8">
-            Lade eine STL-, STP- oder STEP-Datei hoch, waehle ein Material und
-            beschreibe kurz, wofuer das Teil gedacht ist. Danach kann daraus ein
-            Angebot mit Material, Druckzeit und Nachbearbeitung entstehen.
+      <section class="shell py-16">
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p class="eyebrow text-[var(--clay)]">3D Print Workbench</p>
+            <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
+              Modell laden, Druck planen.
+            </h1>
+          </div>
+          <p class="max-w-2xl text-xl leading-8">
+            Zieh STL, STEP/STP oder 3MF direkt in den Viewer. Material, Farbe,
+            Layerhoehe und Nozzle-Durchmesser werden live am Modell sichtbar und
+            in die Anfrage uebernommen.
           </p>
-          <div class="mt-8 grid gap-3">
-            {[
-              "Datei pruefen",
-              "Material und Finish abschaetzen",
-              "Angebot erstellen",
-            ].map((item, index) => (
-              <div class="flex items-center gap-3" key={item}>
-                <span class="grid size-9 place-items-center rounded-[6px] bg-[var(--ink)] text-[var(--paper)]">
-                  {index + 1}
-                </span>
-                <span class="font-semibold">{item}</span>
+        </div>
+
+        <div class="mt-10 grid gap-8 xl:grid-cols-[1.35fr_0.65fr]">
+          <PrintModelWorkbench />
+          <PrintModelController />
+          <div class="grid content-start gap-5">
+            <PrintRequestForm message={data.message} />
+            <div class="card p-5">
+              <p class="eyebrow text-[var(--clay)]">Ablauf</p>
+              <div class="mt-5 grid gap-3">
+                {[
+                  "Datei im Viewer pruefen",
+                  "Material, Farbe und Layer definieren",
+                  "Kontakt und Einsatzzweck absenden",
+                ].map((item, index) => (
+                  <div class="flex items-center gap-3" key={item}>
+                    <span class="grid size-9 place-items-center rounded-[6px] bg-[var(--ink)] text-[var(--paper)]">
+                      {index + 1}
+                    </span>
+                    <span class="font-semibold">{item}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
-        <PrintRequestForm message={data.message} />
+      </section>
+      <section class="section pt-0">
+        <div class="shell grid gap-6 md:grid-cols-3">
+          <div class="card p-5">
+            <p class="eyebrow text-[var(--clay)]">STL</p>
+            <p class="mt-3">
+              Direktes Mesh-Rendering fuer schnelle Druckbarkeit-Checks und
+              farbige Materialvorschau.
+            </p>
+          </div>
+          <div class="card p-5">
+            <p class="eyebrow text-[var(--clay)]">STEP / STP</p>
+            <p class="mt-3">
+              Browserseitige OpenCascade-Triangulation fuer CAD-Dateien, ohne
+              Upload vor der Vorschau.
+            </p>
+          </div>
+          <div class="card p-5">
+            <p class="eyebrow text-[var(--clay)]">3MF</p>
+            <p class="mt-3">
+              3MF-Dateien werden mit Three.js geladen und koennen ebenfalls als
+              Angebotsbasis gesendet werden.
+            </p>
+          </div>
+        </div>
       </section>
     </>
   );

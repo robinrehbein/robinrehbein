@@ -31,12 +31,12 @@ export default function PrintRequestForm(
         </label>
       </div>
       <label class="grid gap-2">
-        <span class="eyebrow">STL oder STEP Datei</span>
+        <span class="eyebrow">STL, STEP oder 3MF Datei</span>
         <input
           class="field"
           name="model"
           type="file"
-          accept=".stl,.step,.stp"
+          accept=".stl,.step,.stp,.3mf"
           required
         />
       </label>
