@@ -9,6 +9,8 @@ const stats = [
   ["artwerk", "Co-Founder"],
 ];
 
+const isAvailableForProjects = false;
+
 export default function Home() {
   return (
     <>
@@ -19,7 +21,16 @@ export default function Home() {
       <section class="shell grid min-h-[calc(100vh-5rem)] items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <div class="flex flex-wrap gap-2">
-            <span class="pill eyebrow">Unavailable for projects</span>
+            <span class="pill eyebrow">
+              <span
+                class={`status-dot ${
+                  isAvailableForProjects ? "available" : "unavailable"
+                }`}
+                aria-hidden="true"
+              />
+              {isAvailableForProjects ? "Available" : "Unavailable"}{" "}
+              for projects
+            </span>
             <span class="pill eyebrow">3D Print Studio live</span>
           </div>
           <h1 class="display mt-8 max-w-4xl text-[clamp(4.4rem,13vw,10.5rem)] font-semibold">
