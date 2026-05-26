@@ -17,7 +17,10 @@ export default function ShopFilter({ products }: { products: Product[] }) {
 
   const categories = categoriesOf(products);
   const materials = materialsOf(products);
-  const priceCap = Math.max(...products.map((p) => p.fromPriceCents), 0);
+  // Round up to the slider step so the priciest product is always reachable.
+  const priceCap = Math.ceil(
+    Math.max(...products.map((p) => p.fromPriceCents), 0) / 100,
+  ) * 100;
 
   const filtered = filterProducts(products, {
     category: category.value === "all" ? undefined : category.value,
@@ -92,6 +95,9 @@ export default function ShopFilter({ products }: { products: Product[] }) {
               max={priceCap}
               step={100}
               value={maxPrice.value}
+              aria-valuetext={maxPrice.value === 0
+                ? "alle"
+                : formatEuro(maxPrice.value)}
               onInput={(
                 e,
               ) => (maxPrice.value = Number(

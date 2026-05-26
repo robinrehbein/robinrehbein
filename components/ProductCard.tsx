@@ -9,13 +9,16 @@ const COLOR_HEX: Record<string, string> = {
   Bone: "#f4f0e6",
 };
 
-function variantColors(product: Product): string[] {
+function variantColors(product: Product): { name: string; hex: string }[] {
   const names = new Set<string>();
   for (const variant of product.variants) {
     const name = variant.attributes["Farbe"];
     if (name) names.add(name);
   }
-  return [...names].map((name) => COLOR_HEX[name] ?? "#28313b");
+  return [...names].map((name) => ({
+    name,
+    hex: COLOR_HEX[name] ?? "#28313b",
+  }));
 }
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -44,11 +47,19 @@ export default function ProductCard({ product }: { product: Product }) {
             <p class="text-sm opacity-70">{product.leadTime}</p>
           </div>
           {colors.length > 0 && (
-            <div class="mt-4 flex gap-1.5" aria-label="Farbvarianten">
-              {colors.map((hex) => (
+            <div
+              class="mt-4 flex gap-1.5"
+              role="group"
+              aria-label="Farbvarianten"
+            >
+              {colors.map((color) => (
                 <span
+                  key={color.name}
+                  role="img"
+                  title={color.name}
+                  aria-label={color.name}
                   class="h-3.5 w-3.5 rounded-full border border-[var(--line)]"
-                  style={`background:${hex}`}
+                  style={`background:${color.hex}`}
                 />
               ))}
             </div>
