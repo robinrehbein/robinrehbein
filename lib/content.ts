@@ -26,10 +26,9 @@ export type Post = {
 };
 
 export const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/shop", label: "Shop" },
+  { href: "/", label: "Shop" },
   { href: "/printauftrag", label: "Druckauftrag" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
 ];
 
@@ -139,11 +138,4 @@ export const materials = [
   "ABS/ASA",
   "Woodfill",
   "TPU Flex",
-];
-
-export const marketplaceChannels = [
-  "Etsy Listing ID",
-  "SKU fuer Inventar",
-  "Produktfeed als JSON",
-  "Embed-Link fuer externe Shops",
 ];
