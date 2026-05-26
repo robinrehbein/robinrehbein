@@ -6,11 +6,18 @@ function list(value: string): string[] {
   return value.split(",").map((s) => s.trim()).filter(Boolean);
 }
 
+/** Normalise a user-supplied slug to a safe, URL/KV-friendly form. */
+export function slugify(value: string): string {
+  return value.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Build a typed Product from flat form field strings. Variants arrive as JSON. */
 export function buildProduct(f: FormFields): Product {
   const variants = JSON.parse(f.variants || "[]") as Variant[];
   const base = {
-    slug: f.slug,
+    slug: slugify(f.slug),
     name: f.name,
     description: f.description ?? "",
     images: list(f.images),

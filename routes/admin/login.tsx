@@ -3,6 +3,14 @@ import { getKv } from "@/lib/kv.ts";
 import { createSession } from "@/lib/session.ts";
 import { attachSessionCookie } from "@/lib/admin-auth.ts";
 
+/** Length-aware, constant-time-ish string compare to avoid timing leaks. */
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
 export const handler = define.handlers({
   GET() {
     return { data: { error: false } };
@@ -11,7 +19,7 @@ export const handler = define.handlers({
     const form = await ctx.req.formData();
     const password = form.get("password")?.toString() ?? "";
     const expected = Deno.env.get("ADMIN_PASSWORD") ?? "";
-    if (!expected || password !== expected) {
+    if (!expected || !safeEqual(password, expected)) {
       return { data: { error: true } };
     }
     const id = await createSession(await getKv());

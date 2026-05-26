@@ -1,7 +1,15 @@
 import { useSignal } from "@preact/signals";
 import type { Variant } from "@/lib/catalog.ts";
 
-type Row = { id: string; label: string; euro: string; color: string };
+// `orig` carries the original variant so non-edited fields (other attributes
+// like "Set", plus image/stock) survive a round-trip through the editor.
+type Row = {
+  id: string;
+  label: string;
+  euro: string;
+  color: string;
+  orig?: Variant;
+};
 
 function toRows(variants: Variant[]): Row[] {
   return variants.map((v) => ({
@@ -9,16 +17,27 @@ function toRows(variants: Variant[]): Row[] {
     label: v.label,
     euro: (v.priceCents / 100).toFixed(2),
     color: v.attributes["Farbe"] ?? "",
+    orig: v,
   }));
 }
 
 function toVariants(rows: Row[]): Variant[] {
-  return rows.map((r) => ({
-    id: r.id || r.label.toLowerCase().replace(/\s+/g, "-"),
-    label: r.label,
-    priceCents: Math.round(parseFloat(r.euro.replace(",", ".")) * 100) || 0,
-    attributes: (r.color ? { Farbe: r.color } : {}) as Record<string, string>,
-  }));
+  return rows.map((r) => {
+    const attributes: Record<string, string> = {
+      ...(r.orig?.attributes ?? {}),
+    };
+    if (r.color) attributes.Farbe = r.color;
+    else delete attributes.Farbe;
+    const variant: Variant = {
+      id: r.id || r.label.toLowerCase().replace(/\s+/g, "-"),
+      label: r.label,
+      priceCents: Math.round(parseFloat(r.euro.replace(",", ".")) * 100) || 0,
+      attributes,
+    };
+    if (r.orig?.image !== undefined) variant.image = r.orig.image;
+    if (r.orig?.stock !== undefined) variant.stock = r.orig.stock;
+    return variant;
+  });
 }
 
 export default function VariantEditor(
