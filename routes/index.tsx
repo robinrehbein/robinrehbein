@@ -34,7 +34,7 @@ export default function Home() {
             <span class="pill eyebrow">3D Print Studio live</span>
           </div>
           <h1 class="display mt-8 max-w-4xl text-[clamp(4.4rem,13vw,10.5rem)] font-semibold">
-            Architect & Develop.
+            Architect <span class="whitespace-nowrap">& Develop.</span>
           </h1>
           <p class="mt-8 max-w-2xl text-xl leading-8 md:text-2xl">
             Ich bin Robin Rehbein, Senior Software Engineer aus Stuttgart. Ich
