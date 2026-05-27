@@ -1,4 +1,8 @@
 import { useEffect } from "preact/hooks";
+import {
+  dominantFaceNormal,
+  sliceContourSegments,
+} from "@/lib/viewer-geometry.ts";
 import type * as ThreeModule from "three";
 import type { OrbitControls as OrbitControlsType } from "three/examples/jsm/controls/OrbitControls.js";
 import type { STLLoader as STLLoaderType } from "three/examples/jsm/loaders/STLLoader.js";
@@ -107,6 +111,7 @@ export default function PrintModelController() {
     let controls: OrbitControlsType | null = null;
     let model: ThreeModule.Object3D | null = null;
     let layerLines: ThreeModule.Group | null = null;
+    let modelTriangles: Float32Array | null = null;
     let animation = 0;
     let resizeObserver: ResizeObserver | null = null;
 
@@ -242,50 +247,50 @@ export default function PrintModelController() {
       layerLines = null;
     }
 
+    // Layer lines as planar cross-section contours: intersect the mesh with a
+    // horizontal plane at each layer height so the lines follow the model's
+    // actual surface (like a slicer's perimeter view).
+    //
+    // FOLLOW-UP (deferred, per request): this only renders the perimeter
+    // contour. Possible later upgrades — (2) simulated zig-zag infill clipped
+    // to each layer's cross-section polygon, or (3) true toolpaths by running
+    // an actual slicer / parsing G-code. Both are substantially more work than
+    // these contours and were intentionally left out for now.
     function drawLayerLines() {
-      if (!runtime || !scene || !model) return;
+      if (!runtime || !scene || !model || !modelTriangles) return;
       clearLayerLines();
       if (!layerToggle?.checked) return;
 
       const { THREE } = runtime;
       const box = new THREE.Box3().setFromObject(model);
       const size = new THREE.Vector3();
-      const center = new THREE.Vector3();
       box.getSize(size);
-      box.getCenter(center);
       if (!Number.isFinite(size.z) || size.z <= 0) return;
 
-      const group = new THREE.Group();
+      const layerCount = Math.min(
+        Math.max(Math.round(size.z / currentLayerHeight()), 1),
+        140,
+      );
+      const step = size.z / layerCount;
+      const segments = sliceContourSegments(
+        modelTriangles,
+        box.min.z,
+        step,
+        layerCount,
+      );
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(segments, 3),
+      );
       const lineMaterial = new THREE.LineBasicMaterial({
         color: "#17130e",
         transparent: true,
-        opacity: 0.22,
+        opacity: 0.32,
       });
-      const layerCount = Math.min(
-        Math.max(Math.round(size.z / currentLayerHeight()), 1),
-        220,
-      );
-      const step = size.z / layerCount;
-      const x = size.x / 2 + currentNozzleDiameter() * 0.4;
-      const y = size.y / 2 + currentNozzleDiameter() * 0.4;
-
-      for (let i = 0; i <= layerCount; i += 1) {
-        const z = box.min.z + i * step;
-        const points = [
-          new THREE.Vector3(center.x - x, center.y - y, z),
-          new THREE.Vector3(center.x + x, center.y - y, z),
-          new THREE.Vector3(center.x + x, center.y + y, z),
-          new THREE.Vector3(center.x - x, center.y + y, z),
-          new THREE.Vector3(center.x - x, center.y - y, z),
-        ];
-        group.add(
-          new THREE.Line(
-            new THREE.BufferGeometry().setFromPoints(points),
-            lineMaterial,
-          ),
-        );
-      }
-
+      const group = new THREE.Group();
+      group.add(new THREE.LineSegments(geometry, lineMaterial));
       layerLines = group;
       scene.add(group);
     }
@@ -318,14 +323,80 @@ export default function PrintModelController() {
       }
     }
 
+    // Flatten an object's triangles into world-space [ax,ay,az,bx,...] floats.
+    // Capped so very dense meshes stay responsive.
+    function collectWorldTriangles(root: ThreeModule.Object3D): Float32Array {
+      const { THREE } = runtime!;
+      root.updateWorldMatrix(true, true);
+      const out: number[] = [];
+      const v = new THREE.Vector3();
+      const MAX_TRIS = 120000;
+      let count = 0;
+      root.traverse((child: ThreeModule.Object3D) => {
+        const mesh = child as MeshLike & {
+          geometry?: ThreeModule.BufferGeometry;
+          matrixWorld?: ThreeModule.Matrix4;
+        };
+        if (!mesh.isMesh || !mesh.geometry || !mesh.matrixWorld) return;
+        const position = mesh.geometry.getAttribute("position");
+        if (!position) return;
+        const index = mesh.geometry.getIndex();
+        const vertexCount = index ? index.count : position.count;
+        for (let i = 0; i + 2 < vertexCount && count < MAX_TRIS; i += 3) {
+          for (let k = 0; k < 3; k += 1) {
+            const vi = index ? index.getX(i + k) : i + k;
+            v.fromBufferAttribute(position, vi).applyMatrix4(mesh.matrixWorld);
+            out.push(v.x, v.y, v.z);
+          }
+          count += 1;
+        }
+      });
+      return new Float32Array(out);
+    }
+
+    // Best print orientation (heuristic): lay the largest coplanar face on the
+    // plate. Returns the rotation that points that face's normal straight down.
+    function bestDownQuaternion(
+      tris: Float32Array,
+    ): ThreeModule.Quaternion | null {
+      const { THREE } = runtime!;
+      const normal = dominantFaceNormal(tris);
+      if (!normal) return null;
+      return new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(normal.x, normal.y, normal.z).normalize(),
+        new THREE.Vector3(0, 0, -1),
+      );
+    }
+
     function placeModel(object: ThreeModule.Object3D) {
-      if (!scene) return;
+      if (!runtime || !scene) return;
+      const { THREE } = runtime;
       if (model) {
         scene.remove(model);
         disposeObject(model);
       }
-      model = object;
+
+      // Wrap in a pivot so we can orient/position freely regardless of any
+      // transform the loader baked into the object.
+      const pivot = new THREE.Group();
+      pivot.add(object);
+
+      // 1) Auto-orient into the best print orientation (largest face down).
+      const down = bestDownQuaternion(collectWorldTriangles(pivot));
+      if (down) pivot.quaternion.premultiply(down);
+      pivot.updateWorldMatrix(true, true);
+
+      // 2) Seat on the build plate (min.z = 0) and center on the grid (x,y = 0).
+      const box = new THREE.Box3().setFromObject(pivot);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      pivot.position.set(-center.x, -center.y, -box.min.z);
+      pivot.updateWorldMatrix(true, true);
+
+      model = pivot;
       scene.add(model);
+      modelTriangles = collectWorldTriangles(model);
+
       updateMaterial();
       fitCamera();
       drawLayerLines();
