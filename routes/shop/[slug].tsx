@@ -1,63 +1,85 @@
 import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
 import { define } from "@/utils.ts";
-import { products } from "@/lib/content.ts";
+import { getKv } from "@/lib/kv.ts";
+import { getProduct } from "@/lib/products.ts";
+import { categoryLabel, type Product } from "@/lib/catalog.ts";
+import ProductDetail from "@/islands/ProductDetail.tsx";
+
+/** Category-specific descriptive specs as label/value pairs. */
+function specsOf(product: Product): [string, string][] {
+  const specs: [string, string][] = [
+    ["Material", product.materials.join(", ")],
+    ["Fertigung", product.leadTime],
+  ];
+  switch (product.category) {
+    case "vase":
+      specs.unshift(
+        ["Höhe", `${product.heightMm} mm`],
+        ["Volumen", `${product.volumeMl} ml`],
+        ["Wasserdicht", product.watertight ? "Ja" : "Einsatz empfohlen"],
+      );
+      break;
+    case "planter":
+      specs.unshift(
+        ["Durchmesser", `${product.diameterMm} mm`],
+        ["Drainage", product.drainage ? "Ja" : "Nein"],
+      );
+      break;
+    case "keycap":
+      specs.unshift(
+        ["Profil", product.profile],
+        ["Kompatibel", product.switchCompat],
+        ["Legenden", product.legends === "blank" ? "Blank" : "Mit Legenden"],
+      );
+      break;
+    case "organisation":
+      specs.unshift(["Maße", product.dimensions]);
+      break;
+  }
+  return specs;
+}
 
 export const handler = define.handlers({
-  GET(ctx) {
-    const product = products.find((item) => item.slug === ctx.params.slug);
-    if (!product) {
-      throw new HttpError(404, "Product not found");
-    }
-    return { data: { product } };
+  async GET(ctx) {
+    const product = await getProduct(await getKv(), ctx.params.slug);
+    if (!product) throw new HttpError(404, "Product not found");
+    return { data: { product, specs: specsOf(product) } };
   },
 });
 
 export default define.page<typeof handler>(({ data }) => {
-  const { product } = data;
-
+  const { product, specs } = data;
   return (
     <>
       <Head>
         <title>{product.name} - Robin Rehbein Shop</title>
       </Head>
-      <section class="shell grid gap-10 py-16 lg:grid-cols-[0.95fr_1.05fr]">
-        <div class="aspect-[4/5] overflow-hidden rounded-[8px] border border-[var(--ink)] bg-[var(--steel)]">
-          <img
-            src={product.image}
-            alt={product.name}
-            class="h-full w-full object-cover"
-          />
-        </div>
-        <div>
-          <a href="/" class="eyebrow text-[var(--clay)]">
-            Zurueck zum Shop
-          </a>
-          <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
-            {product.name}
-          </h1>
-          <p class="mt-6 max-w-2xl text-xl leading-8">{product.description}</p>
-          <div class="mt-8 grid gap-3 sm:grid-cols-2">
-            <div class="card p-4">
-              <p class="eyebrow">Preis</p>
-              <p class="mt-2 text-2xl font-semibold">{product.price}</p>
+      <section class="shell py-16">
+        <a href="/" class="eyebrow text-[var(--clay)]">
+          ← Zurück zum Shop · {categoryLabel(product.category)}
+        </a>
+        <h1 class="display mt-5 mb-8 text-6xl font-semibold md:text-8xl">
+          {product.name}
+        </h1>
+        <ProductDetail product={product} />
+        <p class="mt-8 max-w-2xl text-lg leading-8 opacity-85">
+          {product.description}
+        </p>
+        <div class="mt-8 overflow-hidden rounded-[8px] border border-[var(--line)]">
+          {specs.map(([label, value], i) => (
+            <div
+              key={label}
+              class={`grid grid-cols-[140px_1fr] ${
+                i < specs.length - 1 ? "border-b border-[var(--line)]" : ""
+              }`}
+            >
+              <div class="border-r border-[var(--line)] p-3 text-sm font-semibold text-[var(--clay)]">
+                {label}
+              </div>
+              <div class="p-3 text-sm font-semibold">{value}</div>
             </div>
-            <div class="card p-4">
-              <p class="eyebrow">Fertigung</p>
-              <p class="mt-2 text-2xl font-semibold">{product.leadTime}</p>
-            </div>
-            <div class="card p-4 sm:col-span-2">
-              <p class="eyebrow">Materialoptionen</p>
-              <p class="mt-2 text-lg">{product.material.join(", ")}</p>
-            </div>
-            <div class="card p-4 sm:col-span-2">
-              <p class="eyebrow">Oberflaeche</p>
-              <p class="mt-2 text-lg">{product.finish}</p>
-            </div>
-          </div>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="/printauftrag" class="button">Aehnliches Teil anfragen</a>
-          </div>
+          ))}
         </div>
       </section>
     </>

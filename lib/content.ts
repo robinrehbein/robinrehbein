@@ -1,20 +1,3 @@
-export type Product = {
-  slug: string;
-  name: string;
-  category: string;
-  price: string;
-  leadTime: string;
-  material: string[];
-  finish: string;
-  description: string;
-  image: string;
-  marketplace: {
-    etsyListingId: string;
-    sku: string;
-    embedUrl: string;
-  };
-};
-
 export type Post = {
   slug: string;
   title: string;
@@ -30,60 +13,6 @@ export const navItems = [
   { href: "/printauftrag", label: "Druckauftrag" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
-];
-
-export const products: Product[] = [
-  {
-    slug: "ripple-vase",
-    name: "Ripple Vase",
-    category: "Vase",
-    price: "ab 34 EUR",
-    leadTime: "3-5 Werktage",
-    material: ["PLA Matte", "PETG Transparent", "Woodfill"],
-    finish: "0,16 mm Layer, wasserdichter Einsatz empfohlen",
-    description:
-      "Eine organische Vase mit ruhigem Wellenprofil fuer Trockenblumen, Gräser und kleine Arrangements.",
-    image: "/me_square.jpg",
-    marketplace: {
-      etsyListingId: "etsy-ripple-vase-draft",
-      sku: "RR3D-VASE-RIPPLE",
-      embedUrl: "https://www.etsy.com/de/listing/etsy-ripple-vase-draft",
-    },
-  },
-  {
-    slug: "desk-grid-tray",
-    name: "Desk Grid Tray",
-    category: "Organisation",
-    price: "ab 22 EUR",
-    leadTime: "2-4 Werktage",
-    material: ["PLA Matte", "PETG Carbon Look"],
-    finish: "feine Textur, modulare Rasterung",
-    description:
-      "Ein flaches Ordnungssystem fuer Schreibtisch, Keyboard-Parts, Schrauben, Bits und kleine Alltagswerkzeuge.",
-    image: "/macbook_artwerk_landing.webp",
-    marketplace: {
-      etsyListingId: "etsy-desk-grid-tray-draft",
-      sku: "RR3D-ORG-GRID",
-      embedUrl: "https://www.etsy.com/de/listing/etsy-desk-grid-tray-draft",
-    },
-  },
-  {
-    slug: "plant-clip-set",
-    name: "Plant Clip Set",
-    category: "Pflanzen",
-    price: "ab 12 EUR",
-    leadTime: "2-3 Werktage",
-    material: ["PLA Matte", "PETG Outdoor"],
-    finish: "leicht, flexibel, in Sets kombinierbar",
-    description:
-      "Kleine Clips und Fuehrungen fuer Rankpflanzen, Stecklinge und Ordnung im urbanen Pflanzenregal.",
-    image: "/me.jpg",
-    marketplace: {
-      etsyListingId: "etsy-plant-clip-set-draft",
-      sku: "RR3D-PLANT-CLIP",
-      embedUrl: "https://www.etsy.com/de/listing/etsy-plant-clip-set-draft",
-    },
-  },
 ];
 
 export const posts: Post[] = [
