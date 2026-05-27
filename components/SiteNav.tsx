@@ -9,14 +9,18 @@ export default function SiteNav() {
           class="group flex items-center gap-3"
           aria-label="Startseite"
         >
-          <span class="grid size-10 place-items-center rounded-[6px] border border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]">
-            R
-          </span>
+          <img
+            src="/logo.svg"
+            alt=""
+            class="size-11 rounded-[8px]"
+            width="44"
+            height="44"
+          />
           <span class="leading-tight">
             <span class="display block text-xl font-semibold">
-              Robin Rehbein
+              RR3D Studio
             </span>
-            <span class="text-sm opacity-70">Code / Blog / 3D Print</span>
+            <span class="text-sm opacity-70">3D Print Shop</span>
           </span>
         </a>
         <div class="nav-links flex items-center gap-1 overflow-x-auto border-t border-[var(--line)] pt-3 md:border-0 md:pt-0">

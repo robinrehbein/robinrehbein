@@ -34,7 +34,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
 
   return (
     <div>
-      <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end">
+      <div class="shop-filter-bar">
         <div
           role="group"
           aria-label="Kategorie filtern"
@@ -44,10 +44,8 @@ export default function ShopFilter({ products }: { products: Product[] }) {
             type="button"
             onClick={() => (category.value = "all")}
             aria-pressed={category.value === "all"}
-            class={`pill eyebrow cursor-pointer transition ${
-              category.value === "all"
-                ? "bg-[var(--ink)] text-[var(--paper)]"
-                : ""
+            class={`category-chip ${
+              category.value === "all" ? "is-active" : ""
             }`}
           >
             Alle
@@ -58,10 +56,8 @@ export default function ShopFilter({ products }: { products: Product[] }) {
               type="button"
               onClick={() => (category.value = cat)}
               aria-pressed={category.value === cat}
-              class={`pill eyebrow cursor-pointer transition ${
-                category.value === cat
-                  ? "bg-[var(--ink)] text-[var(--paper)]"
-                  : ""
+              class={`category-chip ${
+                category.value === cat ? "is-active" : ""
               }`}
             >
               {categoryLabel(cat)}
