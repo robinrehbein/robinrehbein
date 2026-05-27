@@ -1,0 +1,33 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 900"
+  role="img"
+  aria-label="Choc Homing Keycap Pair"
+>
+  <rect width="1200" height="900" fill="#f4f0e6" />
+  <radialGradient id="g" cx="42%" cy="34%" r="70%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.6" />
+    <stop offset="1" stop-color="#f4f0e6" stop-opacity="0" />
+  </radialGradient>
+  <rect width="1200" height="900" fill="url(#g)" />
+  <ellipse cx="600" cy="660" rx="280" ry="40" fill="#17130e" opacity="0.08" />
+  <g>
+    <rect x="360" y="300" width="220" height="208" rx="28" fill="#1c242c" />
+    <rect x="360" y="280" width="220" height="218" rx="28" fill="#28313b" />
+    <rect x="386" y="304" width="168" height="158" rx="20" fill="#323d49" />
+  </g>
+  <g>
+    <rect x="620" y="300" width="220" height="208" rx="28" fill="#9e4a2b" />
+    <rect x="620" y="280" width="220" height="218" rx="28" fill="#b55732" />
+    <rect x="646" y="304" width="168" height="158" rx="20" fill="#c4623a" />
+    <rect
+      x="690"
+      y="430"
+      width="80"
+      height="12"
+      rx="6"
+      fill="#f4f0e6"
+      opacity="0.85"
+    />
+  </g>
+</svg>

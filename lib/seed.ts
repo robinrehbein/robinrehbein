@@ -8,7 +8,7 @@ const DEMO: Product[] = [
     category: "vase",
     description:
       "Organische Vase mit ruhigem Wellenprofil für Trockenblumen und kleine Arrangements.",
-    images: ["/me_square.jpg"],
+    images: ["/products/ripple-vase.svg"],
     materials: ["PLA Matte", "PETG Transparent"],
     fromPriceCents: 0,
     leadTime: "3-5 Werktage",
@@ -39,7 +39,7 @@ const DEMO: Product[] = [
     category: "vase",
     description:
       "Kantige, facettierte Vase mit mattem Korpus für einen grafischen Look.",
-    images: ["/me.jpg"],
+    images: ["/products/facet-vase.svg"],
     materials: ["PLA Matte"],
     fromPriceCents: 0,
     leadTime: "3-5 Werktage",
@@ -70,7 +70,7 @@ const DEMO: Product[] = [
     category: "planter",
     description:
       "Selbstständiger Übertopf mit Wasserrille und abnehmbarem Untersetzer.",
-    images: ["/me_square.jpg"],
+    images: ["/products/ring-planter.svg"],
     materials: ["PETG", "PETG Outdoor"],
     fromPriceCents: 0,
     leadTime: "2-4 Werktage",
@@ -100,7 +100,7 @@ const DEMO: Product[] = [
     category: "planter",
     description:
       "Leichter Hängetopf mit drei Schnüren, ideal für Stecklinge und kleine Pflanzen.",
-    images: ["/me.jpg"],
+    images: ["/products/hanging-planter.svg"],
     materials: ["PLA Matte"],
     fromPriceCents: 0,
     leadTime: "2-4 Werktage",
@@ -124,7 +124,7 @@ const DEMO: Product[] = [
     category: "keycap",
     description:
       "Gedruckte Low-Profile-Keycaps im MBK-Stil für Kailh Choc v1. Blank, seidenmatte Oberfläche, präziser Switch-Sitz.",
-    images: ["/macbook_artwerk_landing.webp"],
+    images: ["/products/mbk-blank-set.svg"],
     materials: ["PLA Matte"],
     fromPriceCents: 0,
     leadTime: "3-5 Werktage",
@@ -167,7 +167,7 @@ const DEMO: Product[] = [
     category: "keycap",
     description:
       "Zwei Homing-Keycaps mit fühlbarem Steg für die Zeigefinger, kompatibel mit Choc LP.",
-    images: ["/macbook_artwerk_landing.webp"],
+    images: ["/products/choc-homing-pair.svg"],
     materials: ["PLA Matte", "PETG Carbon Look"],
     fromPriceCents: 0,
     leadTime: "2-3 Werktage",
@@ -198,7 +198,7 @@ const DEMO: Product[] = [
     category: "organisation",
     description:
       "Flaches Ordnungssystem für Schreibtisch, Keyboard-Parts, Schrauben und Bits.",
-    images: ["/macbook_artwerk_landing.webp"],
+    images: ["/products/desk-grid-tray.svg"],
     materials: ["PLA Matte", "PETG Carbon Look"],
     fromPriceCents: 0,
     leadTime: "2-4 Werktage",

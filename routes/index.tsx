@@ -7,11 +7,14 @@ import { formatFrom } from "@/lib/price.ts";
 import ShopFilter from "@/islands/ShopFilter.tsx";
 
 export const handler = define.handlers({
-  async GET() {
+  async GET(ctx) {
     const products = await listProducts(await getKv());
-    return { data: products };
+    return { data: { products, origin: ctx.url.origin } };
   },
 });
+
+const STOREFRONT_DESC =
+  "3D-gedruckte Vasen, Planter und Choc-LP-Keycaps aus Stuttgart. Klare Objekte, sauber gedruckt, in kleinen Auflagen.";
 
 function Featured({ product }: { product: Product }) {
   return (
@@ -43,13 +46,26 @@ function Featured({ product }: { product: Product }) {
 }
 
 export default define.page<typeof handler>(function Home({ data }) {
-  const products = data;
+  const { products, origin } = data;
   const featured = products[0];
+  const ogImage = featured
+    ? new URL(featured.images[0], origin).href
+    : undefined;
 
   return (
     <>
       <Head>
         <title>Robin Rehbein - 3D Print Studio Shop</title>
+        <meta name="description" content={STOREFRONT_DESC} />
+        <link rel="canonical" href={`${origin}/`} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Robin Rehbein · 3D Print Studio"
+        />
+        <meta property="og:description" content={STOREFRONT_DESC} />
+        <meta property="og:url" content={`${origin}/`} />
+        {ogImage && <meta property="og:image" content={ogImage} />}
       </Head>
 
       <section class="shell py-12 md:py-16">

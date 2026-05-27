@@ -1,0 +1,22 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 900"
+  role="img"
+  aria-label="Facet Vase"
+>
+  <rect width="1200" height="900" fill="#f4f0e6" />
+  <radialGradient id="g" cx="42%" cy="34%" r="70%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.6" />
+    <stop offset="1" stop-color="#f4f0e6" stop-opacity="0" />
+  </radialGradient>
+  <rect width="1200" height="900" fill="url(#g)" />
+  <ellipse cx="600" cy="740" rx="200" ry="32" fill="#17130e" opacity="0.10" />
+  <g stroke="#f4f0e6" stroke-width="3" stroke-linejoin="round">
+    <polygon points="600,210 540,250 540,470 600,520" fill="#28313b" />
+    <polygon points="600,210 660,250 660,470 600,520" fill="#323d49" />
+    <polygon points="540,470 600,520 600,720 520,560" fill="#222a32" />
+    <polygon points="660,470 600,520 600,720 680,560" fill="#3a4855" />
+    <polygon points="540,470 600,520 660,470 600,450" fill="#b55732" />
+  </g>
+  <polygon points="540,250 600,210 660,250 600,278" fill="#1c242c" />
+</svg>

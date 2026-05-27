@@ -1,3 +1,4 @@
+// deno-lint-ignore-file react-no-danger -- JSON-LD requires raw script body
 import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
 import { define } from "@/utils.ts";
@@ -44,16 +45,54 @@ export const handler = define.handlers({
   async GET(ctx) {
     const product = await getProduct(await getKv(), ctx.params.slug);
     if (!product) throw new HttpError(404, "Product not found");
-    return { data: { product, specs: specsOf(product) } };
+    return {
+      data: { product, specs: specsOf(product), origin: ctx.url.origin },
+    };
   },
 });
 
+/** schema.org Product JSON-LD for Google rich results. */
+function productJsonLd(product: Product, origin: string): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.images.map((src) => new URL(src, origin).href),
+    category: categoryLabel(product.category),
+    brand: { "@type": "Brand", name: "Robin Rehbein" },
+    offers: {
+      "@type": "Offer",
+      price: (product.fromPriceCents / 100).toFixed(2),
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${origin}/shop/${product.slug}`,
+    },
+  });
+}
+
 export default define.page<typeof handler>(({ data }) => {
-  const { product, specs } = data;
+  const { product, specs, origin } = data;
+  const url = `${origin}/shop/${product.slug}`;
+  const ogImage = new URL(product.images[0], origin).href;
+  const jsonLd = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: productJsonLd(product, origin) }}
+    />
+  );
   return (
     <>
       <Head>
         <title>{product.name} - Robin Rehbein Shop</title>
+        <meta name="description" content={product.description} />
+        <link rel="canonical" href={url} />
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:url" content={url} />
+        <meta property="og:image" content={ogImage} />
+        {jsonLd}
       </Head>
       <section class="shell py-16">
         <a href="/" class="eyebrow text-[var(--clay)]">

@@ -1,0 +1,38 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 900"
+  role="img"
+  aria-label="Desk Grid Tray"
+>
+  <rect width="1200" height="900" fill="#f4f0e6" />
+  <radialGradient id="g" cx="42%" cy="32%" r="72%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.6" />
+    <stop offset="1" stop-color="#f4f0e6" stop-opacity="0" />
+  </radialGradient>
+  <rect width="1200" height="900" fill="url(#g)" />
+  <ellipse cx="600" cy="700" rx="340" ry="48" fill="#17130e" opacity="0.08" />
+  <g>
+    <rect x="300" y="280" width="600" height="380" rx="26" fill="#1c242c" />
+    <rect x="300" y="262" width="600" height="380" rx="26" fill="#28313b" />
+    <g fill="#222a32" stroke="#3a4855" stroke-width="3">
+      <rect x="330" y="292" width="250" height="150" rx="12" />
+      <rect x="600" y="292" width="270" height="70" rx="12" />
+      <rect x="600" y="372" width="125" height="70" rx="12" />
+      <rect x="745" y="372" width="125" height="70" rx="12" />
+      <rect x="330" y="462" width="170" height="150" rx="12" />
+      <rect x="520" y="462" width="170" height="150" rx="12" />
+      <rect x="710" y="462" width="160" height="150" rx="12" />
+    </g>
+    <rect
+      x="330"
+      y="292"
+      width="250"
+      height="150"
+      rx="12"
+      fill="none"
+      stroke="#b55732"
+      stroke-width="4"
+      opacity="0.8"
+    />
+  </g>
+</svg>

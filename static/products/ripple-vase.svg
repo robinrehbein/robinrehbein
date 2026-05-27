@@ -1,0 +1,45 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 900"
+  role="img"
+  aria-label="Ripple Vase"
+>
+  <rect width="1200" height="900" fill="#f4f0e6" />
+  <radialGradient id="g" cx="42%" cy="34%" r="70%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.6" />
+    <stop offset="1" stop-color="#f4f0e6" stop-opacity="0" />
+  </radialGradient>
+  <rect width="1200" height="900" fill="url(#g)" />
+  <ellipse cx="600" cy="742" rx="210" ry="34" fill="#17130e" opacity="0.10" />
+  <g>
+    <path
+      d="M512 250
+             C512 214 548 196 600 196
+             C652 196 688 214 688 250
+             C688 300 720 340 720 430
+             C720 600 690 720 600 738
+             C510 720 480 600 480 430
+             C480 340 512 300 512 250 Z"
+      fill="#28313b"
+    />
+    <clipPath id="vase">
+      <path
+        d="M512 250 C512 214 548 196 600 196 C652 196 688 214 688 250 C688 300 720 340 720 430 C720 600 690 720 600 738 C510 720 480 600 480 430 C480 340 512 300 512 250 Z"
+      />
+    </clipPath>
+    <g
+      clip-path="url(#vase)"
+      stroke="#b55732"
+      stroke-width="6"
+      fill="none"
+      opacity="0.85"
+    >
+      <path d="M470 360 q130 -38 260 0" />
+      <path d="M470 430 q130 -38 260 0" />
+      <path d="M470 500 q130 -38 260 0" />
+      <path d="M470 570 q130 -38 260 0" />
+      <path d="M470 640 q130 -38 260 0" />
+    </g>
+    <ellipse cx="600" cy="208" rx="74" ry="16" fill="#1c242c" />
+  </g>
+</svg>

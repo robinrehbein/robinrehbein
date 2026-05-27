@@ -1,0 +1,52 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 900"
+  role="img"
+  aria-label="Hanging Planter"
+>
+  <rect width="1200" height="900" fill="#f4f0e6" />
+  <radialGradient id="g" cx="42%" cy="34%" r="70%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.6" />
+    <stop offset="1" stop-color="#f4f0e6" stop-opacity="0" />
+  </radialGradient>
+  <rect width="1200" height="900" fill="url(#g)" />
+  <circle cx="600" cy="120" r="10" fill="#17130e" />
+  <g stroke="#17130e" stroke-width="3" fill="none" opacity="0.7">
+    <path d="M600 130 L470 470" />
+    <path d="M600 130 L600 470" />
+    <path d="M600 130 L730 470" />
+  </g>
+  <g fill="#708468" stroke="#5c6e55" stroke-width="3">
+    <path
+      d="M600 470 C560 380 470 360 430 340"
+      fill="none"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+    <path
+      d="M600 470 C640 380 730 360 770 340"
+      fill="none"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+    <path
+      d="M600 470 C600 400 600 350 600 320"
+      fill="none"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+    <ellipse
+      cx="426"
+      cy="336"
+      rx="36"
+      ry="22"
+      transform="rotate(-30 426 336)"
+    />
+    <ellipse cx="774" cy="336" rx="36" ry="22" transform="rotate(30 774 336)" />
+    <ellipse cx="600" cy="316" rx="34" ry="22" />
+  </g>
+  <path d="M488 470 L712 470 L688 640 L512 640 Z" fill="#28313b" />
+  <ellipse cx="600" cy="470" rx="112" ry="26" fill="#1c242c" />
+  <ellipse cx="600" cy="470" rx="88" ry="18" fill="#3a4855" />
+  <ellipse cx="600" cy="652" rx="100" ry="18" fill="#b55732" />
+</svg>
