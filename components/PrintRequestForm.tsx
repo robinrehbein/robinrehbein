@@ -1,4 +1,5 @@
 import { materials } from "@/lib/content.ts";
+import ModelFileDropzone from "@/islands/ModelFileDropzone.tsx";
 
 export type RequestMessage = {
   type: "success" | "error";
@@ -30,16 +31,7 @@ export default function PrintRequestForm(
           />
         </label>
       </div>
-      <label class="grid gap-2">
-        <span class="eyebrow">STL, STEP oder 3MF Datei</span>
-        <input
-          class="field"
-          name="model"
-          type="file"
-          accept=".stl,.step,.stp,.3mf"
-          required
-        />
-      </label>
+      <ModelFileDropzone />
       <div class="grid gap-4 md:grid-cols-2">
         <label class="grid gap-2">
           <span class="eyebrow">Material</span>

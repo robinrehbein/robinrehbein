@@ -215,6 +215,130 @@ textarea {
   display: none;
 }
 
+.shop-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.shop-heading__meta {
+  display: grid;
+  min-width: min(100%, 22rem);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: rgba(255, 252, 244, 0.82);
+}
+
+.shop-heading__meta span {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+
+.shop-heading__meta span:last-child {
+  border-bottom: 0;
+}
+
+.shop-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 252, 244, 0.76);
+}
+
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  padding: 0.58rem 1rem;
+  border: 1px solid rgba(23, 19, 14, 0.28);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(244, 240, 230, 0.82);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.category-chip:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.category-chip.is-active {
+  border-color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: 0 0 0 2px rgba(244, 240, 230, 0.86) inset;
+}
+
+.product-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 252, 244, 0.78);
+  box-shadow: 0 10px 34px rgba(23, 19, 14, 0.08);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(23, 19, 14, 0.42);
+  box-shadow: 0 18px 48px rgba(23, 19, 14, 0.14);
+}
+
+.product-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+  padding: 0.42rem 0.76rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 252, 244, 0.92);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.product-link {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0.72rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.shop-service-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-block: 0;
+}
+
 .section {
   padding: clamp(4.5rem, 9vw, 8rem) 0;
   border-top: 1px solid var(--line);
@@ -247,6 +371,66 @@ textarea {
 .field:focus {
   outline: 2px solid rgba(181, 87, 50, 0.35);
   border-color: var(--clay);
+}
+
+.file-dropzone {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  min-height: 7.2rem;
+  padding: 1rem;
+  border: 1px dashed rgba(23, 19, 14, 0.48);
+  border-radius: 8px;
+  background: rgba(255, 252, 244, 0.78);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.file-dropzone.is-dragging {
+  border-color: var(--ink);
+  background: rgba(200, 216, 96, 0.24);
+  box-shadow: 0 0 0 3px rgba(23, 19, 14, 0.08);
+}
+
+.file-dropzone.has-error {
+  border-color: var(--oxide);
+}
+
+.file-dropzone__icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--paper);
+  background: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.file-dropzone__copy {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.file-dropzone__copy strong {
+  line-height: 1.2;
+}
+
+.file-dropzone__copy span {
+  font-size: 0.92rem;
+  opacity: 0.72;
+}
+
+.file-dropzone__error {
+  color: var(--oxide);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .viewer-shell {
@@ -433,6 +617,25 @@ textarea {
 @media (max-width: 720px) {
   .shell {
     width: min(100% - 24px, 1160px);
+  }
+
+  .shop-heading,
+  .shop-service-band {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shop-heading__meta {
+    min-width: 0;
+  }
+
+  .shop-filter-bar {
+    padding: 0.5rem;
+  }
+
+  .category-chip {
+    flex: 1 1 auto;
+    min-width: fit-content;
   }
 
   .button {

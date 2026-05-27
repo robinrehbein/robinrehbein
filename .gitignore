@@ -12,3 +12,4 @@ node_modules/
 .superpowers/
 static/uploads/
 *.timestamp-*.mjs
+.playwright-mcp/

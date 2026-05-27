@@ -24,7 +24,7 @@ function variantColors(product: Product): { name: string; hex: string }[] {
 export default function ProductCard({ product }: { product: Product }) {
   const colors = variantColors(product);
   return (
-    <article class="card group overflow-hidden">
+    <article class="product-card group">
       <a href={`/shop/${product.slug}`} class="block">
         <div class="relative aspect-[4/3] overflow-hidden bg-[var(--steel)]">
           <img
@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
             class="h-full w-full object-cover opacity-88 transition duration-300 group-hover:scale-[1.03]"
             loading="lazy"
           />
-          <span class="pill eyebrow absolute left-3 top-3 bg-[var(--paper)]">
+          <span class="product-badge">
             {categoryLabel(product.category)}
           </span>
         </div>
@@ -64,6 +64,7 @@ export default function ProductCard({ product }: { product: Product }) {
               ))}
             </div>
           )}
+          <span class="product-link">Produkt ansehen</span>
         </div>
       </a>
     </article>
