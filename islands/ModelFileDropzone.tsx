@@ -89,12 +89,12 @@ export default function ModelFileDropzone() {
         <span class="file-dropzone__icon" aria-hidden="true">STL</span>
         <span class="file-dropzone__copy">
           <strong>
-            {selectedFile || "Datei hier ablegen oder auswaehlen"}
+            {selectedFile || "Modelldatei auswaehlen"}
           </strong>
           <span>
             {selectedFile
-              ? `${selectedSize} bereit fuer Anfrage und Viewer`
-              : "Desktop-Datei per Drag-and-drop oder Klick hochladen"}
+              ? `${selectedSize} bereit fuer die technische Pruefung`
+              : "STL, STEP/STP oder 3MF per Drag-and-drop oder Klick hochladen"}
           </span>
         </span>
       </label>

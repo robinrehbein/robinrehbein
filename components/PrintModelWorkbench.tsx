@@ -24,7 +24,7 @@ export default function PrintModelWorkbench() {
           <input data-viewer-color type="color" value="#c85f39" />
         </label>
         <label>
-          <span>Layer</span>
+          <span>Schichthoehe</span>
           <input
             data-viewer-layer
             type="number"
@@ -47,7 +47,7 @@ export default function PrintModelWorkbench() {
         </label>
         <label class="viewer-toggle">
           <input data-viewer-layers type="checkbox" checked />
-          <span>Layer lines</span>
+          <span>Schichtlinien</span>
         </label>
       </div>
 
@@ -55,15 +55,17 @@ export default function PrintModelWorkbench() {
         <div data-viewer-mount class="viewer-mount" />
         <div class="viewer-overlay">
           <span class="viewer-status idle" data-viewer-status>Bereit</span>
-          <strong data-viewer-file>Modell ablegen oder klicken</strong>
-          <span data-viewer-message>STL, STEP/STP oder 3MF hier ablegen.</span>
+          <strong data-viewer-file>Modelldatei laden</strong>
+          <span data-viewer-message>
+            STL, STEP/STP oder 3MF zur Pruefung ablegen.
+          </span>
         </div>
       </div>
 
       <div class="viewer-meta">
-        <span data-viewer-dimensions>Noch kein Modell geladen</span>
-        <span data-viewer-layer-meta>0.20 mm Layer</span>
-        <span data-viewer-nozzle-meta>0.40 mm Nozzle</span>
+        <span data-viewer-dimensions>Keine Datei geladen</span>
+        <span data-viewer-layer-meta>0.20 mm Schichthoehe</span>
+        <span data-viewer-nozzle-meta>0.40 mm Duesendurchmesser</span>
       </div>
     </section>
   );

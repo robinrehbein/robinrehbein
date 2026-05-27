@@ -52,11 +52,11 @@ export default function PrintRequestForm(
         <textarea
           class="field min-h-36 resize-y"
           name="notes"
-          placeholder="Toleranzen, Belastung, Stueckzahl, Deadline ..."
+          placeholder="Toleranzen, Belastung, Stueckzahl, Termin, Sichtseite ..."
           required
         />
       </label>
-      <button class="button" type="submit">Druckauftrag absenden</button>
+      <button class="button" type="submit">Anfrage zur Pruefung senden</button>
       {message && (
         <p
           class={`rounded-[6px] border px-4 py-3 text-sm ${

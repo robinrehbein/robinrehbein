@@ -200,13 +200,15 @@ export default function PrintModelController() {
       if (formFinish) {
         formFinish.value = `${currentColor()} · ${
           layerHeight.toFixed(2)
-        } mm Layer · ${nozzleDiameter.toFixed(2)} mm Nozzle`;
+        } mm Schichthoehe · ${nozzleDiameter.toFixed(2)} mm Duese`;
       }
       if (layerMetaEl) {
-        layerMetaEl.textContent = `${layerHeight.toFixed(2)} mm Layer`;
+        layerMetaEl.textContent = `${layerHeight.toFixed(2)} mm Schichthoehe`;
       }
       if (nozzleMetaEl) {
-        nozzleMetaEl.textContent = `${nozzleDiameter.toFixed(2)} mm Nozzle`;
+        nozzleMetaEl.textContent = `${
+          nozzleDiameter.toFixed(2)
+        } mm Duesendurchmesser`;
       }
     }
 
@@ -487,7 +489,7 @@ export default function PrintModelController() {
         placeModel(object);
         setStatus(
           "ready",
-          "Modell geladen. Material, Farbe und Layer koennen angepasst werden.",
+          "Modell geladen. Material, Finish und Druckparameter koennen angepasst werden.",
         );
       } catch (error) {
         setStatus(
@@ -606,7 +608,7 @@ export default function PrintModelController() {
     viewerDropzone.addEventListener("click", onClick);
 
     syncForm();
-    setStatus("idle", "STL, STEP/STP oder 3MF hier ablegen.");
+    setStatus("idle", "STL, STEP/STP oder 3MF zur Pruefung ablegen.");
 
     // Boot the 3D scene in the background so the empty viewer renders, but do
     // not block interaction on it. Failures surface as a status message.

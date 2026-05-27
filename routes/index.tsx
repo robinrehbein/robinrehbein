@@ -97,13 +97,14 @@ export default define.page<typeof handler>(function Home({ data }) {
       <section class="section">
         <div class="shell shop-service-band">
           <div>
-            <p class="eyebrow text-[var(--clay)]">Custom Print</p>
+            <p class="eyebrow text-[var(--clay)]">Druckauftrag</p>
             <h2 class="display mt-3 text-3xl font-semibold md:text-4xl">
-              Dein Modell, mein Druckprozess.
+              Technische Druckanfragen sauber vorbereiten.
             </h2>
             <p class="mt-3 max-w-2xl leading-8">
-              STL- oder STEP-Datei hochladen, Material und Finish wählen,
-              technische Hinweise direkt mitgeben.
+              Modell hochladen, Material und Anforderungen erfassen. Ich pruefe
+              Geometrie, Fertigungsrisiken und sinnvolle Einstellungen vor dem
+              Druck.
             </p>
           </div>
           <a href="/printauftrag" class="button shrink-0">
