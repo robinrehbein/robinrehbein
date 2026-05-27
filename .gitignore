@@ -13,3 +13,4 @@ node_modules/
 static/uploads/
 *.timestamp-*.mjs
 .playwright-mcp/
+.claude/worktrees/
