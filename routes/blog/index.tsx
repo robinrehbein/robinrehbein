@@ -8,8 +8,10 @@ export default function BlogIndex() {
         <title>Blog - Robin Rehbein</title>
       </Head>
       <section class="shell py-16">
-        <p class="eyebrow text-[var(--clay)]">Blog</p>
-        <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
+          Blog
+        </p>
+        <h1 class="display mt-4 text-4xl font-semibold md:text-6xl">
           Gedanken aus Code und Werkstatt.
         </h1>
         <div class="mt-12 grid gap-5">
@@ -19,12 +21,18 @@ export default function BlogIndex() {
               class="card grid gap-5 p-5 md:grid-cols-[0.7fr_1.3fr_auto] md:items-center"
             >
               <div>
-                <p class="eyebrow text-[var(--clay)]">{post.tag}</p>
-                <p class="mt-2 opacity-70">{post.date} · {post.readTime}</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
+                  {post.tag}
+                </p>
+                <p class="mt-2 text-sm text-[var(--muted)]">
+                  {post.date} · {post.readTime}
+                </p>
               </div>
               <div>
-                <h2 class="display text-4xl font-semibold">{post.title}</h2>
-                <p class="mt-3 opacity-75">{post.excerpt}</p>
+                <h2 class="text-2xl font-semibold tracking-tight">
+                  {post.title}
+                </h2>
+                <p class="mt-2 text-[var(--muted)]">{post.excerpt}</p>
               </div>
               <span class="button secondary">Lesen</span>
             </a>
