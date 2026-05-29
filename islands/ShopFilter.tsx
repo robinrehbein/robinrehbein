@@ -99,7 +99,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
               ) => (maxPrice.value = Number(
                 (e.target as HTMLInputElement).value,
               ))}
-              class="accent-[var(--clay)]"
+              class="accent-[var(--accent)]"
             />
           </label>
         )}
@@ -110,7 +110,7 @@ export default function ShopFilter({ products }: { products: Product[] }) {
           <div class="mt-10 flex flex-col gap-12">
             {groups.map((group) => (
               <section key={group.category}>
-                <h2 class="display text-3xl font-semibold">
+                <h2 class="text-xl font-semibold tracking-tight">
                   {categoryLabel(group.category)}
                 </h2>
                 <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,7 @@
 import { useSignal } from "@preact/signals";
 import type { Product } from "@/lib/catalog.ts";
 import { formatEuro } from "@/lib/price.ts";
+import { addToCart, openCart } from "@/lib/cart-store.ts";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const selectedImage = useSignal(0);
@@ -39,12 +40,17 @@ export default function ProductDetail({ product }: { product: Product }) {
       </div>
 
       <div>
-        <p class="text-2xl font-semibold">
+        <p class="text-3xl font-semibold tracking-tight">
           {variant ? formatEuro(variant.priceCents) : ""}
         </p>
+        <p class="mt-1 text-sm text-[var(--muted)]">
+          inkl. MwSt. · zzgl. Versand
+        </p>
         {product.variants.length > 0 && (
-          <div class="mt-5">
-            <p class="eyebrow opacity-70">Variante</p>
+          <div class="mt-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--muted)]">
+              Variante
+            </p>
             <div class="mt-2 flex flex-wrap gap-2">
               {product.variants.map((v, i) => (
                 <button
@@ -52,10 +58,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                   type="button"
                   onClick={() => (selectedVariant.value = i)}
                   aria-pressed={selectedVariant.value === i}
-                  class={`pill eyebrow cursor-pointer transition ${
-                    selectedVariant.value === i
-                      ? "bg-[var(--ink)] text-[var(--paper)]"
-                      : ""
+                  class={`category-chip ${
+                    selectedVariant.value === i ? "is-active" : ""
                   }`}
                 >
                   {v.label} · {formatEuro(v.priceCents)}
@@ -65,13 +69,33 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
         )}
         <div class="mt-8 flex flex-wrap gap-3">
-          <button type="button" class="button" disabled>
+          <button
+            type="button"
+            class="button"
+            disabled={!variant}
+            onClick={() => {
+              if (!variant) return;
+              addToCart({
+                slug: product.slug,
+                variantId: variant.id,
+                name: product.name,
+                variantLabel: variant.label,
+                priceCents: variant.priceCents,
+                image: variant.image ?? product.images[0],
+                qty: 1,
+              });
+              openCart();
+            }}
+          >
             In den Warenkorb
           </button>
           <a href="/printauftrag" class="button secondary">
             Ähnliches anfragen
           </a>
         </div>
+        <p class="mt-4 text-sm text-[var(--muted)]">
+          Versand in 2–5 Werktagen · sichere Zahlung
+        </p>
       </div>
     </div>
   );

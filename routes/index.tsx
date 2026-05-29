@@ -3,7 +3,7 @@ import { define } from "@/utils.ts";
 import { getKv } from "@/lib/kv.ts";
 import { listProducts } from "@/lib/products.ts";
 import { categoryLabel, type Product } from "@/lib/catalog.ts";
-import { formatFrom } from "@/lib/price.ts";
+import { Price } from "@/components/ui/Price.tsx";
 import ShopFilter from "@/islands/ShopFilter.tsx";
 
 export const handler = define.handlers({
@@ -16,30 +16,29 @@ export const handler = define.handlers({
 const STOREFRONT_DESC =
   "3D-gedruckte Vasen, Planter und Choc-LP-Keycaps aus Stuttgart. Klare Objekte, sauber gedruckt, in kleinen Auflagen.";
 
-function Featured({ product }: { product: Product }) {
+function PromoBanner({ product }: { product: Product }) {
   return (
     <a
       href={`/shop/${product.slug}`}
       class="card group grid overflow-hidden md:grid-cols-2"
     >
-      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--steel)] md:aspect-auto">
+      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--surface-muted)] md:aspect-auto md:min-h-[26rem]">
         <img
           src={product.images[0]}
           alt={product.name}
-          class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
         />
       </div>
-      <div class="flex flex-col justify-center gap-4 p-8 md:p-10">
-        <p class="eyebrow text-[var(--clay)]">
-          Diesen Monat · {categoryLabel(product.category)}
-        </p>
-        <h2 class="display text-4xl font-semibold md:text-6xl">
+      <div class="flex flex-col justify-center gap-5 p-8 md:p-12">
+        <span class="w-fit rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.06em] text-white">
+          Neu im Shop · {categoryLabel(product.category)}
+        </span>
+        <h2 class="display text-3xl font-semibold md:text-5xl">
           {product.name}
         </h2>
-        <p class="max-w-md leading-8 opacity-80">{product.description}</p>
-        <p class="text-lg font-semibold">
-          {formatFrom(product.fromPriceCents)}
-        </p>
+        <p class="max-w-md text-[var(--muted)]">{product.description}</p>
+        <Price cents={product.fromPriceCents} from class="text-xl" />
+        <span class="button w-fit">Jetzt ansehen →</span>
       </div>
     </a>
   );
@@ -68,28 +67,26 @@ export default define.page<typeof handler>(function Home({ data }) {
         {ogImage && <meta property="og:image" content={ogImage} />}
       </Head>
 
-      <section class="shell py-12 md:py-16">
-        <div class="shop-heading mb-10">
-          <div>
-            <p class="eyebrow text-[var(--clay)]">3D Print Studio</p>
-            <h1 class="display mt-4 max-w-3xl text-5xl font-semibold md:text-7xl">
-              3D-gedruckte Objekte, kleine Serien.
-            </h1>
-            <p class="mt-5 max-w-xl text-lg leading-8">
-              Vasen, Planter und Keycaps für Choc-LP-Switches aus Stuttgart.
-              Klare Objekte, sauber gedruckt, in kleinen Auflagen.
-            </p>
-          </div>
-          <div class="shop-heading__meta" aria-label="Shop Informationen">
-            <span>{products.length} Produkte</span>
-            <span>2-5 Werktage</span>
-            <span>Kleine Serien</span>
-          </div>
+      <div class="border-b border-[var(--line)] bg-[var(--surface-muted)]">
+        <div class="shell flex flex-wrap items-center justify-center gap-x-8 gap-y-1 py-2.5 text-xs font-medium text-[var(--muted)] md:justify-start">
+          <span>✓ Versand in 2–5 Werktagen</span>
+          <span>✓ Sichere Zahlung</span>
+          <span>✓ Kleine Serien aus Stuttgart</span>
         </div>
+      </div>
 
-        {featured && <Featured product={featured} />}
+      <section class="shell py-8 md:py-10">
+        {featured && <PromoBanner product={featured} />}
 
         <div class="mt-12">
+          <div class="mb-6 flex items-end justify-between gap-4">
+            <h2 class="display text-2xl font-semibold md:text-3xl">
+              Alle Produkte
+            </h2>
+            <span class="text-sm text-[var(--muted)]">
+              {products.length} Artikel
+            </span>
+          </div>
           <ShopFilter products={products} />
         </div>
       </section>
@@ -97,12 +94,14 @@ export default define.page<typeof handler>(function Home({ data }) {
       <section class="section">
         <div class="shell shop-service-band">
           <div>
-            <p class="eyebrow text-[var(--clay)]">Druckauftrag</p>
-            <h2 class="display mt-3 text-3xl font-semibold md:text-4xl">
-              Technische Druckanfragen sauber vorbereiten.
+            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
+              Druckauftrag
+            </p>
+            <h2 class="display mt-3 text-2xl font-semibold md:text-4xl">
+              Eigenes Modell drucken lassen.
             </h2>
-            <p class="mt-3 max-w-2xl leading-8">
-              Modell hochladen, Material und Anforderungen erfassen. Ich pruefe
+            <p class="mt-3 max-w-2xl text-[var(--muted)]">
+              Modell hochladen, Material und Anforderungen erfassen. Ich prüfe
               Geometrie, Fertigungsrisiken und sinnvolle Einstellungen vor dem
               Druck.
             </p>

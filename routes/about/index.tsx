@@ -14,8 +14,10 @@ export default function AboutPage() {
         <title>About - Robin Rehbein</title>
       </Head>
       <section class="shell py-16">
-        <p class="eyebrow text-[var(--clay)]">About Robin</p>
-        <h1 class="display mt-5 max-w-5xl text-6xl font-semibold md:text-9xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
+          About Robin
+        </p>
+        <h1 class="display mt-4 max-w-4xl text-4xl font-semibold md:text-6xl">
           Software Engineer mit Produktblick und Werkstattenergie.
         </h1>
         <div class="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">

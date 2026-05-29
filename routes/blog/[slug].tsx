@@ -22,11 +22,16 @@ export default define.page<typeof handler>(({ data }) => {
         <title>{post.title} - Robin Rehbein</title>
       </Head>
       <article class="shell max-w-3xl py-16">
-        <a href="/blog" class="eyebrow text-[var(--clay)]">Zurueck zum Blog</a>
-        <h1 class="display mt-5 text-6xl font-semibold md:text-8xl">
+        <a
+          href="/blog"
+          class="text-sm font-medium text-[var(--accent)] hover:underline"
+        >
+          ← Zurück zum Blog
+        </a>
+        <h1 class="display mt-4 text-4xl font-semibold md:text-6xl">
           {post.title}
         </h1>
-        <p class="mt-6 text-sm font-semibold opacity-70">
+        <p class="mt-6 text-sm font-semibold text-[var(--muted)]">
           {post.date} · {post.tag} · {post.readTime}
         </p>
         <div class="mt-10 grid gap-6 text-xl leading-9">
