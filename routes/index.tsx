@@ -16,29 +16,29 @@ export const handler = define.handlers({
 const STOREFRONT_DESC =
   "3D-gedruckte Vasen, Planter und Choc-LP-Keycaps aus Stuttgart. Klare Objekte, sauber gedruckt, in kleinen Auflagen.";
 
-function Featured({ product }: { product: Product }) {
+function PromoBanner({ product }: { product: Product }) {
   return (
     <a
       href={`/shop/${product.slug}`}
       class="card group grid overflow-hidden md:grid-cols-2"
     >
-      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--surface-muted)] md:aspect-auto">
+      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--surface-muted)] md:aspect-auto md:min-h-[26rem]">
         <img
           src={product.images[0]}
           alt={product.name}
-          class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
         />
-        <span class="product-badge">{categoryLabel(product.category)}</span>
       </div>
-      <div class="flex flex-col justify-center gap-4 p-8 md:p-10">
-        <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
-          Diesen Monat
-        </p>
+      <div class="flex flex-col justify-center gap-5 p-8 md:p-12">
+        <span class="w-fit rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.06em] text-white">
+          Neu im Shop · {categoryLabel(product.category)}
+        </span>
         <h2 class="display text-3xl font-semibold md:text-5xl">
           {product.name}
         </h2>
         <p class="max-w-md text-[var(--muted)]">{product.description}</p>
-        <Price cents={product.fromPriceCents} from class="text-lg" />
+        <Price cents={product.fromPriceCents} from class="text-xl" />
+        <span class="button w-fit">Jetzt ansehen →</span>
       </div>
     </a>
   );
@@ -67,35 +67,26 @@ export default define.page<typeof handler>(function Home({ data }) {
         {ogImage && <meta property="og:image" content={ogImage} />}
       </Head>
 
-      <section class="shell py-10 md:py-14">
-        <div class="shop-heading mb-8">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
-              3D Print Studio · Stuttgart
-            </p>
-            <h1 class="display mt-3 max-w-3xl text-4xl font-semibold md:text-6xl">
-              3D-gedruckte Objekte, in kleinen Serien.
-            </h1>
-            <p class="mt-4 max-w-xl text-[var(--muted)]">
-              Vasen, Planter und Keycaps für Choc-LP-Switches. Klare Objekte,
-              sauber gedruckt — direkt aus der Werkstatt.
-            </p>
-            <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
-              <span>✓ Versand in 2–5 Werktagen</span>
-              <span>✓ Sichere Zahlung</span>
-              <span>✓ Kleine Serien</span>
-            </div>
-          </div>
-          <div class="shop-heading__meta" aria-label="Shop Informationen">
-            <span>{products.length} Produkte</span>
-            <span>2–5 Werktage</span>
-            <span>Kleine Serien</span>
-          </div>
+      <div class="border-b border-[var(--line)] bg-[var(--surface-muted)]">
+        <div class="shell flex flex-wrap items-center justify-center gap-x-8 gap-y-1 py-2.5 text-xs font-medium text-[var(--muted)] md:justify-start">
+          <span>✓ Versand in 2–5 Werktagen</span>
+          <span>✓ Sichere Zahlung</span>
+          <span>✓ Kleine Serien aus Stuttgart</span>
         </div>
+      </div>
 
-        {featured && <Featured product={featured} />}
+      <section class="shell py-8 md:py-10">
+        {featured && <PromoBanner product={featured} />}
 
         <div class="mt-12">
+          <div class="mb-6 flex items-end justify-between gap-4">
+            <h2 class="display text-2xl font-semibold md:text-3xl">
+              Alle Produkte
+            </h2>
+            <span class="text-sm text-[var(--muted)]">
+              {products.length} Artikel
+            </span>
+          </div>
           <ShopFilter products={products} />
         </div>
       </section>
