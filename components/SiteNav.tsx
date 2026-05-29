@@ -1,4 +1,5 @@
 import { navItems } from "@/lib/content.ts";
+import CartButton from "@/islands/CartButton.tsx";
 
 export default function SiteNav() {
   return (
@@ -32,14 +33,7 @@ export default function SiteNav() {
         </div>
 
         <div class="flex items-center gap-2">
-          {/* Cart slot — wired up in Phase 2 */}
-          <span
-            aria-hidden="true"
-            class="hidden size-10 place-items-center rounded-lg border border-[var(--line)] text-[var(--muted)] md:grid"
-            title="Warenkorb (bald verfügbar)"
-          >
-            🛒
-          </span>
+          <CartButton />
           <a href="/printauftrag" class="button nav-action">
             Angebot anfragen
           </a>

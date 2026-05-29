@@ -1,6 +1,7 @@
 import type { Product } from "@/lib/catalog.ts";
 import { categoryLabel } from "@/lib/catalog.ts";
 import { Price } from "@/components/ui/Price.tsx";
+import { addToCart, openCart } from "@/lib/cart-store.ts";
 
 const COLOR_HEX: Record<string, string> = {
   Charcoal: "#28313b",
@@ -62,7 +63,33 @@ export default function ProductCard({ product }: { product: Product }) {
               ))}
             </div>
           )}
-          <span class="product-link">Produkt ansehen</span>
+          <div class="mt-4 flex gap-2">
+            <span class="product-link flex-1">Ansehen</span>
+            {product.variants[0] && (
+              <button
+                type="button"
+                aria-label={`${product.name} in den Warenkorb`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const v = product.variants[0];
+                  addToCart({
+                    slug: product.slug,
+                    variantId: v.id,
+                    name: product.name,
+                    variantLabel: v.label,
+                    priceCents: v.priceCents,
+                    image: v.image ?? product.images[0],
+                    qty: 1,
+                  });
+                  openCart();
+                }}
+                class="grid size-12 shrink-0 place-items-center rounded-[8px] bg-[var(--ink)] text-lg text-white transition hover:bg-black"
+              >
+                +
+              </button>
+            )}
+          </div>
         </div>
       </a>
     </article>

@@ -1,6 +1,7 @@
 import { useSignal } from "@preact/signals";
 import type { Product } from "@/lib/catalog.ts";
 import { formatEuro } from "@/lib/price.ts";
+import { addToCart, openCart } from "@/lib/cart-store.ts";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const selectedImage = useSignal(0);
@@ -71,8 +72,20 @@ export default function ProductDetail({ product }: { product: Product }) {
           <button
             type="button"
             class="button"
-            disabled
-            title="Warenkorb folgt"
+            disabled={!variant}
+            onClick={() => {
+              if (!variant) return;
+              addToCart({
+                slug: product.slug,
+                variantId: variant.id,
+                name: product.name,
+                variantLabel: variant.label,
+                priceCents: variant.priceCents,
+                image: variant.image ?? product.images[0],
+                qty: 1,
+              });
+              openCart();
+            }}
           >
             In den Warenkorb
           </button>
