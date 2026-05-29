@@ -10,7 +10,13 @@
     "test": "deno test -A --unstable-kv"
   },
   "lint": { "rules": { "tags": ["fresh", "recommended"] } },
-  "exclude": ["**/_fresh/*", ".vite/**", ".kilocode/**", "node_modules/**"],
+  "exclude": [
+    "**/_fresh/*",
+    ".vite/**",
+    ".kilocode/**",
+    ".claude/**",
+    "node_modules/**"
+  ],
   "imports": {
     "fresh": "jsr:@fresh/core@^2.2.0",
     "fresh/": "jsr:@fresh/core@^2.2.0/",
@@ -27,6 +33,8 @@
     "@preact/signals": "npm:@preact/signals@^2.5.0",
     "@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.8",
     "three": "npm:three@^0.181.2",
+    "stripe": "npm:stripe@^18",
+    "@stripe/stripe-js": "npm:@stripe/stripe-js@^4",
     "vite": "npm:vite@^7.1.3",
     "tailwindcss": "npm:tailwindcss@^4.1.10",
     "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.12",

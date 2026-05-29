@@ -115,14 +115,16 @@ export default function CartDrawer() {
           <p class="mt-1 text-xs text-[var(--muted)]">
             inkl. MwSt. · zzgl. Versand
           </p>
-          <button
-            type="button"
-            class="button mt-4 w-full"
-            disabled={lines.length === 0}
-            title="Checkout folgt in Phase 3"
+          <a
+            href="/checkout"
+            onClick={closeCart}
+            class={`button mt-4 w-full ${
+              lines.length === 0 ? "pointer-events-none opacity-50" : ""
+            }`}
+            aria-disabled={lines.length === 0 ? "true" : "false"}
           >
             Zur Kasse
-          </button>
+          </a>
         </footer>
       </aside>
     </div>

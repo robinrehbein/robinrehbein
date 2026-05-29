@@ -45,6 +45,10 @@ export function removeFromCart(slug: string, variantId: string): void {
   cartLines.value = removeLine(cartLines.value, slug, variantId);
 }
 
+export function clearCart(): void {
+  cartLines.value = [];
+}
+
 export function openCart(): void {
   cartOpen.value = true;
 }
