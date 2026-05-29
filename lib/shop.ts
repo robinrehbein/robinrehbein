@@ -13,6 +13,12 @@ export function categoriesOf(products: Product[]): Category[] {
   return [...seen];
 }
 
+/** Newest products first (by createdAt), optionally limited to n. */
+export function newestProducts(products: Product[], n?: number): Product[] {
+  const sorted = [...products].sort((a, b) => b.createdAt - a.createdAt);
+  return n ? sorted.slice(0, n) : sorted;
+}
+
 /** Unique materials across all products, alphabetically sorted. */
 export function materialsOf(products: Product[]): string[] {
   const seen = new Set<string>();

@@ -4,6 +4,7 @@ import {
   filterProducts,
   groupByCategory,
   materialsOf,
+  newestProducts,
 } from "@/lib/shop.ts";
 import type { Product, VaseProduct } from "@/lib/catalog.ts";
 
@@ -84,6 +85,29 @@ Deno.test("filterProducts combines filters (AND)", () => {
     ),
     ["c"],
   );
+});
+
+Deno.test("newestProducts sorts by createdAt descending", () => {
+  const products: Product[] = [
+    { ...vase("old", [], 0), createdAt: 100 },
+    { ...vase("new", [], 0), createdAt: 300 },
+    { ...vase("mid", [], 0), createdAt: 200 },
+  ];
+  assertEquals(
+    newestProducts(products).map((p) => p.slug),
+    ["new", "mid", "old"],
+  );
+});
+
+Deno.test("newestProducts limits to n without mutating input", () => {
+  const products: Product[] = [
+    { ...vase("a", [], 0), createdAt: 1 },
+    { ...vase("b", [], 0), createdAt: 2 },
+    { ...vase("c", [], 0), createdAt: 3 },
+  ];
+  assertEquals(newestProducts(products, 2).map((p) => p.slug), ["c", "b"]);
+  // original order preserved (helper copies before sorting)
+  assertEquals(products.map((p) => p.slug), ["a", "b", "c"]);
 });
 
 Deno.test("groupByCategory groups in first-seen category order", () => {

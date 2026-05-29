@@ -96,7 +96,7 @@ export default define.page<typeof handler>(({ data }) => {
       </Head>
       <section class="shell py-16">
         <a
-          href="/"
+          href={`/shop?category=${product.category}`}
           class="text-sm font-medium text-[var(--accent)] hover:underline"
         >
           ← Zurück zum Shop · {categoryLabel(product.category)}

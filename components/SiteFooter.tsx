@@ -13,7 +13,7 @@ export default function SiteFooter() {
           <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--muted)]">
             Shop
           </p>
-          <a class="mt-3 block text-sm hover:text-[var(--accent)]" href="/">
+          <a class="mt-3 block text-sm hover:text-[var(--accent)]" href="/shop">
             Alle Produkte
           </a>
           <a

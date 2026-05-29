@@ -1,12 +1,13 @@
 import { assertEquals } from "@std/assert";
-import { App } from "fresh";
-import { type State } from "@/utils.ts";
-import { handler } from "@/routes/shop/index.tsx";
+import { parseCategory } from "@/routes/shop/index.tsx";
 
-Deno.test("GET /shop redirects to / permanently", async () => {
-  const app = new App<State>().get("/shop", handler.GET).handler();
-  const res = await app(new Request("http://localhost/shop"));
-  await res.body?.cancel();
-  assertEquals(res.status, 308);
-  assertEquals(res.headers.get("location"), "/");
+Deno.test("parseCategory accepts valid category keys", () => {
+  assertEquals(parseCategory("vase"), "vase");
+  assertEquals(parseCategory("keycap"), "keycap");
+});
+
+Deno.test("parseCategory rejects unknown or missing values", () => {
+  assertEquals(parseCategory("nope"), undefined);
+  assertEquals(parseCategory(""), undefined);
+  assertEquals(parseCategory(null), undefined);
 });

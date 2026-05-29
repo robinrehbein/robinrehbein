@@ -9,7 +9,7 @@ export type Post = {
 };
 
 export const navItems = [
-  { href: "/", label: "Shop" },
+  { href: "/shop", label: "Shop" },
   { href: "/printauftrag", label: "Druckauftrag" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },

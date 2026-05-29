@@ -3,8 +3,9 @@ import { define } from "@/utils.ts";
 import { getKv } from "@/lib/kv.ts";
 import { listProducts } from "@/lib/products.ts";
 import { categoryLabel, type Product } from "@/lib/catalog.ts";
+import { groupByCategory, newestProducts } from "@/lib/shop.ts";
 import { Price } from "@/components/ui/Price.tsx";
-import ShopFilter from "@/islands/ShopFilter.tsx";
+import ProductGrid from "@/islands/ProductGrid.tsx";
 
 export const handler = define.handlers({
   async GET(ctx) {
@@ -44,9 +45,43 @@ function PromoBanner({ product }: { product: Product }) {
   );
 }
 
+function CategoryTile(
+  { category, count, image }: {
+    category: Product["category"];
+    count: number;
+    image: string;
+  },
+) {
+  return (
+    <a
+      href={`/shop?category=${category}`}
+      class="card group relative flex aspect-[4/5] flex-col justify-end overflow-hidden"
+    >
+      <img
+        src={image}
+        alt=""
+        loading="lazy"
+        class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+      <div class="relative p-5 text-white">
+        <h3 class="text-lg font-semibold tracking-tight">
+          {categoryLabel(category)}
+        </h3>
+        <p class="mt-1 text-sm text-white/80">
+          {count} Artikel
+        </p>
+      </div>
+    </a>
+  );
+}
+
 export default define.page<typeof handler>(function Home({ data }) {
   const { products, origin } = data;
-  const featured = products[0];
+  const newest = newestProducts(products);
+  const featured = newest[0];
+  const featuredRow = newest.slice(1, 4);
+  const categories = groupByCategory(products);
   const ogImage = featured
     ? new URL(featured.images[0], origin).href
     : undefined;
@@ -77,19 +112,42 @@ export default define.page<typeof handler>(function Home({ data }) {
 
       <section class="shell py-8 md:py-10">
         {featured && <PromoBanner product={featured} />}
+      </section>
 
-        <div class="mt-12">
+      {featuredRow.length > 0 && (
+        <section class="shell pb-4">
           <div class="mb-6 flex items-end justify-between gap-4">
             <h2 class="display text-2xl font-semibold md:text-3xl">
-              Alle Produkte
+              Neu im Shop
             </h2>
-            <span class="text-sm text-[var(--muted)]">
-              {products.length} Artikel
-            </span>
+            <a
+              href="/shop"
+              class="shrink-0 text-sm font-medium text-[var(--accent)] hover:underline"
+            >
+              Alle Produkte ansehen →
+            </a>
           </div>
-          <ShopFilter products={products} />
-        </div>
-      </section>
+          <ProductGrid products={featuredRow} />
+        </section>
+      )}
+
+      {categories.length > 0 && (
+        <section class="shell py-12">
+          <h2 class="display mb-6 text-2xl font-semibold md:text-3xl">
+            Kategorien
+          </h2>
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map((group) => (
+              <CategoryTile
+                key={group.category}
+                category={group.category}
+                count={group.products.length}
+                image={group.products[0].images[0]}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="section">
         <div class="shell shop-service-band">

@@ -10,8 +10,13 @@ import {
 import { formatEuro } from "@/lib/price.ts";
 import ProductCard from "@/components/ProductCard.tsx";
 
-export default function ShopFilter({ products }: { products: Product[] }) {
-  const category = useSignal<Category | "all">("all");
+export default function ShopFilter(
+  { products, initialCategory }: {
+    products: Product[];
+    initialCategory?: Category;
+  },
+) {
+  const category = useSignal<Category | "all">(initialCategory ?? "all");
   const material = useSignal<string | "all">("all");
   const maxPrice = useSignal<number>(0); // 0 = no limit
 
