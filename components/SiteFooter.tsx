@@ -1,34 +1,61 @@
 export default function SiteFooter() {
   return (
-    <footer class="border-t border-[var(--line)] py-10">
-      <div class="shell grid gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+    <footer class="mt-20 border-t border-[var(--line)] bg-[var(--surface-muted)] py-12">
+      <div class="shell grid gap-8 md:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
         <div>
-          <p class="display text-3xl font-semibold">RR3D Studio</p>
-          <p class="mt-3 max-w-md text-sm opacity-75">
-            3D-gedruckte Objekte, kleine Serien und individuelle Druckauftraege
+          <p class="text-lg font-semibold tracking-tight">RR3D Studio</p>
+          <p class="mt-3 max-w-md text-sm text-[var(--muted)]">
+            3D-gedruckte Objekte, kleine Serien und individuelle Druckaufträge
             aus Stuttgart.
           </p>
         </div>
         <div>
-          <p class="eyebrow">Kontakt</p>
-          <a
-            class="mt-3 block font-semibold"
-            href="mailto:hello@robinrehbein.de"
-          >
-            hello@robinrehbein.de
+          <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--muted)]">
+            Shop
+          </p>
+          <a class="mt-3 block text-sm hover:text-[var(--accent)]" href="/">
+            Alle Produkte
           </a>
           <a
-            class="mt-2 block opacity-75"
-            href="https://github.com/robinrehbein"
+            class="mt-2 block text-sm hover:text-[var(--accent)]"
+            href="/printauftrag"
           >
-            github.com/robinrehbein
+            Druckauftrag
           </a>
         </div>
         <div>
-          <p class="eyebrow">Rechtliches</p>
-          <a class="mt-3 block opacity-75" href="/imprint">Impressum</a>
-          <a class="mt-2 block opacity-75" href="/privacy">Datenschutz</a>
-          <a class="mt-2 block opacity-75" href="/disclaimer">Disclaimer</a>
+          <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--muted)]">
+            Mehr
+          </p>
+          <a class="mt-3 block text-sm hover:text-[var(--accent)]" href="/blog">
+            Blog
+          </a>
+          <a
+            class="mt-2 block text-sm hover:text-[var(--accent)]"
+            href="/about"
+          >
+            About
+          </a>
+          <a
+            class="mt-2 block text-sm hover:text-[var(--accent)]"
+            href="mailto:hello@robinrehbein.de"
+          >
+            Kontakt
+          </a>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--muted)]">
+            Rechtliches
+          </p>
+          <a class="mt-3 block text-sm text-[var(--muted)]" href="/imprint">
+            Impressum
+          </a>
+          <a class="mt-2 block text-sm text-[var(--muted)]" href="/privacy">
+            Datenschutz
+          </a>
+          <a class="mt-2 block text-sm text-[var(--muted)]" href="/disclaimer">
+            Disclaimer
+          </a>
         </div>
       </div>
     </footer>

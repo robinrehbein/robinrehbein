@@ -1,6 +1,6 @@
 import type { Product } from "@/lib/catalog.ts";
 import { categoryLabel } from "@/lib/catalog.ts";
-import { formatFrom } from "@/lib/price.ts";
+import { Price } from "@/components/ui/Price.tsx";
 
 const COLOR_HEX: Record<string, string> = {
   Charcoal: "#28313b",
@@ -26,25 +26,23 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <article class="product-card group">
       <a href={`/shop/${product.slug}`} class="block">
-        <div class="relative aspect-[4/3] overflow-hidden bg-[var(--steel)]">
+        <div class="relative aspect-[4/3] overflow-hidden bg-[var(--surface-muted)]">
           <img
             src={product.images[0]}
             alt={product.name}
-            class="h-full w-full object-cover opacity-88 transition duration-300 group-hover:scale-[1.03]"
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
             loading="lazy"
           />
-          <span class="product-badge">
-            {categoryLabel(product.category)}
-          </span>
+          <span class="product-badge">{categoryLabel(product.category)}</span>
         </div>
         <div class="p-5">
-          <h3 class="display text-2xl font-semibold">{product.name}</h3>
-          <p class="mt-3 text-sm opacity-76">{product.description}</p>
-          <div class="mt-5 flex items-center justify-between gap-3">
-            <p class="text-lg font-semibold">
-              {formatFrom(product.fromPriceCents)}
-            </p>
-            <p class="text-sm opacity-70">{product.leadTime}</p>
+          <h3 class="text-lg font-semibold tracking-tight">{product.name}</h3>
+          <p class="mt-2 line-clamp-2 text-sm text-[var(--muted)]">
+            {product.description}
+          </p>
+          <div class="mt-4 flex items-center justify-between gap-3">
+            <Price cents={product.fromPriceCents} from class="text-lg" />
+            <span class="text-xs text-[var(--muted)]">{product.leadTime}</span>
           </div>
           {colors.length > 0 && (
             <div

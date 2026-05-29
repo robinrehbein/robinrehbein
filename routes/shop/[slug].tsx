@@ -95,10 +95,13 @@ export default define.page<typeof handler>(({ data }) => {
         {jsonLd}
       </Head>
       <section class="shell py-16">
-        <a href="/" class="eyebrow text-[var(--clay)]">
+        <a
+          href="/"
+          class="text-sm font-medium text-[var(--accent)] hover:underline"
+        >
           ← Zurück zum Shop · {categoryLabel(product.category)}
         </a>
-        <h1 class="display mt-5 mb-8 text-6xl font-semibold md:text-8xl">
+        <h1 class="display mt-4 mb-8 text-4xl font-semibold md:text-6xl">
           {product.name}
         </h1>
         <ProductDetail product={product} />
