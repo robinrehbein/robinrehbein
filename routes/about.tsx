@@ -91,22 +91,43 @@ export default function About() {
           Certifications:
         </p>
         <ul class="flex flex-wrap gap-8">
-          {certifications.map((c) => (
-            <li key={c.title}>
-              <a
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="block border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green -rotate-1 transition-transform hover:rotate-0"
-              >
-                <p class="eyebrow text-mustard-deep mb-1">
-                  {c.issuer} · {c.year}
-                </p>
-                <p class="display text-xl font-semibold mb-2">{c.title}</p>
-                <span class="eyebrow link-wavy">Verify on Credly ↗</span>
-              </a>
-            </li>
-          ))}
+          {certifications.map((c, i) => {
+            const card = (
+              <>
+                {(c.issuer || c.year) && (
+                  <p class="eyebrow text-mustard-deep mb-1">
+                    {[c.issuer, c.year].filter(Boolean).join(" · ")}
+                  </p>
+                )}
+                <p class="display text-xl font-semibold">{c.title}</p>
+                {c.href && (
+                  <span class="eyebrow link-wavy mt-2 inline-block">
+                    Verify ↗
+                  </span>
+                )}
+              </>
+            );
+            const cardClass =
+              `block h-full border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green transition-transform ${
+                i % 2 === 0 ? "-rotate-1" : "rotate-1"
+              } hover:rotate-0`;
+            return (
+              <li key={c.title}>
+                {c.href
+                  ? (
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class={cardClass}
+                    >
+                      {card}
+                    </a>
+                  )
+                  : <div class={cardClass}>{card}</div>}
+              </li>
+            );
+          })}
         </ul>
       </section>
     </>
