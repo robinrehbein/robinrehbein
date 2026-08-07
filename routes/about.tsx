@@ -92,14 +92,19 @@ export default function About() {
         </p>
         <ul class="flex flex-wrap gap-8">
           {certifications.map((c) => (
-            <li
-              key={c.title}
-              class="border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green -rotate-1"
-            >
-              <p class="eyebrow text-mustard-deep mb-1">
-                {c.issuer} · {c.year}
-              </p>
-              <p class="display text-xl font-semibold">{c.title}</p>
+            <li key={c.title}>
+              <a
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green -rotate-1 transition-transform hover:rotate-0"
+              >
+                <p class="eyebrow text-mustard-deep mb-1">
+                  {c.issuer} · {c.year}
+                </p>
+                <p class="display text-xl font-semibold mb-2">{c.title}</p>
+                <span class="eyebrow link-wavy">Verify on Credly ↗</span>
+              </a>
             </li>
           ))}
         </ul>
