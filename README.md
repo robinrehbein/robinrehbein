@@ -15,6 +15,12 @@ deno task start   # serve the production build
 deno task check   # fmt + lint + type check
 ```
 
+## Deployment
+
+Coolify builds and deploys the site automatically from the `Dockerfile` on every
+push to `main` (build: `deno task build`, serve: `deno task start` on port
+8000).
+
 ## Structure
 
 - `routes/` — pages (`/`, `/work`, `/about`, `/imprint`, `/privacy`)
