@@ -147,13 +147,16 @@ export interface Certification {
   title: string;
   issuer: string;
   year: string;
+  href: string;
 }
 
 export const certifications: Certification[] = [
   {
-    title: "Claude Code — AI-Assisted Engineering",
+    title: "Claude Certification — AI-Assisted Engineering",
     issuer: "Anthropic",
     year: "2026",
+    href:
+      "https://www.credly.com/badges/a95d77a3-7acc-4f00-aa8e-178f778e2b86/public_url",
   },
 ];
 
