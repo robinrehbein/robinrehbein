@@ -161,16 +161,22 @@ export const certifications: Certification[] = [
   {
     title: "CPSA-F — Software Architecture Foundation",
     issuer: "iSAQB",
+    year: "2025",
+  },
+  {
+    title: "Professional Scrum Master I",
+    issuer: "Scrum.org",
+    year: "2023",
+  },
+  {
+    title: "Professional Scrum Product Owner I",
+    issuer: "Scrum.org",
+    year: "2023",
   },
   {
     title: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services",
-  },
-  {
-    title: "Scrum Master Certification",
-  },
-  {
-    title: "Scrum Product Owner Certification",
+    year: "2020",
   },
 ];
 
