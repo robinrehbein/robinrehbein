@@ -9,6 +9,7 @@ const MARQUEE_ITEMS = [
   `Turning ideas into code since ${site.codingSince}`,
   "Web architecture",
   "Design & development",
+  "Claude Code certified",
 ];
 
 function MarqueeContent() {

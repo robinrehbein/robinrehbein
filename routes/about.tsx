@@ -1,5 +1,5 @@
 import { Head } from "fresh/runtime";
-import { likes, positions, site } from "@/lib/site.ts";
+import { certifications, likes, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
 
@@ -86,6 +86,22 @@ export default function About() {
         </p>
         <ul>
           {previous.map((p) => <PositionItem key={p.company} position={p} />)}
+        </ul>
+        <p class="font-serif italic font-medium text-lg mb-6 mt-16">
+          Certifications:
+        </p>
+        <ul class="flex flex-wrap gap-8">
+          {certifications.map((c) => (
+            <li
+              key={c.title}
+              class="border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green -rotate-1"
+            >
+              <p class="eyebrow text-mustard-deep mb-1">
+                {c.issuer} · {c.year}
+              </p>
+              <p class="display text-xl font-semibold">{c.title}</p>
+            </li>
+          ))}
         </ul>
       </section>
     </>
