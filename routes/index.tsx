@@ -1,174 +1,174 @@
-import { Head } from "fresh/runtime";
-import { define } from "@/utils.ts";
-import { getKv } from "@/lib/kv.ts";
-import { listProducts } from "@/lib/products.ts";
-import { categoryLabel, type Product } from "@/lib/catalog.ts";
-import { groupByCategory, newestProducts } from "@/lib/shop.ts";
-import { Price } from "@/components/ui/Price.tsx";
-import ProductGrid from "@/islands/ProductGrid.tsx";
+import { likes, positions, projects, site } from "@/lib/site.ts";
+import { ProjectCard } from "@/components/ProjectCard.tsx";
+import { PositionItem } from "@/components/PositionItem.tsx";
+import { SectionHead } from "@/components/SectionHead.tsx";
 
-export const handler = define.handlers({
-  async GET(ctx) {
-    const products = await listProducts(await getKv());
-    return { data: { products, origin: ctx.url.origin } };
-  },
-});
+const MARQUEE_ITEMS = [
+  "Available for projects",
+  "Stuttgart, Germany",
+  `Turning ideas into code since ${site.codingSince}`,
+  "Web architecture",
+  "Design & development",
+];
 
-const STOREFRONT_DESC =
-  "3D-gedruckte Vasen, Planter und Choc-LP-Keycaps aus Stuttgart. Klare Objekte, sauber gedruckt, in kleinen Auflagen.";
-
-function PromoBanner({ product }: { product: Product }) {
-  return (
-    <a
-      href={`/shop/${product.slug}`}
-      class="card group grid overflow-hidden md:grid-cols-2"
-    >
-      <div class="relative aspect-[4/3] overflow-hidden bg-[var(--surface-muted)] md:aspect-auto md:min-h-[26rem]">
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-        />
-      </div>
-      <div class="flex flex-col justify-center gap-5 p-8 md:p-12">
-        <span class="w-fit rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.06em] text-white">
-          Neu im Shop · {categoryLabel(product.category)}
-        </span>
-        <h2 class="display text-3xl font-semibold md:text-5xl">
-          {product.name}
-        </h2>
-        <p class="max-w-md text-[var(--muted)]">{product.description}</p>
-        <Price cents={product.fromPriceCents} from class="text-xl" />
-        <span class="button w-fit">Jetzt ansehen →</span>
-      </div>
-    </a>
-  );
-}
-
-function CategoryTile(
-  { category, count, image }: {
-    category: Product["category"];
-    count: number;
-    image: string;
-  },
-) {
-  return (
-    <a
-      href={`/shop?category=${category}`}
-      class="card group relative flex aspect-[4/5] flex-col justify-end overflow-hidden"
-    >
-      <img
-        src={image}
-        alt=""
-        loading="lazy"
-        class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-      <div class="relative p-5 text-white">
-        <h3 class="text-lg font-semibold tracking-tight">
-          {categoryLabel(category)}
-        </h3>
-        <p class="mt-1 text-sm text-white/80">
-          {count} Artikel
-        </p>
-      </div>
-    </a>
-  );
-}
-
-export default define.page<typeof handler>(function Home({ data }) {
-  const { products, origin } = data;
-  const newest = newestProducts(products);
-  const featured = newest[0];
-  const featuredRow = newest.slice(1, 4);
-  const categories = groupByCategory(products);
-  const ogImage = featured
-    ? new URL(featured.images[0], origin).href
-    : undefined;
-
+function MarqueeContent() {
   return (
     <>
-      <Head>
-        <title>Robin Rehbein - 3D Print Studio Shop</title>
-        <meta name="description" content={STOREFRONT_DESC} />
-        <link rel="canonical" href={`${origin}/`} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Robin Rehbein · 3D Print Studio"
-        />
-        <meta property="og:description" content={STOREFRONT_DESC} />
-        <meta property="og:url" content={`${origin}/`} />
-        {ogImage && <meta property="og:image" content={ogImage} />}
-      </Head>
+      {MARQUEE_ITEMS.map((item) => (
+        <span key={item} class="eyebrow inline-flex items-center gap-12">
+          {item} <span class="text-mustard" aria-hidden="true">✦</span>
+        </span>
+      ))}
+    </>
+  );
+}
 
-      <div class="border-b border-[var(--line)] bg-[var(--surface-muted)]">
-        <div class="shell flex flex-wrap items-center justify-center gap-x-8 gap-y-1 py-2.5 text-xs font-medium text-[var(--muted)] md:justify-start">
-          <span>✓ Versand in 2–5 Werktagen</span>
-          <span>✓ Sichere Zahlung</span>
-          <span>✓ Kleine Serien aus Stuttgart</span>
+export default function Home() {
+  const current = positions.filter((p) => p.current);
+  return (
+    <>
+      {/* Hero */}
+      <section class="shell pt-10 md:pt-16 pb-16 md:pb-24">
+        <div class="reveal reveal-1 flex flex-col md:flex-row justify-between gap-6 mb-16 md:mb-28">
+          <p class="font-serif italic text-lg">
+            ({site.name} — Portfolio)
+          </p>
+          <div class="flex flex-col gap-1 font-serif">
+            <p>
+              Currently coding at{" "}
+              <a
+                href="https://mimacom.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-wavy font-medium"
+              >
+                mimacom
+              </a>
+            </p>
+            <p>Based in {site.location}</p>
+          </div>
+        </div>
+
+        <h1 class="reveal reveal-2 display font-medium text-[clamp(3.2rem,11vw,10rem)] mb-14 md:mb-20">
+          Architect
+          <br />
+          <span class="text-green">& Develop.</span>
+        </h1>
+
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
+          <p class="reveal reveal-3 serif-lede max-w-md">
+            Turning people's ideas into{" "}
+            <strong class="font-semibold text-mustard-deep">
+              &#123;code&#125;
+            </strong>{" "}
+            since {site.codingSince}.
+          </p>
+          <img
+            src="/me_square.jpg"
+            alt={`Portrait of ${site.name}`}
+            class="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square object-cover object-top"
+          />
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <div class="marquee reveal reveal-5" aria-hidden="true">
+        <div class="marquee-track">
+          <MarqueeContent />
+          <MarqueeContent />
         </div>
       </div>
 
-      <section class="shell py-8 md:py-10">
-        {featured && <PromoBanner product={featured} />}
-      </section>
-
-      {featuredRow.length > 0 && (
-        <section class="shell pb-4">
-          <div class="mb-6 flex items-end justify-between gap-4">
-            <h2 class="display text-2xl font-semibold md:text-3xl">
-              Neu im Shop
-            </h2>
-            <a
-              href="/shop"
-              class="shrink-0 text-sm font-medium text-[var(--accent)] hover:underline"
-            >
-              Alle Produkte ansehen →
+      {/* About */}
+      <section class="shell py-16 md:py-28">
+        <SectionHead index="01" title="About me." />
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+          <div>
+            <p class="serif-lede mb-6">
+              Hi — I'm{" "}
+              <strong class="font-semibold">Robin</strong>, a software engineer
+              living in Stuttgart. I finished my studies in computer science and
+              communications in 2018 and found my passion for web design and
+              development along the way. My excitement for learning never stops.
+            </p>
+            <ul class="flex flex-wrap gap-3 mb-8">
+              {likes.map((like) => (
+                <li
+                  key={like}
+                  class="eyebrow border-2 border-ink px-4 py-2 bg-paper-warm"
+                >
+                  {like}
+                </li>
+              ))}
+            </ul>
+            <a href="/about" class="eyebrow link-wavy">
+              More about me →
             </a>
           </div>
-          <ProductGrid products={featuredRow} />
-        </section>
-      )}
-
-      {categories.length > 0 && (
-        <section class="shell py-12">
-          <h2 class="display mb-6 text-2xl font-semibold md:text-3xl">
-            Kategorien
-          </h2>
-          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((group) => (
-              <CategoryTile
-                key={group.category}
-                category={group.category}
-                count={group.products.length}
-                image={group.products[0].images[0]}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section class="section">
-        <div class="shell shop-service-band">
           <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--accent)]">
-              Druckauftrag
+            <p class="font-serif italic font-medium text-lg mb-4">
+              Current positions:
             </p>
-            <h2 class="display mt-3 text-2xl font-semibold md:text-4xl">
-              Eigenes Modell drucken lassen.
-            </h2>
-            <p class="mt-3 max-w-2xl text-[var(--muted)]">
-              Modell hochladen, Material und Anforderungen erfassen. Ich prüfe
-              Geometrie, Fertigungsrisiken und sinnvolle Einstellungen vor dem
-              Druck.
-            </p>
+            <ul>
+              {current.map((p) => (
+                <PositionItem
+                  key={p.company}
+                  position={p}
+                />
+              ))}
+            </ul>
           </div>
-          <a href="/printauftrag" class="button shrink-0">
-            Druckauftrag starten
+        </div>
+      </section>
+
+      {/* Work */}
+      <section class="shell py-16 md:py-28 border-t-2 border-ink">
+        <SectionHead index="02" title="Selected work." />
+        {projects.map((project, i) => (
+          <ProjectCard
+            key={project.title}
+            project={project}
+            flip={i % 2 === 1}
+          />
+        ))}
+        <div class="mt-16 text-right">
+          <a href="/work" class="eyebrow link-wavy">
+            More of my work →
           </a>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section class="shell py-16 md:py-28 border-t-2 border-ink">
+        <SectionHead index="03" title="Contact." id="contact" />
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+          <p class="font-serif italic font-medium text-lg">Get in touch!</p>
+          <div>
+            <p class="mb-8 max-w-prose">
+              I'd love to hear from you! Whether you have a question, a project
+              proposal, or just want to say hello — feel free to reach out. I
+              look forward to connecting with you.
+            </p>
+            <ul class="flex flex-col gap-3 font-serif italic text-lg">
+              <li>
+                <a href={`mailto:${site.email}`} class="link-wavy">
+                  ✉ {site.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={site.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-wavy"
+                >
+                  ⌥ github.com/robinrehbein
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </>
   );
-});
+}

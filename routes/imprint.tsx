@@ -1,41 +1,44 @@
 import { Head } from "fresh/runtime";
+import { site } from "@/lib/site.ts";
 
 export default function Imprint() {
   return (
     <>
       <Head>
-        <title>Impressum - Robin Rehbein</title>
+        <title>{`Impressum — ${site.name}`}</title>
+        <meta name="robots" content="noindex" />
       </Head>
-      <section class="shell max-w-3xl py-16">
-        <p class="eyebrow text-[var(--clay)]">Legal</p>
-        <h1 class="display mt-5 text-7xl font-semibold md:text-9xl">
+      <section class="shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
+        <p class="eyebrow text-mustard-deep mb-4">Legal</p>
+        <h1 class="display font-medium text-[clamp(2.5rem,8vw,6rem)] mb-12">
           Impressum.
         </h1>
-        <div class="mt-10 grid gap-8 text-lg leading-8">
+        <div class="grid gap-10">
           <section>
-            <h2 class="display text-3xl font-semibold">
-              Angaben gemaess § 5 TMG
+            <h2 class="display text-2xl font-semibold mb-3">
+              Angaben gemäß § 5 TMG
             </h2>
-            <p class="mt-3">
+            <p>
               Robin Rehbein<br />
-              [Strasse und Hausnummer]<br />
+              [Straße und Hausnummer]<br />
               [PLZ und Ort]
             </p>
           </section>
           <section>
-            <h2 class="display text-3xl font-semibold">Kontakt</h2>
-            <p class="mt-3">
+            <h2 class="display text-2xl font-semibold mb-3">Kontakt</h2>
+            <p>
               E-Mail:{" "}
-              <a class="underline" href="mailto:hello@robinrehbein.de">
-                hello@robinrehbein.de
+              <a href={`mailto:${site.email}`} class="link-wavy">
+                {site.email}
               </a>
             </p>
           </section>
           <section>
-            <h2 class="display text-3xl font-semibold">Umsatzsteuer-ID</h2>
-            <p class="mt-3">
-              Umsatzsteuer-Identifikationsnummer gemaess § 27 a
-              Umsatzsteuergesetz: [Umsatzsteuer-ID]
+            <h2 class="display text-2xl font-semibold mb-3">
+              Verantwortlich für den Inhalt
+            </h2>
+            <p>
+              Robin Rehbein (Anschrift wie oben)
             </p>
           </section>
         </div>

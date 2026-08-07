@@ -1,16 +1,31 @@
-# Fresh project - still wip just for exploration
+# robinrehbein.de
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+Personal portfolio of Robin Rehbein — software engineer & web architect based in
+Stuttgart, Germany.
 
-### Usage
+Built with [Deno Fresh 2](https://fresh.deno.dev) (Preact, Vite, Tailwind CSS
+4). Fully server-rendered — no islands, no client-side state, no tracking.
 
-Make sure to install Deno: https://deno.land/manual/getting_started/installation
+## Development
 
-Then start the project:
-
+```sh
+deno task dev     # dev server with HMR (localhost:5173)
+deno task build   # production build → _fresh/
+deno task start   # serve the production build
+deno task check   # fmt + lint + type check
 ```
-deno task start
-```
 
-This will watch the project directory and restart as necessary.
+## Deployment
+
+Coolify builds and deploys the site automatically from the `Dockerfile` on every
+push to `main` (build: `deno task build`, serve: `deno task start` on port
+8000).
+
+## Structure
+
+- `routes/` — pages (`/`, `/work`, `/about`, `/imprint`, `/privacy`)
+- `components/` — server-rendered Preact components
+- `lib/site.ts` — all site content (projects, positions, contact)
+- `assets/styles.css` — design system (paper/ink/racing-green, Clash Display +
+  Zodiak + Anaheim)
+- `static/` — fonts, photos, project imagery
