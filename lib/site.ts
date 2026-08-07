@@ -145,9 +145,9 @@ export const positions: Position[] = [
 
 export interface Certification {
   title: string;
-  issuer: string;
-  year: string;
-  href: string;
+  issuer?: string;
+  year?: string;
+  href?: string;
 }
 
 export const certifications: Certification[] = [
@@ -157,6 +157,20 @@ export const certifications: Certification[] = [
     year: "2026",
     href:
       "https://www.credly.com/badges/a95d77a3-7acc-4f00-aa8e-178f778e2b86/public_url",
+  },
+  {
+    title: "CPSA-F — Software Architecture Foundation",
+    issuer: "iSAQB",
+  },
+  {
+    title: "AWS Certified Cloud Practitioner",
+    issuer: "Amazon Web Services",
+  },
+  {
+    title: "Scrum Master Certification",
+  },
+  {
+    title: "Scrum Product Owner Certification",
   },
 ];
 
