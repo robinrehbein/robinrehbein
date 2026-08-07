@@ -1,15 +1,9 @@
-import "@std/dotenv/load";
-import { App, csrf, staticFiles } from "fresh";
+import { App, staticFiles } from "fresh";
 import { type State } from "@/utils.ts";
-import { getKv } from "@/lib/kv.ts";
-import { seedIfEmpty } from "@/lib/seed.ts";
-
-await seedIfEmpty(await getKv());
 
 export const app = new App<State>();
 
 app.use(staticFiles());
-app.use(csrf());
 app.use(async (ctx) => {
   const res = await ctx.next();
   res.headers.set("X-Content-Type-Options", "nosniff");

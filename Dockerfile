@@ -5,7 +5,7 @@ ENV DENO_DEPLOYMENT_ID=${GIT_REVISION}
 
 WORKDIR /app
 
-COPY deno.json deno.lock ./
+COPY deno.json ./
 RUN deno install
 
 COPY . .

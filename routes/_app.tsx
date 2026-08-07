@@ -1,29 +1,30 @@
-import { type PageProps } from "fresh";
-import { Head } from "fresh/runtime";
-import "@/assets/styles.css";
+import { define } from "@/utils.ts";
+import { site } from "@/lib/site.ts";
 
-export default function App({ Component }: PageProps) {
+export default define.page(function App({ Component }) {
   return (
-    <html lang="de">
-      <Head>
-        <meta charSet="utf-8" />
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{`${site.name} — ${site.role}`}</title>
         <meta
           name="description"
-          content="Robin Rehbein entwickelt digitale Produkte, schreibt über Webtechnologie und bietet 3D gedruckte Objekte sowie individuelle Druckaufträge an."
+          content={`${site.name}, ${site.role} based in ${site.location}. Turning people's ideas into code since ${site.codingSince}.`}
         />
-        <meta name="theme-color" content="#28313b" />
+        <meta property="og:title" content={`${site.name} — Portfolio`} />
         <meta
-          property="og:site_name"
-          content="Robin Rehbein · 3D Print Studio"
+          property="og:description"
+          content={`Turning people's ideas into code since ${site.codingSince}.`}
         />
-        <meta property="og:locale" content="de_DE" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <title>Robin Rehbein - 3D Print Studio Shop</title>
-      </Head>
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={site.url} />
+        <meta property="og:image" content={`${site.url}/me_square.jpg`} />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body>
         <Component />
       </body>
     </html>
   );
-}
+});

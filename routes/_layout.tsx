@@ -1,17 +1,15 @@
-import { type PageProps } from "fresh";
-import SiteFooter from "@/components/SiteFooter.tsx";
-import SiteNav from "@/components/SiteNav.tsx";
-import CartDrawer from "@/islands/CartDrawer.tsx";
+import { define } from "@/utils.ts";
+import { Nav } from "@/components/Nav.tsx";
+import { Footer } from "@/components/Footer.tsx";
 
-export default function Layout({ Component }: PageProps) {
+export default define.layout(function Layout({ Component }) {
   return (
     <>
-      <SiteNav />
+      <Nav />
       <main>
         <Component />
       </main>
-      <SiteFooter />
-      <CartDrawer />
+      <Footer />
     </>
   );
-}
+});
