@@ -1,11 +1,13 @@
 export function Nav() {
   return (
     <header class="border-b-2 border-ink bg-paper/95 sticky top-0 z-50 backdrop-blur-sm">
-      <div class="shell flex items-center justify-between gap-4 py-3">
+      <div class="shell flex items-center justify-between gap-3 py-3">
         <a href="/" class="display text-xl font-semibold tracking-tight">
-          Robin&nbsp;Rehbein<span class="text-mustard-deep">.</span>
+          <span class="md:hidden" aria-label="Robin Rehbein">RR</span>
+          <span class="hidden md:inline">Robin&nbsp;Rehbein</span>
+          <span class="text-mustard-deep">.</span>
         </a>
-        <nav class="flex items-center gap-5 md:gap-8">
+        <nav class="flex items-center gap-4 md:gap-8">
           <a href="/work" class="eyebrow hover:text-green transition-colors">
             Work
           </a>
