@@ -20,8 +20,8 @@ export default function Imprint() {
             </h2>
             <p>
               Robin Rehbein<br />
-              [Straße und Hausnummer]<br />
-              [PLZ und Ort]
+              Stiegelstraße 26<br />
+              71701 Schwieberdingen
             </p>
           </section>
           <section>
