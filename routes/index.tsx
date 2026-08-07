@@ -1,4 +1,4 @@
-import { likes, positions, projects, site } from "@/lib/site.ts";
+import { likes, positions, projects, sideProjects, site } from "@/lib/site.ts";
 import { ProjectCard } from "@/components/ProjectCard.tsx";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
@@ -131,6 +131,29 @@ export default function Home() {
             flip={i % 2 === 1}
           />
         ))}
+        <div class="mt-20 border-t border-line pt-10">
+          <p class="font-serif italic font-medium text-lg mb-6">
+            From the lab:
+          </p>
+          <div class="grid md:grid-cols-2 gap-6">
+            {sideProjects.map((sp) => (
+              <a
+                key={sp.title}
+                href={sp.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group border-2 border-ink bg-paper-warm p-6 print-shadow-green transition-transform hover:-translate-y-1"
+              >
+                <p class="eyebrow text-mustard-deep mb-3">{sp.tech}</p>
+                <h4 class="display text-2xl font-semibold mb-2">
+                  {sp.title}
+                </h4>
+                <p class="font-serif italic text-green mb-4">{sp.tagline}</p>
+                <span class="eyebrow link-wavy">GitHub ↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
         <div class="mt-16 text-right">
           <a href="/work" class="eyebrow link-wavy">
             More of my work →

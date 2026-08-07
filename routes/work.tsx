@@ -1,5 +1,5 @@
 import { Head } from "fresh/runtime";
-import { projects, site } from "@/lib/site.ts";
+import { projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
 
 export default function Work() {
@@ -54,6 +54,34 @@ export default function Work() {
           </div>
         </section>
       ))}
+
+      <section class="shell py-16 md:py-24 border-t-2 border-ink">
+        <SectionHead index="03" title="From the lab." />
+        <p class="max-w-prose mb-12">
+          Smaller things I build for myself — open experiments living on GitHub.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+          {sideProjects.map((sp) => (
+            <article
+              key={sp.title}
+              class="border-2 border-ink bg-paper-warm p-8 print-shadow-green"
+            >
+              <p class="eyebrow text-mustard-deep mb-3">{sp.tech}</p>
+              <h3 class="display text-3xl font-semibold mb-3">{sp.title}</h3>
+              <p class="font-serif italic text-green mb-4">{sp.tagline}</p>
+              <p class="mb-6">{sp.description}</p>
+              <a
+                href={sp.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="eyebrow link-wavy"
+              >
+                View on GitHub ↗
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
     </>
   );
 }

@@ -50,6 +50,33 @@ export const projects: Project[] = [
   },
 ];
 
+export interface SideProject {
+  title: string;
+  href: string;
+  tagline: string;
+  description: string;
+  tech: string;
+}
+
+export const sideProjects: SideProject[] = [
+  {
+    title: "Trailscape",
+    href: "https://github.com/robinrehbein/trailscape",
+    tagline: "Local-first GPS tracking & route planning for Android.",
+    description:
+      "A free, open-source alternative to Strava and Komoot. Records your rides with background GPS tracking, plans routes with multiple profiles via BRouter, imports and exports GPX, works with fully offline maps and even generates personalized training plans — all local-first: your data stays on your device, no accounts, no cloud.",
+    tech: "Flutter · OpenStreetMap · MIT",
+  },
+  {
+    title: "Punkt.",
+    href: "https://github.com/robinrehbein/punkt.",
+    tagline: "A minimalist pixel-style reaction game for Android.",
+    description:
+      "One dot, your reflexes, two game modes: FLIP lets you invert gravity to dodge obstacles, STOPP is all about freezing time at exactly the right moment. Local highscores per mode, pixel aesthetics, haptic feedback — built natively with Kotlin and Jetpack Compose.",
+    tech: "Kotlin · Jetpack Compose",
+  },
+];
+
 export interface Position {
   role: string;
   company: string;
@@ -60,6 +87,15 @@ export interface Position {
 }
 
 export const positions: Position[] = [
+  {
+    role: "CTO & Co-Founder",
+    company: "Noah",
+    companyUrl: "https://join-noah.de",
+    period: "2026 — today",
+    current: true,
+    description:
+      "Together with Fabian and Luis, I co-founded Noah in 2026. As CTO I am responsible for product engineering and architecture. We are still early — more on this soon.",
+  },
   {
     role: "Senior Software Engineer",
     company: "mimacom",
