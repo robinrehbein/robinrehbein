@@ -143,6 +143,20 @@ export const positions: Position[] = [
   },
 ];
 
+export interface Certification {
+  title: string;
+  issuer: string;
+  year: string;
+}
+
+export const certifications: Certification[] = [
+  {
+    title: "Claude Code — AI-Assisted Engineering",
+    issuer: "Anthropic",
+    year: "2026",
+  },
+];
+
 export const likes = [
   "Coffee!",
   "Plants.",
