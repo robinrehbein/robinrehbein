@@ -20,6 +20,18 @@ export interface Project {
 export const projects: Project[] = [
   {
     index: "01",
+    title: "Noah",
+    href: "https://join-noah.de",
+    summary: "The shared account for groups without a legal form.",
+    description:
+      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product as CTO — from architecture to the last pixel, on the same Deno Fresh stack as this site.",
+    images: [
+      "/noah_landing_desktop.webp",
+      "/noah_landing_mobile.webp",
+    ],
+  },
+  {
+    index: "02",
     title: "artwerk studios",
     href: "https://artwerk.store",
     summary: "Turn your favorite songs into personalized posters.",
@@ -34,7 +46,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: "02",
+    index: "03",
     title: "Kirchmaier & Staudacher",
     href: "https://www.kirchmaier-staudacher.de/",
     summary: "Digital presence for a construction project management company.",
@@ -94,7 +106,7 @@ export const positions: Position[] = [
     period: "2026 — today",
     current: true,
     description:
-      "Together with Fabian and Luis, I co-founded Noah in 2026. As CTO I am responsible for product engineering and architecture. We are still early — more on this soon.",
+      "Together with Fabian and Luis, I co-founded Noah in 2026 — the shared account for groups without a legal form. Banks usually only open group accounts for registered associations; Noah serves everyone else: school classes, sports teams and clubs. As CTO I am responsible for product engineering and architecture.",
   },
   {
     role: "Senior Software Engineer",
