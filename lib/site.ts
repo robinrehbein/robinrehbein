@@ -76,8 +76,8 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/trailscape",
     tagline: "Local-first GPS tracking & route planning for Android.",
     description:
-      "A free, open-source alternative to Strava and Komoot. Records your rides with background GPS tracking, plans routes with multiple profiles via BRouter, imports and exports GPX, works with fully offline maps and even generates personalized training plans — all local-first: your data stays on your device, no accounts, no cloud.",
-    tech: "Flutter · OpenStreetMap · MIT",
+      "A free, open-source alternative to Strava and Komoot. Records your rides with background GPS tracking, plans routes with multiple profiles via BRouter, imports and exports GPX, works with fully offline maps and even generates personalized training plans — all local-first: your data stays on your device, no accounts, no cloud. Currently being migrated from Flutter to native Kotlin with Jetpack Compose.",
+    tech: "Kotlin · Jetpack Compose · OpenStreetMap · MIT",
   },
   {
     title: "Punkt.",
