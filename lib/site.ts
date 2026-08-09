@@ -36,7 +36,7 @@ export const projects: Project[] = [
     href: "https://artwerk.store",
     summary: "Turn your favorite songs into personalized posters.",
     description:
-      "artwerk is a passion project I co-founded with two friends. Our mission is to transform your favorite songs into personalized posters, capturing the essence of music and memory in unique visual art. In just seconds, you can create your custom poster and see a live preview. We prioritize high-quality printing on premium paper, produced in an environmentally friendly manner. artwerk is the perfect blend of personal taste and design — a tribute to the tunes that move you.",
+      "artwerk is a passion project I co-founded with two friends. Our mission was to transform your favorite songs into personalized posters, capturing the essence of music and memory in unique visual art. In just seconds, you could create your custom poster and see a live preview — printed on premium paper, produced in an environmentally friendly manner. Sales have since been discontinued; the site stays online as a showcase of what we built.",
     images: [
       "/macbook_artwerk_landing_light.webp",
       "/iphone_artwerk_landing.webp",
@@ -121,10 +121,10 @@ export const positions: Position[] = [
     role: "Co-Founder",
     company: "artwerk studios",
     companyUrl: "https://artwerk.store",
-    period: "03/2023 — today",
-    current: true,
+    period: "03/2023 — 2026",
+    current: false,
     description:
-      "As a founding member of a startup, I played a pivotal role in the development of a groundbreaking product and took on responsibilities in areas such as marketing and project management. Our venture is an online shop where customers can unleash their creativity and personalize their posters in unique and captivating ways.",
+      "As a founding member of a startup, I played a pivotal role in the development of a groundbreaking product and took on responsibilities in areas such as marketing and project management. Our venture was an online shop where customers could personalize their posters in unique and captivating ways. Sales have been discontinued; the site remains online as a showcase.",
   },
   {
     role: "Senior Developer",
