@@ -68,6 +68,8 @@ export interface SideProject {
   tagline: string;
   description: string;
   tech: string;
+  icon: string;
+  images?: string[];
 }
 
 export const sideProjects: SideProject[] = [
@@ -76,8 +78,9 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/trailscape",
     tagline: "Local-first GPS tracking & route planning for Android.",
     description:
-      "A free, open-source alternative to Strava and Komoot. Records your rides with background GPS tracking, plans routes with multiple profiles via BRouter, imports and exports GPX, works with fully offline maps and even generates personalized training plans — all local-first: your data stays on your device, no accounts, no cloud. Currently being migrated from Flutter to native Kotlin with Jetpack Compose.",
-    tech: "Kotlin · Jetpack Compose · OpenStreetMap · MIT",
+      "A free, open-source alternative to Strava and Komoot, built natively with Kotlin and Jetpack Compose. Records your rides with crash-safe background GPS tracking, plans routes via BRouter with bike-type profiles, navigates with off-route warnings, imports and exports GPX and works with fully offline MapLibre maps. Reads heart rate, HRV and sleep from Health Connect and turns everything into training plans and a daily readiness score — all local-first: your data stays on your device, no accounts, no cloud, optional self-hosted sync.",
+    tech: "Kotlin · Jetpack Compose · MapLibre · MIT",
+    icon: "/lab_trailscape.webp",
   },
   {
     title: "Drops.",
@@ -86,14 +89,16 @@ export const sideProjects: SideProject[] = [
     description:
       "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder. Native Android, local and offline: no account, no sync, no cloud.",
     tech: "Kotlin · Jetpack Compose · Room",
+    icon: "/lab_drops.webp",
   },
   {
     title: "Punkt.",
     href: "https://github.com/robinrehbein/punkt.",
-    tagline: "A minimalist pixel-style reaction game for Android.",
+    tagline: "A retro pixel reaction game — one tap decides.",
     description:
-      "One dot, your reflexes, two game modes: FLIP lets you invert gravity to dodge obstacles, STOPP is all about freezing time at exactly the right moment. Local highscores per mode, pixel aesthetics, haptic feedback — built natively with Kotlin and Jetpack Compose.",
+      "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, local highscores, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
     tech: "Kotlin · Jetpack Compose",
+    icon: "/lab_punkt.webp",
   },
 ];
 
