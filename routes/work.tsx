@@ -64,12 +64,31 @@ export default function Work() {
           {sideProjects.map((sp) => (
             <article
               key={sp.title}
-              class="border-2 border-ink bg-paper-warm p-8 print-shadow-green"
+              class="relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
             >
-              <p class="eyebrow text-mustard-deep mb-3">{sp.tech}</p>
+              <img
+                src={sp.icon}
+                alt={`${sp.title} app icon`}
+                loading="lazy"
+                class="absolute -top-5 -right-4 w-16 md:w-20 rotate-3 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
+              />
+              <p class="eyebrow text-mustard-deep mb-3 pr-14">{sp.tech}</p>
               <h3 class="display text-3xl font-semibold mb-3">{sp.title}</h3>
               <p class="font-serif italic text-green mb-4">{sp.tagline}</p>
               <p class="mb-6">{sp.description}</p>
+              {sp.images && (
+                <div class="strip mb-6">
+                  {sp.images.map((image, i) => (
+                    <img
+                      key={image}
+                      src={image}
+                      alt={`${sp.title} — screenshot ${i + 1}`}
+                      loading="lazy"
+                      class="photo print-shadow h-72 md:h-80 w-auto"
+                    />
+                  ))}
+                </div>
+              )}
               <a
                 href={sp.href}
                 target="_blank"

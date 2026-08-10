@@ -143,9 +143,15 @@ export default function Home() {
                 href={sp.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border-2 border-ink bg-paper-warm p-6 print-shadow-green transition-transform hover:-translate-y-1"
+                class="group relative border-2 border-ink bg-paper-warm p-6 print-shadow-green transition-transform hover:-translate-y-1"
               >
-                <p class="eyebrow text-mustard-deep mb-3">{sp.tech}</p>
+                <img
+                  src={sp.icon}
+                  alt=""
+                  loading="lazy"
+                  class="absolute -top-4 -right-3 w-14 md:w-16 rotate-3 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] transition-transform group-hover:rotate-0"
+                />
+                <p class="eyebrow text-mustard-deep mb-3 pr-12">{sp.tech}</p>
                 <h4 class="display text-2xl font-semibold mb-2">
                   {sp.title}
                 </h4>
