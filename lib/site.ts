@@ -81,6 +81,7 @@ export const sideProjects: SideProject[] = [
       "A free, open-source alternative to Strava and Komoot, built natively with Kotlin and Jetpack Compose. Records your rides with crash-safe background GPS tracking, plans routes via BRouter with bike-type profiles, navigates with off-route warnings, imports and exports GPX and works with fully offline MapLibre maps. Reads heart rate, HRV and sleep from Health Connect and turns everything into training plans and a daily readiness score — all local-first: your data stays on your device, no accounts, no cloud, optional self-hosted sync.",
     tech: "Kotlin · Jetpack Compose · MapLibre · MIT",
     icon: "/lab_trailscape.webp",
+    images: ["/trailscape_tours.webp", "/trailscape_training.webp"],
   },
   {
     title: "Drops.",
@@ -90,6 +91,7 @@ export const sideProjects: SideProject[] = [
       "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder. Native Android, local and offline: no account, no sync, no cloud.",
     tech: "Kotlin · Jetpack Compose · Room",
     icon: "/lab_drops.webp",
+    images: ["/drops_library.webp", "/drops_bean.webp"],
   },
   {
     title: "Punkt.",
@@ -99,6 +101,7 @@ export const sideProjects: SideProject[] = [
       "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, local highscores, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
     tech: "Kotlin · Jetpack Compose",
     icon: "/lab_punkt.webp",
+    images: ["/punkt_start.webp", "/punkt_game.webp"],
   },
 ];
 
