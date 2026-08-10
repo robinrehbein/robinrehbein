@@ -80,6 +80,14 @@ export const sideProjects: SideProject[] = [
     tech: "Kotlin · Jetpack Compose · OpenStreetMap · MIT",
   },
   {
+    title: "Drops.",
+    href: "https://github.com/robinrehbein/Drops.",
+    tagline: "A bean memory with dial-in helper for home espresso.",
+    description:
+      "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder. Native Android, local and offline: no account, no sync, no cloud.",
+    tech: "Kotlin · Jetpack Compose · Room",
+  },
+  {
     title: "Punkt.",
     href: "https://github.com/robinrehbein/punkt.",
     tagline: "A minimalist pixel-style reaction game for Android.",
