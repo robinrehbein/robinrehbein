@@ -94,14 +94,14 @@ export const sideProjects: SideProject[] = [
     images: ["/drops_library.webp", "/drops_bean.webp"],
   },
   {
-    title: "Pointless.",
+    title: "Dottie.",
     href: "https://github.com/robinrehbein/punkt.",
     tagline: "A retro pixel reaction game — one tap decides.",
     description:
-      "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, local highscores, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
-    tech: "Kotlin · Jetpack Compose",
-    icon: "/lab_pointless.webp",
-    images: ["/pointless_gameplay.webp", "/pointless_daily.webp"],
+      "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, a sky that cycles from day to night, unlockable dot skins, a Wear OS companion app, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
+    tech: "Kotlin · Jetpack Compose · Wear OS",
+    icon: "/lab_dottie.webp",
+    images: ["/dottie_gameplay.webp", "/dottie_skins.webp"],
   },
 ];
 
