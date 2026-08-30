@@ -1,6 +1,22 @@
 import { define } from "@/utils.ts";
 import { site } from "@/lib/site.ts";
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": site.name,
+  "jobTitle": site.role,
+  "url": site.url,
+  "email": `mailto:${site.email}`,
+  "image": `${site.url}/me_square.webp`,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Stuttgart",
+    "addressCountry": "DE",
+  },
+  "sameAs": [site.github],
+};
+
 export default define.page(function App({ Component }) {
   return (
     <html lang="en">
@@ -19,10 +35,18 @@ export default define.page(function App({ Component }) {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={site.url} />
-        <meta property="og:image" content={`${site.url}/me_square.jpg`} />
+        <meta property="og:image" content={`${site.url}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${site.url}/og-image.jpg`} />
         <link rel="icon" href="/favicon.ico" />
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
+        </script>
       </head>
       <body>
+        <a href="#main-content" class="skip-link">Skip to content</a>
         <Component />
       </body>
     </html>

@@ -6,6 +6,7 @@ export default function NotFound() {
     <>
       <Head>
         <title>{`404 — ${site.name}`}</title>
+        <meta name="robots" content="noindex" />
       </Head>
       <section class="shell pt-10 md:pt-16 pb-16 md:pb-24 min-h-[60vh]">
         <p class="eyebrow text-mustard-deep mb-4">Error 404</p>

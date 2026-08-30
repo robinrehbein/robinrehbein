@@ -3,10 +3,16 @@ import { projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
 
 export default function Work() {
+  const labIndex = String(projects.length + 1).padStart(2, "0");
   return (
     <>
       <Head>
         <title>{`Work — ${site.name}`}</title>
+        <meta
+          name="description"
+          content={`A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.`}
+        />
+        <link rel="canonical" href={`${site.url}/work`} />
       </Head>
       <section class="shell pt-10 md:pt-16 pb-16 md:pb-24">
         <h1 class="reveal reveal-1 display font-medium text-[clamp(3rem,10vw,8rem)] mb-6">
@@ -30,6 +36,7 @@ export default function Work() {
               {project.summary}
             </p>
             <div>
+              <p class="eyebrow text-mustard-deep mb-3">{project.tech}</p>
               <p class="max-w-prose mb-6">{project.description}</p>
               <a
                 href={project.href}
@@ -56,7 +63,7 @@ export default function Work() {
       ))}
 
       <section class="shell py-16 md:py-24 border-t-2 border-ink">
-        <SectionHead index="03" title="From the lab." />
+        <SectionHead index={labIndex} title="From the lab." />
         <p class="max-w-prose mb-12">
           Smaller things I build for myself — open experiments living on GitHub.
         </p>

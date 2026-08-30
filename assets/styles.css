@@ -17,7 +17,7 @@
   --color-green: #1e3b2c;
   --color-green-deep: #122419;
   --color-mustard: #c79417;
-  --color-mustard-deep: #9a7106;
+  --color-mustard-deep: #7a5805;
   --color-line: #c9c1af;
 }
 
@@ -99,6 +99,27 @@ body::after {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Skip link — hidden until focused, first stop for keyboard users. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
 }
 
 /* Layout shell */

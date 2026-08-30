@@ -14,6 +14,7 @@ export interface Project {
   href: string;
   summary: string;
   description: string;
+  tech: string;
   images: string[];
 }
 
@@ -25,6 +26,7 @@ export const projects: Project[] = [
     summary: "The shared account for groups without a legal form.",
     description:
       "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product — from architecture to the last pixel, on the same Deno Fresh stack as this site.",
+    tech: "Deno · Fresh · TypeScript",
     images: [
       "/noah_landing_desktop.webp",
       "/noah_landing_mobile.webp",
@@ -36,7 +38,8 @@ export const projects: Project[] = [
     href: "https://artwerk.store",
     summary: "Turn your favorite songs into personalized posters.",
     description:
-      "artwerk is a passion project I co-founded with two friends. Our mission was to transform your favorite songs into personalized posters, capturing the essence of music and memory in unique visual art. In just seconds, you could create your custom poster and see a live preview — printed on premium paper, produced in an environmentally friendly manner. Sales have since been discontinued; the site stays online as a showcase of what we built.",
+      "artwerk is a passion project I co-founded with two friends: turn a favorite song into a personalized poster, watch the live preview build in seconds, get it printed on premium paper in an environmentally friendly process. Built on Next.js with Medusa as the headless commerce backend. As a co-founder I leaned hardest into the technical build, but all three of us were hands-on across the whole thing — product, design, business, no strict lanes. Sales have since been discontinued; the site stays online as a showcase of what we built.",
+    tech: "Next.js · Medusa · TypeScript",
     images: [
       "/macbook_artwerk_landing_light.webp",
       "/iphone_artwerk_landing.webp",
@@ -51,7 +54,8 @@ export const projects: Project[] = [
     href: "https://www.kirchmaier-staudacher.de/",
     summary: "Digital presence for a construction project management company.",
     description:
-      "Kirchmaier & Staudacher is a project management company dedicated to excellence in construction and real estate development. They deliver personalized project solutions with precision and efficiency, with sustainability at the core of their operations. I designed and built their digital presence — a synergy of expertise and innovation where your vision is their blueprint for success.",
+      "Kirchmaier & Staudacher is a project management company for construction and real estate development. I built their digital presence solo, on Svelte — design worked out closely with the client, frontend and deployment entirely my own.",
+    tech: "Svelte · TypeScript",
     images: [
       "/macbook_kirchmaier_landing_1.webp",
       "/iphone_kirchmaier_landing_1.webp",
@@ -122,7 +126,7 @@ export const positions: Position[] = [
     period: "2026 — today",
     current: true,
     description:
-      "Together with Fabian and Luis, I co-founded Noah in 2026 — the shared account for groups without a legal form. Banks usually only open group accounts for registered associations; Noah serves everyone else: school classes, sports teams and clubs. I am responsible for product engineering and architecture.",
+      "I'm responsible for product engineering and architecture at Noah, building the app end-to-end on the same Deno Fresh stack as this site — from data model to the last pixel, alongside co-founders Fabian and Luis.",
   },
   {
     role: "Senior Software Engineer",
@@ -140,7 +144,7 @@ export const positions: Position[] = [
     period: "03/2023 — 2026",
     current: false,
     description:
-      "As a founding member of a startup, I played a pivotal role in the development of a groundbreaking product and took on responsibilities in areas such as marketing and project management. Our venture was an online shop where customers could personalize their posters in unique and captivating ways. Sales have been discontinued; the site remains online as a showcase.",
+      "Co-founded artwerk with two friends — an online shop where customers personalized posters from their favorite songs, built on Next.js with Medusa as the commerce backend. I leaned hardest into the technical build, but all three of us stayed hands-on across product, design and business. Sales have been discontinued; the site remains online as a showcase.",
   },
   {
     role: "Senior Developer",
@@ -164,7 +168,7 @@ export const positions: Position[] = [
     role: "IT Architect",
     company: "T-Systems / Deutsche Telekom",
     companyUrl: "https://t-systems.com",
-    period: "10/2015 — 07/2021",
+    period: "10/2015 — 07/2019",
     current: false,
     description:
       "At Deutsche Telekom I planned and built network solutions for large customers, focusing on LAN and WLAN with Cisco and Meraki. At T-Systems International I contributed to a digital-twin concept, built an anomaly detection system using SVM and neural network techniques, and created and evaluated architecture prototypes for PLM software in C#.",

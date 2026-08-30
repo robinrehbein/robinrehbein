@@ -17,7 +17,7 @@ export function PositionItem(props: { position: Position }) {
             {p.company}
           </a>
         </p>
-        <details class="expander mt-2">
+        <details class="expander mt-2" open={p.current}>
           <summary>Details</summary>
           <p class="mt-3 max-w-prose text-[0.95rem]">{p.description}</p>
         </details>

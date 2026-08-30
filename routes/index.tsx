@@ -1,10 +1,11 @@
+import { Head } from "fresh/runtime";
 import { likes, positions, projects, sideProjects, site } from "@/lib/site.ts";
 import { ProjectCard } from "@/components/ProjectCard.tsx";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
 
 const MARQUEE_ITEMS = [
-  "Available for projects",
+  "Open to interesting side projects",
   "Stuttgart, Germany",
   `Turning ideas into code since ${site.codingSince}`,
   "Web architecture",
@@ -28,6 +29,13 @@ export default function Home() {
   const current = positions.filter((p) => p.current);
   return (
     <>
+      <Head>
+        <meta
+          name="description"
+          content={`${site.name}, ${site.role} based in ${site.location}. Turning people's ideas into code since ${site.codingSince}.`}
+        />
+        <link rel="canonical" href={site.url} />
+      </Head>
       {/* Hero */}
       <section class="shell pt-10 md:pt-16 pb-16 md:pb-24">
         <div class="reveal reveal-1 flex flex-col md:flex-row justify-between gap-6 mb-16 md:mb-28">
@@ -65,8 +73,9 @@ export default function Home() {
             since {site.codingSince}.
           </p>
           <img
-            src="/me_square.jpg"
+            src="/me_square.webp"
             alt={`Portrait of ${site.name}`}
+            fetchpriority="high"
             class="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square object-cover object-top"
           />
         </div>
