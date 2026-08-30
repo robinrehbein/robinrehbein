@@ -10,6 +10,11 @@ export default function About() {
     <>
       <Head>
         <title>{`About — ${site.name}`}</title>
+        <meta
+          name="description"
+          content={`Bio, positions and certifications of ${site.name}, ${site.role} based in ${site.location}.`}
+        />
+        <link rel="canonical" href={`${site.url}/about`} />
       </Head>
       <section class="shell pt-10 md:pt-16 pb-16 md:pb-24">
         <h1 class="reveal reveal-1 display font-medium text-[clamp(3rem,10vw,8rem)] mb-12 md:mb-20">
@@ -18,9 +23,9 @@ export default function About() {
 
         <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
           <img
-            src="/me.jpg"
+            src="/me.webp"
             alt={`Portrait of ${site.name}`}
-            class="reveal reveal-2 photo print-shadow w-full object-cover object-top"
+            class="reveal reveal-2 photo print-shadow w-full aspect-[4/5] object-cover object-top"
           />
           <div class="reveal reveal-3 md:sticky md:top-28">
             <p class="serif-lede mb-6">
