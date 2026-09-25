@@ -149,9 +149,10 @@ export default function Home() {
             {sideProjects.map((sp) => (
               <a
                 key={sp.title}
-                href={sp.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={sp.href ?? `/work#${sp.slug}`}
+                {...(sp.href
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 class="group relative border-2 border-ink bg-paper-warm p-6 print-shadow-green transition-transform hover:-translate-y-1"
               >
                 <img
@@ -165,7 +166,9 @@ export default function Home() {
                   {sp.title}
                 </h4>
                 <p class="font-serif italic text-green mb-4">{sp.tagline}</p>
-                <span class="eyebrow link-wavy">GitHub ↗</span>
+                <span class="eyebrow link-wavy">
+                  {sp.href ? "GitHub ↗" : "Details →"}
+                </span>
               </a>
             ))}
           </div>

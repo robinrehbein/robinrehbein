@@ -65,13 +65,15 @@ export default function Work() {
       <section class="shell py-16 md:py-24 border-t-2 border-ink">
         <SectionHead index={labIndex} title="From the lab." />
         <p class="max-w-prose mb-12">
-          Smaller things I build for myself — open experiments living on GitHub.
+          Smaller things I build for myself — mostly open experiments living on
+          GitHub.
         </p>
         <div class="grid md:grid-cols-2 gap-8 md:gap-12">
           {sideProjects.map((sp) => (
             <article
               key={sp.title}
-              class="relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
+              id={sp.slug}
+              class="scroll-mt-24 relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
             >
               <img
                 src={sp.icon}
@@ -96,14 +98,18 @@ export default function Work() {
                   ))}
                 </div>
               )}
-              <a
-                href={sp.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="eyebrow link-wavy"
-              >
-                View on GitHub ↗
-              </a>
+              {sp.href
+                ? (
+                  <a
+                    href={sp.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="eyebrow link-wavy"
+                  >
+                    View on GitHub ↗
+                  </a>
+                )
+                : <p class="eyebrow text-green">{sp.note}</p>}
             </article>
           ))}
         </div>

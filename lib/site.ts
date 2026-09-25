@@ -67,8 +67,12 @@ export const projects: Project[] = [
 ];
 
 export interface SideProject {
+  slug: string;
   title: string;
-  href: string;
+  /** Public link (usually GitHub). Omit for private projects. */
+  href?: string;
+  /** Shown instead of a link when there is no public repository. */
+  note?: string;
   tagline: string;
   description: string;
   tech: string;
@@ -78,6 +82,7 @@ export interface SideProject {
 
 export const sideProjects: SideProject[] = [
   {
+    slug: "trailscape",
     title: "Trailscape",
     href: "https://github.com/robinrehbein/trailscape",
     tagline: "Local-first GPS tracking & route planning for Android.",
@@ -88,6 +93,7 @@ export const sideProjects: SideProject[] = [
     images: ["/trailscape_tours.webp", "/trailscape_training.webp"],
   },
   {
+    slug: "drops",
     title: "Drops.",
     href: "https://github.com/robinrehbein/Drops.",
     tagline: "A bean memory with dial-in helper for home espresso.",
@@ -98,6 +104,7 @@ export const sideProjects: SideProject[] = [
     images: ["/drops_library.webp", "/drops_bean.webp"],
   },
   {
+    slug: "dottie",
     title: "Dottie.",
     href: "https://github.com/robinrehbein/punkt.",
     tagline: "A retro pixel reaction game — one tap decides.",
@@ -106,6 +113,17 @@ export const sideProjects: SideProject[] = [
     tech: "Kotlin · Jetpack Compose · Wear OS",
     icon: "/lab_dottie.webp",
     images: ["/dottie_gameplay.webp", "/dottie_skins.webp"],
+  },
+  {
+    slug: "pocketpi",
+    title: "PocketPi",
+    note: "Private · lives in the Noah monorepo",
+    tagline: "Your coding agent's sessions, in your pocket.",
+    description:
+      "A native Android remote for pi, the coding agent running on my Mac. Scan a QR code to pair the phone, then browse shared projects, follow sessions and subagents live, and keep conversations going on the road — quote earlier messages, dictate prompts, attach photos and files, switch models and thinking levels, and get a push notification when the agent finishes or has a question. Everything travels end-to-end encrypted through a small relay; pairings and drafts stay in Android Keystore-backed, no-backup storage, and model credentials never leave the Mac.",
+    tech: "Kotlin · Jetpack Compose · Navigation 3",
+    icon: "/lab_pocketpi.webp",
+    images: ["/pocketpi_sessions.webp", "/pocketpi_chat.webp"],
   },
 ];
 
