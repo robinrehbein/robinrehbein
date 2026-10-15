@@ -57,3 +57,13 @@ test('portrait is served as an image at its existing URL', async () => {
   assert.match(response.headers.get('content-type'), /^image\/webp/);
   assert.ok((await response.arrayBuffer()).byteLength > 1000);
 });
+test('unsupported page POST preserves the portfolio error document', async () => {
+  const response = await fetch(`${base}/work`, { method: 'POST' });
+  assert.equal(response.status, 405);
+  const html = await response.text();
+  assert.match(html, /id="main-content"/);
+  assert.match(html, /Something went wrong/);
+  assert.match(html, /href="\/about"/);
+  assert.match(html, /href="\/privacy"/);
+  assert.doesNotMatch(html, /Unexpected Application Error|\.tsx:\d+|stack trace/i);
+});

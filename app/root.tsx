@@ -3,6 +3,7 @@ import { Nav } from "@/components/Nav.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import "../assets/styles.css";
 import { site } from "@/lib/site.ts";
+import type { ReactNode } from "react";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -20,7 +21,7 @@ const personSchema = {
   "sameAs": [site.github],
 };
 
-export default function App() {
+export function Layout({ children }: { children: ReactNode }) {
   const location = useLocation();
   return (
     <html lang="en">
@@ -45,8 +46,22 @@ export default function App() {
       </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <Nav currentPath={location.pathname} /><main id="main-content" tabIndex={-1}><Outlet /></main><Footer /><ScrollRestoration /><Scripts />
+        <Nav currentPath={location.pathname} /><main id="main-content" tabIndex={-1}>{children}</main><Footer /><ScrollRestoration /><Scripts />
       </body>
     </html>
+  );
+}
+
+export default function App() {
+  return <Outlet />;
+}
+
+export function ErrorBoundary() {
+  return (
+    <section className="shell py-16 min-h-[60vh]">
+      <h1 className="display text-4xl mb-8">Something went wrong.</h1>
+      <p className="serif-lede mb-8">Please try again or return to the home page.</p>
+      <a href="/" className="eyebrow link-wavy">← Back home</a>
+    </section>
   );
 }
