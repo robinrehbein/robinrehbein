@@ -1,0 +1,10 @@
+import express from "express";
+import { createRequestHandler } from "@react-router/express";
+const app = express();
+app.disable("x-powered-by");
+app.use((_req,res,next)=>{res.set({"X-Content-Type-Options":"nosniff","X-Frame-Options":"DENY","Referrer-Policy":"strict-origin-when-cross-origin"});next();});
+app.use("/assets",express.static("build/client/assets",{immutable:true,maxAge:"1y"}));
+app.use(express.static("build/client",{index:false}));
+app.use(createRequestHandler({build:()=>import("../build/server/index.js"),mode:"production"}));
+const server=app.listen(Number(process.env.PORT??8000),"0.0.0.0",()=>console.log("Production server ready"));
+process.on("SIGTERM",()=>server.close());

@@ -25,7 +25,7 @@ export const projects: Project[] = [
     href: "https://join-noah.de",
     summary: "The shared account for groups without a legal form.",
     description:
-      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product — from architecture to the last pixel, on the same Deno Fresh stack as this site.",
+      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product — from architecture to the last pixel, on a Deno Fresh stack.",
     tech: "Deno · Fresh · TypeScript",
     images: [
       "/noah_landing_desktop.webp",
@@ -144,7 +144,7 @@ export const positions: Position[] = [
     period: "2026 — today",
     current: true,
     description:
-      "I'm responsible for product engineering and architecture at Noah, building the app end-to-end on the same Deno Fresh stack as this site — from data model to the last pixel, alongside co-founders Fabian and Luis.",
+      "I'm responsible for product engineering and architecture at Noah, building the app end-to-end on a Deno Fresh stack — from data model to the last pixel, alongside co-founders Fabian and Luis.",
   },
   {
     role: "Senior Software Engineer",

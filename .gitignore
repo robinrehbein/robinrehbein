@@ -16,3 +16,7 @@ static/uploads/
 .claude/worktrees/
 .vite/
 .idea/
+
+# React Router production artifacts
+build/
+.react-router/
