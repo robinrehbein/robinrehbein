@@ -9,7 +9,9 @@ FROM node:24.18.0-bookworm-slim AS runtime
 ENV NODE_ENV=production PORT=8000
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm ci --omit=dev && npm cache clean --force
 COPY --from=build --chown=node:node /app/build ./build
 COPY --from=build --chown=node:node /app/server ./server
 USER node
