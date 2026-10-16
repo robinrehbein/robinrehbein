@@ -1,7 +1,11 @@
-_fresh/
-.vite/
 node_modules/
+build/
+.react-router/
 .git/
+.superpowers/
+.env
+.env.*
+tests/
 .devcontainer/
 .ai/
 .claude/

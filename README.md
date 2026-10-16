@@ -1,31 +1,34 @@
 # robinrehbein.de
 
-Personal portfolio of Robin Rehbein — software engineer & web architect based in
-Stuttgart, Germany.
+Personal portfolio of Robin Rehbein — software engineer & web architect based in Stuttgart, Germany.
 
-Built with [Deno Fresh 2](https://fresh.deno.dev) (Preact, Vite, Tailwind CSS
-4). Fully server-rendered — no islands, no client-side state, no tracking.
+React Router framework mode with React, Express, Vite and Tailwind CSS 4. Pages are server-rendered; no tracking.
 
 ## Development
 
+Use Node 24 LTS (24.18.0 in the production image).
+
 ```sh
-deno task dev     # dev server with HMR (localhost:5173)
-deno task build   # production build → _fresh/
-deno task start   # serve the production build
-deno task check   # fmt + lint + type check
+npm ci --include=dev
+npm run dev        # Vite development server
+npm run typecheck
+npm run build      # production output in build/
+npm test           # starts and stops the production server for HTTP checks
+npm start          # production Express server on port 8000
 ```
+
+Tests require a production build. TEST_BASE_URL can target an already running server instead.
 
 ## Deployment
 
-Coolify builds and deploys the site automatically from the `Dockerfile` on every
-push to `main` (build: `deno task build`, serve: `deno task start` on port
-8000).
+Coolify builds the multistage Dockerfile from the reviewed commit. The production image runs as the unprivileged node user, listens on 0.0.0.0:8000 and includes an HTTP healthcheck. No database or secrets are required. ADMIN_PASSWORD and DENO_KV_PATH are obsolete and must not be configured.
 
 ## Structure
 
-- `routes/` — pages (`/`, `/work`, `/about`, `/imprint`, `/privacy`)
-- `components/` — server-rendered Preact components
-- `lib/site.ts` — all site content (projects, positions, contact)
-- `assets/styles.css` — design system (paper/ink/racing-green, Clash Display +
-  Zodiak + Anaheim)
-- `static/` — fonts, photos, project imagery
+- app/root.tsx — document, shared navigation and footer
+- app/routes.ts and app/routes/ — explicit page routes and 404
+- server/index.ts — Express production server and security headers
+- components/ — React components
+- lib/site.ts — portfolio content
+- assets/styles.css — existing design system
+- static/ — fonts, photos and project imagery, preserved at their existing URLs

@@ -1,4 +1,4 @@
-import { Head } from "fresh/runtime";
+export function meta() { return [{ title: `About — ${site.name}` }, { name: "description", content: `Bio, positions and certifications of ${site.name}, ${site.role} based in ${site.location}.` }, { tagName: "link", rel: "canonical", href: `${site.url}/about` }]; }
 import { certifications, likes, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
@@ -8,30 +8,22 @@ export default function About() {
   const previous = positions.filter((p) => !p.current);
   return (
     <>
-      <Head>
-        <title>{`About — ${site.name}`}</title>
-        <meta
-          name="description"
-          content={`Bio, positions and certifications of ${site.name}, ${site.role} based in ${site.location}.`}
-        />
-        <link rel="canonical" href={`${site.url}/about`} />
-      </Head>
-      <section class="shell pt-10 md:pt-16 pb-16 md:pb-24">
-        <h1 class="reveal reveal-1 display font-medium text-[clamp(3rem,10vw,8rem)] mb-12 md:mb-20">
+      <section className="shell pt-10 md:pt-16 pb-16 md:pb-24">
+        <h1 className="reveal reveal-1 display font-medium text-[clamp(3rem,10vw,8rem)] mb-12 md:mb-20">
           About me.
         </h1>
 
-        <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
           <img
             src="/me.webp"
             alt={`Portrait of ${site.name}`}
-            class="reveal reveal-2 photo print-shadow w-full aspect-[4/5] object-cover object-top"
+            className="reveal reveal-2 photo print-shadow w-full aspect-[4/5] object-cover object-top"
           />
-          <div class="reveal reveal-3 md:sticky md:top-28">
-            <p class="serif-lede mb-6">
-              Hi — I'm <strong class="font-semibold">Robin</strong>,
+          <div className="reveal reveal-3 md:sticky md:top-28">
+            <p className="serif-lede mb-6">
+              Hi — I'm <strong className="font-semibold">Robin</strong>,
             </p>
-            <p class="mb-4 max-w-prose">
+            <p className="mb-4 max-w-prose">
               currently living in the vibrant locales of Stuttgart, Germany. I
               finished my studies in computer science and communications in
               2018. I love new technology and found my passion for web design
@@ -39,7 +31,7 @@ export default function About() {
               myself many new technologies and programming languages. My
               excitement for learning never stops.
             </p>
-            <p class="mb-8 max-w-prose">
+            <p className="mb-8 max-w-prose">
               In my free time, I enjoy working on custom mechanical keyboards,
               making unique and personal typing experiences. During the
               pandemic, I discovered a love for indoor plants and turned my home
@@ -48,11 +40,11 @@ export default function About() {
               journey into the world of coffee as a barista has deepened my
               appreciation for every cup I make.
             </p>
-            <ul class="flex flex-wrap gap-3">
+            <ul className="flex flex-wrap gap-3">
               {likes.map((like) => (
                 <li
                   key={like}
-                  class="eyebrow border-2 border-ink px-4 py-2 bg-paper-warm"
+                  className="eyebrow border-2 border-ink px-4 py-2 bg-paper-warm"
                 >
                   {like}
                 </li>
@@ -62,9 +54,9 @@ export default function About() {
         </div>
       </section>
 
-      <section class="shell py-16 md:py-28 border-t-2 border-ink">
+      <section className="shell py-16 md:py-28 border-t-2 border-ink">
         <SectionHead index="01" title="Positions." />
-        <p class="max-w-prose mb-12">
+        <p className="max-w-prose mb-12">
           In my career, I have had the chance to work in many interesting
           places. Each role has taught me something new and helped me grow.
           Starting with web design and development, I learned how to make
@@ -75,38 +67,38 @@ export default function About() {
             href="https://impact-festival.earth"
             target="_blank"
             rel="noopener noreferrer"
-            class="link-wavy-green link-wavy"
+            className="link-wavy-green link-wavy"
           >
             create impact
           </a>.
         </p>
-        <p class="font-serif italic font-medium text-lg mb-4">
+        <p className="font-serif italic font-medium text-lg mb-4">
           Current positions:
         </p>
-        <ul class="mb-12">
+        <ul className="mb-12">
           {current.map((p) => <PositionItem key={p.company} position={p} />)}
         </ul>
-        <p class="font-serif italic font-medium text-lg mb-4">
+        <p className="font-serif italic font-medium text-lg mb-4">
           Previous positions:
         </p>
         <ul>
           {previous.map((p) => <PositionItem key={p.company} position={p} />)}
         </ul>
-        <p class="font-serif italic font-medium text-lg mb-6 mt-16">
+        <p className="font-serif italic font-medium text-lg mb-6 mt-16">
           Certifications:
         </p>
-        <ul class="flex flex-wrap gap-8">
+        <ul className="flex flex-wrap gap-8">
           {certifications.map((c, i) => {
             const card = (
               <>
                 {(c.issuer || c.year) && (
-                  <p class="eyebrow text-mustard-deep mb-1">
+                  <p className="eyebrow text-mustard-deep mb-1">
                     {[c.issuer, c.year].filter(Boolean).join(" · ")}
                   </p>
                 )}
-                <p class="display text-xl font-semibold">{c.title}</p>
+                <p className="display text-xl font-semibold">{c.title}</p>
                 {c.href && (
-                  <span class="eyebrow link-wavy mt-2 inline-block">
+                  <span className="eyebrow link-wavy mt-2 inline-block">
                     Verify ↗
                   </span>
                 )}
@@ -124,12 +116,12 @@ export default function About() {
                       href={c.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class={cardClass}
+                      className={cardClass}
                     >
                       {card}
                     </a>
                   )
-                  : <div class={cardClass}>{card}</div>}
+                  : <div className={cardClass}>{card}</div>}
               </li>
             );
           })}

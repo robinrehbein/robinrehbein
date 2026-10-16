@@ -1,39 +1,35 @@
-import { Head } from "fresh/runtime";
+export function meta() { return [{ title: `Datenschutz — ${site.name}` }, { name: "robots", content: "noindex" }]; }
 import { site } from "@/lib/site.ts";
 
 export default function Privacy() {
   return (
     <>
-      <Head>
-        <title>{`Datenschutz — ${site.name}`}</title>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <section class="shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
-        <p class="eyebrow text-mustard-deep mb-4">Legal</p>
-        <h1 class="display font-medium text-[clamp(2.5rem,8vw,6rem)] mb-4">
+      <section className="shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
+        <p className="eyebrow text-mustard-deep mb-4">Legal</p>
+        <h1 className="display font-medium text-[clamp(2.5rem,8vw,6rem)] mb-4">
           Datenschutz.
         </h1>
-        <p class="eyebrow text-green mb-12">Stand: 27. September 2026</p>
-        <div class="grid gap-10">
+        <p className="eyebrow text-green mb-12">Stand: 27. September 2026</p>
+        <div className="grid gap-10">
           <section>
-            <h2 class="display text-2xl font-semibold mb-3">
+            <h2 className="display text-2xl font-semibold mb-3">
               Datenschutz auf einen Blick
             </h2>
-            <p class="max-w-prose">
+            <p className="max-w-prose">
               Diese Website ist eine statische Portfolio-Seite. Auf der Website
               selbst werden keine Cookies gesetzt und keine Tracking- oder
               Analyse-Dienste eingesetzt. Technisch notwendige Verbindungsdaten
               beim Seitenaufruf und Angaben aus E-Mail-Anfragen werden wie unten
               beschrieben verarbeitet. Die Android-App PocketPi verarbeitet
               zusätzlich die im Abschnitt{" "}
-              <a href="#pocketpi" class="link-wavy">„PocketPi“</a>{" "}
+              <a href="#pocketpi" className="link-wavy">„PocketPi“</a>{" "}
               beschriebenen Daten. Die App verwendet keine Werbung und bietet
               keine In-App-Käufe.
             </p>
           </section>
           <section>
-            <h2 class="display text-2xl font-semibold mb-3">Server-Logs</h2>
-            <p class="max-w-prose">
+            <h2 className="display text-2xl font-semibold mb-3">Server-Logs</h2>
+            <p className="max-w-prose">
               Beim Aufruf der Website verarbeitet der Hosting-Anbieter technisch
               notwendige Verbindungsdaten (z.&nbsp;B. IP-Adresse, Zeitpunkt des
               Zugriffs, aufgerufene Seite) in Server-Logfiles. Diese
@@ -43,41 +39,41 @@ export default function Privacy() {
             </p>
           </section>
           <section>
-            <h2 class="display text-2xl font-semibold mb-3">Kontaktaufnahme</h2>
-            <p class="max-w-prose">
+            <h2 className="display text-2xl font-semibold mb-3">Kontaktaufnahme</h2>
+            <p className="max-w-prose">
               Wenn Sie mir per E-Mail schreiben, werden Ihre Angaben zur
               Bearbeitung der Anfrage und für den Fall von Anschlussfragen
               gespeichert. Diese Daten gebe ich nicht ohne Ihre Einwilligung
               weiter.
             </p>
-            <p class="mt-3">
+            <p className="mt-3">
               Verantwortlich: Robin Rehbein,{" "}
-              <a href={`mailto:${site.email}`} class="link-wavy">
+              <a href={`mailto:${site.email}`} className="link-wavy">
                 {site.email}
               </a>
             </p>
           </section>
-          <section id="pocketpi" class="scroll-mt-24">
-            <h2 class="display text-2xl font-semibold mb-3">
+          <section id="pocketpi" className="scroll-mt-24">
+            <h2 className="display text-2xl font-semibold mb-3">
               PocketPi (Android-App)
             </h2>
-            <div class="grid gap-4 max-w-prose">
+            <div className="grid gap-4 max-w-prose">
               <p>
                 Verantwortlich für PocketPi ist Robin Rehbein. Sie erreichen
                 mich unter{" "}
-                <a href={`mailto:${site.email}`} class="link-wavy">
+                <a href={`mailto:${site.email}`} className="link-wavy">
                   {site.email}
                 </a>; weitere Kontaktdaten stehen im{" "}
-                <a href="/imprint" class="link-wavy">Impressum</a>. PocketPi ist
+                <a href="/imprint" className="link-wavy">Impressum</a>. PocketPi ist
                 eine Fernsteuerung für pi-Sitzungen auf einem von Ihnen
                 gekoppelten Mac. Die App verwendet kein Noah-Konto. Für die
                 Kopplung werden ein zeitlich begrenzter QR-Code oder
                 Kopplungscode sowie eine Bestätigung am Mac benötigt.
               </p>
-              <h3 class="font-semibold text-lg mt-2">
+              <h3 className="font-semibold text-lg mt-2">
                 Welche Daten verarbeitet die App?
               </h3>
-              <ul class="grid gap-3 list-disc pl-5">
+              <ul className="grid gap-3 list-disc pl-5">
                 <li>
                   <strong>Kopplung und Verbindung:</strong>{" "}
                   PocketPi speichert die Verbindungsadresse des Relay-Dienstes,
@@ -178,14 +174,14 @@ export default function Privacy() {
               </p>
               <p>
                 Ihre Rechte und das Beschwerderecht sind im Abschnitt{" "}
-                <a href="#rechte" class="link-wavy">„Ihre Rechte“</a>{" "}
+                <a href="#rechte" className="link-wavy">„Ihre Rechte“</a>{" "}
                 dieser Seite beschrieben.
               </p>
             </div>
           </section>
-          <section id="rechte" class="scroll-mt-24">
-            <h2 class="display text-2xl font-semibold mb-3">Ihre Rechte</h2>
-            <p class="max-w-prose">
+          <section id="rechte" className="scroll-mt-24">
+            <h2 className="display text-2xl font-semibold mb-3">Ihre Rechte</h2>
+            <p className="max-w-prose">
               Sie haben jederzeit das Recht auf Auskunft, Berichtigung,
               Löschung, Einschränkung der Verarbeitung sowie Widerspruch und
               Datenübertragbarkeit im Rahmen der geltenden gesetzlichen
