@@ -3,6 +3,8 @@ import { likes, positions, projects, sideProjects, site } from "@/lib/site.ts";
 import { ProjectCard } from "@/components/ProjectCard.tsx";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
+import { sizeOf } from "@/lib/imageSizes.ts";
+import { TechLine } from "@/components/TechLine.tsx";
 
 const MARQUEE_ITEMS = [
   "Open to interesting side projects",
@@ -10,7 +12,7 @@ const MARQUEE_ITEMS = [
   `Turning ideas into code since ${site.codingSince}`,
   "Web architecture",
   "Design & development",
-  "Claude Code certified",
+  "Claude certified",
 ];
 
 function MarqueeContent() {
@@ -57,16 +59,23 @@ export default function Home() {
           <span className="text-green">& Develop.</span>
         </h1>
 
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
-          <p className="reveal reveal-3 serif-lede max-w-md">
-            Turning people's ideas into{" "}
-            <strong className="font-semibold text-mustard-deep">
-              &#123;code&#125;
-            </strong>{" "}
-            since {site.codingSince}.
-          </p>
+        <div className="flex flex-col md:flex-row items-start justify-between gap-10">
+          <div className="reveal reveal-3 flex flex-col gap-8 md:self-stretch md:justify-between md:py-2">
+            <p className="serif-lede max-w-md">
+              Turning people's ideas into{" "}
+              <strong className="font-semibold text-mustard-deep">
+                &#123;code&#125;
+              </strong>{" "}
+              since {site.codingSince}.
+            </p>
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
+              <a href="/work" className="eyebrow link-wavy">Selected work →</a>
+              <a href="/about" className="eyebrow link-wavy">About me →</a>
+            </div>
+          </div>
           <img
             src="/me_square.webp"
+            {...sizeOf("/me_square.webp")}
             alt={`Portrait of ${site.name}`}
             fetchPriority="high"
             className="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square object-cover object-top"
@@ -139,7 +148,7 @@ export default function Home() {
             From the lab:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {sideProjects.map((sp) => (
+            {sideProjects.filter((sp) => sp.featured).map((sp) => (
               <a
                 key={sp.title}
                 href={sp.href ?? `/work#${sp.slug}`}
@@ -150,11 +159,12 @@ export default function Home() {
               >
                 <img
                   src={sp.icon}
+                  {...sizeOf(sp.icon)}
                   alt=""
                   loading="lazy"
                   className="absolute -top-4 -right-3 w-14 md:w-16 rotate-3 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)] transition-transform group-hover:rotate-0"
                 />
-                <p className="eyebrow text-mustard-deep mb-3 pr-12">{sp.tech}</p>
+                <TechLine tech={sp.tech} className="mb-3 pr-12" />
                 <h4 className="display text-2xl font-semibold mb-2">
                   {sp.title}
                 </h4>
@@ -166,44 +176,16 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="mt-16 text-right">
+        <div className="mt-16 flex flex-wrap justify-end gap-x-8 gap-y-3">
+          <a href="/work#lab" className="eyebrow link-wavy">
+            All {sideProjects.length} lab projects →
+          </a>
           <a href="/work" className="eyebrow link-wavy">
             More of my work →
           </a>
         </div>
       </section>
 
-      {/* Contact */}
-      <section className="shell py-16 md:py-28 border-t-2 border-ink">
-        <SectionHead index="03" title="Contact." id="contact" />
-        <div className="grid md:grid-cols-2 gap-10 md:gap-16">
-          <p className="font-serif italic font-medium text-lg">Get in touch!</p>
-          <div>
-            <p className="mb-8 max-w-prose">
-              I'd love to hear from you! Whether you have a question, a project
-              proposal, or just want to say hello — feel free to reach out. I
-              look forward to connecting with you.
-            </p>
-            <ul className="flex flex-col gap-3 font-serif italic text-lg">
-              <li>
-                <a href={`mailto:${site.email}`} className="link-wavy">
-                  ✉ {site.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-wavy"
-                >
-                  ⌥ github.com/robinrehbein
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

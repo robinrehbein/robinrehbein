@@ -2,6 +2,7 @@ export function meta() { return [{ title: `About — ${site.name}` }, { name: "d
 import { certifications, likes, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
+import { sizeOf } from "@/lib/imageSizes.ts";
 
 export default function About() {
   const current = positions.filter((p) => p.current);
@@ -16,6 +17,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
           <img
             src="/me.webp"
+            {...sizeOf("/me.webp")}
             alt={`Portrait of ${site.name}`}
             className="reveal reveal-2 photo print-shadow w-full aspect-[4/5] object-cover object-top"
           />
@@ -24,12 +26,11 @@ export default function About() {
               Hi — I'm <strong className="font-semibold">Robin</strong>,
             </p>
             <p className="mb-4 max-w-prose">
-              currently living in the vibrant locales of Stuttgart, Germany. I
-              finished my studies in computer science and communications in
-              2018. I love new technology and found my passion for web design
-              and development during my studies. Since then, I have taught
-              myself many new technologies and programming languages. My
-              excitement for learning never stops.
+              a software engineer living in Stuttgart. I finished my studies in
+              computer science and communications in 2018 and found my passion
+              for web design and development along the way. Since then I have
+              taught myself many new technologies and programming languages, and
+              my excitement for learning never stops.
             </p>
             <p className="mb-8 max-w-prose">
               In my free time, I enjoy working on custom mechanical keyboards,
@@ -57,20 +58,17 @@ export default function About() {
       <section className="shell py-16 md:py-28 border-t-2 border-ink">
         <SectionHead index="01" title="Positions." />
         <p className="max-w-prose mb-12">
-          In my career, I have had the chance to work in many interesting
-          places. Each role has taught me something new and helped me grow.
-          Starting with web design and development, I learned how to make
-          websites that people find easy to use. In other roles, I picked up new
-          skills and worked with different teams to solve problems and create
-          projects that{" "}
+          From network architecture at Deutsche Telekom to IoT platforms for
+          Porsche and{" "}
           <a
             href="https://impact-festival.earth"
             target="_blank"
             rel="noopener noreferrer"
             className="link-wavy-green link-wavy"
           >
-            create impact
-          </a>.
+            impact-driven web platforms
+          </a>{" "}
+          at neosfer: these are the places I have worked and what I built there.
         </p>
         <p className="font-serif italic font-medium text-lg mb-4">
           Current positions:
@@ -84,9 +82,10 @@ export default function About() {
         <ul>
           {previous.map((p) => <PositionItem key={p.company} position={p} />)}
         </ul>
-        <p className="font-serif italic font-medium text-lg mb-6 mt-16">
-          Certifications:
-        </p>
+      </section>
+
+      <section className="shell py-16 md:py-28 border-t-2 border-ink">
+        <SectionHead index="02" title="Certifications." />
         <ul className="flex flex-wrap gap-8">
           {certifications.map((c, i) => {
             const card = (

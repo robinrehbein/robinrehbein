@@ -2,7 +2,7 @@ import { site } from "@/lib/site.ts";
 
 export function Footer() {
   return (
-    <footer className="bg-green-deep text-paper border-t-2 border-ink">
+    <footer id="contact" className="scroll-mt-16 bg-green-deep text-paper border-t-2 border-ink">
       <div className="shell py-16 md:py-24">
         <p className="eyebrow text-mustard mb-6">Get in touch</p>
         <a
@@ -15,7 +15,7 @@ export function Footer() {
           <ul className="flex flex-wrap gap-x-8 gap-y-3 font-serif italic">
             <li>
               <a href={`mailto:${site.email}`} className="link-wavy">
-                {site.email}
+                ✉ {site.email}
               </a>
             </li>
             <li>
@@ -25,7 +25,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="link-wavy"
               >
-                github.com/robinrehbein
+                ⌥ github.com/robinrehbein
               </a>
             </li>
           </ul>
