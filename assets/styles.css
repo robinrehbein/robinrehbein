@@ -172,6 +172,15 @@ a {
   color: var(--color-green);
 }
 
+/* Company links take the company's brand color (set via brandStyle()). */
+.link-wavy-brand {
+  text-decoration-color: var(--brand);
+}
+
+.link-wavy-brand:hover {
+  color: var(--brand-text);
+}
+
 /* Hard print-style shadow for images & cards. */
 .print-shadow {
   border: 2px solid var(--color-ink);
