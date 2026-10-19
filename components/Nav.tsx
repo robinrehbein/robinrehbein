@@ -26,7 +26,7 @@ export function Nav(props: { currentPath?: string }) {
             About
           </a>
           <a
-            href="/#contact"
+            href="#contact"
             className="eyebrow hover:text-green transition-colors"
           >
             Contact

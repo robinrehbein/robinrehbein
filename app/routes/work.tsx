@@ -1,6 +1,8 @@
 export function meta() { return [{ title: `Work — ${site.name}` }, { name: "description", content: `A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.` }, { tagName: "link", rel: "canonical", href: `${site.url}/work` }]; }
 import { projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
+import { sizeOf } from "@/lib/imageSizes.ts";
+import { TechLine } from "@/components/TechLine.tsx";
 
 export default function Work() {
   const labIndex = String(projects.length + 1).padStart(2, "0");
@@ -28,7 +30,7 @@ export default function Work() {
               {project.summary}
             </p>
             <div>
-              <p className="eyebrow text-mustard-deep mb-3">{project.tech}</p>
+              <TechLine tech={project.tech} className="mb-3" />
               <p className="max-w-prose mb-6">{project.description}</p>
               <a
                 href={project.href}
@@ -45,6 +47,7 @@ export default function Work() {
               <img
                 key={image}
                 src={image}
+                {...sizeOf(image)}
                 alt={`${project.title} — impression ${i + 1}`}
                 loading="lazy"
                 className="photo print-shadow h-64 md:h-96 w-auto object-cover bg-paper-warm"
@@ -55,7 +58,7 @@ export default function Work() {
       ))}
 
       <section className="shell py-16 md:py-24 border-t-2 border-ink">
-        <SectionHead index={labIndex} title="From the lab." />
+        <SectionHead index={labIndex} title="From the lab." id="lab" />
         <p className="max-w-prose mb-12">
           Smaller things I build for myself — mostly open experiments living on
           GitHub.
@@ -69,11 +72,12 @@ export default function Work() {
             >
               <img
                 src={sp.icon}
+                {...sizeOf(sp.icon)}
                 alt={`${sp.title} app icon`}
                 loading="lazy"
                 className="absolute -top-5 -right-4 w-16 md:w-20 rotate-3 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
               />
-              <p className="eyebrow text-mustard-deep mb-3 pr-14">{sp.tech}</p>
+              <TechLine tech={sp.tech} className="mb-3 pr-14" />
               <h3 className="display text-3xl font-semibold mb-3">{sp.title}</h3>
               <p className="font-serif italic text-green mb-4">{sp.tagline}</p>
               <p className="mb-6">{sp.description}</p>
@@ -83,6 +87,7 @@ export default function Work() {
                     <img
                       key={image}
                       src={image}
+                      {...sizeOf(image)}
                       alt={`${sp.title} — screenshot ${i + 1}`}
                       loading="lazy"
                       className="photo print-shadow h-72 md:h-80 w-auto"

@@ -78,6 +78,8 @@ export interface SideProject {
   tech: string;
   icon: string;
   images?: string[];
+  /** Shown in the lab teaser on the home page. */
+  featured?: boolean;
 }
 
 export const sideProjects: SideProject[] = [
@@ -87,10 +89,11 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/trailscape",
     tagline: "Tells you what to ride today — and builds the loop for it.",
     description:
-      "A free, open-source training companion for gravel and road bikes, built natively with Kotlin and Jetpack Compose. Resting heart rate, HRV and sleep from your watch become a daily readiness score, the training plan says what's due, and Trailscape generates a matching loop right from your front door. Rides are recorded with crash-safe background GPS, heart-rate straps, power meters and cadence sensors pair directly over Bluetooth, and every ride flows back into the training load. Routing via BRouter, fully offline MapLibre maps, GPX import and export — all local-first: no account, no subscription, no telemetry, optional self-hosted sync.",
+      "A training companion for gravel and road bikes. Your watch's resting heart rate, HRV and sleep become a daily readiness score, the plan says what's due, and Trailscape builds a matching loop from your front door. Crash-safe GPS recording, Bluetooth sensors, offline maps — local-first, no account, no subscription.",
     tech: "Kotlin · Jetpack Compose · MapLibre · MIT",
     icon: "/lab_trailscape.webp",
     images: ["/trailscape_tours.webp", "/trailscape_training.webp"],
+    featured: true,
   },
   {
     slug: "drops",
@@ -98,7 +101,7 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/drops.",
     tagline: "A bean memory with dial-in helper for home espresso.",
     description:
-      "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder, plus a map of growing regions and the roasters you bought from. Rebuilt from React Native as a Kotlin Multiplatform app (Android now, iOS next) with a small Ktor sync server: fully offline without an account, signing in only adds backup and sync between devices.",
+      "Bought a bean again after a year? The recipe and grind setting are right there. Drops keeps your beans with roast date and freshness, logs dial-in attempts and saves the good one as the bean's recipe. A Kotlin Multiplatform app with an optional Ktor sync server — fully offline without an account.",
     tech: "Kotlin Multiplatform · Compose · SQLDelight · Ktor",
     icon: "/lab_drops.webp",
     images: ["/drops_library.webp", "/drops_bean.webp"],
@@ -109,7 +112,7 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/dottie.",
     tagline: "A retro pixel reaction game — one tap decides.",
     description:
-      "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, a sky that cycles from day to night, unlockable dot skins, a Wear OS companion app, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
+      "A dot circles a track; tap while it crosses the green zone, hit the bright center for PERFECT streaks. Rising scores unlock twists like pulsing, drifting and chained zones. Daily challenge, unlockable skins, a Wear OS companion — everything drawn in code, no assets.",
     tech: "Kotlin · Jetpack Compose · Wear OS",
     icon: "/lab_dottie.webp",
     images: ["/dottie_gameplay.webp", "/dottie_skins.webp"],
@@ -120,10 +123,11 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/pocketpi",
     tagline: "Your coding agent's sessions, in your pocket.",
     description:
-      "A native Android remote for pi, the coding agent running on my Mac. Scan a QR code to pair the phone, then browse shared projects, follow sessions and subagents live, and keep conversations going on the road — quote earlier messages, dictate prompts, attach photos and files, switch models and thinking levels, and get a push notification when the agent finishes or has a question. A Wear OS companion pairs on its own and brings chat, questions, diffs and review comments to the wrist. Everything travels end-to-end encrypted through a small relay; pairings and drafts stay in Android Keystore-backed, no-backup storage, and model credentials never leave the Mac.",
+      "A native Android remote for pi, the coding agent on my Mac. Pair by QR code, follow sessions and subagents live, reply with text, voice, photos or files, and get a push when the agent finishes or has a question. A Wear OS app brings it to the wrist; everything is end-to-end encrypted.",
     tech: "Kotlin · Jetpack Compose · Wear OS",
     icon: "/lab_pocketpi.webp",
     images: ["/pocketpi_sessions.webp", "/pocketpi_chat.webp"],
+    featured: true,
   },
   {
     slug: "mephi",
@@ -131,10 +135,11 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/bevel-devil",
     tagline: "A troll platformer where the devil deals the traps.",
     description:
-      "Bevel, a tiny data packet, just wants to reach the door — and Mephi, the croupier of hell who has hijacked the network, plays a trap card against him at every step: collapsing floors, fleeing doors, flipped gravity, fake credits. 144 levels across three worlds descend from a hellish basement through a data center down to the circuit board, packed with nerd jokes from segfault to sudo and ending with a kill -9. Hell-CRT pixel look in a 256×144 buffer with dithering and scanlines, synthesized sound and no audio files — the release APK weighs about 80 KB.",
+      "Bevel, a tiny data packet, just wants to reach the door, and Mephi, the croupier of hell, deals a trap card against him at every step. 144 levels descend from a hellish basement through a data center down to the circuit board. Hell-CRT pixel look, synthesized sound, an 80 KB APK.",
     tech: "Kotlin · Custom pixel renderer · Android",
     icon: "/lab_mephi.webp",
     images: ["/mephi_title.webp", "/mephi_trap.webp"],
+    featured: true,
   },
   {
     slug: "birdy",
@@ -142,7 +147,7 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/birdy",
     tagline: "Tap. Dodge. Fly through — a one-finger arcade flyer in 3D.",
     description:
-      "A low-poly 3D arcade flyer: the bird flies forward on its own, a tap flaps, a swipe switches between three lanes, each with its own gap in the pipes. With every point the gaps shrink and start to move, spiky cacti pop out in time with the music and zones change from park to autumn forest — plus coins, a bird builder and unlockable worlds. Kotlin Multiplatform with a Compose Multiplatform UI and a hand-written OpenGL ES renderer.",
+      "A low-poly 3D arcade flyer: tap to flap, swipe to switch between three lanes, each with its own gap in the pipes. Gaps shrink and move, cacti pop out in time with the music, zones change as you go. Kotlin Multiplatform with a hand-written OpenGL ES renderer.",
     tech: "Kotlin Multiplatform · Compose · OpenGL ES",
     icon: "/lab_birdy.webp",
     images: ["/birdy_lanes.webp", "/birdy_shop.webp"],
@@ -153,10 +158,11 @@ export const sideProjects: SideProject[] = [
     href: "https://github.com/robinrehbein/mini-networks",
     tagline: "Mini Metro, but you're wiring the internet.",
     description:
-      "Devices request services, and you lay the cables — from ISDN through DSL and coax to fiber — while keeping bandwidth and ping in check. Excavators cut your lines, servers overload, Wi-Fi channels need juggling and cell towers move from 4G to 5G as the years tick from the late '90s to 2030 across five sceneries. An isometric map you can pan, zoom, rotate and tilt, rendered natively in Kotlin with OpenGL ES — no game engine.",
+      "Devices request services, you lay the cables, from ISDN to fiber, and keep bandwidth and ping in check while excavators cut your lines and servers overload. Five sceneries from the late '90s to 2030 on an isometric map, rendered in Kotlin with OpenGL ES, no game engine.",
     tech: "Kotlin · OpenGL ES · Android",
     icon: "/lab_mininetworks.webp",
     images: ["/mininetworks_town.webp", "/mininetworks_wireless.webp"],
+    featured: true,
   },
 ];
 
@@ -186,7 +192,7 @@ export const positions: Position[] = [
     period: "01/2026 — today",
     current: true,
     description:
-      "I started a new journey at mimacom in the beginning of 2026. mimacom is a software and consulting company dedicated to digital progress. By combining cutting-edge technology and market expertise with individual talent, I help drive our team's passion and ensure our customers' long-term success.",
+      "At mimacom, a software and consulting company, I design and build software for client projects as a senior engineer — from architecture decisions to shipping code.",
   },
   {
     role: "Co-Founder",

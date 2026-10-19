@@ -1,4 +1,6 @@
 import type { Project } from "@/lib/site.ts";
+import { sizeOf } from "@/lib/imageSizes.ts";
+import { TechLine } from "@/components/TechLine.tsx";
 
 export function ProjectCard(props: { project: Project; flip?: boolean }) {
   const { project, flip } = props;
@@ -8,6 +10,7 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         {project.images[0] && (
           <img
             src={project.images[0]}
+            {...sizeOf(project.images[0])}
             alt={`${project.title} — desktop view`}
             loading="lazy"
             className="photo print-shadow w-[88%] aspect-[4/3] object-cover object-top bg-paper-warm"
@@ -16,6 +19,7 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         {project.images[1] && (
           <img
             src={project.images[1]}
+            {...sizeOf(project.images[1])}
             alt={`${project.title} — mobile view`}
             loading="lazy"
             className="photo print-shadow-green absolute -bottom-8 right-0 w-[34%] aspect-[9/16] object-cover object-top bg-paper-warm rotate-2"
@@ -30,7 +34,7 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         <p className="font-serif italic text-lg text-green mb-5">
           {project.summary}
         </p>
-        <p className="eyebrow text-mustard-deep mb-4">{project.tech}</p>
+        <TechLine tech={project.tech} className="mb-4" />
         <p className="mb-8 max-w-prose">{project.description}</p>
         <a
           href={project.href}
