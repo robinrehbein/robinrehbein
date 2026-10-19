@@ -223,7 +223,8 @@ export const positions: Position[] = [
     companyUrl: "https://neosfer.de",
     period: "11/2022 — 12/2025",
     current: false,
-    brandColor: "#34d399",
+    brandColor: "#00ffc2",
+    brandText: "#00805f",
     description:
       "neosfer is a subsidiary of Commerzbank AG and deals with innovative technologies of the future. I built web platforms that create impact, among them projects around impact-festival.earth.",
   },

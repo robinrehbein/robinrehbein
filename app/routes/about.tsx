@@ -65,7 +65,7 @@ export default function About() {
             target="_blank"
             rel="noopener noreferrer"
             className="link-wavy link-wavy-brand"
-            style={brandStyle("#34d399")}
+            style={brandStyle("#00ffc2", "#00805f")}
           >
             impact-driven web platforms
           </a>{" "}
