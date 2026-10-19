@@ -67,3 +67,12 @@ test('unsupported page POST preserves the portfolio error document', async () =>
   assert.match(html, /href="\/privacy"/);
   assert.doesNotMatch(html, /Unexpected Application Error|\.tsx:\d+|stack trace/i);
 });
+test('lab projects and their assets are served', async () => {
+  const html = await (await fetch(`${base}/work`)).text();
+  for (const title of ['Mephi the Daemon', 'Birdy', 'Mini Networks', 'PocketPi']) {
+    assert.ok(html.includes(title), `missing lab project: ${title}`);
+  }
+  const icon = await fetch(`${base}/lab_mephi.webp`);
+  assert.equal(icon.status, 200);
+  assert.match(icon.headers.get('content-type'), /^image\/webp/);
+});
