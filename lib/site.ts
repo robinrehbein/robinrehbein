@@ -213,7 +213,7 @@ export const positions: Position[] = [
     companyUrl: "https://artwerk.store",
     period: "03/2023 — 2026",
     current: false,
-    brandColor: "#8b1e2b",
+    brandColor: "#5a776d",
     description:
       "Co-founded artwerk with two friends — an online shop where customers personalized posters from their favorite songs, built on Next.js with Medusa as the commerce backend. I leaned hardest into the technical build, but all three of us stayed hands-on across product, design and business. Sales have been discontinued; the site remains online as a showcase.",
   },
@@ -223,8 +223,7 @@ export const positions: Position[] = [
     companyUrl: "https://neosfer.de",
     period: "11/2022 — 12/2025",
     current: false,
-    brandColor: "#d4f000",
-    brandText: "#5f6b00",
+    brandColor: "#34d399",
     description:
       "neosfer is a subsidiary of Commerzbank AG and deals with innovative technologies of the future. I built web platforms that create impact, among them projects around impact-festival.earth.",
   },
