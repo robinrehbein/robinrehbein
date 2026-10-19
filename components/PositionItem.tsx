@@ -1,4 +1,4 @@
-import type { Position } from "@/lib/site.ts";
+import { brandStyle, type Position } from "@/lib/site.ts";
 
 export function PositionItem(props: { position: Position }) {
   const p = props.position;
@@ -12,7 +12,8 @@ export function PositionItem(props: { position: Position }) {
             href={p.companyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="link-wavy-green link-wavy font-medium"
+            className="link-wavy link-wavy-brand font-medium"
+            style={brandStyle(p.brandColor, p.brandText)}
           >
             {p.company}
           </a>

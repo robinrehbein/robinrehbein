@@ -1,5 +1,5 @@
 export function meta() { return [{ title: `About — ${site.name}` }, { name: "description", content: `Bio, positions and certifications of ${site.name}, ${site.role} based in ${site.location}.` }, { tagName: "link", rel: "canonical", href: `${site.url}/about` }]; }
-import { certifications, likes, positions, site } from "@/lib/site.ts";
+import { brandStyle, certifications, likes, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
@@ -64,7 +64,8 @@ export default function About() {
             href="https://impact-festival.earth"
             target="_blank"
             rel="noopener noreferrer"
-            className="link-wavy-green link-wavy"
+            className="link-wavy link-wavy-brand"
+            style={brandStyle("#00ffc2", "#00805f")}
           >
             impact-driven web platforms
           </a>{" "}

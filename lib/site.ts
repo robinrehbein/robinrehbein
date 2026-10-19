@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export const site = {
   name: "Robin Rehbein",
   role: "Software Engineer & Web Architect",
@@ -173,6 +175,15 @@ export interface Position {
   period: string;
   current: boolean;
   description: string;
+  /** Brand color for the company's wavy underline. */
+  brandColor: string;
+  /** Darker hover text color, for brand colors too light to read as text. */
+  brandText?: string;
+}
+
+/** CSS variables consumed by .link-wavy-brand. */
+export function brandStyle(color: string, text?: string) {
+  return { "--brand": color, "--brand-text": text ?? color } as CSSProperties;
 }
 
 export const positions: Position[] = [
@@ -182,6 +193,7 @@ export const positions: Position[] = [
     companyUrl: "https://join-noah.de",
     period: "2026 — today",
     current: true,
+    brandColor: "#fc4c00",
     description:
       "I'm responsible for product engineering and architecture at Noah, building the platform end-to-end — Kotlin and Ktor on the backend, React Router on the web, native Android and iOS apps on a shared Kotlin Multiplatform core — from data model to the last pixel, alongside co-founders Fabian and Luis.",
   },
@@ -191,6 +203,7 @@ export const positions: Position[] = [
     companyUrl: "https://mimacom.com",
     period: "01/2026 — today",
     current: true,
+    brandColor: "#ff0651",
     description:
       "At mimacom, a software and consulting company, I design and build software for client projects as a senior engineer — from architecture decisions to shipping code.",
   },
@@ -200,6 +213,7 @@ export const positions: Position[] = [
     companyUrl: "https://artwerk.store",
     period: "03/2023 — 2026",
     current: false,
+    brandColor: "#5a776d",
     description:
       "Co-founded artwerk with two friends — an online shop where customers personalized posters from their favorite songs, built on Next.js with Medusa as the commerce backend. I leaned hardest into the technical build, but all three of us stayed hands-on across product, design and business. Sales have been discontinued; the site remains online as a showcase.",
   },
@@ -209,6 +223,8 @@ export const positions: Position[] = [
     companyUrl: "https://neosfer.de",
     period: "11/2022 — 12/2025",
     current: false,
+    brandColor: "#00ffc2",
+    brandText: "#00805f",
     description:
       "neosfer is a subsidiary of Commerzbank AG and deals with innovative technologies of the future. I built web platforms that create impact, among them projects around impact-festival.earth.",
   },
@@ -218,6 +234,7 @@ export const positions: Position[] = [
     companyUrl: "https://mhp.com",
     period: "08/2019 — 12/2021",
     current: false,
+    brandColor: "#1d4ed8",
     description:
       "At MHP I initially worked as a consultant, developing a custom application for Porsche AG using Java and Spring. Later, as a senior consultant, I transitioned to a fully AWS-based project, where I was part of a team that developed two IoT applications to automate logistics and monitoring for manufacturers.",
   },
@@ -227,6 +244,7 @@ export const positions: Position[] = [
     companyUrl: "https://t-systems.com",
     period: "10/2015 — 07/2019",
     current: false,
+    brandColor: "#e20074",
     description:
       "At Deutsche Telekom I planned and built network solutions for large customers, focusing on LAN and WLAN with Cisco and Meraki. At T-Systems International I contributed to a digital-twin concept, built an anomaly detection system using SVM and neural network techniques, and created and evaluated architecture prototypes for PLM software in C#.",
   },
