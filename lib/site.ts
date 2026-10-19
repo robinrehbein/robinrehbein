@@ -25,8 +25,8 @@ export const projects: Project[] = [
     href: "https://join-noah.de",
     summary: "The shared account for groups without a legal form.",
     description:
-      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product — from architecture to the last pixel, on a Deno Fresh stack.",
-    tech: "Deno · Fresh · TypeScript",
+      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product end-to-end: a Kotlin and Ktor backend, React Router for the web and admin apps, and native Android and iOS apps that share their domain logic and API contracts through Kotlin Multiplatform.",
+    tech: "Kotlin · Ktor · React Router · Kotlin Multiplatform",
     images: [
       "/noah_landing_desktop.webp",
       "/noah_landing_mobile.webp",
@@ -85,9 +85,9 @@ export const sideProjects: SideProject[] = [
     slug: "trailscape",
     title: "Trailscape",
     href: "https://github.com/robinrehbein/trailscape",
-    tagline: "Local-first GPS tracking & route planning for Android.",
+    tagline: "Tells you what to ride today — and builds the loop for it.",
     description:
-      "A free, open-source alternative to Strava and Komoot, built natively with Kotlin and Jetpack Compose. Records your rides with crash-safe background GPS tracking, plans routes via BRouter with bike-type profiles, navigates with off-route warnings, imports and exports GPX and works with fully offline MapLibre maps. Reads heart rate, HRV and sleep from Health Connect and turns everything into training plans and a daily readiness score — all local-first: your data stays on your device, no accounts, no cloud, optional self-hosted sync.",
+      "A free, open-source training companion for gravel and road bikes, built natively with Kotlin and Jetpack Compose. Resting heart rate, HRV and sleep from your watch become a daily readiness score, the training plan says what's due, and Trailscape generates a matching loop right from your front door. Rides are recorded with crash-safe background GPS, heart-rate straps, power meters and cadence sensors pair directly over Bluetooth, and every ride flows back into the training load. Routing via BRouter, fully offline MapLibre maps, GPX import and export — all local-first: no account, no subscription, no telemetry, optional self-hosted sync.",
     tech: "Kotlin · Jetpack Compose · MapLibre · MIT",
     icon: "/lab_trailscape.webp",
     images: ["/trailscape_tours.webp", "/trailscape_training.webp"],
@@ -95,18 +95,18 @@ export const sideProjects: SideProject[] = [
   {
     slug: "drops",
     title: "Drops.",
-    href: "https://github.com/robinrehbein/Drops.",
+    href: "https://github.com/robinrehbein/drops.",
     tagline: "A bean memory with dial-in helper for home espresso.",
     description:
-      "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder. Native Android, local and offline: no account, no sync, no cloud.",
-    tech: "Kotlin · Jetpack Compose · Room",
+      "Bought a bean again after a year? Open the app, search, and the recipe and grind setting are right there. Drops keeps a bean library with roaster, roast date and freshness, logs your dial-in attempts (grind size, dose in/out, shot time, sour/bitter/good) and freezes the good one as the bean's recipe — complete with a rotary grind dial like the ring on your grinder, plus a map of growing regions and the roasters you bought from. Rebuilt from React Native as a Kotlin Multiplatform app (Android now, iOS next) with a small Ktor sync server: fully offline without an account, signing in only adds backup and sync between devices.",
+    tech: "Kotlin Multiplatform · Compose · SQLDelight · Ktor",
     icon: "/lab_drops.webp",
     images: ["/drops_library.webp", "/drops_bean.webp"],
   },
   {
     slug: "dottie",
     title: "Dottie.",
-    href: "https://github.com/robinrehbein/punkt.",
+    href: "https://github.com/robinrehbein/dottie.",
     tagline: "A retro pixel reaction game — one tap decides.",
     description:
       "A dot circles a track on its own; tap while it crosses the green zone — the bright center counts as PERFECT and builds a bonus streak. With a rising score the game unlocks twists that remix every round: pulsing zones, drifting zones, a ghosting dot, decoy traps and chained zones. Daily challenge with a shared seed, a sky that cycles from day to night, unlockable dot skins, a Wear OS companion app, spiteful game-over quips, haptic feedback — everything drawn in code, no assets, built natively with Kotlin and Jetpack Compose.",
@@ -117,13 +117,46 @@ export const sideProjects: SideProject[] = [
   {
     slug: "pocketpi",
     title: "PocketPi",
-    note: "Private · lives in the Noah monorepo",
+    href: "https://github.com/robinrehbein/pocketpi",
     tagline: "Your coding agent's sessions, in your pocket.",
     description:
-      "A native Android remote for pi, the coding agent running on my Mac. Scan a QR code to pair the phone, then browse shared projects, follow sessions and subagents live, and keep conversations going on the road — quote earlier messages, dictate prompts, attach photos and files, switch models and thinking levels, and get a push notification when the agent finishes or has a question. Everything travels end-to-end encrypted through a small relay; pairings and drafts stay in Android Keystore-backed, no-backup storage, and model credentials never leave the Mac.",
-    tech: "Kotlin · Jetpack Compose · Navigation 3",
+      "A native Android remote for pi, the coding agent running on my Mac. Scan a QR code to pair the phone, then browse shared projects, follow sessions and subagents live, and keep conversations going on the road — quote earlier messages, dictate prompts, attach photos and files, switch models and thinking levels, and get a push notification when the agent finishes or has a question. A Wear OS companion pairs on its own and brings chat, questions, diffs and review comments to the wrist. Everything travels end-to-end encrypted through a small relay; pairings and drafts stay in Android Keystore-backed, no-backup storage, and model credentials never leave the Mac.",
+    tech: "Kotlin · Jetpack Compose · Wear OS",
     icon: "/lab_pocketpi.webp",
     images: ["/pocketpi_sessions.webp", "/pocketpi_chat.webp"],
+  },
+  {
+    slug: "mephi",
+    title: "Mephi the Daemon",
+    href: "https://github.com/robinrehbein/bevel-devil",
+    tagline: "A troll platformer where the devil deals the traps.",
+    description:
+      "Bevel, a tiny data packet, just wants to reach the door — and Mephi, the croupier of hell who has hijacked the network, plays a trap card against him at every step: collapsing floors, fleeing doors, flipped gravity, fake credits. 144 levels across three worlds descend from a hellish basement through a data center down to the circuit board, packed with nerd jokes from segfault to sudo and ending with a kill -9. Hell-CRT pixel look in a 256×144 buffer with dithering and scanlines, synthesized sound and no audio files — the release APK weighs about 80 KB.",
+    tech: "Kotlin · Custom pixel renderer · Android",
+    icon: "/lab_mephi.webp",
+    images: ["/mephi_title.webp", "/mephi_trap.webp"],
+  },
+  {
+    slug: "birdy",
+    title: "Birdy",
+    href: "https://github.com/robinrehbein/birdy",
+    tagline: "Tap. Dodge. Fly through — a one-finger arcade flyer in 3D.",
+    description:
+      "A low-poly 3D arcade flyer: the bird flies forward on its own, a tap flaps, a swipe switches between three lanes, each with its own gap in the pipes. With every point the gaps shrink and start to move, spiky cacti pop out in time with the music and zones change from park to autumn forest — plus coins, a bird builder and unlockable worlds. Kotlin Multiplatform with a Compose Multiplatform UI and a hand-written OpenGL ES renderer.",
+    tech: "Kotlin Multiplatform · Compose · OpenGL ES",
+    icon: "/lab_birdy.webp",
+    images: ["/birdy_lanes.webp", "/birdy_shop.webp"],
+  },
+  {
+    slug: "mini-networks",
+    title: "Mini Networks",
+    href: "https://github.com/robinrehbein/mini-networks",
+    tagline: "Mini Metro, but you're wiring the internet.",
+    description:
+      "Devices request services, and you lay the cables — from ISDN through DSL and coax to fiber — while keeping bandwidth and ping in check. Excavators cut your lines, servers overload, Wi-Fi channels need juggling and cell towers move from 4G to 5G as the years tick from the late '90s to 2030 across five sceneries. An isometric map you can pan, zoom, rotate and tilt, rendered natively in Kotlin with OpenGL ES — no game engine.",
+    tech: "Kotlin · OpenGL ES · Android",
+    icon: "/lab_mininetworks.webp",
+    images: ["/mininetworks_town.webp", "/mininetworks_wireless.webp"],
   },
 ];
 
@@ -144,7 +177,7 @@ export const positions: Position[] = [
     period: "2026 — today",
     current: true,
     description:
-      "I'm responsible for product engineering and architecture at Noah, building the app end-to-end on a Deno Fresh stack — from data model to the last pixel, alongside co-founders Fabian and Luis.",
+      "I'm responsible for product engineering and architecture at Noah, building the platform end-to-end — Kotlin and Ktor on the backend, React Router on the web, native Android and iOS apps on a shared Kotlin Multiplatform core — from data model to the last pixel, alongside co-founders Fabian and Luis.",
   },
   {
     role: "Senior Software Engineer",
