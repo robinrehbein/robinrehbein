@@ -156,7 +156,7 @@ a {
    it on Mac and phones: a 7.5px period, 3px from crest to trough. Company links pass their own wave
    via brandStyle(). */
 .link-wavy {
-  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%23c79417' stroke-width='1.9'/%3E%3C/svg%3E");
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%23c79417' stroke-width='1.6'/%3E%3C/svg%3E");
   --wave-w: 7.5px;
   --wave-h: 6.4px;
   --wave-y: calc(100% + 2.3px + 0.05em);  /* crests sit just below the text */
@@ -182,7 +182,7 @@ a {
 }
 
 .link-wavy-green {
-  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%231e3b2c' stroke-width='1.9'/%3E%3C/svg%3E");
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%231e3b2c' stroke-width='1.6'/%3E%3C/svg%3E");
 }
 
 .link-wavy-green:hover {

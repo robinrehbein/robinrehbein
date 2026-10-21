@@ -196,7 +196,7 @@ export interface Position {
 }
 
 /** The wavy underline in a given colour, as the SVG tile .link-wavy draws (period, crest to trough, stroke, tile height). */
-export function waveImage(color: string, period = 7.5, height = 3, stroke = 1.9, h = 6.4) {
+export function waveImage(color: string, period = 7.5, height = 3, stroke = 1.6, h = 6.4) {
   const mid = h / 2, half = period / 2;
   const path = `M${-half} ${mid}Q${-period / 4} ${mid + height} 0 ${mid}T${half} ${mid}T${period} ${mid}T${period + half} ${mid}`;
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${period}' height='${h}' viewBox='0 0 ${period} ${h}'><path d='${path}' fill='none' stroke='${color}' stroke-width='${stroke}'/></svg>`;
