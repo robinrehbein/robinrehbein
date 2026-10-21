@@ -13,6 +13,13 @@ export function Nav(props: { currentPath?: string }) {
         </a>
         <nav className="flex items-center gap-4 md:gap-8">
           <a
+            href="/"
+            aria-current={isActive("/")}
+            className="nav-link eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
+          >
+            Home
+          </a>
+          <a
             href="/work"
             aria-current={isActive("/work")}
             className="nav-link eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
