@@ -19,6 +19,7 @@
   --color-mustard: #c79417;
   --color-mustard-deep: #7a5805;
   --color-line: #c9c1af;
+  --color-signal: #c2352b;
 }
 
 @font-face {
@@ -264,7 +265,7 @@ a {
   }
 }
 
-/* Availability dot */
+/* Availability dot — red while booked out */
 .status-dot {
   position: relative;
   display: inline-flex;
@@ -278,7 +279,7 @@ a {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  background: var(--color-mustard);
+  background: var(--color-signal);
 }
 
 .status-dot::after {
