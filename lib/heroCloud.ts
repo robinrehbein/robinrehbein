@@ -4,7 +4,8 @@
 // black only appears where the points land. On hover the photo dissolves back into a
 // softly scattered cloud that leans toward the pointer, with slow waves running out from it.
 // Plain WebGL, no library.
-// Data comes from /me_cloud.png: red = brightness, green = depth (Depth Anything V2).
+// Data comes from /me_cloud.png: red = brightness, green = depth: Depth Anything V2, softened
+// and blended with a smooth head-and-shoulders relief so the face, not the shirt, comes forward.
 
 const GRID = 400;
 const FOV = 32;
@@ -50,7 +51,7 @@ float bezier(float x, vec4 c) {
 }
 const vec4 GATHER = vec4(0.45, 0.0, 0.15, 1.0);  // soft start, long gentle landing
 void main() {
-  vec3 p = vec3(aPos, (aDep - 0.5) * uDepth);
+  vec3 p = vec3(aPos, (aDep - 0.35) * uDepth);
   p += aScatter * vec3(1.0, 1.0, 1.6) * uBurst * (0.1 + aScatter.z * 0.3);
   p.xy += vec2(sin(uTime * 1.7 + aScatter.x * 20.0), cos(uTime * 1.3 + aScatter.y * 20.0)) * 0.01 * uBurst;
   // Slow, broad waves running outward from the pointer.
