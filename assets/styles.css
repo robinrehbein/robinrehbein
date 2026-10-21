@@ -151,23 +151,39 @@ a {
   line-height: 1.55;
 }
 
-/* Wavy underline — homage to v1 of this site. */
+/* Wavy underline — homage to v1 of this site. Drawn from two rows of half rings (one bulging up,
+   one down) instead of text-decoration, so it can take any colour token and slither on hover. */
 .link-wavy {
-  text-decoration: underline;
-  text-decoration-style: wavy;
-  /* A fixed thickness renders the same wherever the link starts; from-font is under a pixel at label size. */
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.3em;
-  text-decoration-color: var(--color-mustard);
+  --wave-color: var(--color-mustard);
+  --wave-r: 1.75px;  /* ring radius: a quarter of one wave period */
+  --wave-t: 1.5px;   /* line thickness */
+  --wave-w: calc(var(--wave-r) * 4);
+  --wave-h: calc(var(--wave-r) + var(--wave-t) / 2);
+  --wave-y: calc(100% + var(--wave-h) + 0.12em);  /* first row starts just below the text */
+  --wave-ring: transparent calc(var(--wave-r) - var(--wave-t) / 2), var(--wave-color) calc(var(--wave-r) - var(--wave-t) / 2 + 0.4px) calc(var(--wave-r) + var(--wave-t) / 2 - 0.4px), transparent calc(var(--wave-r) + var(--wave-t) / 2);
+  text-decoration: none;
+  padding-bottom: calc(0.12em + var(--wave-h) * 2 + 1px);  /* room to paint the wave */
+  background-image: radial-gradient(circle at 25% 100%, var(--wave-ring)), radial-gradient(circle at 75% 0, var(--wave-ring));
+  background-size: var(--wave-w) var(--wave-h);
+  background-repeat: repeat-x;
+  background-origin: content-box;
+  background-position: 0 var(--wave-y), 0 calc(var(--wave-y) + var(--wave-h));
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   transition: color 150ms ease;
 }
 
 .link-wavy:hover {
   color: var(--color-mustard-deep);
+  animation: wave-slither 450ms linear infinite;
+}
+
+@keyframes wave-slither {
+  to { background-position: calc(-1 * var(--wave-w)) var(--wave-y), calc(-1 * var(--wave-w)) calc(var(--wave-y) + var(--wave-h)); }
 }
 
 .link-wavy-green {
-  text-decoration-color: var(--color-green);
+  --wave-color: var(--color-green);
 }
 
 .link-wavy-green:hover {
@@ -176,7 +192,7 @@ a {
 
 /* Company links take the company's brand color (set via brandStyle()). */
 .link-wavy-brand {
-  text-decoration-color: var(--brand);
+  --wave-color: var(--brand);
 }
 
 .link-wavy-brand:hover {
@@ -380,7 +396,7 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .eyebrow { letter-spacing: .16em; }
 .project-role { font-family: var(--font-label); font-size: .9rem; color: var(--color-green); line-height: 1.5; }
 .project-index { display: flex; flex-wrap: wrap; column-gap: 1.75rem; row-gap: .5rem; }
-.project-index a { display: inline-flex; align-items: center; min-height: 44px; }
+.project-index a { display: inline-flex; align-items: flex-end; min-height: 44px; }
 .expander summary { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; }
 .expander summary::after { display: inline-block; }
 .expander[open] summary::after { animation: detail-mark 180ms ease-out; }
@@ -390,7 +406,7 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .marquee:is(:hover, :focus-within) .marquee-track { animation-play-state: paused; }
 .lab-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .lab-card .gallery { width: 100%; margin-bottom: 1.5rem; }
-.lab-card-action { margin-top: auto; min-height: 44px; display: inline-flex; align-items: center; }
+.lab-card-action { margin-top: auto; min-height: 44px; display: inline-flex; align-items: flex-end; }
 .legal-page h2.display { line-height: 1.15; }
 .text-button { background: none; border: 0; padding: .6rem .25rem; min-height: 44px; text-decoration: underline; text-underline-offset: .3em; }
 .text-button:is(:hover, :focus-visible) { color: var(--color-mustard-deep); }
