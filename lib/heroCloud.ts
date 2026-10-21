@@ -6,7 +6,7 @@
 const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
-const REVEAL_MS = 1800, ASSEMBLE_MS = 2600;
+const REVEAL_MS = 1800, ASSEMBLE_MS = 3000;
 const HOVER = { depth: 0.3, burst: 0.17, wave: 1, tilt: 0.5 };
 
 type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: number; sz: number };
@@ -17,6 +17,19 @@ attribute vec3 aStart; attribute float aDelay;
 uniform float uReveal, uAssemble, uDepth, uBurst, uWave, uCell, uTime, uDist;
 uniform vec2 uRot; uniform vec2 uMouse;
 varying float vLum; varying float vRound; varying float vAlpha;
+// CSS-style cubic-bezier(x1, y1, x2, y2): solve the curve's x for t with Newton steps, return y.
+float bezier(float x, vec4 c) {
+  float t = x;
+  for (int i = 0; i < 5; i++) {
+    float u = 1.0 - t;
+    float bx = 3.0 * u * u * t * c.x + 3.0 * u * t * t * c.z + t * t * t;
+    float dx = 3.0 * u * u * c.x + 6.0 * u * t * (c.z - c.x) + 3.0 * t * t * (1.0 - c.z);
+    t = clamp(t - (bx - x) / max(dx, 1e-4), 0.0, 1.0);
+  }
+  float u = 1.0 - t;
+  return 3.0 * u * u * t * c.y + 3.0 * u * t * t * c.w + t * t * t;
+}
+const vec4 GATHER = vec4(0.45, 0.0, 0.15, 1.0);  // soft start, long gentle landing
 void main() {
   vec3 p = vec3(aPos, (aDep - 0.5) * uDepth);
   p += aScatter * vec3(1.0, 1.0, 1.6) * uBurst * (0.1 + aScatter.z * 0.3);
@@ -25,14 +38,14 @@ void main() {
   float d = length(aPos - uMouse);
   p.z += sin(d * 9.0 - uTime * 1.2) * 0.07 * uWave * exp(-d * 1.4);
   // Intro: each point drifts from its spot in the dust to its place in the photo.
-  float t = smoothstep(0.0, 1.0, clamp((uAssemble - aDelay * 0.5) / 0.5, 0.0, 1.0));
+  float t = bezier(clamp((uAssemble - aDelay * 0.4) / 0.6, 0.0, 1.0), GATHER);
   vec3 s0 = aStart + vec3(sin(uTime * 0.4 + aScatter.x * 30.0), cos(uTime * 0.35 + aScatter.y * 30.0), 0.0) * 0.03 * (1.0 - t);
   p = mix(s0, p, t);
   float cy = cos(uRot.y), sy = sin(uRot.y), cx = cos(uRot.x), sx = sin(uRot.x);
   p = vec3(cy * p.x + sy * p.z, p.y, -sy * p.x + cy * p.z);
   p = vec3(p.x, cx * p.y - sx * p.z, sx * p.y + cx * p.z);
   float rr = fract(aScatter.x * 43.7 + aScatter.y * 12.3);
-  vAlpha = smoothstep(rr * 0.7, rr * 0.7 + 0.3, uReveal);
+  vAlpha = bezier(clamp((uReveal - rr * 0.6) / 0.4, 0.0, 1.0), vec4(0.4, 0.0, 0.2, 1.0));
   float loose = max(1.0 - t, clamp(uDepth + uBurst * 3.0, 0.0, 1.0));
   vLum = aLum; vRound = loose;
   float w = uDist - p.z;
@@ -133,7 +146,16 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   const ro = new ResizeObserver(() => { resize(); wake(); });
   ro.observe(stage); resize();
 
-  const cur = { depth: 0, burst: 0, wave: 0, rx: 0, ry: 0, photo: 0 };
+  // Hover values move on critically damped springs: they accelerate, then settle without overshoot.
+  type Spring = { x: number; v: number };
+  const spring = (): Spring => ({ x: 0, v: 0 });
+  const STIFF = 26, DAMP = 2 * Math.sqrt(STIFF);
+  const step = (s: Spring, target: number, dt: number) => {
+    s.v += ((target - s.x) * STIFF - s.v * DAMP) * dt;
+    s.x += s.v * dt;
+  };
+  const cur = { depth: spring(), burst: spring(), wave: spring(), rx: spring(), ry: spring(), photo: 0 };
+  let last = performance.now();
   const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
   let hovering = false, start = performance.now(), raf = 0, running = false;
   const t0 = performance.now();
@@ -156,23 +178,25 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   function frame(now: number) {
     const el = now - start;
     const assemble = Math.max(0, Math.min(1, (el - REVEAL_MS) / ASSEMBLE_MS));
-    const k = 0.05;
-    cur.depth += ((hovering ? HOVER.depth : 0) - cur.depth) * k;
-    cur.burst += ((hovering ? HOVER.burst : 0) - cur.burst) * k;
-    cur.wave += ((hovering ? HOVER.wave : 0) - cur.wave) * k;
-    cur.rx += ((hovering ? aim.x : 0) - cur.rx) * k;
-    cur.ry += ((hovering ? aim.y : 0) - cur.ry) * k;
-    const settled = !hovering && assemble >= 1 && cur.depth + cur.burst + cur.wave * 0.1 + Math.abs(cur.rx) + Math.abs(cur.ry) < 0.01;
-    cur.photo += ((settled ? 1 : 0) - cur.photo) * (settled ? 0.06 : 0.25);
+    const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now;
+    step(cur.depth, hovering ? HOVER.depth : 0, dt);
+    step(cur.burst, hovering ? HOVER.burst : 0, dt);
+    step(cur.wave, hovering ? HOVER.wave : 0, dt);
+    step(cur.rx, hovering ? aim.x : 0, dt);
+    step(cur.ry, hovering ? aim.y : 0, dt);
+    const motion = Math.abs(cur.depth.x) + Math.abs(cur.burst.x) + Math.abs(cur.wave.x) * 0.1 + Math.abs(cur.rx.x) + Math.abs(cur.ry.x);
+    const settled = !hovering && assemble >= 1 && motion < 0.01;
+    // Photo cross-fade: frame-rate independent exponential ease (≈250 ms in, ≈60 ms out).
+    cur.photo += ((settled ? 1 : 0) - cur.photo) * (1 - Math.exp(-dt / (settled ? 0.25 : 0.06)));
     photo.style.opacity = cur.photo.toFixed(3);
 
     gl.uniform1f(U.reveal, Math.min(1, el / REVEAL_MS));
     gl.uniform1f(U.assemble, assemble);
-    gl.uniform1f(U.depth, cur.depth);
-    gl.uniform1f(U.burst, cur.burst);
-    gl.uniform1f(U.wave, cur.wave);
+    gl.uniform1f(U.depth, Math.max(0, cur.depth.x));
+    gl.uniform1f(U.burst, Math.max(0, cur.burst.x));
+    gl.uniform1f(U.wave, Math.max(0, cur.wave.x));
     gl.uniform1f(U.time, (now - t0) / 1000);
-    gl.uniform2f(U.rot, cur.rx, cur.ry);
+    gl.uniform2f(U.rot, cur.rx.x, cur.ry.x);
     gl.uniform2f(U.mouse, mouse.x, mouse.y);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.POINTS, 0, n);
@@ -181,7 +205,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     if (settled && cur.photo > 0.995) { photo.style.opacity = "1"; running = false; return; }
     raf = requestAnimationFrame(frame);
   }
-  function wake() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
+  function wake() { if (!running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } }
 
   photo.style.opacity = "0";
   wake();
