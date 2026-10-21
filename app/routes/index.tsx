@@ -138,7 +138,7 @@ export default function Home() {
       {/* Work */}
       <section className="shell py-16 md:py-28 border-t-2 border-ink">
         <SectionHead index="02" title="Selected work." />
-        {projects.map((project, i) => (
+        {projects.filter((p) => p.featured).map((project, i) => (
           <ProjectCard
             key={project.title}
             project={project}
