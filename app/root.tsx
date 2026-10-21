@@ -24,7 +24,7 @@ const personSchema = {
 export function Layout({ children }: { children: ReactNode }) {
   const location = useLocation();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,6 +41,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`${site.url}/og-image.jpg`} />
         <link rel="icon" href="/favicon.ico" />
+        {/* Arms the hero point cloud before first paint, so the photo doesn't flash before the intro. */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(window.WebGLRenderingContext&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx-on')}catch(e){}" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         <Meta /><Links />
       </head>

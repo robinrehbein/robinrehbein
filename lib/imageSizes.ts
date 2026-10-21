@@ -24,7 +24,7 @@ export const imageSizes: Record<string, [number, number]> = {
   "/macbook_kirchmaier_landing_1.webp": [1600, 1200],
   "/macbook_kirchmaier_landing_2.webp": [1600, 1400],
   "/macbook_kirchmaier_landing_3.webp": [1600, 1067],
-  "/me.webp": [1080, 1350],
+  "/me.webp": [769, 1024],
   "/me_square.webp": [1100, 1100],
   "/mephi_title.webp": [1280, 720],
   "/mephi_trap.webp": [1280, 720],
