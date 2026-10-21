@@ -22,11 +22,16 @@ export interface Project {
   description: string;
   tech: string;
   images: string[];
+  /** Logo color for the project's wavy underline in the index. */
+  brandColor: string;
+  /** Darker hover text color, for brand colors too light to read as text. */
+  brandText?: string;
 }
 
 export const projects: Project[] = [
   {
     slug: "noah",
+    brandColor: "#fc4c00",
     index: "01",
     title: "Noah",
     role: "Co-founder · Product engineering",
@@ -43,6 +48,7 @@ export const projects: Project[] = [
   },
   {
     slug: "artwerk",
+    brandColor: "#5a776d",
     index: "02",
     title: "artwerk studios",
     role: "Co-founder · Technical build",
@@ -63,6 +69,8 @@ export const projects: Project[] = [
   },
   {
     slug: "kirchmaier",
+    brandColor: "#dc83b2",
+    brandText: "#a8457a",
     index: "03",
     title: "Kirchmaier & Staudacher",
     role: "Design collaboration · Development",
@@ -221,13 +229,13 @@ export const positions: Position[] = [
   },
   {
     role: "Senior Software Engineer",
-    company: "mimacom",
+    company: "Mimacom",
     companyUrl: "https://mimacom.com",
     period: "01/2026 — today",
     current: true,
     brandColor: "#ff0651",
     description:
-      "At mimacom, a software and consulting company, I design and build software for client projects as a senior engineer — from architecture decisions to shipping code.",
+      "At Mimacom, a software and consulting company, I design and build software for client projects as a senior engineer — from architecture decisions to shipping code.",
   },
   {
     role: "Co-Founder",
@@ -241,14 +249,14 @@ export const positions: Position[] = [
   },
   {
     role: "Senior Developer",
-    company: "neosfer",
+    company: "Neosfer",
     companyUrl: "https://neosfer.de",
     period: "11/2022 — 12/2025",
     current: false,
     brandColor: "#00ffc2",
     brandText: "#00805f",
     description:
-      "neosfer is a subsidiary of Commerzbank AG and deals with innovative technologies of the future. I built web platforms that create impact, among them projects around impact-festival.earth.",
+      "Neosfer is a subsidiary of Commerzbank AG and deals with innovative technologies of the future. I built web platforms that create impact, among them projects around impact-festival.earth.",
   },
   {
     role: "Senior Consultant",

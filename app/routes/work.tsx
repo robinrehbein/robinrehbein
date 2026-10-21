@@ -1,5 +1,5 @@
 export function meta() { return [{ title: `Work — ${site.name}` }, { name: "description", content: `A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.` }, { tagName: "link", rel: "canonical", href: `${site.url}/work` }]; }
-import { projects, sideProjects, site } from "@/lib/site.ts";
+import { brandStyle, projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
 import { Gallery } from "@/components/Gallery.tsx";
@@ -19,7 +19,7 @@ export default function Work() {
           industry.
         </p>
         <nav aria-label="Project index" className="project-index mt-10">
-          {projects.map(p => <a key={p.slug} href={`#${p.slug}`} className="eyebrow link-wavy">{p.title}</a>)}
+          {projects.map(p => <a key={p.slug} href={`#${p.slug}`} className="eyebrow link-wavy link-wavy-brand" style={brandStyle(p.brandColor, p.brandText)}>{p.title}</a>)}
           <a href="#lab" className="eyebrow link-wavy">From the lab</a>
         </nav>
       </section>
@@ -44,7 +44,8 @@ export default function Work() {
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="eyebrow link-wavy"
+                className="eyebrow link-wavy link-wavy-brand"
+                style={brandStyle(project.brandColor, project.brandText)}
               >
                 Visit site ↗
               </a>

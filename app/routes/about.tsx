@@ -72,7 +72,7 @@ export default function About() {
           >
             impact-driven web platforms
           </a>{" "}
-          at neosfer: these are the places I have worked and what I built there.
+          at Neosfer: these are the places I have worked and what I built there.
         </p>
         <p className="font-serif italic font-medium text-lg mb-4">
           Current positions:
