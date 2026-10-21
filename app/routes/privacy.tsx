@@ -4,14 +4,19 @@ import { site } from "@/lib/site.ts";
 export default function Privacy() {
   return (
     <>
-      <section className="shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
+      <section lang="de" className="legal-page shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
         <p className="eyebrow text-mustard-deep mb-4">Legal</p>
         <h1 className="display font-medium text-[clamp(2.5rem,8vw,6rem)] mb-4">
           Datenschutz.
         </h1>
         <p className="eyebrow text-green mb-12">Stand: 27. September 2026</p>
+        <nav aria-label="Auf dieser Seite" className="project-index mb-12">
+          <a href="#website" className="eyebrow link-wavy">Website</a>
+          <a href="#pocketpi" className="eyebrow link-wavy">PocketPi</a>
+          <a href="#rechte" className="eyebrow link-wavy">Ihre Rechte</a>
+        </nav>
         <div className="grid gap-10">
-          <section>
+          <section id="website" className="scroll-mt-24">
             <h2 className="display text-2xl font-semibold mb-3">
               Datenschutz auf einen Blick
             </h2>

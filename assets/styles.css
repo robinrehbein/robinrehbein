@@ -209,10 +209,6 @@ a {
   filter: none;
 }
 
-/* Hero point cloud: the photo stays hidden until the intro has assembled it. */
-.fx-on .hero-fx-photo {
-  opacity: 0;
-}
 
 /* Marquee band */
 .marquee {
@@ -362,3 +358,83 @@ a {
     opacity: 1;
   }
 }
+
+/* Incremental refinements: the same paper, ink and print vocabulary. */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 5px;
+}
+footer :where(a, button):focus-visible { outline-color: var(--color-mustard); }
+button { font: inherit; cursor: pointer; }
+button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
+.nav-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; }
+.nav-link[aria-current="page"]::after {
+  content: ""; position: absolute; left: 0; right: .22em; bottom: 5px;
+  height: 2px; background: var(--color-green);
+}
+.eyebrow { letter-spacing: .16em; }
+.project-role { font-family: var(--font-label); font-size: .9rem; color: var(--color-green); line-height: 1.5; }
+.project-index { display: flex; flex-wrap: wrap; column-gap: 1.75rem; row-gap: .5rem; }
+.project-index a { display: inline-flex; align-items: center; min-height: 44px; }
+.arrow-link > span { display: inline-block; transition: transform 180ms ease; }
+.arrow-link:is(:hover, :focus-visible) > span { transform: translateX(3px); }
+.expander summary { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; }
+.expander summary::after { display: inline-block; }
+.expander[open] summary::after { animation: detail-mark 180ms ease-out; }
+@keyframes detail-mark { from { opacity: .3; transform: rotate(-45deg); } to { opacity: 1; transform: rotate(0); } }
+.certificate-link:is(:hover, :focus-visible) { transform: rotate(0); }
+.group:focus-visible { transform: translateY(-.25rem); }
+.group:focus-visible img { transform: rotate(0); }
+.marquee:is(:hover, :focus-within) .marquee-track { animation-play-state: paused; }
+.status-dot::after { animation-iteration-count: 3; }
+.lab-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.lab-card .gallery { width: 100%; margin-bottom: 1.5rem; }
+.lab-card-action { margin-top: auto; min-height: 44px; display: inline-flex; align-items: center; }
+.legal-page h2.display { line-height: 1.15; }
+.text-button { background: none; border: 0; padding: .6rem .25rem; min-height: 44px; text-decoration: underline; text-underline-offset: .3em; }
+.text-button:is(:hover, :focus-visible) { color: var(--color-mustard-deep); }
+footer .text-button:is(:hover, :focus-visible) { color: var(--color-mustard); }
+.email-contact { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .25rem; }
+.copy-email { display: inline-flex; position: relative; align-items: center; font-family: var(--font-label); font-style: normal; }
+.copy-email-button { display: inline-flex; align-items: center; justify-content: center; width: 44px; padding: 0; text-decoration: none; }
+.copy-status { position: absolute; top: 100%; right: 0; width: max-content; max-width: min(18rem, calc(100vw - 3rem)); font-size: .8rem; line-height: 1.4; background: var(--color-green-deep); }
+.copy-status:not(:empty) { padding: .25rem .5rem; border: 1px solid var(--color-paper); }
+.gallery { min-width: 0; }
+.gallery-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.gallery-controls { display: flex; align-items: center; gap: .5rem; }
+.gallery-count { font: .85rem var(--font-label); font-variant-numeric: tabular-nums; min-width: 3rem; text-align: center; }
+.icon-button { width: 44px; height: 44px; border: 1px solid var(--color-ink); background: var(--color-paper); transition: box-shadow 180ms ease, transform 180ms ease; }
+.icon-button:not([aria-disabled="true"]):is(:hover, :focus-visible) { box-shadow: 3px 3px 0 var(--color-green); transform: translate(-1px, -1px); }
+.strip { padding: 1rem 12px 1.25rem 4px; scroll-padding-left: 4px; }
+.gallery-image { position: relative; display: block; }
+.gallery-image img { height: 24rem; width: auto; max-width: none; }
+.gallery-compact .gallery-image img { height: 20rem; }
+.gallery-zoom { position: absolute; bottom: .75rem; right: .75rem; background: var(--color-paper); border: 1px solid var(--color-ink); padding: .1rem .5rem; opacity: 0; transition: opacity 180ms; }
+.gallery-image:is(:hover, :focus-visible) .gallery-zoom { opacity: 1; }
+.image-dialog { margin: auto; padding: 1.25rem; width: min(1100px, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); background: var(--color-paper); color: var(--color-ink); border: 2px solid var(--color-ink); box-shadow: 8px 8px 0 var(--color-green); }
+.image-dialog::backdrop { background: rgb(18 36 25 / .8); }
+.image-dialog img { display: block; width: auto; max-width: 100%; max-height: calc(100dvh - 12rem); object-fit: contain; margin: auto; }
+.dialog-toolbar, .dialog-pagination { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: var(--font-label); }
+.dialog-toolbar { margin-bottom: .75rem; }
+.dialog-pagination { margin-top: .75rem; }
+html:has(dialog[open]) { overflow: hidden; }
+@media (max-width: 767px) {
+  .eyebrow { font-size: .8125rem; letter-spacing: .12em; }
+  .gallery-image img { height: 16rem; }
+  .gallery-compact .gallery-image img { height: 18rem; }
+  .gallery-zoom { opacity: 1; }
+  .print-shadow, .print-shadow-green { box-shadow: 6px 6px 0 var(--color-ink); }
+  .print-shadow-green { box-shadow: 6px 6px 0 var(--color-green); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .group:is(:hover, :focus-visible), .group:is(:hover, :focus-visible) img,
+  .certificate-link:is(:hover, :focus-visible), .arrow-link:is(:hover, :focus-visible) > span,
+  .icon-button:not([aria-disabled="true"]):is(:hover, :focus-visible) { transform: none; }
+}
+.tech-tags li { white-space: normal; overflow-wrap: anywhere; max-width: 100%; }
+.link-arrow { display: inline-block; transition: transform 180ms ease; }
+a:is(:hover, :focus-visible) .link-arrow { transform: translateX(3px); }
+.scroll-arrive { animation: scroll-arrive 500ms cubic-bezier(.22,1,.36,1) both; }
+@keyframes scroll-arrive { from { opacity: .45; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { a:is(:hover, :focus-visible) .link-arrow { transform: none; } }

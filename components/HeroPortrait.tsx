@@ -10,15 +10,28 @@ export function HeroPortrait(props: { alt: string; className?: string }) {
   useEffect(() => {
     const stage = stageRef.current, canvas = canvasRef.current, photo = photoRef.current;
     if (!stage || !canvas || !photo) return;
-    if (!document.documentElement.classList.contains("fx-on")) return;
-    let cloud: HeroCloud | null = null, cancelled = false;
-    createHeroCloud(stage, canvas, photo)
-      .then((c) => { if (cancelled) c.destroy(); else cloud = c; })
-      .catch(() => {
-        // No WebGL or the data failed to load: keep the plain photo.
-        document.documentElement.classList.remove("fx-on");
-      });
-    return () => { cancelled = true; cloud?.destroy(); };
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let cloud: HeroCloud | null = null, generation = 0, disposed = false;
+    let pending: AbortController | null = null;
+    let seen = false;
+    try { seen = sessionStorage.getItem("hero-seen") === "1"; } catch { /* Storage may be disabled. */ }
+    function sync() {
+      if (!stage || !canvas || !photo) return;
+      const current = ++generation;
+      pending?.abort(); pending = new AbortController();
+      cloud?.destroy(); cloud = null;
+      if (motion.matches || !window.WebGLRenderingContext) {
+        photo.style.opacity = "1"; return;
+      }
+      const intro = !seen;
+      if (intro) photo.style.opacity = "0";
+      createHeroCloud(stage, canvas, photo, intro, pending.signal).then(c => {
+        if (disposed || current !== generation) { c.destroy(); if (motion.matches) photo.style.opacity = "1"; }
+        else { cloud = c; seen = true; try { sessionStorage.setItem("hero-seen", "1"); } catch { /* Optional enhancement. */ } }
+      }).catch(() => { if (current === generation) photo.style.opacity = "1"; });
+    }
+    sync(); motion.addEventListener("change", sync);
+    return () => { disposed = true; generation++; pending?.abort(); motion.removeEventListener("change", sync); cloud?.destroy(); };
   }, []);
 
   return (

@@ -11,6 +11,10 @@ export const site = {
 };
 
 export interface Project {
+  slug: string;
+  role: string;
+  status?: string;
+  excerpt: string;
   index: string;
   title: string;
   href: string;
@@ -23,6 +27,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     index: "01",
+    slug: "noah",
+    role: "Co-founder · Product engineering",
+    excerpt: "A shared account for school classes, sports teams and clubs. I co-founded Noah and build its backend, web platform and native apps end-to-end.",
+
     title: "Noah",
     href: "https://join-noah.de",
     summary: "The shared account for groups without a legal form.",
@@ -36,6 +44,11 @@ export const projects: Project[] = [
   },
   {
     index: "02",
+    slug: "artwerk",
+    role: "Co-founder · Technical build",
+    excerpt: "Personalized music posters, from a live preview to a premium print. I co-founded artwerk with two friends and led the technical build; the site remains online as a showcase.",
+    status: "Showcase · Sales discontinued",
+
     title: "artwerk studios",
     href: "https://artwerk.store",
     summary: "Turn your favorite songs into personalized posters.",
@@ -52,6 +65,10 @@ export const projects: Project[] = [
   },
   {
     index: "03",
+    slug: "kirchmaier",
+    role: "Design collaboration · Development",
+    excerpt: "A digital presence for a construction and real estate project management company. Design developed with the client; frontend and deployment built by me.",
+
     title: "Kirchmaier & Staudacher",
     href: "https://www.kirchmaier-staudacher.de/",
     summary: "Digital presence for a construction project management company.",

@@ -36,7 +36,10 @@ export default function About() {
               In my free time, I enjoy working on custom mechanical keyboards,
               making unique and personal typing experiences. During the
               pandemic, I discovered a love for indoor plants and turned my home
-              into a green and peaceful space. I also love biking, which takes
+              into a green and peaceful space.
+            </p>
+            <p className="mb-8 max-w-prose">
+              I also love biking, which takes
               me on exciting adventures as I explore hidden trails. And my
               journey into the world of coffee as a barista has deepened my
               appreciation for every cup I make.
@@ -107,7 +110,7 @@ export default function About() {
             const cardClass =
               `block h-full border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green transition-transform ${
                 i % 2 === 0 ? "-rotate-1" : "rotate-1"
-              } hover:rotate-0`;
+              } ${c.href ? "certificate-link" : ""}`;
             return (
               <li key={c.title}>
                 {c.href

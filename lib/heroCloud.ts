@@ -6,7 +6,7 @@
 const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
-const REVEAL_MS = 1800, ASSEMBLE_MS = 3000;
+const REVEAL_MS = 450, ASSEMBLE_MS = 1600;
 const HOVER = { depth: 0.3, burst: 0.17, wave: 1, tilt: 0.5 };
 
 type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: number; sz: number };
@@ -93,14 +93,17 @@ function loadPoints(src: string): Promise<Point[]> {
 
 export type HeroCloud = { replay: () => void; destroy: () => void };
 
-export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement): Promise<HeroCloud> {
+export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement, intro = true, signal?: AbortSignal): Promise<HeroCloud> {
   const ctx = canvas.getContext("webgl", { antialias: true, alpha: false, premultipliedAlpha: false });
   if (!ctx) throw new Error("WebGL unavailable");
   const gl: WebGLRenderingContext = ctx;
   const pts = await loadPoints("/me_cloud.png");
+  signal?.throwIfAborted();
 
+  const shaders: WebGLShader[] = [];
+  const buffers: WebGLBuffer[] = [];
   const compile = (type: number, src: string) => {
-    const s = gl.createShader(type)!;
+    const s = gl.createShader(type)!; shaders.push(s);
     gl.shaderSource(s, src); gl.compileShader(s);
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? "shader error");
     return s;
@@ -114,7 +117,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
 
   const n = pts.length;
   const buffer = (name: string, size: number, data: Float32Array) => {
-    const b = gl.createBuffer()!;
+    const b = gl.createBuffer()!; buffers.push(b);
     gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(prog, name);
     gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
@@ -157,7 +160,9 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   const cur = { depth: spring(), burst: spring(), wave: spring(), rx: spring(), ry: spring(), photo: 0 };
   let last = performance.now();
   const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
-  let hovering = false, start = performance.now(), raf = 0, running = false;
+  let hovering = false, start = performance.now() - (intro ? 0 : REVEAL_MS + ASSEMBLE_MS), raf = 0, running = false;
+  let visible = true, destroyed = false;
+  if (!intro) cur.photo = 1;
   const t0 = performance.now();
 
   function move(e: PointerEvent) {
@@ -205,19 +210,34 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     if (settled && cur.photo > 0.995) { photo.style.opacity = "1"; running = false; return; }
     raf = requestAnimationFrame(frame);
   }
-  function wake() { if (!running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } }
+  function wake() { if (!running && !destroyed && visible && !document.hidden) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } }
 
-  photo.style.opacity = "0";
+  const visibility = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (!visible) { hovering = false; cancelAnimationFrame(raf); running = false; }
+    else wake();
+  });
+  visibility.observe(stage);
+  const onVisibility = () => {
+    if (document.hidden) { hovering = false; cancelAnimationFrame(raf); running = false; }
+    else wake();
+  };
+  document.addEventListener("visibilitychange", onVisibility);
+  photo.style.opacity = intro ? "0" : "1";
   wake();
 
   return {
     replay: () => { hovering = false; start = performance.now(); cur.photo = 0; photo.style.opacity = "0"; wake(); },
     destroy: () => {
-      cancelAnimationFrame(raf); running = false; ro.disconnect();
+      destroyed = true; cancelAnimationFrame(raf); running = false; ro.disconnect();
+      visibility.disconnect(); document.removeEventListener("visibilitychange", onVisibility);
       stage.removeEventListener("pointerenter", onEnter);
       stage.removeEventListener("pointermove", onMove);
       stage.removeEventListener("pointerleave", onLeave);
       stage.removeEventListener("pointerdown", onDown);
+      buffers.forEach(b => gl.deleteBuffer(b));
+      shaders.forEach(s => gl.deleteShader(s));
+      gl.deleteProgram(prog);
       photo.style.opacity = "";
     },
   };

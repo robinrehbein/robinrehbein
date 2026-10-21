@@ -76,3 +76,25 @@ test('lab projects and their assets are served', async () => {
   assert.equal(icon.status, 200);
   assert.match(icon.headers.get('content-type'), /^image\/webp/);
 });
+
+test('project navigation preserves full case studies and offers direct home links', async () => {
+  const home = await (await fetch(`${base}/`)).text();
+  const work = await (await fetch(`${base}/work`)).text();
+  assert.match(home, /href="\/work#noah"/);
+  assert.match(work, /aria-label="Project index"/);
+  for (const slug of ['noah', 'artwerk', 'kirchmaier']) assert.ok(work.includes(`id="${slug}"`));
+  assert.match(work, /Banks usually only open an account/);
+  assert.match(work, /aria-label="Noah images"/);
+  assert.match(work, /noah_landing_desktop.webp/);
+  assert.match(work, /Open Noah image 1/);
+});
+
+test('legal sections expose language and in-page navigation', async () => {
+  const privacy = await (await fetch(`${base}/privacy`)).text();
+  const imprint = await (await fetch(`${base}/imprint`)).text();
+  assert.match(privacy, /lang="de"/);
+  assert.match(privacy, /aria-label="Auf dieser Seite"/);
+  assert.match(privacy, /href="#website"/);
+  assert.match(privacy, /id="pocketpi"/);
+  assert.match(imprint, /lang="de"/);
+});

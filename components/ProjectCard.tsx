@@ -5,8 +5,8 @@ import { TechLine } from "@/components/TechLine.tsx";
 export function ProjectCard(props: { project: Project; flip?: boolean }) {
   const { project, flip } = props;
   return (
-    <article className="grid md:grid-cols-2 gap-8 md:gap-14 items-start mb-20 md:mb-32 last:mb-0">
-      <div className={`relative ${flip ? "md:order-2" : ""}`}>
+    <article data-scroll-reveal className="grid md:grid-cols-2 gap-8 md:gap-14 items-start mb-20 md:mb-32 last:mb-0">
+      <div className={`relative mb-6 md:mb-0 ${flip ? "md:order-2" : ""}`}>
         {project.images[0] && (
           <img
             src={project.images[0]}
@@ -34,15 +34,11 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         <p className="font-serif italic text-lg text-green mb-5">
           {project.summary}
         </p>
+        <p className="project-role mb-4">{project.role}</p>
         <TechLine tech={project.tech} className="mb-4" />
-        <p className="mb-8 max-w-prose">{project.description}</p>
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="eyebrow link-wavy"
-        >
-          Visit site ↗
+        <p className="mb-8 max-w-prose">{project.excerpt}</p>
+        <a href={`/work#${project.slug}`} className="eyebrow link-wavy arrow-link">
+          Explore project <span aria-hidden="true">→</span>
         </a>
       </div>
     </article>
