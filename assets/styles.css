@@ -209,8 +209,8 @@ a {
   filter: none;
 }
 
-/* Hero point cloud: the photo stays hidden until the intro has assembled it. */
-.fx-on .hero-fx-photo {
+/* Portrait point clouds: the photo stays hidden until the intro has assembled it. */
+.fx-on .cloud-fx-photo {
   opacity: 0;
 }
 
