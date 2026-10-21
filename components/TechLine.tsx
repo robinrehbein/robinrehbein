@@ -2,7 +2,7 @@
 export function TechLine(props: { tech: string; className?: string }) {
   return (
     <ul
-      className={`flex flex-wrap gap-1.5 ${props.className ?? ""}`}
+      className={`tech-tags flex flex-wrap gap-1.5 ${props.className ?? ""}`}
     >
       {props.tech.split(" · ").map((item) => (
         <li

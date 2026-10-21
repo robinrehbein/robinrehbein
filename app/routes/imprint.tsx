@@ -4,7 +4,7 @@ import { site } from "@/lib/site.ts";
 export default function Imprint() {
   return (
     <>
-      <section className="shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
+      <section lang="de" className="legal-page shell max-w-3xl pt-10 md:pt-16 pb-16 md:pb-24">
         <p className="eyebrow text-mustard-deep mb-4">Legal</p>
         <h1 className="display font-medium text-[clamp(2.5rem,8vw,6rem)] mb-12">
           Impressum.

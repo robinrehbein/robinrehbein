@@ -156,15 +156,19 @@ function inkDelays(pts: Point[], ink: Ink): Float32Array {
 
 export type PointCloud = { replay: () => void; destroy: () => void };
 
-export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement, data: CloudData): Promise<PointCloud> {
+export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement, data: CloudData, signal?: AbortSignal): Promise<PointCloud> {
   const ctx = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false });
   if (!ctx) throw new Error("WebGL unavailable");
   const gl: WebGLRenderingContext = ctx;
   const pts = await loadPoints(data);
+  signal?.throwIfAborted();
   const asp = data.rows / data.cols;
 
+
+  const shaders: WebGLShader[] = [];
+  const buffers: WebGLBuffer[] = [];
   const compile = (type: number, src: string) => {
-    const s = gl.createShader(type)!;
+    const s = gl.createShader(type)!; shaders.push(s);
     gl.shaderSource(s, src); gl.compileShader(s);
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? "shader error");
     return s;
@@ -178,7 +182,7 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
 
   const n = pts.length;
   const buffer = (name: string, size: number, data: Float32Array) => {
-    const b = gl.createBuffer()!;
+    const b = gl.createBuffer()!; buffers.push(b);
     gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(prog, name);
     gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
@@ -226,6 +230,8 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
   let last = performance.now();
   const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
   let hovering = false, start = performance.now(), raf = 0, running = false;
+  // While off-screen or in a hidden tab the loop pauses; the intro clock pauses with it.
+  let visible = true, destroyed = false, pausedAt = 0;
   const t0 = performance.now();
 
   function move(e: PointerEvent) {
@@ -275,19 +281,43 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
     if (settled && cur.photo > 0.995) { photo.style.opacity = "1"; running = false; return; }
     raf = requestAnimationFrame(frame);
   }
-  function wake() { if (!running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } }
+  function wake() {
+    if (running || destroyed || !visible || document.hidden) return;
+    const now = performance.now();
+    if (pausedAt) { start += now - pausedAt; pausedAt = 0; }
+    running = true; last = now; raf = requestAnimationFrame(frame);
+  }
+  function pause() {
+    if (!pausedAt) pausedAt = performance.now();
+    hovering = false; cancelAnimationFrame(raf); running = false;
+  }
 
+  const visibility = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (!visible) pause();
+    else wake();
+  });
+  visibility.observe(stage);
+  const onVisibility = () => {
+    if (document.hidden) pause();
+    else wake();
+  };
+  document.addEventListener("visibilitychange", onVisibility);
   photo.style.opacity = "0";
   wake();
 
   return {
-    replay: () => { hovering = false; start = performance.now(); cur.photo = 0; photo.style.opacity = "0"; wake(); },
+    replay: () => { hovering = false; start = performance.now(); pausedAt = 0; cur.photo = 0; photo.style.opacity = "0"; wake(); },
     destroy: () => {
-      cancelAnimationFrame(raf); running = false; ro.disconnect();
+      destroyed = true; cancelAnimationFrame(raf); running = false; ro.disconnect();
+      visibility.disconnect(); document.removeEventListener("visibilitychange", onVisibility);
       stage.removeEventListener("pointerenter", onEnter);
       stage.removeEventListener("pointermove", onMove);
       stage.removeEventListener("pointerleave", onLeave);
       stage.removeEventListener("pointerdown", onDown);
+      buffers.forEach(b => gl.deleteBuffer(b));
+      shaders.forEach(s => gl.deleteShader(s));
+      gl.deleteProgram(prog);
       photo.style.opacity = "";
     },
   };

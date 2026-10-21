@@ -11,6 +11,10 @@ export const site = {
 };
 
 export interface Project {
+  slug: string;
+  role: string;
+  status?: string;
+  excerpt: string;
   index: string;
   title: string;
   href: string;
@@ -22,12 +26,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "noah",
     index: "01",
     title: "Noah",
+    role: "Co-founder · Product engineering",
+    excerpt: "A shared account for school classes, sports teams and clubs. I co-founded Noah and build its backend, web platform and native apps end-to-end.",
     href: "https://join-noah.de",
     summary: "The shared account for groups without a legal form.",
     description:
-      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and Luis and build the product end-to-end: a Kotlin and Ktor backend, React Router for the web and admin apps, and native Android and iOS apps that share their domain logic and API contracts through Kotlin Multiplatform.",
+      "Banks usually only open an account in a group's name for registered associations. Noah is the joint account for everyone else — school classes, sports teams and clubs: the money belongs to the group, not to one member who is personally liable. I co-founded Noah in 2026 together with Fabian and build the product end-to-end: a Kotlin and Ktor backend, React Router for the web and admin apps, and native Android and iOS apps that share their domain logic and API contracts through Kotlin Multiplatform.",
     tech: "Kotlin · Ktor · React Router · Kotlin Multiplatform",
     images: [
       "/noah_landing_desktop.webp",
@@ -35,8 +42,12 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "artwerk",
     index: "02",
     title: "artwerk studios",
+    role: "Co-founder · Technical build",
+    status: "Showcase · Sales discontinued",
+    excerpt: "Personalized music posters, from a live preview to a premium print. I co-founded artwerk with two friends and focused on the technical build; the site remains online as a showcase.",
     href: "https://artwerk.store",
     summary: "Turn your favorite songs into personalized posters.",
     description:
@@ -51,12 +62,15 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "kirchmaier",
     index: "03",
     title: "Kirchmaier & Staudacher",
+    role: "Design collaboration · Development",
+    excerpt: "A digital presence for a property developer. Design developed with the client; frontend and deployment built by me.",
     href: "https://www.kirchmaier-staudacher.de/",
-    summary: "Digital presence for a construction project management company.",
+    summary: "Digital presence for a property developer.",
     description:
-      "Kirchmaier & Staudacher is a project management company for construction and real estate development. I built their digital presence solo, on Svelte — design worked out closely with the client, frontend and deployment entirely my own.",
+      "Kirchmaier & Staudacher is a property developer that builds and holds its own real estate. I built their digital presence solo, on Svelte — design worked out closely with the client, frontend and deployment entirely my own.",
     tech: "Svelte · TypeScript",
     images: [
       "/macbook_kirchmaier_landing_1.webp",
@@ -195,7 +209,7 @@ export const positions: Position[] = [
     current: true,
     brandColor: "#fc4c00",
     description:
-      "I'm responsible for product engineering and architecture at Noah, building the platform end-to-end — Kotlin and Ktor on the backend, React Router on the web, native Android and iOS apps on a shared Kotlin Multiplatform core — from data model to the last pixel, alongside co-founders Fabian and Luis.",
+      "I'm responsible for product engineering and architecture at Noah, building the platform end-to-end — Kotlin and Ktor on the backend, React Router on the web, native Android and iOS apps on a shared Kotlin Multiplatform core — from data model to the last pixel, alongside co-founder Fabian.",
   },
   {
     role: "Senior Software Engineer",

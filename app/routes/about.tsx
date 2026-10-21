@@ -32,12 +32,15 @@ export default function About() {
               taught myself many new technologies and programming languages, and
               my excitement for learning never stops.
             </p>
-            <p className="mb-8 max-w-prose">
+            <p className="mb-4 max-w-prose">
               In my free time, I enjoy working on custom mechanical keyboards,
               making unique and personal typing experiences. During the
               pandemic, I discovered a love for indoor plants and turned my home
-              into a green and peaceful space. I also love biking, which takes
-              me on exciting adventures as I explore hidden trails. And my
+              into a green and peaceful space.
+            </p>
+            <p className="mb-8 max-w-prose">
+              I also love biking, which takes me on exciting adventures as I
+              explore hidden trails. And my
               journey into the world of coffee as a barista has deepened my
               appreciation for every cup I make.
             </p>

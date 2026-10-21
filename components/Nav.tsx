@@ -15,20 +15,20 @@ export function Nav(props: { currentPath?: string }) {
           <a
             href="/work"
             aria-current={isActive("/work")}
-            className="eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
+            className="nav-link eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
           >
             Work
           </a>
           <a
             href="/about"
             aria-current={isActive("/about")}
-            className="eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
+            className="nav-link eyebrow hover:text-green transition-colors aria-[current=page]:text-green"
           >
             About
           </a>
           <a
             href="#contact"
-            className="eyebrow hover:text-green transition-colors"
+            className="nav-link eyebrow hover:text-green transition-colors"
           >
             Contact
           </a>

@@ -2,6 +2,7 @@ export function meta() { return [{ title: `Work — ${site.name}` }, { name: "de
 import { projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
+import { Gallery } from "@/components/Gallery.tsx";
 import { TechLine } from "@/components/TechLine.tsx";
 
 export default function Work() {
@@ -17,12 +18,18 @@ export default function Work() {
           custom poster shops to digital presences for the construction
           industry.
         </p>
+        <nav aria-label="Project index" className="project-index mt-10">
+          {projects.map(p => <a key={p.slug} href={`#${p.slug}`} className="eyebrow link-wavy">{p.title}</a>)}
+          <a href="#lab" className="eyebrow link-wavy">From the lab</a>
+        </nav>
       </section>
 
       {projects.map((project) => (
         <section
+          data-scroll-reveal
           key={project.title}
-          className="shell py-16 md:py-24 border-t-2 border-ink"
+          id={project.slug}
+          className="shell scroll-mt-20 py-16 md:py-24 border-t-2 border-ink"
         >
           <SectionHead index={project.index} title={project.title} />
           <div className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 mb-10">
@@ -30,6 +37,7 @@ export default function Work() {
               {project.summary}
             </p>
             <div>
+              <p className="project-role mb-3">{project.role}{project.status && <span className="block mt-1">{project.status}</span>}</p>
               <TechLine tech={project.tech} className="mb-3" />
               <p className="max-w-prose mb-6">{project.description}</p>
               <a
@@ -38,22 +46,11 @@ export default function Work() {
                 rel="noopener noreferrer"
                 className="eyebrow link-wavy"
               >
-                Visit site ↗
+                Visit site <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
-          <div className="strip">
-            {project.images.map((image, i) => (
-              <img
-                key={image}
-                src={image}
-                {...sizeOf(image)}
-                alt={`${project.title} — impression ${i + 1}`}
-                loading="lazy"
-                className="photo print-shadow h-64 md:h-96 w-auto object-cover bg-paper-warm"
-              />
-            ))}
-          </div>
+          <Gallery images={project.images} title={project.title} />
         </section>
       ))}
 
@@ -66,9 +63,10 @@ export default function Work() {
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           {sideProjects.map((sp) => (
             <article
+              data-scroll-reveal
               key={sp.title}
               id={sp.slug}
-              className="scroll-mt-24 relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
+              className="lab-card scroll-mt-24 relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
             >
               <img
                 src={sp.icon}
@@ -81,29 +79,16 @@ export default function Work() {
               <h3 className="display text-3xl font-semibold mb-3">{sp.title}</h3>
               <p className="font-serif italic text-green mb-4">{sp.tagline}</p>
               <p className="mb-6">{sp.description}</p>
-              {sp.images && (
-                <div className="strip mb-6">
-                  {sp.images.map((image, i) => (
-                    <img
-                      key={image}
-                      src={image}
-                      {...sizeOf(image)}
-                      alt={`${sp.title} — screenshot ${i + 1}`}
-                      loading="lazy"
-                      className="photo print-shadow h-72 md:h-80 w-auto"
-                    />
-                  ))}
-                </div>
-              )}
+              {sp.images && <Gallery images={sp.images} title={sp.title} compact />}
               {sp.href
                 ? (
                   <a
                     href={sp.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="eyebrow link-wavy"
+                    className="eyebrow link-wavy lab-card-action"
                   >
-                    View on GitHub ↗
+                    View on GitHub <span aria-hidden="true">↗</span>
                   </a>
                 )
                 : <p className="eyebrow text-green">{sp.note}</p>}
