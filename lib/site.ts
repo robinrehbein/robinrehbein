@@ -22,11 +22,16 @@ export interface Project {
   description: string;
   tech: string;
   images: string[];
+  /** Logo color for the project's wavy underline in the index. */
+  brandColor: string;
+  /** Darker hover text color, for brand colors too light to read as text. */
+  brandText?: string;
 }
 
 export const projects: Project[] = [
   {
     slug: "noah",
+    brandColor: "#fc4c00",
     index: "01",
     title: "Noah",
     role: "Co-founder · Product engineering",
@@ -43,6 +48,7 @@ export const projects: Project[] = [
   },
   {
     slug: "artwerk",
+    brandColor: "#5a776d",
     index: "02",
     title: "artwerk studios",
     role: "Co-founder · Technical build",
@@ -63,6 +69,8 @@ export const projects: Project[] = [
   },
   {
     slug: "kirchmaier",
+    brandColor: "#dc83b2",
+    brandText: "#a8457a",
     index: "03",
     title: "Kirchmaier & Staudacher",
     role: "Design collaboration · Development",
