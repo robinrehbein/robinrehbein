@@ -1,13 +1,12 @@
-// Point-cloud effect for the hero portrait. On load the frame starts empty; fine dust of the
-// whole picture, black background included, fades in across the frame and drifts, then gathers
+// Point-cloud effect for portraits (hero and about page). On load the frame starts empty; fine dust of the
+// whole picture, background included, fades in across the frame and drifts, then gathers
 // into the photo like ink (blots, a single drop or watercolour, taking turns per visit), so the
-// black only appears where the points land. On hover the photo dissolves back into a
+// picture only appears where the points land. On hover the photo dissolves back into a
 // softly scattered cloud that leans toward the pointer, with slow waves running out from it.
 // Plain WebGL, no library.
-// Data comes from /me_cloud.png: red = brightness, green = depth: Depth Anything V2, softened
-// and blended with a smooth head-and-shoulders relief so the face, not the shirt, comes forward.
+// Depth comes from Depth Anything V2, softened and blended with a smooth relief of the person,
+// so the face, not the shirt or the street behind, comes forward.
 
-const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
 const REVEAL_MS = 1400;
@@ -29,14 +28,18 @@ function nextInk(): Ink {
 const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1, stir: 1 };
 
 // scale: background points are sampled every second cell and drawn twice as large.
-type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: number; sz: number; scale: number };
+type Point = { x: number; y: number; lum: number; col: number[]; dep: number; sx: number; sy: number; sz: number; scale: number };
+
+// A portrait's data image, cols × rows points. Grey: red = brightness, green = depth.
+// Colour: twice as tall, the photo on top and its depth map (grey) below.
+export type CloudData = { src: string; cols: number; rows: number; color?: boolean };
 
 const VERT = `
 attribute vec2 aPos; attribute float aLum; attribute float aDep; attribute vec3 aScatter;
-attribute vec3 aStart; attribute float aDelay; attribute float aScale;
+attribute vec3 aStart; attribute float aDelay; attribute float aScale; attribute vec3 aCol;
 uniform float uReveal, uAssemble, uDepth, uBurst, uWave, uStir, uCell, uTime, uDist;
-uniform vec2 uRot; uniform vec2 uMouse;
-varying float vLum; varying float vRound; varying float vAlpha;
+uniform vec2 uRot; uniform vec2 uMouse; uniform float uAsp;
+varying float vRound; varying float vAlpha; varying vec3 vCol;
 // CSS-style cubic-bezier(x1, y1, x2, y2): solve the curve's x for t with Newton steps, return y.
 float bezier(float x, vec4 c) {
   float t = x;
@@ -71,47 +74,50 @@ void main() {
   float rr = fract(aScatter.x * 43.7 + aScatter.y * 12.3);
   vAlpha = smoothstep(rr * 0.7, rr * 0.7 + 0.3, uReveal);
   float loose = max(1.0 - t, max(uBurst, uDepth));
-  vLum = aLum; vRound = clamp(loose * 2.0, 0.0, 1.0);
+  vCol = aCol; vRound = clamp(loose * 2.0, 0.0, 1.0);
   float w = uDist - p.z;
   gl_PointSize = uCell * 1.25 * aScale * mix(1.0, 0.9 + aLum * 1.1, clamp(loose * 1.5, 0.0, 1.0)) * uDist / w;
-  gl_Position = vec4(p.x * uDist, p.y * uDist, 0.0, w);
+  gl_Position = vec4(p.x * uDist, p.y * uDist / uAsp, 0.0, w);
 }`;
 
 const FRAG = `
 precision mediump float;
-varying float vLum; varying float vRound; varying float vAlpha;
+varying float vRound; varying float vAlpha; varying vec3 vCol;
 void main() {
   vec2 d = gl_PointCoord - 0.5;
   float sq = step(max(abs(d.x), abs(d.y)), 0.5);
   float rd = smoothstep(0.5, 0.2, length(d));
-  gl_FragColor = vec4(vec3(vLum), mix(sq, rd, vRound) * vAlpha);
+  gl_FragColor = vec4(vCol, mix(sq, rd, vRound) * vAlpha);
 }`;
 
-function loadPoints(src: string): Promise<Point[]> {
+function loadPoints({ src, cols, rows, color }: CloudData): Promise<Point[]> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
       const c = document.createElement("canvas");
-      c.width = GRID; c.height = GRID;
+      const h = color ? rows * 2 : rows, asp = rows / cols;
+      c.width = cols; c.height = h;
       const ctx = c.getContext("2d");
       if (!ctx) return reject(new Error("no 2d context"));
-      ctx.drawImage(img, 0, 0, GRID, GRID);
-      const px = ctx.getImageData(0, 0, GRID, GRID).data;
+      ctx.drawImage(img, 0, 0, cols, h);
+      const px = ctx.getImageData(0, 0, cols, h).data;
+      const lumAt = (i: number) => color ? (0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2]) / 255 : px[i] / 255;
       const pts: Point[] = [];
-      for (let gy = 0; gy < GRID; gy++) for (let gx = 0; gx < GRID; gx++) {
-        const i = (gy * GRID + gx) * 4, lum = px[i] / 255;
+      for (let gy = 0; gy < rows; gy++) for (let gx = 0; gx < cols; gx++) {
+        const i = (gy * cols + gx) * 4, lum = lumAt(i);
         // The near-black background is part of the picture too, but at half resolution: one double-size
         // point per 2×2 block. Where the block's top-left pixel belongs to the face, its background
         // pixels get normal points instead, so no paper shows through along the face outline.
         const bg = lum < 0.06;
         const anchor = gx % 2 === 0 && gy % 2 === 0;
-        const anchorBg = px[(((gy >> 1) << 1) * GRID + ((gx >> 1) << 1)) * 4] / 255 < 0.06;
+        const anchorBg = lumAt((((gy >> 1) << 1) * cols + ((gx >> 1) << 1)) * 4) < 0.06;
         if (bg && !anchor && anchorBg) continue;
         const scale = bg && anchor ? 2 : 1;
         const a = Math.random() * Math.PI * 2, r = 0.4 + Math.random() * 0.6;
         pts.push({
-          x: ((gx + scale / 2) / GRID - 0.5) * 2, y: (0.5 - (gy + scale / 2) / GRID) * 2,
-          lum, dep: px[i + 1] / 255, sx: Math.cos(a) * r, sy: Math.sin(a) * r, sz: Math.random(), scale,
+          x: ((gx + scale / 2) / cols - 0.5) * 2, y: (0.5 - (gy + scale / 2) / rows) * 2 * asp,
+          lum, col: color ? [px[i] / 255, px[i + 1] / 255, px[i + 2] / 255] : [lum, lum, lum],
+          dep: color ? px[i + cols * rows * 4] / 255 : px[i + 1] / 255, sx: Math.cos(a) * r, sy: Math.sin(a) * r, sz: Math.random(), scale,
         });
       }
       resolve(pts);
@@ -148,13 +154,14 @@ function inkDelays(pts: Point[], ink: Ink): Float32Array {
   }));
 }
 
-export type HeroCloud = { replay: () => void; destroy: () => void };
+export type PointCloud = { replay: () => void; destroy: () => void };
 
-export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement): Promise<HeroCloud> {
+export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement, data: CloudData): Promise<PointCloud> {
   const ctx = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false });
   if (!ctx) throw new Error("WebGL unavailable");
   const gl: WebGLRenderingContext = ctx;
-  const pts = await loadPoints("/me_cloud.png");
+  const pts = await loadPoints(data);
+  const asp = data.rows / data.cols;
 
   const compile = (type: number, src: string) => {
     const s = gl.createShader(type)!;
@@ -181,9 +188,10 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   buffer("aDep", 1, new Float32Array(pts.map((p) => p.dep)));
   buffer("aScatter", 3, new Float32Array(pts.flatMap((p) => [p.sx, p.sy, p.sz])));
   const rnd = Math.random;
-  buffer("aStart", 3, new Float32Array(pts.flatMap(() => [(rnd() - 0.5) * 2.2, (rnd() - 0.5) * 2.2, (rnd() - 0.5) * 1.4])));
+  buffer("aStart", 3, new Float32Array(pts.flatMap(() => [(rnd() - 0.5) * 2.2, (rnd() - 0.5) * 2.2 * asp, (rnd() - 0.5) * 1.4])));
   const ink = nextInk();
   buffer("aDelay", 1, inkDelays(pts, ink));
+  buffer("aCol", 3, new Float32Array(pts.flatMap((p) => p.col)));
   buffer("aScale", 1, new Float32Array(pts.map((p) => p.scale)));
 
   const u = (name: string) => gl.getUniformLocation(prog, name);
@@ -192,6 +200,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     cell: u("uCell"), time: u("uTime"), dist: u("uDist"), rot: u("uRot"), mouse: u("uMouse"),
   };
   gl.uniform1f(U.dist, DIST);
+  gl.uniform1f(u("uAsp"), asp);
   gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.clearColor(0, 0, 0, 0);
 
@@ -200,7 +209,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     const w = Math.round(stage.clientWidth * dpr), h = Math.round(stage.clientHeight * dpr);
     canvas.width = w; canvas.height = h;
     gl.viewport(0, 0, w, h);
-    gl.uniform1f(U.cell, w / GRID);
+    gl.uniform1f(U.cell, w / data.cols);
   }
   const ro = new ResizeObserver(() => { resize(); wake(); });
   ro.observe(stage); resize();
@@ -223,7 +232,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     const b = stage.getBoundingClientRect();
     const nx = (e.clientX - b.left) / b.width - 0.5, ny = (e.clientY - b.top) / b.height - 0.5;
     aim.y = nx * 0.35 * HOVER.tilt; aim.x = ny * 0.18 * HOVER.tilt;
-    mouse.x = nx * 2; mouse.y = -ny * 2;
+    mouse.x = nx * 2; mouse.y = -ny * 2 * asp;
   }
   const onEnter = (e: PointerEvent) => { if (e.pointerType === "mouse") { hovering = true; move(e); wake(); } };
   const onMove = (e: PointerEvent) => { if (hovering) move(e); };
