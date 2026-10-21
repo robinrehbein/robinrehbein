@@ -7,7 +7,7 @@ import { sizeOf } from "@/lib/imageSizes.ts";
 import { TechLine } from "@/components/TechLine.tsx";
 
 const MARQUEE_ITEMS = [
-  "Fully booked, no side projects for now",
+  "Fully booked",
   "Stuttgart, Germany",
   `Turning ideas into code since ${site.codingSince}`,
   "Web architecture",

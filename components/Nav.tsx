@@ -34,7 +34,7 @@ export function Nav(props: { currentPath?: string }) {
           </a>
           <span className="hidden md:inline-flex items-center gap-2 eyebrow">
             <span className="status-dot" aria-hidden="true" />
-            Fully booked, no side projects for now
+            Fully booked
           </span>
         </nav>
       </div>
