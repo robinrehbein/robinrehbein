@@ -71,8 +71,8 @@ export default function Home() {
               since {site.codingSince}.
             </p>
             <div className="flex flex-wrap gap-x-8 gap-y-3">
-              <a href="/work" className="eyebrow link-wavy">Selected work <span className="link-arrow" aria-hidden="true">→</span></a>
-              <a href="/about" className="eyebrow link-wavy">About me <span className="link-arrow" aria-hidden="true">→</span></a>
+              <a href="/work" className="eyebrow link-wavy">Selected work <span aria-hidden="true">→</span></a>
+              <a href="/about" className="eyebrow link-wavy">About me <span aria-hidden="true">→</span></a>
             </div>
           </div>
           <CloudPortrait
@@ -116,7 +116,7 @@ export default function Home() {
               ))}
             </ul>
             <a href="/about" className="eyebrow link-wavy">
-              More about me <span className="link-arrow" aria-hidden="true">→</span>
+              More about me <span aria-hidden="true">→</span>
             </a>
           </div>
           <div>
@@ -181,10 +181,10 @@ export default function Home() {
         </div>
         <div className="mt-16 flex flex-wrap justify-end gap-x-8 gap-y-3">
           <a href="/work#lab" className="eyebrow link-wavy">
-            All {sideProjects.length} lab projects <span className="link-arrow" aria-hidden="true">→</span>
+            All {sideProjects.length} lab projects <span aria-hidden="true">→</span>
           </a>
           <a href="/work" className="eyebrow link-wavy">
-            More of my work <span className="link-arrow" aria-hidden="true">→</span>
+            More of my work <span aria-hidden="true">→</span>
           </a>
         </div>
       </section>

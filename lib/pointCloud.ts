@@ -230,7 +230,8 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
   let last = performance.now();
   const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
   let hovering = false, start = performance.now(), raf = 0, running = false;
-  let visible = true, destroyed = false;
+  // While off-screen or in a hidden tab the loop pauses; the intro clock pauses with it.
+  let visible = true, destroyed = false, pausedAt = 0;
   const t0 = performance.now();
 
   function move(e: PointerEvent) {
@@ -280,16 +281,25 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
     if (settled && cur.photo > 0.995) { photo.style.opacity = "1"; running = false; return; }
     raf = requestAnimationFrame(frame);
   }
-  function wake() { if (!running && !destroyed && visible && !document.hidden) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } }
+  function wake() {
+    if (running || destroyed || !visible || document.hidden) return;
+    const now = performance.now();
+    if (pausedAt) { start += now - pausedAt; pausedAt = 0; }
+    running = true; last = now; raf = requestAnimationFrame(frame);
+  }
+  function pause() {
+    if (!pausedAt) pausedAt = performance.now();
+    hovering = false; cancelAnimationFrame(raf); running = false;
+  }
 
   const visibility = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
-    if (!visible) { hovering = false; cancelAnimationFrame(raf); running = false; }
+    if (!visible) pause();
     else wake();
   });
   visibility.observe(stage);
   const onVisibility = () => {
-    if (document.hidden) { hovering = false; cancelAnimationFrame(raf); running = false; }
+    if (document.hidden) pause();
     else wake();
   };
   document.addEventListener("visibilitychange", onVisibility);
@@ -297,7 +307,7 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
   wake();
 
   return {
-    replay: () => { hovering = false; start = performance.now(); cur.photo = 0; photo.style.opacity = "0"; wake(); },
+    replay: () => { hovering = false; start = performance.now(); pausedAt = 0; cur.photo = 0; photo.style.opacity = "0"; wake(); },
     destroy: () => {
       destroyed = true; cancelAnimationFrame(raf); running = false; ro.disconnect();
       visibility.disconnect(); document.removeEventListener("visibilitychange", onVisibility);

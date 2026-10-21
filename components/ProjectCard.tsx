@@ -37,9 +37,14 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         <p className="project-role mb-4">{project.role}</p>
         <TechLine tech={project.tech} className="mb-4" />
         <p className="mb-8 max-w-prose">{project.excerpt}</p>
-        <a href={`/work#${project.slug}`} className="eyebrow link-wavy arrow-link">
-          Explore project <span aria-hidden="true">→</span>
-        </a>
+        <div className="flex flex-wrap gap-x-8 gap-y-3">
+          <a href={`/work#${project.slug}`} className="eyebrow link-wavy">
+            Explore project <span aria-hidden="true">→</span>
+          </a>
+          <a href={project.href} target="_blank" rel="noopener noreferrer" className="eyebrow link-wavy">
+            Visit site <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </article>
   );

@@ -19,9 +19,9 @@ export function CloudPortrait(props: { src: string; data: CloudData; alt: string
       const current = ++generation;
       pending?.abort(); pending = new AbortController();
       cloud?.destroy(); cloud = null;
-      if (motion.matches || !window.WebGLRenderingContext) {
-        photo.style.opacity = "1"; return;
-      }
+      const fx = !motion.matches && !!window.WebGLRenderingContext;
+      document.documentElement.classList.toggle("fx-on", fx);
+      if (!fx) { photo.style.opacity = "1"; return; }
       photo.style.opacity = "0";
       createPointCloud(stage, canvas, photo, { src, cols, rows, color }, pending.signal).then(c => {
         if (disposed || current !== generation) { c.destroy(); if (motion.matches) photo.style.opacity = "1"; }
@@ -31,7 +31,6 @@ export function CloudPortrait(props: { src: string; data: CloudData; alt: string
     sync(); motion.addEventListener("change", sync);
     return () => { disposed = true; generation++; pending?.abort(); motion.removeEventListener("change", sync); cloud?.destroy(); };
   }, [src, cols, rows, color]);
-
 
   return (
     <div ref={stageRef} className={`cloud-fx relative overflow-hidden ${props.className ?? ""}`}>

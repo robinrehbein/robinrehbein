@@ -81,10 +81,11 @@ test('project navigation preserves full case studies and offers direct home link
   const home = await (await fetch(`${base}/`)).text();
   const work = await (await fetch(`${base}/work`)).text();
   assert.match(home, /href="\/work#noah"/);
+  assert.match(home, /href="https:\/\/join-noah.de"/);
   assert.match(work, /aria-label="Project index"/);
   for (const slug of ['noah', 'artwerk', 'kirchmaier']) assert.ok(work.includes(`id="${slug}"`));
   assert.match(work, /Banks usually only open an account/);
-  assert.match(work, /aria-label="Noah images"/);
+  assert.match(work, /aria-label="Noah gallery"/);
   assert.match(work, /noah_landing_desktop.webp/);
   assert.match(work, /Open Noah image 1/);
 });

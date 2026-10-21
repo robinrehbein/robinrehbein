@@ -7,9 +7,13 @@ export function ScrollReveals() {
   useEffect(() => {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     if (motion.matches || !window.IntersectionObserver) return;
+    // Blocks already in view on the first callback stay as they are; only later arrivals animate.
+    const seen = new WeakSet<Element>();
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      const first = !seen.has(entry.target);
+      seen.add(entry.target);
       if (entry.isIntersecting) {
-        entry.target.classList.add("scroll-arrive");
+        if (!first) entry.target.classList.add("scroll-arrive");
         observer.unobserve(entry.target);
       }
     }), { threshold: .08 });

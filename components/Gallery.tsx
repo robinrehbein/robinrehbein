@@ -11,6 +11,7 @@ export function Gallery({ images, title, compact = false }: { images: string[]; 
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
+  const [announce, setAnnounce] = useState(false);
   const id = useId();
   useEffect(() => { setReady(true); }, []);
   useEffect(() => {
@@ -51,35 +52,41 @@ export function Gallery({ images, title, compact = false }: { images: string[]; 
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   }
   function closed() { setZoom(null); opener.current?.focus(); }
+  const controls = ready && overflow;
   return (
-    <div className={`gallery ${compact ? "gallery-compact" : ""}`} role="group" aria-label={`${title} images`}>
-      <div className="gallery-heading">
-        <span className="eyebrow">{compact ? "Screenshots" : "A closer look"}</span>
-        {ready && overflow ? <div className="gallery-controls">
-          <button type="button" className="icon-button" aria-label={`Previous ${title} image`} aria-controls={id} aria-disabled={active === 0} onClick={() => { if (active > 0) move(-1); }}>←</button>
-          <span className="gallery-count" aria-live="polite" aria-atomic="true">{active + 1} / {images.length}</span>
-          <button type="button" className="icon-button" aria-label={`Next ${title} image`} aria-controls={id} aria-disabled={active === images.length - 1} onClick={() => { if (active < images.length - 1) move(1); }}>→</button>
-        </div> : <span className="gallery-count">{images.length} images</span>}
-      </div>
-      <div ref={strip} id={id} className="strip" tabIndex={0} aria-label={`${title} screenshot strip`}>
+    <div className={`gallery ${compact ? "gallery-compact" : ""}`} role="group" aria-label={`${title} gallery`}>
+      {(!compact || controls) && <div className="gallery-heading">
+        {!compact && <span className="eyebrow">A closer look</span>}
+        {controls && <div className="gallery-controls">
+          <button type="button" className="icon-button" aria-label={`Previous ${title} image`} aria-controls={id} aria-disabled={active === 0} onClick={() => { if (active > 0) { setAnnounce(true); move(-1); } }}>←</button>
+          <span className="gallery-count" aria-hidden="true">{active + 1} / {images.length}</span>
+          <button type="button" className="icon-button" aria-label={`Next ${title} image`} aria-controls={id} aria-disabled={active === images.length - 1} onClick={() => { if (active < images.length - 1) { setAnnounce(true); move(1); } }}>→</button>
+          {/* Only button presses are announced, not every scroll or tab through the strip. */}
+          <span className="sr-only" aria-live="polite">{announce ? `Image ${active + 1} of ${images.length}` : ""}</span>
+        </div>}
+      </div>}
+      <div ref={strip} id={id} className="strip" {...(controls ? { role: "region", tabIndex: 0, "aria-label": `${title} images` } : {})}>
         {images.map((image, i) => <a key={image} href={image} className="gallery-image" aria-label={`Open ${title} image ${i + 1}`} onClick={(e) => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || !dialog.current?.showModal) return;
           e.preventDefault(); opener.current = e.currentTarget; setZoom(i);
-        }}><img src={image} {...sizeOf(image)} alt={`${title} — screenshot ${i + 1}`} loading="lazy" className="photo print-shadow" /><span className="gallery-zoom" aria-hidden="true">↗</span></a>)}
+        }}><img src={image} {...sizeOf(image)} alt={`${title} — image ${i + 1}`} loading="lazy" className="photo print-shadow" /><span className="gallery-zoom" aria-hidden="true">↗</span></a>)}
       </div>
+      {/* The body fills the dialog, so only a click on the backdrop itself closes it. */}
       <dialog ref={dialog} className="image-dialog" aria-label={`${title} image viewer`} onClose={closed} onClick={e => { if (e.target === e.currentTarget) dialog.current?.close(); }} onKeyDown={e => {
         if (zoom === null) return;
         if (e.key === "ArrowRight") { e.preventDefault(); setZoom(Math.min(images.length - 1, zoom + 1)); }
         if (e.key === "ArrowLeft") { e.preventDefault(); setZoom(Math.max(0, zoom - 1)); }
       }}>
-        <div className="dialog-toolbar">
-          <span>{title} · {(zoom ?? 0) + 1} / {images.length}</span>
-          <button type="button" className="text-button" onClick={() => dialog.current?.close()} autoFocus>Close ×</button>
-        </div>
-        {zoom !== null && <img src={images[zoom]} alt={`${title} — screenshot ${zoom + 1}`} />}
-        <div className="dialog-pagination">
-          <button type="button" className="text-button" aria-disabled={zoom === 0} onClick={() => setZoom(Math.max(0, (zoom ?? 0) - 1))}>← Previous</button>
-          <button type="button" className="text-button" aria-disabled={zoom === images.length - 1} onClick={() => setZoom(Math.min(images.length - 1, (zoom ?? 0) + 1))}>Next →</button>
+        <div className="image-dialog-body">
+          <div className="dialog-toolbar">
+            <span aria-live="polite">{title} · {(zoom ?? 0) + 1} / {images.length}</span>
+            <button type="button" className="text-button" onClick={() => dialog.current?.close()} autoFocus>Close <span aria-hidden="true">×</span></button>
+          </div>
+          {zoom !== null && <img src={images[zoom]} alt={`${title} — image ${zoom + 1} of ${images.length}`} />}
+          <div className="dialog-pagination">
+            <button type="button" className="text-button" aria-disabled={zoom === 0} onClick={() => setZoom(Math.max(0, (zoom ?? 0) - 1))}><span aria-hidden="true">←</span> Previous</button>
+            <button type="button" className="text-button" aria-disabled={zoom === images.length - 1} onClick={() => setZoom(Math.min(images.length - 1, (zoom ?? 0) + 1))}>Next <span aria-hidden="true">→</span></button>
+          </div>
         </div>
       </dialog>
     </div>
