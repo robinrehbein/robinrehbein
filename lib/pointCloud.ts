@@ -102,15 +102,17 @@ function loadPoints({ src, cols, rows, color }: CloudData): Promise<Point[]> {
       ctx.drawImage(img, 0, 0, cols, h);
       const px = ctx.getImageData(0, 0, cols, h).data;
       const lumAt = (i: number) => color ? (0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2]) / 255 : px[i] / 255;
+      // Background: near-black in grey data, depth ~0 in colour data (the person is masked into the depth map).
+      const bgAt = (i: number) => color ? px[i + cols * rows * 4] / 255 < 0.05 : lumAt(i) < 0.06;
       const pts: Point[] = [];
       for (let gy = 0; gy < rows; gy++) for (let gx = 0; gx < cols; gx++) {
         const i = (gy * cols + gx) * 4, lum = lumAt(i);
-        // The near-black background is part of the picture too, but at half resolution: one double-size
-        // point per 2×2 block. Where the block's top-left pixel belongs to the face, its background
-        // pixels get normal points instead, so no paper shows through along the face outline.
-        const bg = lum < 0.06;
+        // The background is part of the picture too, but at half resolution: one double-size point per
+        // 2×2 block. Where the block's top-left pixel belongs to the person, its background pixels get
+        // normal points instead, so no paper shows through along the outline.
+        const bg = bgAt(i);
         const anchor = gx % 2 === 0 && gy % 2 === 0;
-        const anchorBg = lumAt((((gy >> 1) << 1) * cols + ((gx >> 1) << 1)) * 4) < 0.06;
+        const anchorBg = bgAt((((gy >> 1) << 1) * cols + ((gx >> 1) << 1)) * 4);
         if (bg && !anchor && anchorBg) continue;
         const scale = bg && anchor ? 2 : 1;
         const a = Math.random() * Math.PI * 2, r = 0.4 + Math.random() * 0.6;
