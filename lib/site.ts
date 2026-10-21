@@ -195,9 +195,15 @@ export interface Position {
   brandText?: string;
 }
 
+/** The wavy underline in a given colour, as the SVG background .link-wavy draws. */
+export function waveImage(color: string) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'><path d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='${color}' stroke-width='2.2'/></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
 /** CSS variables consumed by .link-wavy-brand. */
 export function brandStyle(color: string, text?: string) {
-  return { "--brand": color, "--brand-text": text ?? color } as CSSProperties;
+  return { "--wave-img": waveImage(color), "--brand-text": text ?? color } as CSSProperties;
 }
 
 export const positions: Position[] = [
