@@ -22,7 +22,7 @@ export function HeroPortrait(props: { alt: string; className?: string }) {
   }, []);
 
   return (
-    <div ref={stageRef} className={`hero-fx relative overflow-hidden bg-black ${props.className ?? ""}`}>
+    <div ref={stageRef} className={`hero-fx relative overflow-hidden ${props.className ?? ""}`}>
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 size-full" />
       <img
         ref={photoRef}
