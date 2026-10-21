@@ -8,8 +8,8 @@ export function Nav(props: { currentPath?: string }) {
     <header className="border-b-2 border-ink bg-paper/95 sticky top-0 z-50 backdrop-blur-sm">
       <div className="shell flex items-center justify-between gap-3 py-3">
         <a href="/" className="display text-xl font-semibold tracking-tight inline-flex items-center gap-1.5">
-          <Logo className="size-[1.6em] text-green" />
-          <span className="sr-only md:not-sr-only">Robin&nbsp;Rehbein</span>
+          <Logo className="size-[1.6em]" />
+          <span className="sr-only md:not-sr-only">Robin&nbsp;Rehbein.</span>
         </a>
         <nav className="flex items-center gap-4 md:gap-8">
           <a
