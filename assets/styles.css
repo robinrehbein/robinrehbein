@@ -152,15 +152,19 @@ a {
 }
 
 /* Wavy underline — homage to v1 of this site. A repeating SVG wave instead of text-decoration, so it
-   can slither on hover. It matches the browser's own wavy underline at 1.5px: an 11px period, 4px
-   from crest to trough and a stroke that renders like it. Company links pass their own wave via brandStyle(). */
+   can slither on hover. It matches the browser's own wavy underline at 1.5px, which is drawn finer on
+   phones: 11px period and 4px crest to trough on desktop, 7.5px and 3px below 768px. Company links pass
+   their own waves via brandStyle(). */
 .link-wavy {
-  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='%23c79417' stroke-width='2.2'/%3E%3C/svg%3E");
-  --wave-y: calc(100% + 4.6px + 0.05em);  /* crests sit just below the text */
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7.7' viewBox='0 0 11 7.7'%3E%3Cpath d='M-5.5 3.85Q-2.75 7.85 0 3.85T5.5 3.85T11 3.85T16.5 3.85' fill='none' stroke='%23c79417' stroke-width='2'/%3E%3C/svg%3E");
+  --wave-img-sm: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%23c79417' stroke-width='1.9'/%3E%3C/svg%3E");
+  --wave-w: 11px;
+  --wave-h: 7.7px;
+  --wave-y: calc(100% + 4.45px + 0.05em);  /* crests sit just below the text */
   text-decoration: none;
-  padding-bottom: calc(0.05em + 5px);  /* room to paint the wave */
+  padding-bottom: calc(0.05em + 5.45px);  /* room to paint the wave */
   background-image: var(--wave-img);
-  background-size: 11px 7px;
+  background-size: var(--wave-w) var(--wave-h);
   background-repeat: repeat-x;
   background-origin: content-box;
   background-position: 0 var(--wave-y);
@@ -169,17 +173,28 @@ a {
   transition: color 150ms ease;
 }
 
+@media (max-width: 767px) {
+  .link-wavy {
+    background-image: var(--wave-img-sm);
+    --wave-w: 7.5px;
+    --wave-h: 6.4px;
+    --wave-y: calc(100% + 2.3px + 0.05em);
+    padding-bottom: calc(0.05em + 2.9px);
+  }
+}
+
 .link-wavy:hover {
   color: var(--color-mustard-deep);
   animation: wave-slither 550ms linear infinite;
 }
 
 @keyframes wave-slither {
-  to { background-position: -11px var(--wave-y); }
+  to { background-position: calc(-1 * var(--wave-w)) var(--wave-y); }
 }
 
 .link-wavy-green {
-  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='%231e3b2c' stroke-width='2.2'/%3E%3C/svg%3E");
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7.7' viewBox='0 0 11 7.7'%3E%3Cpath d='M-5.5 3.85Q-2.75 7.85 0 3.85T5.5 3.85T11 3.85T16.5 3.85' fill='none' stroke='%231e3b2c' stroke-width='2'/%3E%3C/svg%3E");
+  --wave-img-sm: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%231e3b2c' stroke-width='1.9'/%3E%3C/svg%3E");
 }
 
 .link-wavy-green:hover {
