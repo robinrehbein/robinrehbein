@@ -31,7 +31,7 @@ export const imageSizes: Record<string, [number, number]> = {
   "/mininetworks_town.webp": [405, 720],
   "/mininetworks_wireless.webp": [405, 720],
   "/noah_landing_desktop.webp": [1440, 1000],
-  "/noah_landing_mobile.webp": [390, 844],
+  "/noah_landing_mobile.webp": [780, 1688],
   "/og-image.jpg": [1200, 630],
   "/pocketpi_chat.webp": [540, 1200],
   "/pocketpi_sessions.webp": [540, 1200],
