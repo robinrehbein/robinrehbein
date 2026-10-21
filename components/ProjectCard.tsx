@@ -1,9 +1,10 @@
-import type { Project } from "@/lib/site.ts";
+import { brandStyle, type Project } from "@/lib/site.ts";
 import { sizeOf } from "@/lib/imageSizes.ts";
 import { TechLine } from "@/components/TechLine.tsx";
 
 export function ProjectCard(props: { project: Project; flip?: boolean }) {
   const { project, flip } = props;
+  const brand = brandStyle(project.brandColor, project.brandText);
   return (
     <article data-scroll-reveal className="grid md:grid-cols-2 gap-8 md:gap-14 items-start mb-20 md:mb-32 last:mb-0">
       <div className={`relative mb-6 md:mb-0 ${flip ? "md:order-2" : ""}`}>
@@ -38,10 +39,10 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         <TechLine tech={project.tech} className="mb-4" />
         <p className="mb-8 max-w-prose">{project.excerpt}</p>
         <div className="flex flex-wrap gap-x-8 gap-y-3">
-          <a href={`/work#${project.slug}`} className="eyebrow link-wavy">
+          <a href={`/work#${project.slug}`} className="eyebrow link-wavy link-wavy-brand" style={brand}>
             Explore project →
           </a>
-          <a href={project.href} target="_blank" rel="noopener noreferrer" className="eyebrow link-wavy">
+          <a href={project.href} target="_blank" rel="noopener noreferrer" className="eyebrow link-wavy link-wavy-brand" style={brand}>
             Visit site ↗
           </a>
         </div>
