@@ -209,6 +209,11 @@ a {
   filter: none;
 }
 
+/* Hero point cloud: the photo stays hidden until the intro has assembled it. */
+.fx-on .hero-fx-photo {
+  opacity: 0;
+}
+
 /* Marquee band */
 .marquee {
   overflow: hidden;
