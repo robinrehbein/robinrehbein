@@ -32,9 +32,9 @@ export function Nav(props: { currentPath?: string }) {
           >
             Contact
           </a>
-          <span className="hidden md:inline-flex items-center gap-2 eyebrow text-green">
+          <span className="hidden md:inline-flex items-center gap-2 eyebrow">
             <span className="status-dot" aria-hidden="true" />
-            Open to interesting side projects
+            Fully booked, no side projects for now
           </span>
         </nav>
       </div>
