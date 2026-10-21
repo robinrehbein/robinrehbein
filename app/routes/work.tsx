@@ -44,7 +44,8 @@ export default function Work() {
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="eyebrow link-wavy"
+                className="eyebrow link-wavy link-wavy-brand"
+                style={brandStyle(project.brandColor, project.brandText)}
               >
                 Visit site ↗
               </a>
