@@ -5,7 +5,7 @@ import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
 import { TechLine } from "@/components/TechLine.tsx";
-import { HeroPortrait } from "@/components/HeroPortrait.tsx";
+import { CloudPortrait } from "@/components/CloudPortrait.tsx";
 
 const MARQUEE_ITEMS = [
   "Fully booked",
@@ -75,8 +75,11 @@ export default function Home() {
               <a href="/about" className="eyebrow link-wavy">About me <span className="link-arrow" aria-hidden="true">→</span></a>
             </div>
           </div>
-          <HeroPortrait
+          <CloudPortrait
+            src="/me_square.webp"
+            data={{ src: "/me_cloud.png", cols: 400, rows: 400 }}
             alt={`Portrait of ${site.name}`}
+            priority
             className="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square"
           />
         </div>
