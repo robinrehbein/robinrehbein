@@ -32,9 +32,9 @@ export default function Home() {
   const current = positions.filter((p) => p.current);
   return (
     <>
-      {/* Hero */}
-      <section className="shell pt-10 md:pt-16 pb-16 md:pb-24">
-        <div className="reveal reveal-1 flex flex-col md:flex-row justify-between gap-6 mb-16 md:mb-28">
+      {/* Hero. Vertical spacing shrinks on short screens, so the tagline and its links stay above the fold. */}
+      <section className="shell pt-10 md:pt-[clamp(1.5rem,4vh,4rem)] pb-16 md:pb-24">
+        <div className="reveal reveal-1 flex flex-col md:flex-row justify-between gap-6 mb-16 md:mb-[clamp(2.5rem,7vh,7rem)]">
           <p className="font-serif italic text-lg">
             ({site.name} — Portfolio)
           </p>
@@ -55,14 +55,14 @@ export default function Home() {
           </div>
         </div>
 
-        <h1 className="reveal reveal-2 display font-medium text-[clamp(3.2rem,11vw,10rem)] mb-14 md:mb-20">
+        <h1 className="reveal reveal-2 display font-medium text-[clamp(3.2rem,11vw,10rem)] mb-14 md:mb-[clamp(2rem,5vh,5rem)]">
           Architect
           <br />
           <span className="text-green">& Develop.</span>
         </h1>
 
         <div className="flex flex-col md:flex-row items-start justify-between gap-10">
-          <div className="reveal reveal-3 flex flex-col gap-8 md:self-stretch md:justify-between md:py-2">
+          <div className="reveal reveal-3 flex flex-col gap-8 md:py-2">
             <p className="serif-lede max-w-md">
               Turning people's ideas into{" "}
               <strong className="font-semibold text-mustard-deep">
@@ -71,8 +71,8 @@ export default function Home() {
               since {site.codingSince}.
             </p>
             <div className="flex flex-wrap gap-x-8 gap-y-3">
-              <a href="/work" className="eyebrow link-wavy">Selected work <span aria-hidden="true">→</span></a>
-              <a href="/about" className="eyebrow link-wavy">About me <span aria-hidden="true">→</span></a>
+              <a href="/work" className="eyebrow link-wavy">Selected work →</a>
+              <a href="/about" className="eyebrow link-wavy">About me →</a>
             </div>
           </div>
           <CloudPortrait
@@ -116,7 +116,7 @@ export default function Home() {
               ))}
             </ul>
             <a href="/about" className="eyebrow link-wavy">
-              More about me <span aria-hidden="true">→</span>
+              More about me →
             </a>
           </div>
           <div>
@@ -181,10 +181,10 @@ export default function Home() {
         </div>
         <div className="mt-16 flex flex-wrap justify-end gap-x-8 gap-y-3">
           <a href="/work#lab" className="eyebrow link-wavy">
-            All {sideProjects.length} lab projects <span aria-hidden="true">→</span>
+            All {sideProjects.length} lab projects →
           </a>
           <a href="/work" className="eyebrow link-wavy">
-            More of my work <span aria-hidden="true">→</span>
+            More of my work →
           </a>
         </div>
       </section>

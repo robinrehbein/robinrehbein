@@ -155,7 +155,8 @@ a {
 .link-wavy {
   text-decoration: underline;
   text-decoration-style: wavy;
-  text-decoration-thickness: from-font;
+  /* A fixed thickness renders the same wherever the link starts; from-font is under a pixel at label size. */
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 0.3em;
   text-decoration-color: var(--color-mustard);
   transition: color 150ms ease;

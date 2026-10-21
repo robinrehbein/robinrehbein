@@ -46,7 +46,7 @@ export default function Work() {
                 rel="noopener noreferrer"
                 className="eyebrow link-wavy"
               >
-                Visit site <span aria-hidden="true">↗</span>
+                Visit site ↗
               </a>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function Work() {
                     rel="noopener noreferrer"
                     className="eyebrow link-wavy lab-card-action"
                   >
-                    View on GitHub <span aria-hidden="true">↗</span>
+                    View on GitHub ↗
                   </a>
                 )
                 : <p className="eyebrow text-green">{sp.note}</p>}
