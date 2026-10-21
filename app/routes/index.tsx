@@ -48,7 +48,7 @@ export default function Home() {
                 className="link-wavy link-wavy-brand font-medium"
                 style={brandStyle("#ff0651")}
               >
-                mimacom
+                Mimacom
               </a>
             </p>
             <p>Based in {site.location}</p>
