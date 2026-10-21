@@ -39,10 +39,10 @@ export function ProjectCard(props: { project: Project; flip?: boolean }) {
         <p className="mb-8 max-w-prose">{project.excerpt}</p>
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           <a href={`/work#${project.slug}`} className="eyebrow link-wavy">
-            Explore project <span aria-hidden="true">→</span>
+            Explore project →
           </a>
           <a href={project.href} target="_blank" rel="noopener noreferrer" className="eyebrow link-wavy">
-            Visit site <span aria-hidden="true">↗</span>
+            Visit site ↗
           </a>
         </div>
       </div>
