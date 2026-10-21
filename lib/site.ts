@@ -196,7 +196,7 @@ export interface Position {
 }
 
 /** The wavy underline in a given colour, as the SVG tile .link-wavy draws (period, crest to trough, stroke, tile height). */
-export function waveImage(color: string, period = 11, height = 4, stroke = 2, h = 7.7) {
+export function waveImage(color: string, period = 7.5, height = 3, stroke = 1.9, h = 6.4) {
   const mid = h / 2, half = period / 2;
   const path = `M${-half} ${mid}Q${-period / 4} ${mid + height} 0 ${mid}T${half} ${mid}T${period} ${mid}T${period + half} ${mid}`;
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${period}' height='${h}' viewBox='0 0 ${period} ${h}'><path d='${path}' fill='none' stroke='${color}' stroke-width='${stroke}'/></svg>`;
@@ -205,7 +205,7 @@ export function waveImage(color: string, period = 11, height = 4, stroke = 2, h 
 
 /** CSS variables consumed by .link-wavy-brand. */
 export function brandStyle(color: string, text?: string) {
-  return { "--wave-img": waveImage(color), "--wave-img-sm": waveImage(color, 7.5, 3, 1.9, 6.4), "--brand-text": text ?? color } as CSSProperties;
+  return { "--wave-img": waveImage(color), "--brand-text": text ?? color } as CSSProperties;
 }
 
 export const positions: Position[] = [
