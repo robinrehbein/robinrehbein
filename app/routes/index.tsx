@@ -62,7 +62,7 @@ export default function Home() {
         </h1>
 
         <div className="flex flex-col md:flex-row items-start justify-between gap-10">
-          <div className="reveal reveal-3 flex flex-col gap-8 md:py-2">
+          <div className="reveal reveal-3 flex flex-col gap-8 md:py-2 md:sticky md:top-48">
             <p className="serif-lede max-w-md">
               Turning people's ideas into{" "}
               <strong className="font-semibold text-mustard-deep">

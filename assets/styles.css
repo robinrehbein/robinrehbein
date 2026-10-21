@@ -151,23 +151,38 @@ a {
   line-height: 1.55;
 }
 
-/* Wavy underline — homage to v1 of this site. */
+/* Wavy underline — homage to v1 of this site. A repeating SVG wave instead of text-decoration, so it
+   can slither on hover. It matches the browser's own wavy underline at 1.5px as Safari and Chrome draw
+   it on Mac and phones: a 7.5px period, 3px from crest to trough. Company links pass their own wave
+   via brandStyle(). */
 .link-wavy {
-  text-decoration: underline;
-  text-decoration-style: wavy;
-  /* A fixed thickness renders the same wherever the link starts; from-font is under a pixel at label size. */
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.3em;
-  text-decoration-color: var(--color-mustard);
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%23c79417' stroke-width='1.6'/%3E%3C/svg%3E");
+  --wave-w: 7.5px;
+  --wave-h: 6.4px;
+  --wave-y: calc(100% + 2.3px + 0.05em);  /* crests sit just below the text */
+  text-decoration: none;
+  padding-bottom: calc(0.05em + 2.9px);  /* room to paint the wave */
+  background-image: var(--wave-img);
+  background-size: var(--wave-w) var(--wave-h);
+  background-repeat: repeat-x;
+  background-origin: content-box;
+  background-position: 0 var(--wave-y);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   transition: color 150ms ease;
 }
 
 .link-wavy:hover {
   color: var(--color-mustard-deep);
+  animation: wave-slither 550ms linear infinite;
+}
+
+@keyframes wave-slither {
+  to { background-position: calc(-1 * var(--wave-w)) var(--wave-y); }
 }
 
 .link-wavy-green {
-  text-decoration-color: var(--color-green);
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.5' height='6.4' viewBox='0 0 7.5 6.4'%3E%3Cpath d='M-3.75 3.2Q-1.875 6.2 0 3.2T3.75 3.2T7.5 3.2T11.25 3.2' fill='none' stroke='%231e3b2c' stroke-width='1.6'/%3E%3C/svg%3E");
 }
 
 .link-wavy-green:hover {
@@ -175,10 +190,6 @@ a {
 }
 
 /* Company links take the company's brand color (set via brandStyle()). */
-.link-wavy-brand {
-  text-decoration-color: var(--brand);
-}
-
 .link-wavy-brand:hover {
   color: var(--brand-text);
 }
@@ -380,7 +391,7 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .eyebrow { letter-spacing: .16em; }
 .project-role { font-family: var(--font-label); font-size: .9rem; color: var(--color-green); line-height: 1.5; }
 .project-index { display: flex; flex-wrap: wrap; column-gap: 1.75rem; row-gap: .5rem; }
-.project-index a { display: inline-flex; align-items: center; min-height: 44px; }
+.project-index a { display: inline-flex; align-items: flex-end; min-height: 44px; }
 .expander summary { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; }
 .expander summary::after { display: inline-block; }
 .expander[open] summary::after { animation: detail-mark 180ms ease-out; }
@@ -390,7 +401,7 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .marquee:is(:hover, :focus-within) .marquee-track { animation-play-state: paused; }
 .lab-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .lab-card .gallery { width: 100%; margin-bottom: 1.5rem; }
-.lab-card-action { margin-top: auto; min-height: 44px; display: inline-flex; align-items: center; }
+.lab-card-action { margin-top: auto; min-height: 44px; display: inline-flex; align-items: flex-end; }
 .legal-page h2.display { line-height: 1.15; }
 .text-button { background: none; border: 0; padding: .6rem .25rem; min-height: 44px; text-decoration: underline; text-underline-offset: .3em; }
 .text-button:is(:hover, :focus-visible) { color: var(--color-mustard-deep); }
