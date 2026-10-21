@@ -13,8 +13,6 @@ export function HeroPortrait(props: { alt: string; className?: string }) {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     let cloud: HeroCloud | null = null, generation = 0, disposed = false;
     let pending: AbortController | null = null;
-    let seen = false;
-    try { seen = sessionStorage.getItem("hero-seen") === "1"; } catch { /* Storage may be disabled. */ }
     function sync() {
       if (!stage || !canvas || !photo) return;
       const current = ++generation;
@@ -23,11 +21,10 @@ export function HeroPortrait(props: { alt: string; className?: string }) {
       if (motion.matches || !window.WebGLRenderingContext) {
         photo.style.opacity = "1"; return;
       }
-      const intro = !seen;
-      if (intro) photo.style.opacity = "0";
-      createHeroCloud(stage, canvas, photo, intro, pending.signal).then(c => {
+      photo.style.opacity = "0";
+      createHeroCloud(stage, canvas, photo, pending.signal).then(c => {
         if (disposed || current !== generation) { c.destroy(); if (motion.matches) photo.style.opacity = "1"; }
-        else { cloud = c; seen = true; try { sessionStorage.setItem("hero-seen", "1"); } catch { /* Optional enhancement. */ } }
+        else cloud = c;
       }).catch(() => { if (current === generation) photo.style.opacity = "1"; });
     }
     sync(); motion.addEventListener("change", sync);
@@ -35,7 +32,7 @@ export function HeroPortrait(props: { alt: string; className?: string }) {
   }, []);
 
   return (
-    <div ref={stageRef} className={`hero-fx relative overflow-hidden bg-black ${props.className ?? ""}`}>
+    <div ref={stageRef} className={`hero-fx relative overflow-hidden ${props.className ?? ""}`}>
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 size-full" />
       <img
         ref={photoRef}
