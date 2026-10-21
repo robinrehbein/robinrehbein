@@ -195,15 +195,17 @@ export interface Position {
   brandText?: string;
 }
 
-/** The wavy underline in a given colour, as the SVG background .link-wavy draws. */
-export function waveImage(color: string) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'><path d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='${color}' stroke-width='2.2'/></svg>`;
+/** The wavy underline in a given colour, as the SVG tile .link-wavy draws (period, crest to trough, stroke, tile height). */
+export function waveImage(color: string, period = 11, height = 4, stroke = 2, h = 7.7) {
+  const mid = h / 2, half = period / 2;
+  const path = `M${-half} ${mid}Q${-period / 4} ${mid + height} 0 ${mid}T${half} ${mid}T${period} ${mid}T${period + half} ${mid}`;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${period}' height='${h}' viewBox='0 0 ${period} ${h}'><path d='${path}' fill='none' stroke='${color}' stroke-width='${stroke}'/></svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
 /** CSS variables consumed by .link-wavy-brand. */
 export function brandStyle(color: string, text?: string) {
-  return { "--wave-img": waveImage(color), "--brand-text": text ?? color } as CSSProperties;
+  return { "--wave-img": waveImage(color), "--wave-img-sm": waveImage(color, 7.5, 3, 1.9, 6.4), "--brand-text": text ?? color } as CSSProperties;
 }
 
 export const positions: Position[] = [
