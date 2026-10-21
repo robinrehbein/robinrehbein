@@ -1,6 +1,6 @@
-// Point-cloud effect for the hero portrait. On load the whole picture, black background
-// included, gathers from a loose cloud; each point fades in along its way, so the frame starts
-// empty and the black only appears where points land. On hover the photo dissolves back into a
+// Point-cloud effect for the hero portrait. On load the frame starts empty; fine dust of the
+// whole picture, black background included, fades in across the frame and drifts, then gathers
+// into the photo, so the black only appears where the points land. On hover the photo dissolves back into a
 // softly scattered cloud that leans toward the pointer, with slow waves running out from it.
 // Plain WebGL, no library.
 // Data comes from /me_cloud.png: red = brightness, green = depth (Depth Anything V2).
@@ -8,7 +8,7 @@
 const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
-const ASSEMBLE_MS = 2400;
+const REVEAL_MS = 1400, ASSEMBLE_MS = 2400;
 // Hover "Zerfliegen": the points scatter and the picture tilts with the pointer.
 const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1, stir: 1 };
 
@@ -18,7 +18,7 @@ type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: n
 const VERT = `
 attribute vec2 aPos; attribute float aLum; attribute float aDep; attribute vec3 aScatter;
 attribute vec3 aStart; attribute float aDelay; attribute float aScale;
-uniform float uAssemble, uDepth, uBurst, uWave, uStir, uCell, uTime, uDist;
+uniform float uReveal, uAssemble, uDepth, uBurst, uWave, uStir, uCell, uTime, uDist;
 uniform vec2 uRot; uniform vec2 uMouse;
 varying float vLum; varying float vRound; varying float vAlpha;
 // CSS-style cubic-bezier(x1, y1, x2, y2): solve the curve's x for t with Newton steps, return y.
@@ -46,13 +46,14 @@ void main() {
   p += vec3(sin(uTime * 1.6 + aScatter.x * 40.0), cos(uTime * 1.4 + aScatter.y * 40.0), sin(uTime * 1.2 + aScatter.z * 40.0)) * stir;
   // Intro: each point drifts from its spot in the dust to its place in the photo.
   float t = bezier(clamp((uAssemble - aDelay * 0.5) / 0.5, 0.0, 1.0), GATHER);
-  vec3 s0 = aStart + vec3(sin(uTime * 0.4 + aScatter.x * 30.0), cos(uTime * 0.35 + aScatter.y * 30.0), 0.0) * 0.03 * (1.0 - t);
+  vec3 s0 = aStart + vec3(sin(uTime * 0.6 + aScatter.x * 30.0), cos(uTime * 0.5 + aScatter.y * 30.0), 0.0) * 0.04 * (1.0 - t);
   p = mix(s0, p, t);
   float cy = cos(uRot.y), sy = sin(uRot.y), cx = cos(uRot.x), sx = sin(uRot.x);
   p = vec3(cy * p.x + sy * p.z, p.y, -sy * p.x + cy * p.z);
   p = vec3(p.x, cx * p.y - sx * p.z, sx * p.y + cx * p.z);
-  // Each point fades from invisible to full opacity in step with its movement.
-  vAlpha = t;
+  // The dust appears point by point at random moments during the reveal phase.
+  float rr = fract(aScatter.x * 43.7 + aScatter.y * 12.3);
+  vAlpha = smoothstep(rr * 0.7, rr * 0.7 + 0.3, uReveal);
   float loose = max(1.0 - t, max(uBurst, uDepth));
   vLum = aLum; vRound = clamp(loose * 2.0, 0.0, 1.0);
   float w = uDist - p.z;
@@ -136,13 +137,14 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   buffer("aLum", 1, new Float32Array(pts.map((p) => p.lum)));
   buffer("aDep", 1, new Float32Array(pts.map((p) => p.dep)));
   buffer("aScatter", 3, new Float32Array(pts.flatMap((p) => [p.sx, p.sy, p.sz])));
-  buffer("aStart", 3, new Float32Array(pts.flatMap((p) => [p.sx * 1.8, p.sy * 1.8, p.sz * 2.6])));
-  buffer("aDelay", 1, new Float32Array(pts.map((p) => p.sz)));
+  const rnd = Math.random;
+  buffer("aStart", 3, new Float32Array(pts.flatMap(() => [(rnd() - 0.5) * 2.2, (rnd() - 0.5) * 2.2, (rnd() - 0.5) * 1.4])));
+  buffer("aDelay", 1, new Float32Array(pts.map(() => rnd())));
   buffer("aScale", 1, new Float32Array(pts.map((p) => p.scale)));
 
   const u = (name: string) => gl.getUniformLocation(prog, name);
   const U = {
-    assemble: u("uAssemble"), depth: u("uDepth"), burst: u("uBurst"), wave: u("uWave"), stir: u("uStir"),
+    reveal: u("uReveal"), assemble: u("uAssemble"), depth: u("uDepth"), burst: u("uBurst"), wave: u("uWave"), stir: u("uStir"),
     cell: u("uCell"), time: u("uTime"), dist: u("uDist"), rot: u("uRot"), mouse: u("uMouse"),
   };
   gl.uniform1f(U.dist, DIST);
@@ -190,7 +192,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
 
   function frame(now: number) {
     const el = now - start;
-    const assemble = Math.max(0, Math.min(1, el / ASSEMBLE_MS));
+    const assemble = Math.max(0, Math.min(1, (el - REVEAL_MS) / ASSEMBLE_MS));
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now;
     step(cur.depth, hovering ? HOVER.depth : 0, dt);
     step(cur.burst, hovering ? HOVER.burst : 0, dt);
@@ -204,6 +206,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     cur.photo += ((settled ? 1 : 0) - cur.photo) * (1 - Math.exp(-dt / (settled ? 0.25 : 0.06)));
     photo.style.opacity = cur.photo.toFixed(3);
 
+    gl.uniform1f(U.reveal, Math.min(1, el / REVEAL_MS));
     gl.uniform1f(U.assemble, assemble);
     gl.uniform1f(U.depth, Math.max(0, cur.depth.x));
     gl.uniform1f(U.burst, Math.max(0, cur.burst.x));
