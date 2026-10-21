@@ -11,15 +11,25 @@ export function CloudPortrait(props: { src: string; data: CloudData; alt: string
   useEffect(() => {
     const stage = stageRef.current, canvas = canvasRef.current, photo = photoRef.current;
     if (!stage || !canvas || !photo) return;
-    if (!document.documentElement.classList.contains("fx-on")) return;
-    let cloud: PointCloud | null = null, cancelled = false;
-    createPointCloud(stage, canvas, photo, { src, cols, rows, color })
-      .then((c) => { if (cancelled) c.destroy(); else cloud = c; })
-      .catch(() => {
-        // No WebGL or the data failed to load: keep the plain photo.
-        document.documentElement.classList.remove("fx-on");
-      });
-    return () => { cancelled = true; cloud?.destroy(); };
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let cloud: PointCloud | null = null, generation = 0, disposed = false;
+    let pending: AbortController | null = null;
+    function sync() {
+      if (!stage || !canvas || !photo) return;
+      const current = ++generation;
+      pending?.abort(); pending = new AbortController();
+      cloud?.destroy(); cloud = null;
+      const fx = !motion.matches && !!window.WebGLRenderingContext;
+      document.documentElement.classList.toggle("fx-on", fx);
+      if (!fx) { photo.style.opacity = "1"; return; }
+      photo.style.opacity = "0";
+      createPointCloud(stage, canvas, photo, { src, cols, rows, color }, pending.signal).then(c => {
+        if (disposed || current !== generation) { c.destroy(); if (motion.matches) photo.style.opacity = "1"; }
+        else cloud = c;
+      }).catch(() => { if (current === generation) photo.style.opacity = "1"; });
+    }
+    sync(); motion.addEventListener("change", sync);
+    return () => { disposed = true; generation++; pending?.abort(); motion.removeEventListener("change", sync); cloud?.destroy(); };
   }, [src, cols, rows, color]);
 
   return (

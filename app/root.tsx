@@ -1,4 +1,5 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "react-router";
+import { ScrollReveals } from "@/components/ScrollReveals.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import "../assets/styles.css";
@@ -41,14 +42,14 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`${site.url}/og-image.jpg`} />
         <link rel="icon" href="/favicon.ico" />
-        {/* Arms the hero point cloud before first paint, so the photo doesn't flash before the intro. */}
+        {/* Arms the portrait point clouds before first paint, so the photo doesn't flash before the intro. */}
         <script dangerouslySetInnerHTML={{ __html: "try{if(window.WebGLRenderingContext&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx-on')}catch(e){}" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         <Meta /><Links />
       </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <Nav currentPath={location.pathname} /><main id="main-content" tabIndex={-1}>{children}</main><Footer /><ScrollRestoration /><Scripts />
+        <Nav currentPath={location.pathname} /><main id="main-content" tabIndex={-1}>{children}</main><Footer /><ScrollReveals /><ScrollRestoration /><Scripts />
       </body>
     </html>
   );
