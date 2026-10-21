@@ -382,7 +382,6 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .expander summary::after { display: inline-block; }
 .expander[open] summary::after { animation: detail-mark 180ms ease-out; }
 @keyframes detail-mark { from { opacity: .3; transform: rotate(-45deg); } to { opacity: 1; transform: rotate(0); } }
-.certificate-link:is(:hover, :focus-visible) { transform: rotate(0); }
 .group:focus-visible { transform: translateY(-.25rem); }
 .group:focus-visible img { transform: rotate(0); }
 .marquee:is(:hover, :focus-within) .marquee-track { animation-play-state: paused; }
@@ -393,12 +392,6 @@ button:disabled, button[aria-disabled="true"] { cursor: default; opacity: .35; }
 .legal-page h2.display { line-height: 1.15; }
 .text-button { background: none; border: 0; padding: .6rem .25rem; min-height: 44px; text-decoration: underline; text-underline-offset: .3em; }
 .text-button:is(:hover, :focus-visible) { color: var(--color-mustard-deep); }
-footer .text-button:is(:hover, :focus-visible) { color: var(--color-mustard); }
-.email-contact { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .25rem; }
-.copy-email { display: inline-flex; position: relative; align-items: center; font-family: var(--font-label); font-style: normal; }
-.copy-email-button { display: inline-flex; align-items: center; justify-content: center; width: 44px; padding: 0; text-decoration: none; }
-.copy-status { position: absolute; top: 100%; right: 0; width: max-content; max-width: min(18rem, calc(100vw - 3rem)); font-size: .8rem; line-height: 1.4; background: var(--color-green-deep); }
-.copy-status:not(:empty) { padding: .25rem .5rem; border: 1px solid var(--color-paper); }
 .gallery { min-width: 0; }
 .gallery-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
 .gallery-controls { display: flex; align-items: center; gap: .5rem; }
@@ -429,7 +422,7 @@ html:has(dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .group:is(:hover, :focus-visible), .group:is(:hover, :focus-visible) img,
-  .certificate-link:is(:hover, :focus-visible), .arrow-link:is(:hover, :focus-visible) > span,
+  [class~="hover:rotate-0"]:hover, .arrow-link:is(:hover, :focus-visible) > span,
   .icon-button:not([aria-disabled="true"]):is(:hover, :focus-visible) { transform: none; }
 }
 .tech-tags li { white-space: normal; overflow-wrap: anywhere; max-width: 100%; }

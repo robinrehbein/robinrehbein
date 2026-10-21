@@ -110,7 +110,7 @@ export default function About() {
             const cardClass =
               `block h-full border-2 border-green bg-paper-warm px-6 py-4 print-shadow-green transition-transform ${
                 i % 2 === 0 ? "-rotate-1" : "rotate-1"
-              } ${c.href ? "certificate-link" : ""}`;
+              } hover:rotate-0`;
             return (
               <li key={c.title}>
                 {c.href

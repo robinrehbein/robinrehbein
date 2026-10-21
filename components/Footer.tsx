@@ -1,4 +1,3 @@
-import { CopyEmail } from "@/components/CopyEmail.tsx";
 import { site } from "@/lib/site.ts";
 import { Logo } from "@/components/Logo.tsx";
 
@@ -16,12 +15,11 @@ export function Footer() {
           Let's talk.
         </a>
         <div className="mt-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <ul className="flex flex-wrap items-center gap-x-8 gap-y-3 font-serif italic">
-            <li className="email-contact">
+          <ul className="flex flex-wrap gap-x-8 gap-y-3 font-serif italic">
+            <li>
               <a href={`mailto:${site.email}`} className="link-wavy">
                 ✉ {site.email}
               </a>
-              <CopyEmail email={site.email} />
             </li>
             <li>
               <a
