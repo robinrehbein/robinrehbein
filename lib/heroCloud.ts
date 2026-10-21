@@ -1,6 +1,7 @@
 // Point-cloud effect for the hero portrait. On load the frame starts empty; fine dust of the
 // whole picture, black background included, fades in across the frame and drifts, then gathers
-// into the photo, so the black only appears where the points land. On hover the photo dissolves back into a
+// into the photo like ink (blots, a single drop or watercolour, taking turns per visit), so the
+// black only appears where the points land. On hover the photo dissolves back into a
 // softly scattered cloud that leans toward the pointer, with slow waves running out from it.
 // Plain WebGL, no library.
 // Data comes from /me_cloud.png: red = brightness, green = depth (Depth Anything V2).
@@ -8,7 +9,21 @@
 const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
-const REVEAL_MS = 1400, ASSEMBLE_MS = 2400;
+const REVEAL_MS = 1400;
+// After the dust has appeared, it gathers like ink. Three variants take turns from visit to visit.
+type Ink = "blots" | "drop" | "watercolor";
+const INKS: Ink[] = ["blots", "drop", "watercolor"];
+const ASSEMBLE_MS: Record<Ink, number> = { blots: 2800, drop: 2800, watercolor: 3200 };
+
+function nextInk(): Ink {
+  try {
+    const i = (Number(localStorage.getItem("hero-ink")) + 1) % INKS.length || 0;
+    localStorage.setItem("hero-ink", String(i));
+    return INKS[i];
+  } catch {
+    return INKS[Math.floor(Math.random() * INKS.length)];
+  }
+}
 // Hover "Zerfliegen": the points scatter and the picture tilts with the pointer.
 const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1, stir: 1 };
 
@@ -45,7 +60,7 @@ void main() {
   float stir = 0.03 * uStir * exp(-d * 2.6);
   p += vec3(sin(uTime * 1.6 + aScatter.x * 40.0), cos(uTime * 1.4 + aScatter.y * 40.0), sin(uTime * 1.2 + aScatter.z * 40.0)) * stir;
   // Intro: each point drifts from its spot in the dust to its place in the photo.
-  float t = bezier(clamp((uAssemble - aDelay * 0.5) / 0.5, 0.0, 1.0), GATHER);
+  float t = bezier(clamp((uAssemble - aDelay * 0.55) / 0.45, 0.0, 1.0), GATHER);
   vec3 s0 = aStart + vec3(sin(uTime * 0.6 + aScatter.x * 30.0), cos(uTime * 0.5 + aScatter.y * 30.0), 0.0) * 0.04 * (1.0 - t);
   p = mix(s0, p, t);
   float cy = cos(uRot.y), sy = sin(uRot.y), cx = cos(uRot.x), sx = sin(uRot.x);
@@ -105,6 +120,33 @@ function loadPoints(src: string): Promise<Point[]> {
   });
 }
 
+// When each point leaves the dust (0 = first, 1 = last), per ink variant.
+function inkDelays(pts: Point[], ink: Ink): Float32Array {
+  const rnd = Math.random, cl = (v: number) => Math.max(0, Math.min(1, v));
+  let fx = 0, fy = 0, fn = 0;
+  for (const p of pts) if (p.lum >= 0.15) { fx += p.x; fy += p.y; fn++; }
+  fx /= fn || 1; fy /= fn || 1;
+  const blots = Array.from({ length: ink === "watercolor" ? 4 : 6 }, () => [fx + (rnd() - 0.5) * 1.4, fy + (rnd() - 0.5) * 1.4]);
+  const seed = rnd() * 6;
+  // Smooth wobble from a few sines, for the ragged watercolour edges.
+  const wob = (x: number, y: number) => Math.sin(x * 7.1 + seed * 3) * 0.5 + Math.sin(y * 6.3 - seed * 5) * 0.35 + Math.sin((x + y) * 13.7 + seed) * 0.15;
+  return new Float32Array(pts.map((p) => {
+    if (ink === "drop") {
+      // One drop on the face; the ink spreads from there in a soft circle.
+      const r = Math.hypot(p.x - fx, (p.y - fy) * 0.85);
+      return cl(r / 1.45 * 0.8 + (1 - p.lum) * 0.12 + rnd() * 0.06);
+    }
+    const k = ink === "watercolor" ? 5 : 6;
+    let w = 0;
+    for (const [x, y] of blots) w += Math.exp(-k * Math.hypot(p.x - x, p.y - y));
+    const d = -Math.log(w) / k;
+    // Blots: dark first, light last. Watercolour: fewer blots with ragged, wandering edges.
+    return ink === "watercolor"
+      ? cl((d + wob(p.x, p.y) * 0.08) * 0.65 + p.lum * 0.3 + rnd() * 0.04)
+      : cl(d * 0.6 + p.lum * 0.4 + rnd() * 0.05);
+  }));
+}
+
 export type HeroCloud = { replay: () => void; destroy: () => void };
 
 export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement): Promise<HeroCloud> {
@@ -139,7 +181,8 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   buffer("aScatter", 3, new Float32Array(pts.flatMap((p) => [p.sx, p.sy, p.sz])));
   const rnd = Math.random;
   buffer("aStart", 3, new Float32Array(pts.flatMap(() => [(rnd() - 0.5) * 2.2, (rnd() - 0.5) * 2.2, (rnd() - 0.5) * 1.4])));
-  buffer("aDelay", 1, new Float32Array(pts.map(() => rnd())));
+  const ink = nextInk();
+  buffer("aDelay", 1, inkDelays(pts, ink));
   buffer("aScale", 1, new Float32Array(pts.map((p) => p.scale)));
 
   const u = (name: string) => gl.getUniformLocation(prog, name);
@@ -192,7 +235,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
 
   function frame(now: number) {
     const el = now - start;
-    const assemble = Math.max(0, Math.min(1, (el - REVEAL_MS) / ASSEMBLE_MS));
+    const assemble = Math.max(0, Math.min(1, (el - REVEAL_MS) / ASSEMBLE_MS[ink]));
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now;
     step(cur.depth, hovering ? HOVER.depth : 0, dt);
     step(cur.burst, hovering ? HOVER.burst : 0, dt);
