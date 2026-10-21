@@ -181,6 +181,12 @@ a {
   color: var(--brand-text);
 }
 
+/* Blind emboss: a shade above the footer green, with a dark upper-left and a light lower-right edge. */
+.emboss {
+  color: #1b3324;
+  filter: drop-shadow(-1px -1px 0 rgb(0 0 0 / 0.55)) drop-shadow(1px 1px 0 rgb(242 237 226 / 0.1));
+}
+
 /* Hard print-style shadow for images & cards. */
 .print-shadow {
   border: 2px solid var(--color-ink);

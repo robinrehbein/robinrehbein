@@ -1,3 +1,5 @@
+import { Logo } from "@/components/Logo.tsx";
+
 export function Nav(props: { currentPath?: string }) {
   const { currentPath } = props;
   const isActive = (path: string) => currentPath === path ? "page" : undefined;
@@ -5,10 +7,10 @@ export function Nav(props: { currentPath?: string }) {
   return (
     <header className="border-b-2 border-ink bg-paper/95 sticky top-0 z-50 backdrop-blur-sm">
       <div className="shell flex items-center justify-between gap-3 py-3">
-        <a href="/" className="display text-xl font-semibold tracking-tight">
-          <span className="md:hidden" aria-label="Robin Rehbein">RR</span>
-          <span className="hidden md:inline">Robin&nbsp;Rehbein</span>
-          <span className="text-mustard-deep">.</span>
+        <a href="/" className="display text-xl font-semibold tracking-tight inline-flex items-center gap-2">
+          <Logo className="size-[1.6em] text-green" />
+          <span className="sr-only md:not-sr-only">Robin&nbsp;Rehbein</span>
+          <span className="hidden md:inline text-mustard-deep -ml-2">.</span>
         </a>
         <nav className="flex items-center gap-4 md:gap-8">
           <a
