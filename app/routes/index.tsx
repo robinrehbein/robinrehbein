@@ -5,6 +5,7 @@ import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
 import { TechLine } from "@/components/TechLine.tsx";
+import { HeroPortrait } from "@/components/HeroPortrait.tsx";
 
 const MARQUEE_ITEMS = [
   "Fully booked",
@@ -74,12 +75,9 @@ export default function Home() {
               <a href="/about" className="eyebrow link-wavy">About me →</a>
             </div>
           </div>
-          <img
-            src="/me_square.webp"
-            {...sizeOf("/me_square.webp")}
+          <HeroPortrait
             alt={`Portrait of ${site.name}`}
-            fetchPriority="high"
-            className="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square object-cover object-top"
+            className="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square"
           />
         </div>
       </section>
