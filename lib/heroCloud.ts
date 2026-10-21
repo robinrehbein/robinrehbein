@@ -1,6 +1,6 @@
 // Point-cloud effect for the hero portrait. On load the photo builds up from a few large dots
 // that split into ever smaller ones; on hover it turns into a 3D point cloud that tilts with
-// the pointer. Plain WebGL, no library.
+// the pointer, with soft waves running out from it. Plain WebGL, no library.
 // Data comes from /me_cloud.png: red = brightness, green = depth (Depth Anything V2).
 
 const GRID = 400;
@@ -16,8 +16,8 @@ type Point = { gx: number; gy: number; x: number; y: number; lum: number; dep: n
 const VERT = `
 attribute vec2 aPos; attribute float aLum; attribute float aDep; attribute vec3 aScatter;
 attribute vec4 aCell; attribute vec4 aNext;
-uniform float uRefine, uMorph, uFade, uDepth, uBurst, uCell, uTime, uDist;
-uniform vec2 uRot;
+uniform float uRefine, uMorph, uFade, uDepth, uBurst, uWave, uCell, uTime, uDist;
+uniform vec2 uRot; uniform vec2 uMouse;
 varying float vLum; varying float vRound; varying float vAlpha;
 void main() {
   vec3 p; float size; float lum;
@@ -29,6 +29,9 @@ void main() {
     p = vec3(aPos, (aDep - 0.5) * uDepth);
     p += aScatter * vec3(1.0, 1.0, 1.6) * uBurst * (0.1 + aScatter.z * 0.3);
     p.xy += vec2(sin(uTime * 0.9 + aScatter.x * 20.0), cos(uTime * 0.7 + aScatter.y * 20.0)) * 0.006 * uBurst;
+    // Soft waves running outward from the pointer.
+    float d = length(aPos - uMouse);
+    p.z += sin(d * 16.0 - uTime * 3.0) * 0.035 * uWave * exp(-d * 1.8);
     float loose = clamp(uDepth * 0.7 + uBurst * 4.0, 0.0, 1.0);
     size = uCell * 1.25 * mix(1.0, 0.8 + aLum * 0.7, loose); lum = aLum; vRound = loose;
   }
@@ -142,7 +145,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   const u = (name: string) => gl.getUniformLocation(prog, name);
   const U = {
     refine: u("uRefine"), morph: u("uMorph"), fade: u("uFade"), depth: u("uDepth"), burst: u("uBurst"),
-    cell: u("uCell"), time: u("uTime"), dist: u("uDist"), rot: u("uRot"),
+    cell: u("uCell"), time: u("uTime"), dist: u("uDist"), rot: u("uRot"), wave: u("uWave"), mouse: u("uMouse"),
   };
   gl.uniform1f(U.dist, DIST);
   gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -158,9 +161,9 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
   const ro = new ResizeObserver(() => { resize(); wake(); });
   ro.observe(stage); resize();
 
-  const HOVER = { depth: 0.5, burst: 0.05 };
-  const cur = { depth: 0, burst: 0, rx: 0, ry: 0, photo: 0 };
-  const aim = { x: 0, y: 0 };
+  const HOVER = { depth: 0.5, burst: 0.05, wave: 1 };
+  const cur = { depth: 0, burst: 0, wave: 0, rx: 0, ry: 0, photo: 0 };
+  const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
   let hovering = false, start = performance.now(), raf = 0, running = false;
   const t0 = performance.now();
   const introMs = FADE_IN + (LEVELS.length - 1) * (HOLD + SPLIT) + HOLD;
@@ -168,8 +171,9 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
 
   function move(e: PointerEvent) {
     const b = stage.getBoundingClientRect();
-    aim.y = ((e.clientX - b.left) / b.width - 0.5) * 0.35;
-    aim.x = ((e.clientY - b.top) / b.height - 0.5) * 0.18;
+    const nx = (e.clientX - b.left) / b.width - 0.5, ny = (e.clientY - b.top) / b.height - 0.5;
+    aim.y = nx * 0.35; aim.x = ny * 0.18;
+    mouse.x = nx * 2; mouse.y = -ny * 2;
   }
   const onEnter = (e: PointerEvent) => { if (e.pointerType === "mouse") { hovering = true; move(e); wake(); } };
   const onMove = (e: PointerEvent) => { if (hovering) move(e); };
@@ -198,14 +202,17 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     const k = 0.07;
     cur.depth += ((hovering ? HOVER.depth : 0) - cur.depth) * k;
     cur.burst += ((hovering ? HOVER.burst : 0) - cur.burst) * k;
+    cur.wave += ((hovering ? HOVER.wave : 0) - cur.wave) * k;
     cur.rx += ((hovering ? aim.x : 0) - cur.rx) * k;
     cur.ry += ((hovering ? aim.y : 0) - cur.ry) * k;
-    const settled = !hovering && !intro && cur.depth + cur.burst + Math.abs(cur.rx) + Math.abs(cur.ry) < 0.01;
+    const settled = !hovering && !intro && cur.depth + cur.burst + cur.wave * 0.1 + Math.abs(cur.rx) + Math.abs(cur.ry) < 0.01;
     cur.photo += ((settled ? 1 : 0) - cur.photo) * (settled ? 0.06 : 0.25);
     photo.style.opacity = cur.photo.toFixed(3);
 
     gl.uniform1f(U.depth, cur.depth);
     gl.uniform1f(U.burst, cur.burst);
+    gl.uniform1f(U.wave, cur.wave);
+    gl.uniform2f(U.mouse, mouse.x, mouse.y);
     gl.uniform1f(U.time, (now - t0) / 1000);
     gl.uniform2f(U.rot, intro ? 0 : cur.rx, intro ? 0 : cur.ry);
     gl.clear(gl.COLOR_BUFFER_BIT);
