@@ -151,23 +151,19 @@ a {
   line-height: 1.55;
 }
 
-/* Wavy underline — homage to v1 of this site. Drawn from two rows of half rings (one bulging up,
-   one down) instead of text-decoration, so it can take any colour token and slither on hover. */
+/* Wavy underline — homage to v1 of this site. A repeating SVG wave instead of text-decoration, so it
+   can slither on hover. It matches the browser's own wavy underline at 1.5px: an 11px period, 4px
+   from crest to trough and a stroke that renders like it. Company links pass their own wave via brandStyle(). */
 .link-wavy {
-  --wave-color: var(--color-mustard);
-  --wave-r: 1.75px;  /* ring radius: a quarter of one wave period */
-  --wave-t: 1.5px;   /* line thickness */
-  --wave-w: calc(var(--wave-r) * 4);
-  --wave-h: calc(var(--wave-r) + var(--wave-t) / 2);
-  --wave-y: calc(100% + var(--wave-h) + 0.12em);  /* first row starts just below the text */
-  --wave-ring: transparent calc(var(--wave-r) - var(--wave-t) / 2), var(--wave-color) calc(var(--wave-r) - var(--wave-t) / 2 + 0.4px) calc(var(--wave-r) + var(--wave-t) / 2 - 0.4px), transparent calc(var(--wave-r) + var(--wave-t) / 2);
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='%23c79417' stroke-width='2.2'/%3E%3C/svg%3E");
+  --wave-y: calc(100% + 4.6px + 0.05em);  /* crests sit just below the text */
   text-decoration: none;
-  padding-bottom: calc(0.12em + var(--wave-h) * 2 + 1px);  /* room to paint the wave */
-  background-image: radial-gradient(circle at 25% 100%, var(--wave-ring)), radial-gradient(circle at 75% 0, var(--wave-ring));
-  background-size: var(--wave-w) var(--wave-h);
+  padding-bottom: calc(0.05em + 5px);  /* room to paint the wave */
+  background-image: var(--wave-img);
+  background-size: 11px 7px;
   background-repeat: repeat-x;
   background-origin: content-box;
-  background-position: 0 var(--wave-y), 0 calc(var(--wave-y) + var(--wave-h));
+  background-position: 0 var(--wave-y);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   transition: color 150ms ease;
@@ -175,15 +171,15 @@ a {
 
 .link-wavy:hover {
   color: var(--color-mustard-deep);
-  animation: wave-slither 450ms linear infinite;
+  animation: wave-slither 550ms linear infinite;
 }
 
 @keyframes wave-slither {
-  to { background-position: calc(-1 * var(--wave-w)) var(--wave-y), calc(-1 * var(--wave-w)) calc(var(--wave-y) + var(--wave-h)); }
+  to { background-position: -11px var(--wave-y); }
 }
 
 .link-wavy-green {
-  --wave-color: var(--color-green);
+  --wave-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M-5.5 3.5Q-2.75 7.5 0 3.5T5.5 3.5T11 3.5T16.5 3.5' fill='none' stroke='%231e3b2c' stroke-width='2.2'/%3E%3C/svg%3E");
 }
 
 .link-wavy-green:hover {
@@ -191,10 +187,6 @@ a {
 }
 
 /* Company links take the company's brand color (set via brandStyle()). */
-.link-wavy-brand {
-  --wave-color: var(--brand);
-}
-
 .link-wavy-brand:hover {
   color: var(--brand-text);
 }
