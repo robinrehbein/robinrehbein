@@ -10,7 +10,7 @@ const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
 const ASSEMBLE_MS = 2400;
 // Hover "Zerfliegen": the points scatter and the picture tilts with the pointer.
-const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1 };
+const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1, stir: 1 };
 
 // scale: background points are sampled every second cell and drawn twice as large.
 type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: number; sz: number; scale: number };
@@ -18,7 +18,7 @@ type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: n
 const VERT = `
 attribute vec2 aPos; attribute float aLum; attribute float aDep; attribute vec3 aScatter;
 attribute vec3 aStart; attribute float aDelay; attribute float aScale;
-uniform float uAssemble, uDepth, uBurst, uWave, uCell, uTime, uDist;
+uniform float uAssemble, uDepth, uBurst, uWave, uStir, uCell, uTime, uDist;
 uniform vec2 uRot; uniform vec2 uMouse;
 varying float vLum; varying float vRound; varying float vAlpha;
 // CSS-style cubic-bezier(x1, y1, x2, y2): solve the curve's x for t with Newton steps, return y.
@@ -41,6 +41,9 @@ void main() {
   // Slow, broad waves running outward from the pointer.
   float d = length(aPos - uMouse);
   p.z += sin(d * 9.0 - uTime * 1.2) * 0.07 * uWave * exp(-d * 1.4);
+  // Points near the pointer (or the tap) drift gently; the further away, the calmer.
+  float stir = 0.03 * uStir * exp(-d * 2.6);
+  p += vec3(sin(uTime * 1.6 + aScatter.x * 40.0), cos(uTime * 1.4 + aScatter.y * 40.0), sin(uTime * 1.2 + aScatter.z * 40.0)) * stir;
   // Intro: each point drifts from its spot in the dust to its place in the photo.
   float t = bezier(clamp((uAssemble - aDelay * 0.5) / 0.5, 0.0, 1.0), GATHER);
   vec3 s0 = aStart + vec3(sin(uTime * 0.4 + aScatter.x * 30.0), cos(uTime * 0.35 + aScatter.y * 30.0), 0.0) * 0.03 * (1.0 - t);
@@ -80,10 +83,14 @@ function loadPoints(src: string): Promise<Point[]> {
       const pts: Point[] = [];
       for (let gy = 0; gy < GRID; gy++) for (let gx = 0; gx < GRID; gx++) {
         const i = (gy * GRID + gx) * 4, lum = px[i] / 255;
-        // The near-black background is part of the picture too, but at half resolution.
+        // The near-black background is part of the picture too, but at half resolution: one double-size
+        // point per 2×2 block. Where the block's top-left pixel belongs to the face, its background
+        // pixels get normal points instead, so no paper shows through along the face outline.
         const bg = lum < 0.06;
-        if (bg && (gx % 2 || gy % 2)) continue;
-        const scale = bg ? 2 : 1;
+        const anchor = gx % 2 === 0 && gy % 2 === 0;
+        const anchorBg = px[(((gy >> 1) << 1) * GRID + ((gx >> 1) << 1)) * 4] / 255 < 0.06;
+        if (bg && !anchor && anchorBg) continue;
+        const scale = bg && anchor ? 2 : 1;
         const a = Math.random() * Math.PI * 2, r = 0.4 + Math.random() * 0.6;
         pts.push({
           x: ((gx + scale / 2) / GRID - 0.5) * 2, y: (0.5 - (gy + scale / 2) / GRID) * 2,
@@ -135,7 +142,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
 
   const u = (name: string) => gl.getUniformLocation(prog, name);
   const U = {
-    assemble: u("uAssemble"), depth: u("uDepth"), burst: u("uBurst"), wave: u("uWave"),
+    assemble: u("uAssemble"), depth: u("uDepth"), burst: u("uBurst"), wave: u("uWave"), stir: u("uStir"),
     cell: u("uCell"), time: u("uTime"), dist: u("uDist"), rot: u("uRot"), mouse: u("uMouse"),
   };
   gl.uniform1f(U.dist, DIST);
@@ -160,7 +167,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     s.v += ((target - s.x) * STIFF - s.v * DAMP) * dt;
     s.x += s.v * dt;
   };
-  const cur = { depth: spring(), burst: spring(), wave: spring(), rx: spring(), ry: spring(), photo: 0 };
+  const cur = { depth: spring(), burst: spring(), wave: spring(), stir: spring(), rx: spring(), ry: spring(), photo: 0 };
   let last = performance.now();
   const aim = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
   let hovering = false, start = performance.now(), raf = 0, running = false;
@@ -188,9 +195,10 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     step(cur.depth, hovering ? HOVER.depth : 0, dt);
     step(cur.burst, hovering ? HOVER.burst : 0, dt);
     step(cur.wave, hovering ? HOVER.wave : 0, dt);
+    step(cur.stir, hovering ? HOVER.stir : 0, dt);
     step(cur.rx, hovering ? aim.x : 0, dt);
     step(cur.ry, hovering ? aim.y : 0, dt);
-    const motion = Math.abs(cur.depth.x) + Math.abs(cur.burst.x) + Math.abs(cur.wave.x) * 0.1 + Math.abs(cur.rx.x) + Math.abs(cur.ry.x);
+    const motion = Math.abs(cur.depth.x) + Math.abs(cur.burst.x) + Math.abs(cur.wave.x) * 0.1 + Math.abs(cur.stir.x) * 0.1 + Math.abs(cur.rx.x) + Math.abs(cur.ry.x);
     const settled = !hovering && assemble >= 1 && motion < 0.01;
     // Photo cross-fade: frame-rate independent exponential ease (≈250 ms in, ≈60 ms out).
     cur.photo += ((settled ? 1 : 0) - cur.photo) * (1 - Math.exp(-dt / (settled ? 0.25 : 0.06)));
@@ -200,6 +208,7 @@ export async function createHeroCloud(stage: HTMLElement, canvas: HTMLCanvasElem
     gl.uniform1f(U.depth, Math.max(0, cur.depth.x));
     gl.uniform1f(U.burst, Math.max(0, cur.burst.x));
     gl.uniform1f(U.wave, Math.max(0, cur.wave.x));
+    gl.uniform1f(U.stir, Math.max(0, cur.stir.x));
     gl.uniform1f(U.time, (now - t0) / 1000);
     gl.uniform2f(U.rot, cur.rx.x, cur.ry.x);
     gl.uniform2f(U.mouse, mouse.x, mouse.y);
