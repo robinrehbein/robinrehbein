@@ -2,7 +2,7 @@ export function meta() { return [{ title: `About — ${site.name}` }, { name: "d
 import { brandStyle, certifications, likes, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
-import { sizeOf } from "@/lib/imageSizes.ts";
+import { CloudPortrait } from "@/components/CloudPortrait.tsx";
 
 export default function About() {
   const current = positions.filter((p) => p.current);
@@ -15,11 +15,11 @@ export default function About() {
         </h1>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-          <img
+          <CloudPortrait
             src="/me.webp"
-            {...sizeOf("/me.webp")}
+            data={{ src: "/me_about_cloud.webp", cols: 400, rows: 500, color: true }}
             alt={`Portrait of ${site.name}`}
-            className="reveal reveal-2 photo print-shadow w-full aspect-[4/5] object-cover object-top"
+            className="reveal reveal-2 photo print-shadow w-full aspect-[4/5]"
           />
           <div className="reveal reveal-3 md:sticky md:top-28">
             <p className="serif-lede mb-6">
