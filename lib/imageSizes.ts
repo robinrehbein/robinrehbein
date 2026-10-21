@@ -1,6 +1,10 @@
 // Intrinsic sizes of the images in static/, so <img> reserves its box before it loads.
 // Regenerate after adding or replacing an image.
 export const imageSizes: Record<string, [number, number]> = {
+  "/anahita_landing_desktop.webp": [1440, 1000],
+  "/anahita_landing_mobile.webp": [780, 1688],
+  "/aundohotline_landing_desktop.webp": [1440, 1000],
+  "/aundohotline_landing_mobile.webp": [780, 1688],
   "/birdy_lanes.webp": [405, 720],
   "/birdy_shop.webp": [405, 720],
   "/curved_1_artwerk_poster.webp": [1600, 1200],

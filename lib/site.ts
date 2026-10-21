@@ -26,11 +26,14 @@ export interface Project {
   brandColor: string;
   /** Darker hover text color, for brand colors too light to read as text. */
   brandText?: string;
+  /** Shown as a card under "Selected work" on the home page. */
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
   {
     slug: "noah",
+    featured: true,
     brandColor: "#fc4c00",
     index: "01",
     title: "Noah",
@@ -48,6 +51,7 @@ export const projects: Project[] = [
   },
   {
     slug: "artwerk",
+    featured: true,
     brandColor: "#5a776d",
     index: "02",
     title: "artwerk studios",
@@ -69,6 +73,7 @@ export const projects: Project[] = [
   },
   {
     slug: "kirchmaier",
+    featured: true,
     brandColor: "#dc83b2",
     brandText: "#a8457a",
     index: "03",
@@ -86,6 +91,41 @@ export const projects: Project[] = [
       "/macbook_kirchmaier_landing_2.webp",
       "/iphone_kirchmaier_landing_2.webp",
       "/macbook_kirchmaier_landing_3.webp",
+    ],
+  },
+  {
+    slug: "aundohotline",
+    brandColor: "#ff6f4f",
+    brandText: "#b33922",
+    index: "04",
+    title: "A&O Hotline",
+    role: "Design & development",
+    excerpt: "Website and shop for the A&O Hotline podcast by Anahita and Olivia: new episodes, event recaps and tickets in one place.",
+    href: "https://www.aundohotline.de",
+    summary: "Website and shop for a weekly podcast.",
+    description:
+      "A&O Hotline is a weekly podcast by Anahita and Olivia, with live shows and community events. I built its website: the latest episodes pulled in from Spotify, galleries of past live events, and a shop for event tickets and merchandise. Built on Next.js with Medusa as the commerce backend and Stripe for payments.",
+    tech: "Next.js · Medusa · Stripe · TypeScript",
+    images: [
+      "/aundohotline_landing_desktop.webp",
+      "/aundohotline_landing_mobile.webp",
+    ],
+  },
+  {
+    slug: "anahitarehbein",
+    brandColor: "#262626",
+    index: "05",
+    title: "Anahita Rehbein",
+    role: "Design & development",
+    excerpt: "The official link hub of content creator Anahita Rehbein, with a contact form for collaboration requests.",
+    href: "https://anahitarehbein.de",
+    summary: "Link hub and contact page for a content creator.",
+    description:
+      "The official home for Anahita Rehbein's channels — Instagram, TikTok, YouTube and the A&O Hotline podcast — plus a contact form for collaboration requests. Built with React Router and Express on Node, with privacy-friendly analytics and a cookie banner that keeps external embeds switched off until visitors opt in.",
+    tech: "React Router · Express · Tailwind CSS",
+    images: [
+      "/anahita_landing_desktop.webp",
+      "/anahita_landing_mobile.webp",
     ],
   },
 ];
