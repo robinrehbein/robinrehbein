@@ -9,7 +9,8 @@ const GRID = 400;
 const FOV = 32;
 const DIST = 1 / Math.tan((FOV / 2) * Math.PI / 180);
 const ASSEMBLE_MS = 2400;
-const HOVER = { depth: 0.3, burst: 0.17, wave: 1, tilt: 0.5 };
+// Hover "Zerfliegen": the points scatter and the picture tilts with the pointer.
+const HOVER = { depth: 0.45, burst: 0.2, wave: 0, tilt: 1 };
 
 // scale: background points are sampled every second cell and drawn twice as large.
 type Point = { x: number; y: number; lum: number; dep: number; sx: number; sy: number; sz: number; scale: number };
@@ -36,7 +37,7 @@ const vec4 GATHER = vec4(0.45, 0.0, 0.15, 1.0);  // soft start, long gentle land
 void main() {
   vec3 p = vec3(aPos, (aDep - 0.5) * uDepth);
   p += aScatter * vec3(1.0, 1.0, 1.6) * uBurst * (0.1 + aScatter.z * 0.3);
-  p.xy += vec2(sin(uTime * 0.5 + aScatter.x * 20.0), cos(uTime * 0.4 + aScatter.y * 20.0)) * 0.012 * uBurst;
+  p.xy += vec2(sin(uTime * 1.7 + aScatter.x * 20.0), cos(uTime * 1.3 + aScatter.y * 20.0)) * 0.01 * uBurst;
   // Slow, broad waves running outward from the pointer.
   float d = length(aPos - uMouse);
   p.z += sin(d * 9.0 - uTime * 1.2) * 0.07 * uWave * exp(-d * 1.4);
@@ -49,10 +50,10 @@ void main() {
   p = vec3(p.x, cx * p.y - sx * p.z, sx * p.y + cx * p.z);
   // Each point fades from invisible to full opacity in step with its movement.
   vAlpha = t;
-  float loose = max(1.0 - t, clamp(uDepth + uBurst * 3.0, 0.0, 1.0));
-  vLum = aLum; vRound = loose;
+  float loose = max(1.0 - t, max(uBurst, uDepth));
+  vLum = aLum; vRound = clamp(loose * 2.0, 0.0, 1.0);
   float w = uDist - p.z;
-  gl_PointSize = uCell * 1.25 * aScale * mix(1.0, 0.8 + aLum * 0.7, loose) * uDist / w;
+  gl_PointSize = uCell * 1.25 * aScale * mix(1.0, 0.9 + aLum * 1.1, clamp(loose * 1.5, 0.0, 1.0)) * uDist / w;
   gl_Position = vec4(p.x * uDist, p.y * uDist, 0.0, w);
 }`;
 
@@ -62,7 +63,7 @@ varying float vLum; varying float vRound; varying float vAlpha;
 void main() {
   vec2 d = gl_PointCoord - 0.5;
   float sq = step(max(abs(d.x), abs(d.y)), 0.5);
-  float rd = 1.0 - smoothstep(0.3, 0.5, length(d));
+  float rd = smoothstep(0.5, 0.2, length(d));
   gl_FragColor = vec4(vec3(vLum), mix(sq, rd, vRound) * vAlpha);
 }`;
 
