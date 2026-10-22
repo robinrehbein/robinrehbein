@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo.tsx";
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative overflow-hidden scroll-mt-24 bg-green-deep text-paper border-t-2 border-ink">
+    <footer id="contact" className="relative overflow-hidden scroll-mt-24 bg-green-deep text-cream border-t-2 border-ink">
       {/* The monogram, pressed into the footer like a blind emboss. */}
       <Logo className="emboss pointer-events-none absolute -right-20 -bottom-24 size-[26rem] md:-right-16 md:-top-[8%] md:bottom-auto md:h-[116%] md:w-auto md:aspect-square" />
       <div className="shell relative py-16 md:py-24">
@@ -45,7 +45,7 @@ export function Footer() {
             </li>
           </ul>
         </div>
-        <div className="mt-12 pt-6 border-t border-paper/20 flex flex-col md:flex-row justify-between gap-2 text-sm opacity-70 font-serif">
+        <div className="mt-12 pt-6 border-t border-cream/20 flex flex-col md:flex-row justify-between gap-2 text-sm opacity-70 font-serif">
           <p>
             © {new Date().getFullYear()} {site.name} — {site.location}
           </p>

@@ -1,4 +1,5 @@
 import { Logo } from "@/components/Logo.tsx";
+import { ThemeToggle } from "@/components/ThemeToggle.tsx";
 
 export function Nav(props: { currentPath?: string }) {
   const { currentPath } = props;
@@ -43,6 +44,7 @@ export function Nav(props: { currentPath?: string }) {
             <span className="status-dot" aria-hidden="true" />
             Fully booked
           </span>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

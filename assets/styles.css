@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark theme: <html data-theme="dark">, set before first paint from the saved choice or the system setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ---------------------------------------------------------------------------
    Robin Rehbein — personal site
    Editorial print aesthetic: warm paper, ink, racing green, mustard accents.
@@ -20,6 +23,23 @@
   --color-mustard-deep: #7a5805;
   --color-line: #c9c1af;
   --color-signal: #c2352b;
+  /* Fixed in both themes: the dark green surfaces (marquee, footer) and the cream text on them. */
+  --color-forest: #1e3b2c;
+  --color-cream: #f2ede2;
+}
+
+/* Night edition of the print: warm dark paper, cream ink, lifted green and mustard. */
+[data-theme="dark"] {
+  --color-paper: #15130f;
+  --color-paper-warm: #1f1c16;
+  --color-ink: #ebe4d4;
+  --color-green: #8fbf9f;
+  --color-green-deep: #0f1f16;
+  --color-mustard: #d6a22a;
+  --color-mustard-deep: #e2b54d;
+  --color-line: #3b362c;
+  --color-signal: #e5574c;
+  color-scheme: dark;
 }
 
 @font-face {
@@ -94,7 +114,7 @@ body::after {
 
 ::selection {
   background: var(--color-mustard);
-  color: var(--color-ink);
+  color: #17140e;
 }
 
 a {
@@ -189,9 +209,17 @@ a {
   color: var(--color-green);
 }
 
-/* Company links take the company's brand color (set via brandStyle()). */
+/* Company links take the company's brand color (set via brandStyle()), with a lighter one on dark paper where needed. */
 .link-wavy-brand:hover {
   color: var(--brand-text);
+}
+
+[data-theme="dark"] .link-wavy-brand {
+  background-image: var(--wave-img-dark, var(--wave-img));
+}
+
+[data-theme="dark"] .link-wavy-brand:hover {
+  color: var(--brand-dark);
 }
 
 /* Blind emboss: a shade above the footer green, with a dark upper-left and a light lower-right edge. */
@@ -231,8 +259,8 @@ a {
   overflow: hidden;
   white-space: nowrap;
   border-block: 2px solid var(--color-ink);
-  background: var(--color-green);
-  color: var(--color-paper);
+  background: var(--color-forest);
+  color: var(--color-cream);
 }
 
 .marquee-track {
@@ -445,3 +473,4 @@ html:has(dialog[open]) { overflow: hidden; }
 .scroll-arrive { animation: scroll-arrive 500ms cubic-bezier(.22,1,.36,1) both; }
 @keyframes scroll-arrive { from { opacity: .45; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
+.theme-toggle { min-width: 44px; background: none; border: 0; padding: 0; color: inherit; }
