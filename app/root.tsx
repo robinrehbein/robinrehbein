@@ -42,6 +42,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`${site.url}/og-image.jpg`} />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="color-scheme" content="light dark" />
+        {/* Applies the saved colour theme, or the system's, before first paint (see ThemeToggle). */}
+        <script dangerouslySetInnerHTML={{ __html: "var t;try{t=localStorage.getItem('theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'" }} />
         {/* Arms the portrait point clouds before first paint, so the photo doesn't flash before the intro. */}
         <script dangerouslySetInnerHTML={{ __html: "try{if(window.WebGLRenderingContext&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx-on')}catch(e){}" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />

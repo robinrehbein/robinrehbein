@@ -19,7 +19,7 @@ export default function Work() {
           industry.
         </p>
         <nav aria-label="Project index" className="project-index mt-10">
-          {projects.map(p => <a key={p.slug} href={`#${p.slug}`} className="eyebrow link-wavy link-wavy-brand" style={brandStyle(p.brandColor, p.brandText)}>{p.title}</a>)}
+          {projects.map(p => <a key={p.slug} href={`#${p.slug}`} className="eyebrow link-wavy link-wavy-brand" style={brandStyle(p.brandColor, p.brandText, p.brandDark)}>{p.title}</a>)}
           <a href="#lab" className="eyebrow link-wavy">From the lab</a>
         </nav>
       </section>
@@ -45,7 +45,7 @@ export default function Work() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="eyebrow link-wavy link-wavy-brand"
-                style={brandStyle(project.brandColor, project.brandText)}
+                style={brandStyle(project.brandColor, project.brandText, project.brandDark)}
               >
                 Visit site ↗
               </a>

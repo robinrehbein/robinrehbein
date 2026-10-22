@@ -26,6 +26,8 @@ export interface Project {
   brandColor: string;
   /** Darker hover text color, for brand colors too light to read as text. */
   brandText?: string;
+  /** Lighter brand color for the dark theme, for brand colors too dark to see on dark paper. */
+  brandDark?: string;
   /** Shown as a card under "Selected work" on the home page. */
   featured?: boolean;
 }
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     slug: "artwerk",
     featured: true,
     brandColor: "#5a776d",
+    brandDark: "#93b5a8",
     index: "02",
     title: "artwerk studios",
     role: "Co-founder · Technical build",
@@ -114,6 +117,7 @@ export const projects: Project[] = [
   {
     slug: "anahitarehbein",
     brandColor: "#262626",
+    brandDark: "#d6d6d6",
     index: "05",
     title: "Anahita Rehbein",
     role: "Design & development",
@@ -241,6 +245,8 @@ export interface Position {
   brandColor: string;
   /** Darker hover text color, for brand colors too light to read as text. */
   brandText?: string;
+  /** Lighter brand color for the dark theme, for brand colors too dark to see on dark paper. */
+  brandDark?: string;
 }
 
 /** The wavy underline in a given colour, as the SVG tile .link-wavy draws (period, crest to trough, stroke, tile height). */
@@ -251,9 +257,14 @@ export function waveImage(color: string, period = 7.5, height = 3, stroke = 1.6,
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-/** CSS variables consumed by .link-wavy-brand. */
-export function brandStyle(color: string, text?: string) {
-  return { "--wave-img": waveImage(color), "--brand-text": text ?? color } as CSSProperties;
+/** CSS variables consumed by .link-wavy-brand; `dark` replaces the color on dark paper when it is too dark to see there. */
+export function brandStyle(color: string, text?: string, dark?: string) {
+  return {
+    "--wave-img": waveImage(color),
+    "--brand-text": text ?? color,
+    "--brand-dark": dark ?? color,
+    ...(dark && { "--wave-img-dark": waveImage(dark) }),
+  } as CSSProperties;
 }
 
 export const positions: Position[] = [
@@ -284,6 +295,7 @@ export const positions: Position[] = [
     period: "03/2023 — 2026",
     current: false,
     brandColor: "#5a776d",
+    brandDark: "#93b5a8",
     description:
       "Co-founded artwerk with two friends — an online shop where customers personalized posters from their favorite songs, built on Next.js with Medusa as the commerce backend. I leaned hardest into the technical build, but all three of us stayed hands-on across product, design and business. Sales have been discontinued; the site remains online as a showcase.",
   },
@@ -305,6 +317,7 @@ export const positions: Position[] = [
     period: "08/2019 — 12/2021",
     current: false,
     brandColor: "#1d4ed8",
+    brandDark: "#7b9bf5",
     description:
       "At MHP I initially worked as a consultant, developing a custom application for Porsche AG using Java and Spring. Later, as a senior consultant, I transitioned to a fully AWS-based project, where I was part of a team that developed two IoT applications to automate logistics and monitoring for manufacturers.",
   },
