@@ -13,7 +13,7 @@ export function PositionItem(props: { position: Position }) {
             target="_blank"
             rel="noopener noreferrer"
             className="link-wavy link-wavy-brand font-medium"
-            style={brandStyle(p.brandColor, p.brandText)}
+            style={brandStyle(p.brandColor, p.brandText, p.brandDark)}
           >
             {p.company}
           </a>

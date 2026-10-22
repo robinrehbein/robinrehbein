@@ -4,7 +4,7 @@ import { TechLine } from "@/components/TechLine.tsx";
 
 export function ProjectCard(props: { project: Project; flip?: boolean }) {
   const { project, flip } = props;
-  const brand = brandStyle(project.brandColor, project.brandText);
+  const brand = brandStyle(project.brandColor, project.brandText, project.brandDark);
   return (
     <article data-scroll-reveal className="grid md:grid-cols-2 gap-8 md:gap-14 items-start mb-20 md:mb-32 last:mb-0">
       <div className={`relative mb-6 md:mb-0 ${flip ? "md:order-2" : ""}`}>
