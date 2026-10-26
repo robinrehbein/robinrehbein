@@ -3,15 +3,20 @@ import { ScrollReveals } from "@/components/ScrollReveals.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import "../assets/styles.css";
-import { site } from "@/lib/site.ts";
+import { positions, site } from "@/lib/site.ts";
 import type { ReactNode } from "react";
 
+// Who the site is about, for search engines and AI assistants: the person, their current employers and the site itself.
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${site.url}/#person`,
   "name": site.name,
   "jobTitle": site.role,
+  "description": `${site.role} based in ${site.location}, turning people's ideas into code since ${site.codingSince}.`,
   "url": site.url,
+  "worksFor": positions.filter((p) => p.current).map((p) => ({ "@type": "Organization", "name": p.company, "url": p.companyUrl })),
+  "knowsAbout": ["Software architecture", "Web development", "Kotlin", "Kotlin Multiplatform", "React", "React Router", "TypeScript", "AI-assisted engineering"],
   "email": `mailto:${site.email}`,
   "image": `${site.url}/me_square.webp`,
   "address": {
@@ -22,6 +27,15 @@ const personSchema = {
   "sameAs": [site.github],
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": site.name,
+  "url": site.url,
+  "inLanguage": "en",
+  "publisher": { "@id": `${site.url}/#person` },
+};
+
 export function Layout({ children }: { children: ReactNode }) {
   const location = useLocation();
   return (
@@ -29,13 +43,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content={`${site.name} — Portfolio`} />
-        <meta
-          property="og:description"
-          content={`Turning people's ideas into code since ${site.codingSince}.`}
-        />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={site.url} />
         <meta property="og:image" content={`${site.url}/og-image.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -47,7 +55,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: "var t;try{t=localStorage.getItem('theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'" }} />
         {/* Arms the portrait point clouds before first paint, so the photo doesn't flash before the intro. */}
         <script dangerouslySetInnerHTML={{ __html: "try{if(window.WebGLRenderingContext&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx-on')}catch(e){}" }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([personSchema, websiteSchema]) }} />
         <Meta /><Links />
       </head>
       <body>

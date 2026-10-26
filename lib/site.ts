@@ -10,6 +10,19 @@ export const site = {
   codingSince: 2015,
 };
 
+/** Title, description, canonical and Open Graph tags for an indexable page. */
+export function pageMeta(path: string, title: string, description: string) {
+  const url = path === "/" ? site.url : `${site.url}${path}`;
+  return [
+    { title },
+    { name: "description", content: description },
+    { tagName: "link", rel: "canonical", href: url },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:url", content: url },
+  ];
+}
+
 export interface Project {
   slug: string;
   role: string;
