@@ -1,5 +1,5 @@
-export function meta() { return [{ title: `Work — ${site.name}` }, { name: "description", content: `A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.` }, { tagName: "link", rel: "canonical", href: `${site.url}/work` }]; }
-import { brandStyle, projects, sideProjects, site } from "@/lib/site.ts";
+export function meta() { return pageMeta("/work", `Work — ${site.name}`, `A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.`); }
+import { brandStyle, pageMeta, projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
 import { sizeOf } from "@/lib/imageSizes.ts";
 import { Gallery } from "@/components/Gallery.tsx";

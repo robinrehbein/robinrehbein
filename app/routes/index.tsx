@@ -1,5 +1,5 @@
-export function meta() { return [{ title: `${site.name} — ${site.role}` }, { name: "description", content: `${site.name}, ${site.role} based in ${site.location}. Turning people's ideas into code since ${site.codingSince}.` }, { tagName: "link", rel: "canonical", href: site.url }]; }
-import { brandStyle, likes, positions, projects, sideProjects, site } from "@/lib/site.ts";
+export function meta() { return pageMeta("/", `${site.name} — ${site.role}`, `${site.name}, ${site.role} based in ${site.location}. Turning people's ideas into code since ${site.codingSince}.`); }
+import { brandStyle, likes, pageMeta, positions, projects, sideProjects, site } from "@/lib/site.ts";
 import { ProjectCard } from "@/components/ProjectCard.tsx";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";
