@@ -39,8 +39,8 @@ export const imageSizes: Record<string, [number, number]> = {
   "/og-image.jpg": [1200, 630],
   "/pocketpi_chat.webp": [540, 1200],
   "/pocketpi_sessions.webp": [540, 1200],
-  "/trailscape_tours.webp": [324, 720],
-  "/trailscape_training.webp": [324, 720],
+  "/trailscape_history.webp": [405, 720],
+  "/trailscape_today.webp": [405, 720],
 };
 
 export function sizeOf(src: string): { width?: number; height?: number } {

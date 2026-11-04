@@ -173,7 +173,7 @@ export const sideProjects: SideProject[] = [
       "A training companion for gravel and road bikes. Your watch's resting heart rate, HRV and sleep become a daily readiness score, the plan says what's due, and Trailscape builds a matching loop from your front door. Crash-safe GPS recording, Bluetooth sensors, offline maps — local-first, no account, no subscription.",
     tech: "Kotlin · Jetpack Compose · MapLibre · MIT",
     icon: "/lab_trailscape.webp",
-    images: ["/trailscape_tours.webp", "/trailscape_training.webp"],
+    images: ["/trailscape_today.webp", "/trailscape_history.webp"],
     featured: true,
   },
   {
