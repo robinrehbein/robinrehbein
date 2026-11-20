@@ -10,16 +10,41 @@ export const site = {
   codingSince: 2015,
 };
 
-/** Title, description, canonical and Open Graph tags for an indexable page. */
-export function pageMeta(path: string, title: string, description: string) {
-  const url = path === "/" ? site.url : `${site.url}${path}`;
+/** Absolute URL for a site path or an already absolute URL. */
+export const absoluteUrl = (path: string) => /^https?:\/\//.test(path) ? path : `${site.url}${path === "/" ? "" : path}`;
+
+/** Shortens a text to a search-snippet length at a word boundary. */
+export function snippet(text: string, max = 158) {
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
+}
+
+/** Title, description, canonical, Open Graph and Twitter tags (and optional JSON-LD) for an indexable page. */
+export function pageMeta(path: string, title: string, description: string, jsonLd: object[] = []) {
+  const url = absoluteUrl(path);
+  const image = `${site.url}/og-image.jpg`;
+  const alt = `${site.name} — ${site.role}`;
   return [
     { title },
     { name: "description", content: description },
+    { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
     { tagName: "link", rel: "canonical", href: url },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: site.name },
+    { property: "og:locale", content: "en_US" },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:url", content: url },
+    { property: "og:image", content: image },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: alt },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+    { name: "twitter:image:alt", content: alt },
+    ...jsonLd.map((schema) => ({ "script:ld+json": schema })),
   ];
 }
 

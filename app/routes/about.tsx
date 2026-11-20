@@ -1,4 +1,12 @@
-export function meta() { return pageMeta("/about", `About — ${site.name}`, `Bio, positions and certifications of ${site.name}, ${site.role} based in ${site.location}.`); }
+export function meta() {
+  return pageMeta(
+    "/about",
+    `About — ${site.name}, Software Engineer in Stuttgart`,
+    `Bio, career and certifications of ${site.name}, ${site.role} based in ${site.location}: Claude AI-assisted engineering, software architecture (CPSA-F), Scrum and AWS.`,
+    [aboutSchema(), breadcrumbs([["Home", "/"], ["About", "/about"]])],
+  );
+}
+import { aboutSchema, breadcrumbs } from "@/lib/seo.ts";
 import { brandStyle, certifications, likes, pageMeta, positions, site } from "@/lib/site.ts";
 import { PositionItem } from "@/components/PositionItem.tsx";
 import { SectionHead } from "@/components/SectionHead.tsx";

@@ -43,13 +43,9 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content={`${site.url}/og-image.jpg`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={`${site.url}/og-image.jpg`} />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <link rel="alternate" type="text/markdown" href="/llms.txt" title="llms.txt" />
         <meta name="color-scheme" content="light dark" />
         {/* Applies the saved colour theme, or the system's, before first paint (see ThemeToggle). */}
         <script dangerouslySetInnerHTML={{ __html: "var t;try{t=localStorage.getItem('theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'" }} />

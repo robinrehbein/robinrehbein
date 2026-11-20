@@ -66,7 +66,8 @@ test('sitemap lists exactly the indexable pages', async () => {
   assert.equal(res.status, 200);
   assert.match(res.headers['content-type'], /^application\/xml/);
   const locs = [...res.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-  assert.deepEqual(locs, ['https://robinrehbein.de', 'https://robinrehbein.de/work', 'https://robinrehbein.de/about']);
+  const slugs = ['noah', 'artwerk', 'kirchmaier', 'aundohotline', 'anahitarehbein', 'trailscape', 'drops', 'dottie', 'pocketpi', 'mephi', 'birdy', 'mini-networks'];
+  assert.deepEqual(locs, ['https://robinrehbein.de', 'https://robinrehbein.de/work', 'https://robinrehbein.de/about', ...slugs.map(s => `https://robinrehbein.de/work/${s}`)]);
 });
 
 test('llms.txt summarises the site in Markdown', async () => {

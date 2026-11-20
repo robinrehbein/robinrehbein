@@ -1,4 +1,12 @@
-export function meta() { return pageMeta("/", `${site.name} — ${site.role}`, `${site.name}, ${site.role} based in ${site.location}. Turning people's ideas into code since ${site.codingSince}.`); }
+export function meta() {
+  return pageMeta(
+    "/",
+    `${site.name} — ${site.role} in Stuttgart`,
+    `${site.name}, ${site.role} based in ${site.location}. Co-founder of Noah and Senior Software Engineer at Mimacom — turning people's ideas into code since ${site.codingSince}. Projects, lab apps and open source.`,
+    [homeSchema()],
+  );
+}
+import { homeSchema } from "@/lib/seo.ts";
 import { brandStyle, likes, pageMeta, positions, projects, sideProjects, site } from "@/lib/site.ts";
 import { ProjectCard } from "@/components/ProjectCard.tsx";
 import { PositionItem } from "@/components/PositionItem.tsx";
