@@ -77,7 +77,8 @@ void main() {
   vCol = aCol; vRound = clamp(loose * 2.0, 0.0, 1.0);
   float w = uDist - p.z;
   gl_PointSize = uCell * 1.25 * aScale * mix(1.0, 0.9 + aLum * 1.1, clamp(loose * 1.5, 0.0, 1.0)) * uDist / w;
-  gl_Position = vec4(p.x * uDist, p.y * uDist / uAsp, 0.0, w);
+  // Depth for the depth test: points nearer the viewer (larger p.z) win, so the person is never covered by the background.
+  gl_Position = vec4(p.x * uDist, p.y * uDist / uAsp, -p.z * 0.5, w);
 }`;
 
 const FRAG = `
@@ -87,7 +88,10 @@ void main() {
   vec2 d = gl_PointCoord - 0.5;
   float sq = step(max(abs(d.x), abs(d.y)), 0.5);
   float rd = smoothstep(0.5, 0.2, length(d));
-  gl_FragColor = vec4(vCol, mix(sq, rd, vRound) * vAlpha);
+  float a = mix(sq, rd, vRound) * vAlpha;
+  // Invisible fragments must not write depth and hide the points behind them.
+  if (a < 0.02) discard;
+  gl_FragColor = vec4(vCol, a);
 }`;
 
 function loadPoints({ src, cols, rows, color }: CloudData): Promise<Point[]> {
@@ -159,7 +163,7 @@ function inkDelays(pts: Point[], ink: Ink): Float32Array {
 export type PointCloud = { replay: () => void; destroy: () => void };
 
 export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasElement, photo: HTMLElement, data: CloudData, signal?: AbortSignal): Promise<PointCloud> {
-  const ctx = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false });
+  const ctx = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false, depth: true });
   if (!ctx) throw new Error("WebGL unavailable");
   const gl: WebGLRenderingContext = ctx;
   const pts = await loadPoints(data);
@@ -208,6 +212,7 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
   gl.uniform1f(U.dist, DIST);
   gl.uniform1f(u("uAsp"), asp);
   gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL);
   gl.clearColor(0, 0, 0, 0);
 
   function resize() {
@@ -276,7 +281,7 @@ export async function createPointCloud(stage: HTMLElement, canvas: HTMLCanvasEle
     gl.uniform1f(U.time, (now - t0) / 1000);
     gl.uniform2f(U.rot, cur.rx.x, cur.ry.x);
     gl.uniform2f(U.mouse, mouse.x, mouse.y);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.drawArrays(gl.POINTS, 0, n);
 
     // Stop the loop once the photo is fully back; pointer events or a replay wake it again.

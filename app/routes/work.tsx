@@ -1,9 +1,16 @@
-export function meta() { return pageMeta("/work", `Work — ${site.name}`, `A selection of projects ${site.name} has designed, built, or co-founded, plus open-source side projects.`); }
+export function meta() {
+  return pageMeta(
+    "/work",
+    `Work — ${site.name}: Projects, Apps & Open Source`,
+    `Projects ${site.name} has designed, built or co-founded — Noah, artwerk studios, Kirchmaier & Staudacher and more — plus lab apps and open-source side projects like Trailscape, PocketPi and Birdy.`,
+    [workSchema(), breadcrumbs([["Home", "/"], ["Work", "/work"]])],
+  );
+}
 import { brandStyle, pageMeta, projects, sideProjects, site } from "@/lib/site.ts";
 import { SectionHead } from "@/components/SectionHead.tsx";
-import { sizeOf } from "@/lib/imageSizes.ts";
-import { Gallery } from "@/components/Gallery.tsx";
-import { TechLine } from "@/components/TechLine.tsx";
+import { ProjectBody } from "@/components/ProjectBody.tsx";
+import { LabCard } from "@/components/LabCard.tsx";
+import { breadcrumbs, projectPath, workSchema } from "@/lib/seo.ts";
 
 export default function Work() {
   const labIndex = String(projects.length + 1).padStart(2, "0");
@@ -32,26 +39,7 @@ export default function Work() {
           className="shell scroll-mt-20 py-16 md:py-24 border-t-2 border-ink"
         >
           <SectionHead index={project.index} title={project.title} />
-          <div className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 mb-10">
-            <p className="font-serif italic text-lg text-green">
-              {project.summary}
-            </p>
-            <div>
-              <p className="project-role mb-3">{project.role}{project.status && <span className="block mt-1">{project.status}</span>}</p>
-              <TechLine tech={project.tech} className="mb-3" />
-              <p className="max-w-prose mb-6">{project.description}</p>
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="eyebrow link-wavy link-wavy-brand"
-                style={brandStyle(project.brandColor, project.brandText, project.brandDark)}
-              >
-                Visit site ↗
-              </a>
-            </div>
-          </div>
-          <Gallery images={project.images} title={project.title} />
+          <ProjectBody project={project} detailHref={projectPath(project.slug)} />
         </section>
       ))}
 
@@ -62,39 +50,7 @@ export default function Work() {
           GitHub.
         </p>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          {sideProjects.map((sp) => (
-            <article
-              data-scroll-reveal
-              key={sp.title}
-              id={sp.slug}
-              className="lab-card scroll-mt-24 relative border-2 border-ink bg-paper-warm p-8 print-shadow-green"
-            >
-              <img
-                src={sp.icon}
-                {...sizeOf(sp.icon)}
-                alt={`${sp.title} app icon`}
-                loading="lazy"
-                className="absolute -top-5 -right-4 w-16 md:w-20 rotate-3 border-2 border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
-              />
-              <TechLine tech={sp.tech} className="mb-3 pr-14" />
-              <h3 className="display text-3xl font-semibold mb-3">{sp.title}</h3>
-              <p className="font-serif italic text-green mb-4">{sp.tagline}</p>
-              <p className="mb-6">{sp.description}</p>
-              {sp.images && <Gallery images={sp.images} title={sp.title} compact />}
-              {sp.href
-                ? (
-                  <a
-                    href={sp.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="eyebrow link-wavy lab-card-action"
-                  >
-                    View on GitHub ↗
-                  </a>
-                )
-                : <p className="eyebrow text-green">{sp.note}</p>}
-            </article>
-          ))}
+          {sideProjects.map((sp) => <LabCard key={sp.title} project={sp} detailHref={projectPath(sp.slug)} />)}
         </div>
       </section>
     </>
