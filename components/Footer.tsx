@@ -1,5 +1,6 @@
 import { site } from "@/lib/site.ts";
 import { Logo } from "@/components/Logo.tsx";
+import { PushClipping } from "@/components/PushClipping.tsx";
 
 export function Footer() {
   return (
@@ -22,14 +23,7 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-wavy"
-              >
-                ⌥ github.com/robinrehbein
-              </a>
+              <PushClipping href={site.github}>⌥ github.com/robinrehbein</PushClipping>
             </li>
           </ul>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 eyebrow opacity-80">
