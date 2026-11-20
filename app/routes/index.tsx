@@ -77,7 +77,7 @@ export default function Home() {
           </div>
           <CloudPortrait
             src="/me_square.webp"
-            data={{ src: "/me_cloud.png", cols: 400, rows: 400 }}
+            data={{ src: "/me_cloud.webp", cols: 400, rows: 400, color: true }}
             alt={`Portrait of ${site.name}`}
             priority
             className="reveal reveal-4 photo print-shadow w-full md:w-2/5 aspect-square"
